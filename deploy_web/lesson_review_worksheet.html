@@ -1,0 +1,2850 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第3課 琦君〈下雨天，真好〉課文段落課後複習學習單（雙版本：精緻篇章版 ＆ 康乃爾筆記版）</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 18px 10px;
+      background: #cbd5e1;
+      font-family: "DFKai-SB", "BiauKai", "KaiTi", "Noto Sans TC", serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .no-print-toolbar {
+      background: #ffffff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .lr-tool-btn {
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .lr-tool-btn:hover {
+      background: #f1f5f9;
+      transform: translateY(-1px);
+    }
+    .lr-tool-btn.primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 2px 6px rgba(2,132,199,0.3);
+    }
+    .lr-tool-btn.primary:hover {
+      background: #0369a1;
+    }
+    
+    /* ==================== 課後學習單通用樣式（無色塊、省墨高質感、最小字體 12pt / 16px、行距加大） ==================== */
+    #lessonReviewModal.modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    #lessonReviewModal.active {
+      display: flex !important;
+    }
+    #lessonReviewModal .modal-container {
+      background: #f1f5f9;
+      border-radius: 14px;
+      width: 95%;
+      max-width: 980px;
+      height: 92vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      overflow: hidden;
+      border: 1px solid #cbd5e1;
+    }
+    #lessonReviewModal .modal-top-bar {
+      background: #ffffff;
+      padding: 10px 18px;
+      border-bottom: 2px solid #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    #lessonReviewModal .modal-scroll-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #64748b;
+    }
+
+    /* A4 Worksheet Sheet Container */
+    .lr-sheet {
+      width: 100%;
+      max-width: 820px;
+      background: #ffffff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      padding: 12mm 14mm;
+      box-sizing: border-box;
+      font-family: "DFKai-SB", "BiauKai", "KaiTi", "Noto Sans TC", serif;
+      color: #0f172a;
+      border-radius: 4px;
+      font-size: 13pt;
+      line-height: 1.7;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* Version Display Toggle */
+    .lr-sheet-v1, .lr-sheet-v2 {
+      display: none;
+      width: 100%;
+    }
+    .lr-sheet.view-v1 .lr-sheet-v1 {
+      display: block !important;
+    }
+    .lr-sheet.view-v2 .lr-sheet-v2 {
+      display: block !important;
+    }
+
+    /* QR Code on Worksheet Header - Fixed compact dimensions */
+    .lr-qr-box {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 2px 4px !important;
+      border: 1px solid #94a3b8 !important;
+      border-radius: 4px !important;
+      background: #ffffff !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05) !important;
+      text-align: center !important;
+      flex-shrink: 0 !important;
+      width: 60px !important;
+      max-width: 60px !important;
+    }
+    .lr-qr-img {
+      width: 50px !important;
+      height: 50px !important;
+      max-width: 50px !important;
+      max-height: 50px !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+    .lr-qr-caption {
+      font-size: 8.5px !important;
+      color: #0369a1 !important;
+      font-weight: bold !important;
+      margin-top: 1px !important;
+      white-space: nowrap !important;
+      letter-spacing: 0.5px !important;
+    }
+    .lr-sheet.hide-qr .lr-qr-box {
+      display: none !important;
+    }
+
+    /* Sheet Header */
+    .lr-sheet-header {
+      border-bottom: 2.5px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .lr-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4px;
+    }
+    .lr-school-tag {
+      font-size: 16px;
+      color: #334155;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    .lr-sheet-title {
+      font-size: 23px;
+      font-weight: bold;
+      color: #0f172a;
+      margin: 2px 0 0 0;
+      letter-spacing: 0.5px;
+    }
+    .lr-student-meta {
+      font-size: 16px;
+      color: #1e293b;
+      line-height: 1.6;
+      text-align: right;
+    }
+    .lr-meta-field {
+      display: inline-block;
+      min-width: 65px;
+      border-bottom: 1.5px solid #0f172a;
+      margin: 0 4px;
+      text-align: center;
+    }
+
+    /* Word Bank (全課大意提示詞語庫) - 無色塊純線條 */
+    .lr-word-bank-box {
+      border: 1.5px solid #0f172a;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      background: #ffffff;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+    .lr-word-bank-title {
+      font-size: 16.5px;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .lr-word-bank-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .lr-word-pill {
+      font-size: 16px;
+      border: 1.5px solid #475569;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+    /* Teacher Mode Distractor Marker */
+    .lr-sheet.mode-teacher .lr-word-pill.is-distractor {
+      color: #dc2626 !important;
+      border-color: #dc2626 !important;
+      text-decoration: line-through;
+    }
+    .lr-sheet.mode-student .distractor-tag {
+      display: none !important;
+    }
+    .lr-sheet.mode-teacher .distractor-tag {
+      display: inline !important;
+      color: #dc2626;
+      font-size: 12.5px;
+      font-weight: bold;
+      text-decoration: none !important;
+    }
+
+    /* ==================== VERSION 1: 精緻段落篇章版樣式（一段一頁） ==================== */
+    .lr-para-card-v1 {
+      border: 1.5px solid #334155;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      overflow: hidden;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      page-break-after: always !important;
+      break-after: page !important;
+    }
+    .lr-para-card-v1:last-child {
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
+    .lr-para-card-v1-header {
+      border-bottom: 1.5px solid #334155;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+    }
+    .lr-para-badge-v1 {
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 4px;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .lr-para-title-v1 {
+      font-size: 18.5px;
+      font-weight: bold;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .lr-para-grid-v1 {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 16px;
+      padding: 14px;
+      align-items: start;
+    }
+    .lr-img-col-v1 {
+      text-align: center;
+    }
+    .lr-para-thumb-v1 {
+      width: 235px;
+      height: 165px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1.5px solid #334155;
+      display: block;
+      margin: 0 auto 4px;
+    }
+    .lr-img-cap-v1 {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    .lr-content-col-v1 {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* 段落重點提要（易讀課文） */
+    .lr-easy-block {
+      border-left: 3.5px solid #0f172a;
+      padding: 4px 0 4px 10px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+    .lr-summary-box-v1 {
+      border-left: 3.5px solid #475569;
+      padding: 4px 0 4px 10px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: #0f172a;
+    }
+    .lr-sec-tag {
+      font-weight: bold;
+      color: #0f172a;
+      font-size: 16.5px;
+    }
+
+    /* 文意填空空格 */
+    .lr-blank-slot {
+      display: inline-block;
+      font-weight: bold;
+    }
+    .lr-sheet.mode-student .lr-blank-ans {
+      display: none !important;
+    }
+    .lr-sheet.mode-student .lr-blank-empty {
+      display: inline !important;
+      color: #475569;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+    .lr-sheet.mode-teacher .lr-blank-empty {
+      display: none !important;
+    }
+    .lr-sheet.mode-teacher .lr-blank-ans {
+      display: inline !important;
+      color: #dc2626;
+      font-weight: bold;
+      border-bottom: 2px solid #dc2626;
+      padding: 0 4px;
+    }
+
+    /* 單選題區塊 (粗體題幹、加大行距) */
+    .lr-quiz-sec-v1 {
+      border-top: 1.5px dashed #cbd5e1;
+      padding-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lr-q-row-v1 {
+      font-size: 16.5px;
+      line-height: 1.65;
+    }
+    .lr-q-stem-v1 {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .lr-bracket-box {
+      font-family: monospace;
+      font-weight: bold;
+      min-width: 32px;
+      font-size: 16px;
+      color: #0f172a;
+      text-align: center;
+    }
+    .lr-q-stem-text {
+      font-weight: bold !important;
+      color: #0f172a;
+      font-size: 16.5px;
+      line-height: 1.65;
+    }
+    .lr-sheet.mode-student .lr-ans-key {
+      display: none !important;
+    }
+    .lr-sheet.mode-teacher .lr-ans-key {
+      display: inline !important;
+      color: #dc2626;
+      font-weight: 900;
+    }
+    .lr-options-grid-v1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 14px;
+      font-size: 16px;
+      color: #334155;
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+    .lr-opt-item {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .lr-opt-label {
+      font-weight: bold;
+      color: #0f172a;
+      font-size: 16px;
+    }
+    .lr-opt-text {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .lr-sheet.mode-teacher .lr-opt-text.is-correct {
+      color: #dc2626 !important;
+      font-weight: bold;
+    }
+    .lr-hint-v1 {
+      margin-top: 4px;
+      font-size: 13.5px;
+      color: #78350f;
+      border-left: 2.5px solid #b45309;
+      padding-left: 8px;
+      line-height: 1.5;
+    }
+    .lr-sheet.mode-student .lr-hint-v1 {
+      display: none !important;
+    }
+    .lr-sheet.mode-teacher .lr-hint-v1 {
+      display: block !important;
+    }
+
+    /* ==================== VERSION 2: 康乃爾筆記版樣式（一段一頁） ==================== */
+    .cornell-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .cornell-para-card {
+      border: 1.5px solid #0f172a;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      background: #ffffff;
+      overflow: hidden;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      page-break-after: always !important;
+      break-after: page !important;
+    }
+    .cornell-para-card:last-child {
+      page-break-after: auto !important;
+      break-after: auto !important;
+    }
+    /* 上：段落標題 */
+    .cornell-card-header {
+      background: #f8fafc;
+      border-bottom: 1.5px solid #0f172a;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cornell-header-title {
+      font-size: 18.5px;
+      font-weight: bold;
+      color: #0f172a;
+      letter-spacing: 0.5px;
+    }
+
+    /* 中：雙欄結構（左 48%，右 52%） */
+    .cornell-mid-grid {
+      display: grid;
+      grid-template-columns: 48% 52%;
+      background: #ffffff;
+    }
+    /* 中左：單選測驗 (原筆記欄定位) */
+    .cornell-mid-left {
+      border-right: 1.5px solid #0f172a;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #ffffff;
+    }
+    .cornell-sec-title {
+      font-size: 16.5px;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .cornell-quiz-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .cornell-q-item {
+      font-size: 16px;
+      line-height: 1.65;
+    }
+    .cornell-q-stem {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      font-size: 16.5px;
+      font-weight: bold;
+      line-height: 1.65;
+      margin-bottom: 4px;
+    }
+    .cornell-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 10px;
+      font-size: 16px;
+      color: #334155;
+      padding-left: 18px;
+      line-height: 1.6;
+    }
+
+    /* 中右：重點與大意 (原重點欄定位) */
+    .cornell-mid-right {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #ffffff;
+    }
+    .cornell-img-wrap {
+      text-align: center;
+    }
+    .cornell-para-thumb {
+      width: 100%;
+      max-height: 175px;
+      object-fit: cover;
+      border: 1.5px solid #334155;
+      border-radius: 4px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .cornell-easy-block {
+      border-left: 3.5px solid #0f172a;
+      padding: 4px 0 4px 10px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: #1e293b;
+    }
+    .cornell-summary-block {
+      border-left: 3.5px solid #475569;
+      padding: 4px 0 4px 10px;
+      font-size: 16.5px;
+      line-height: 1.75;
+      color: #0f172a;
+    }
+
+    /* 下：思考與整理 (原整理欄定位，個別提問) */
+    .cornell-bottom-row {
+      border-top: 1.5px solid #0f172a;
+      background: #ffffff;
+      padding: 10px 14px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+    .cornell-reflect-header {
+      font-size: 16.5px;
+      line-height: 1.6;
+      color: #0f172a;
+    }
+    .cornell-reflect-title {
+      font-weight: bold;
+      color: #0f172a;
+    }
+    .cornell-reflect-q {
+      font-weight: bold;
+      color: #1e293b;
+      font-size: 16.5px;
+      line-height: 1.65;
+    }
+    .cornell-reflect-student {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .cornell-reflect-label {
+      font-size: 16px;
+      font-weight: bold;
+      color: #334155;
+    }
+    .cornell-reflect-line {
+      flex: 1;
+      height: 32px;
+      border-bottom: 1.5px dotted #64748b;
+    }
+    .cornell-reflect-teacher {
+      font-size: 14.5px;
+      line-height: 1.6;
+      color: #dc2626;
+      background: #fef2f2;
+      border-left: 3px solid #dc2626;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+    .lr-sheet.mode-student .cornell-reflect-teacher {
+      display: none !important;
+    }
+    .lr-sheet.mode-teacher .cornell-reflect-teacher {
+      display: block !important;
+    }
+
+    /* 課後總結反思欄 (全書結尾重點歸納，在新頁呈現) */
+    .cornell-summary-section {
+      border: 1.5px solid #0f172a;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-top: 14px;
+      page-break-before: always !important;
+      break-before: page !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      background: #ffffff;
+    }
+    .cornell-sum-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .cornell-sum-desc {
+      font-size: 16px;
+      color: #334155;
+      line-height: 1.75;
+      margin-bottom: 8px;
+    }
+    .cornell-sum-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cornell-sum-line {
+      height: 32px;
+      border-bottom: 1.5px solid #475569;
+    }
+
+    /* ==================== A4 列印最佳化媒體查詢（一段一頁、QR Code 固定 50px） ==================== */
+    @media print {
+      body {
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .no-print, .no-print-toolbar, #lessonReviewModal .modal-top-bar {
+        display: none !important;
+      }
+      #lessonReviewModal {
+        position: static !important;
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      #lessonReviewModal .modal-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      #lessonReviewModal .modal-scroll-body {
+        background: transparent !important;
+        padding: 0 !important;
+        overflow: visible !important;
+      }
+      .lr-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 4mm 6mm !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+      }
+      /* QR Code in Print */
+      .lr-qr-box {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 2px 4px !important;
+        border: 1px solid #94a3b8 !important;
+        border-radius: 4px !important;
+        background: #ffffff !important;
+        text-align: center !important;
+        flex-shrink: 0 !important;
+        width: 60px !important;
+        max-width: 60px !important;
+      }
+      .lr-qr-img {
+        width: 50px !important;
+        height: 50px !important;
+        max-width: 50px !important;
+        max-height: 50px !important;
+        object-fit: contain !important;
+        display: block !important;
+      }
+      .lr-qr-caption {
+        font-size: 8.5px !important;
+        color: #0369a1 !important;
+        font-weight: bold !important;
+        margin-top: 1px !important;
+        white-space: nowrap !important;
+      }
+      .lr-sheet.hide-qr .lr-qr-box {
+        display: none !important;
+      }
+      /* 一段一頁分頁規則 */
+      .lr-para-card-v1, .cornell-para-card {
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 0 !important;
+      }
+      .lr-para-card-v1:last-child, .cornell-para-card:last-child {
+        page-break-after: auto !important;
+        break-after: auto !important;
+      }
+      .cornell-summary-section {
+        page-break-before: always !important;
+        break-before: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 6mm 8mm;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="no-print-toolbar">
+    <span style="font-weight:bold; color:#0369a1; font-size:14.5px;">📄 課文段落課後複習單</span>
+    <button class="lr-tool-btn primary" onclick="window.print()">
+      🖨️ 直接列印此學習單 (A4)
+    </button>
+    <button class="lr-tool-btn" onclick="toggleLocalVersion()" id="btn-local-version">
+      📓 切換為：康乃爾筆記版
+    </button>
+    <button class="lr-tool-btn" onclick="toggleLocalMode()" id="btn-local-mode">
+      👨‍🏫 切換為：教師解答版
+    </button>
+    <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; font-weight:bold; background:#e0f2fe; padding:6px 12px; border-radius:6px; border:1px solid #7dd3fc; color:#0369a1; user-select:none;">
+      <input type="checkbox" id="chk-local-lr-qr" onchange="toggleLessonReviewQr(this.checked)" checked style="cursor:pointer;">
+      📱 附學習網址 QR Code
+    </label>
+    <span style="font-size:12px; color:#64748b;">💡 提示：支援雙版本切換與解答模式，列印時可勾選「背景圖形」。</span>
+  </div>
+
+  <div class="lr-sheet view-v1 mode-student" id="lrWorksheetBody">
+          <!-- 標頭資訊區 -->
+          <div class="lr-sheet-header">
+            <div class="lr-header-top">
+              <div>
+                <div class="lr-school-tag">嘉義縣立新港國中 115 學年度第 1 學期 國文科課堂課後複習單</div>
+                <h1 class="lr-sheet-title" id="lrSheetTitleHeader">第 3 課 琦君〈下雨天，真好〉全課逐段精讀評量（精緻篇章版）</h1>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="lr-student-meta">
+                  <div>班級：<span class="lr-meta-field">&nbsp;</span> 座號：<span class="lr-meta-field">&nbsp;</span> 姓名：<span class="lr-meta-field">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+                  <div style="margin-top:3px;">評量日期：115 年&nbsp;&nbsp;&nbsp;月&nbsp;&nbsp;&nbsp;日 ｜ 得分：<span class="lr-meta-field" style="min-width:40px;">&nbsp;</span></div>
+                </div>
+                <div class="lr-qr-box" id="lrQrBox">
+                  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="自主學習網 QR Code" class="lr-qr-img">
+                  <span class="lr-qr-caption">📱 自主學習網</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:#475569; display:flex; justify-content:space-between; margin-top:2px;">
+              <span>🎯 <strong>學習任務：</strong>參考頂部詞語庫完成大意填空，並根據各段重點提要與插圖選出最佳理解選項。</span>
+              <span id="lrCurrentModeLabel" style="font-weight:bold; color:#0284c7;">【學生練習版】</span>
+            </div>
+          </div>
+
+          <!-- 全課頂部大意提示詞語庫 (含2干擾項，亂序) -->
+          
+    <div class="lr-word-bank-box">
+      <div class="lr-word-bank-title">
+        <span>📦 【全課段落大意 ‧ 參考詞語庫】（請從下方詞語選出正確答案填入各段空格，注意：內含 2 個干擾選項）：</span>
+        <span class="lr-sheet-mode-badge" style="font-size:12px; font-weight:bold; color:#0f172a;">共 13 個詞語</span>
+      </div>
+      <div class="lr-word-bank-pills">
+        <span class="lr-word-pill ">母親</span>
+<span class="lr-word-pill is-distractor">西湖<span class="distractor-tag">&nbsp;(干擾項)</span></span>
+<span class="lr-word-pill ">笛聲</span>
+<span class="lr-word-pill ">不寂寞</span>
+<span class="lr-word-pill ">煤氣燈</span>
+<span class="lr-word-pill ">菩薩</span>
+<span class="lr-word-pill ">「真好」</span>
+<span class="lr-word-pill ">童年</span>
+<span class="lr-word-pill is-distractor">油紙傘<span class="distractor-tag">&nbsp;(干擾項)</span></span>
+<span class="lr-word-pill ">思念</span>
+<span class="lr-word-pill ">玉蘭花</span>
+<span class="lr-word-pill ">布姑娘</span>
+<span class="lr-word-pill ">揀麴</span>
+
+      </div>
+    </div>
+    
+
+          <!-- ==================== 版本一內容（精緻段落篇章版） ==================== -->
+          <div class="lr-sheet-v1" id="v1Container">
+            
+        <div class="lr-para-card-v1" id="v1-para-1">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 01 段</span>
+            <h3 class="lr-para-title-v1">第 1 段：清晨掀簾望雨</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p01.jpg" class="lr-para-thumb-v1" alt="第 1 段：清晨掀簾望雨">
+              <div class="lr-img-cap-v1">📷 第 1 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>今天一早，我拉開窗簾看外面，玻璃窗上全是圓滾滾的水珠。 哇，太好了！今天又是一個讓人開心的下雨天！</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>清晨作者掀開簾子，看見窗戶撒滿水珠，由衷讚嘆：</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【「真好」】</span>
+                </span>
+                <span>，又是個美好的下雨天。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第1段的段落大意主要在描寫什麼內容？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 抱怨連日大雨造成出門不便與淹水</span><span class="lr-opt-text is-correct">(B) 清晨看見滿窗水珠，欣喜迎接美好的下雨天</span><span class="lr-opt-text ">(C) 描繪夏日午後突然刮起狂風與暴雨</span><span class="lr-opt-text ">(D) 記錄自己在學校上課時看見窗外下雨</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。第1段大意：清晨作者掀開簾子，看見窗戶上撒滿水珠，心中非常歡喜與期待，慶幸又是個美好的下雨天。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 作者在清晨拉開窗簾，看到窗戶上滿是水珠，心中的感受是什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 抱怨天色陰暗不能去玩耍</span><span class="lr-opt-text ">(B) 害怕打雷驚嚇得想要大哭</span><span class="lr-opt-text is-correct">(C) 感到由衷欣喜並讚嘆真好</span><span class="lr-opt-text ">(D) 擔心出門上學一定會遲到</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。作者清晨看見滿窗水珠，由衷讚嘆「下雨天，真好」，心中感到無比歡喜。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 課文開頭第一句話「下雨天，真好」，奠定了全文怎樣的感情基調？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 驚恐、慌張與急迫的避難氣氛</span><span class="lr-opt-text is-correct">(B) 喜愛、溫馨與懷念的歡欣基調</span><span class="lr-opt-text ">(C) 嚴肅、客觀與冷靜的氣象觀察</span><span class="lr-opt-text ">(D) 憂傷、埋怨與煩躁的無奈心情</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。開門見山點出主旨，奠定全篇對雨天、童年與親情的喜愛與懷念。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-2">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 02 段</span>
+            <h3 class="lr-para-title-v1">第 2 段：雨天童年時光機與雨珠鍊子</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p02.jpg" class="lr-para-thumb-v1" alt="第 2 段：雨天童年時光機與雨珠鍊子">
+              <div class="lr-img-cap-v1">📷 第 2 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>就算雨下了一整個月，家裡掛滿溼衣服像萬國旗，牆壁地板都潮溼，我一點也不抱怨。 下雨天就像時光機，帶我離開吵鬧的世界，回到我朝思暮想的快樂童年老家。 童年那些美好時光，我好像用一顆顆雨珠做成美麗手鍊，緊緊戴在手腕上珍藏。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>連綿陰雨把作者帶回故鄉，讓她重新享受歡樂的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【童年】</span>
+                </span>
+                <span>時光，並想用雨珠串在手腕上珍藏。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 課文中作者說「用雨珠的鍊子把它串起來」，這句話是把屋簷落下的水珠想像成什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 想像成打破玻璃窗戶的堅硬冰雹</span><span class="lr-opt-text is-correct">(B) 想像成可以串起美麗童年回憶的手鍊</span><span class="lr-opt-text ">(C) 想像成鎖住大門的冰冷鐵鍊</span><span class="lr-opt-text ">(D) 想像成把衣服淋溼弄髒的泥水</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。作者發揮豐富想像力，把一滴滴晶瑩剔透的雨珠想像成串起美好童年記憶的美麗手鍊。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 作者說要把童年好時光「用雨珠的鍊子把它串起來，繞在手腕上」，代表什麼意思？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 抱怨雨水打在手腕十分冰冷</span><span class="lr-opt-text is-correct">(B) 想把美好的童年回憶珍藏心底</span><span class="lr-opt-text ">(C) 想收集雨水做成珍貴首飾</span><span class="lr-opt-text ">(D) 打算製作手工藝品販賣賺錢</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。用雨珠串起童年好時光，比喻將美好的童年回憶永遠珍藏在心底。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第2段的段落大意主要表達了什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 說明江南地區梅雨季衣服晾不乾的氣候特點</span><span class="lr-opt-text is-correct">(B) 描寫雨天能帶作者重回歡樂童年，想把回憶珍藏起來</span><span class="lr-opt-text ">(C) 記錄作者在房間裡製作手工首飾與項鍊的過程</span><span class="lr-opt-text ">(D) 抱怨屋裡掛滿溼衣服和地板冒溼氣非常麻煩</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。第2段大意：連日陰雨潮溼，作者卻不抱怨，因為雨天帶她回到魂牽夢縈的故鄉與童年歡樂，想把好時光串在手腕上珍藏。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-3">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 03 段</span>
+            <h3 class="lr-para-title-v1">第 3 段：被窩聽故事與慈顏如菩薩</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p03.jpg" class="lr-para-thumb-v1" alt="第 3 段：被窩聽故事與慈顏如菩薩">
+              <div class="lr-img-cap-v1">📷 第 3 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>六歲時在浙江永嘉老家，我睡在媽媽溫暖的手臂彎裡。 早晨聽見屋頂瓦片嘩嘩的雨聲，我心裡好安心。因為雨天長工不下田工作，媽媽不用起大早煮飯，可以多陪我躺一下。 我吵著要媽媽講雨天的故事。微弱的晨光中我看著媽媽慈祥的臉龐，就像溫柔善良的菩薩一樣美麗。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>下雨天母親能多睡一會兒並在被窩講故事，母親面容慈祥，就像尊</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【菩薩】</span>
+                </span>
+                <span>一樣溫柔。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第3段的段落大意主要在描寫什麼溫馨場景？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 母親天未亮就冒雨在廚房為全家人辛勞煮早飯</span><span class="lr-opt-text ">(B) 全家人在狂風暴雨中忙著修補漏水的屋瓦</span><span class="lr-opt-text is-correct">(C) 雨天長工不用下田，母親在熱被窩陪作者講故事</span><span class="lr-opt-text ">(D) 作者在清晨冒著大雨跟隨老師到學堂背誦四書</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。第3段大意：下雨天長工不下田，母親不用早起做飯，在熱被窩裡給作者講雨天的故事，面容慈祥如菩薩。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中提到「我的啟蒙老師說菩薩慈眉善目」，「啟蒙老師」是指什麼樣的老師？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 官府裡負責審判案件的法官大人</span><span class="lr-opt-text ">(B) 廟宇裡專門替信徒解籤講道的師父</span><span class="lr-opt-text is-correct">(C) 教導幼童初級知識、開啟智慧的第一位老師</span><span class="lr-opt-text ">(D) 在大學專門指導博士研究的高級教授</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。「啟蒙老師」是指在童年啟發智慧、教導基礎識字與品格的第一位老師。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 作者將母親的面容比喻為「菩薩」，展現出母親怎樣的神態？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 憂鬱沉默充滿心事</span><span class="lr-opt-text is-correct">(B) 慈眉善目溫柔慈愛</span><span class="lr-opt-text ">(C) 忙碌勞碌神情疲憊</span><span class="lr-opt-text ">(D) 威嚴莊重令人敬畏</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。課文寫道啟蒙老師說菩薩慈眉善目，母親的長相就像菩薩一樣溫柔慈愛。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-4">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 04 段</span>
+            <h3 class="lr-para-title-v1">第 4 段：套舊皮靴踩水與漂木船布姑娘</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p04.jpg" class="lr-para-thumb-v1" alt="第 4 段：套舊皮靴踩水與漂木船布姑娘">
+              <div class="lr-img-cap-v1">📷 第 4 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>雨越下越大，我穿上大人的大皮靴，跑到院子踩泥巴玩水。 水溝滿了，白繡球花瓣掉在水上。我把長工阿榮伯雕的小木船放進水溝，船上坐著媽媽縫的紅布娃娃。 小木船和花瓣一起順水流，我跟在旁邊踩水，發出吱嗒吱嗒的歡樂聲音。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者雨天穿大皮靴在泥地踩水玩耍，水溝漂著小木船，上面載著可愛的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【布姑娘】</span>
+                </span>
+                <span>一起冒險。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第4段的段落大意主要描繪了作者童年雨天的哪種情趣？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 穿靴踏水放木船布姑娘的純真樂趣</span><span class="lr-opt-text ">(B) 擔心新鞋弄髒被父母責備</span><span class="lr-opt-text ">(C) 觀察雨水落入水溝的流速</span><span class="lr-opt-text ">(D) 幫忙長工修理走廊的破洞</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。第4段大意：作者穿上叔叔的舊皮靴在爛泥踩水，在水溝放漂阿榮伯雕的小木船載著母親縫的布姑娘，充滿純真樂趣。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中「吱嗒吱嗒」的聲音是指什麼聲音？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 廚房裡炒豆子爆裂開來的聲音</span><span class="lr-opt-text is-correct">(B) 穿著大皮靴在爛泥地裡踩水的聲音</span><span class="lr-opt-text ">(C) 屋簷雨水滴落在鐵皮上的聲音</span><span class="lr-opt-text ">(D) 小木船撞擊水溝石頭的聲音</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。課文原文：「我跟著小木船在爛泥地裡踩水，吱嗒吱嗒地響。」是指穿著皮靴在爛泥地裡踩水發出的聲響。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 木片小船上的「布姑娘」是怎麼製作出來的？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 木匠特別雕刻的小型玩偶</span><span class="lr-opt-text ">(B) 花錢去街上買回來的木偶</span><span class="lr-opt-text ">(C) 父親用竹篾編織出的玩具</span><span class="lr-opt-text is-correct">(D) 母親用碎紅布剪裁包紮而成</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文描寫水溝裡小木船中間坐著母親縫的大紅「布姑娘」，是母親用碎布精心巧手製作的。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-5">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 05 段</span>
+            <h3 class="lr-para-title-v1">第 5 段：穀倉炒豆香甜與備受寵愛</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p05.jpg" class="lr-para-thumb-v1" alt="第 5 段：穀倉炒豆香甜與備受寵愛">
+              <div class="lr-img-cap-v1">📷 第 5 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>長工們下雨不用耕田，聚在穀倉後彈豆子玩。 我抱著小貓坐在阿榮伯腿上，吃他剝好的香脆炒豆，又吃芝麻糖和甜甜的柑橘，肚子飽得鼓鼓的。 下雨天長工叔叔們都很疼我、有吃又有玩，家裡熱熱鬧鬧，我一點都不會寂寞。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>長工阿榮伯抱作者坐櫃檯吃香脆炒豆，長工們的疼愛讓她感到</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【不寂寞】</span>
+                </span>
+                <span>又溫暖。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 作者坐在長工阿榮伯懷裡吃炒豆時，懷裡還抱著什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 一隻可愛的小花貓</span><span class="lr-opt-text ">(B) 一本學校的國文課本</span><span class="lr-opt-text ">(C) 一雙叔叔的舊皮靴</span><span class="lr-opt-text ">(D) 一個裝滿零食的小竹籃</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。課文原文：「我把小花貓抱在懷裡，自己再坐在阿榮伯懷裡，等著阿榮伯把一粒粒又香又脆的炒豆子剝了殼送到我嘴裡。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中「肚子鼓得跟蜜蜂似的」描繪了作者怎樣的情態？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 生病消化不良而肚子痛</span><span class="lr-opt-text ">(B) 貪心搶吃長工的便當</span><span class="lr-opt-text ">(C) 飽餐後急著要去寫功課</span><span class="lr-opt-text is-correct">(D) 吃炒豆、芝麻糖和柑子，滿足又快活</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。豆子吃夠了吃芝麻糖，口乾吃柑子，形容小女孩在雨天吃得心滿意足又快活。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第5段的段落大意主要在表達作者雨天的哪種感受？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 有吃有玩、備受長工疼愛而不感寂寞</span><span class="lr-opt-text ">(B) 能夠整天睡覺不用出門做農事</span><span class="lr-opt-text ">(C) 可以在家看電視聽音樂很自在</span><span class="lr-opt-text ">(D) 院子裡的莊稼生長迅速令人欣慰</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。第5段大意：雨天長工不下田休閒陪伴，阿榮伯餵吃炒豆點心，備受疼愛，讓作者深深感受到溫暖與不寂寞。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-6">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 06 段</span>
+            <h3 class="lr-para-title-v1">第 6 段：黃梅天花木扶疏與採玉蘭香溢滿身</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p06.jpg" class="lr-para-thumb-v1" alt="第 6 段：黃梅天花木扶疏與採玉蘭香溢滿身">
+              <div class="lr-img-cap-v1">📷 第 6 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>五月梅雨季黏答答，媽媽忙進忙出抱怨，爸爸卻悠閒地拿著茶壺坐在走廊賞雨。 雨水淋濕花木，爸爸用煙管指著花朵教我認花：丁香花、一丈紅、大理花與桂花。 高大的玉蘭花開滿樹，怕下雨花謝掉，我爬上樹採滿一整籃分送鄰居。香香的雨水灑了我一身，好舒服好香！</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>五月黃梅雨季，父親在走廊品茶賞雨，作者爬樹採下芬芳的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【玉蘭花】</span>
+                </span>
+                <span>分送給鄰居。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第6段的段落大意主要描繪了什麼樣的雨天生活畫面？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 描寫母親因為家裡潮溼發霉而決定舉家搬遷到乾燥城市的經過</span><span class="lr-opt-text ">(B) 描寫作者因為爬樹採摘玉蘭花不慎跌落受傷的驚險事件</span><span class="lr-opt-text is-correct">(C) 描寫黃梅天花木生機、父親廊下賞雨品茗，以及採玉蘭花送鄰居的溫馨情景</span><span class="lr-opt-text ">(D) 描寫大雨淹沒院子，全家人合力搶救受困花草與農作物的緊急過程</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。第6段大意：黃梅天母親抱怨潮溼、父親悠閒賞雨品茗教認花，作者採玉蘭花分送鄰居，香氣四溢，展現溫馨與鄰里人情美。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中作者提到高大的玉蘭花「開了滿樹，下雨天謝得快」，她趕緊採了滿籃子做什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 全部泡進熱水裡煮成玉蘭花茶</span><span class="lr-opt-text ">(B) 藏在自己的書包裡帶去學校送老師</span><span class="lr-opt-text is-correct">(C) 分送給左鄰右舍一同分享花香</span><span class="lr-opt-text ">(D) 拿去街上市集販賣換取零用錢</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。課文原文：「牆邊那株高大的玉蘭花開了滿樹，下雨天謝得快，我得趕緊爬上去採，採了滿籃子送左右鄰居。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第6段中，作者的父母面對下雨天的心情有什麼明顯的對比？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 父母兩人都非常討厭下雨，一起大聲斥責天氣</span><span class="lr-opt-text ">(B) 父親忙著在院子裡搶收作物，母親則躲在房裡睡覺</span><span class="lr-opt-text ">(C) 母親興奮地想出門踏青，父親卻愁眉苦臉嘆氣</span><span class="lr-opt-text is-correct">(D) 母親抱怨到處黏答答，父親卻端著茶壺悠閒在廊下賞雨</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文原文：「五月黃梅天，到處黏答答的，母親走進走出地抱怨，父親卻端著宜興茶壺，坐在廊下賞雨。」形成生動的心境對比。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-7">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 07 段</span>
+            <h3 class="lr-para-title-v1">第 7 段：唱鼓兒詞與大廳喜氣洋洋</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p07.jpg" class="lr-para-thumb-v1" alt="第 7 段：唱鼓兒詞與大廳喜氣洋洋">
+              <div class="lr-img-cap-v1">📷 第 7 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>盲人說唱藝人在雨天摸索到後門，在廚房長凳唱悲傷的故事。媽媽一邊煮飯一邊感動流淚，盛大碗白飯招待他，還送他一整包米。 晚上大廳點亮明亮的煤氣燈，請鄰居一起來聽。煤氣燈點亮讓我覺得好像家裡辦喜事一樣開心熱鬧！ 媽媽和長輩聽得眼圈哭紅，我開心地吃著炒米糕和花生糖，爸爸則悄悄躲進書房寫唐詩。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>雨天盲人先生來家中彈唱鼓詞，大家熱情款待，夜晚點起明亮的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【煤氣燈】</span>
+                </span>
+                <span>，全家好熱鬧。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 晚上全家人聚在大廳聽唱鼓詞，點起發出嘶嘶聲的照明是什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 微弱幽暗的桐油燈</span><span class="lr-opt-text ">(B) 搖晃閃爍的小蠟燭</span><span class="lr-opt-text ">(C) 懸掛在門口的小燈籠</span><span class="lr-opt-text is-correct">(D) 亮晃晃且發出嘶嘶聲的煤氣燈</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文寫道：「寬敞的大廳正中央燃起了亮晃晃的煤氣燈，發出嘶嘶的聲音。煤氣燈一亮，我就有做喜事的感覺。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第7段的段落大意主要呈現出什麼樣的雨天景象？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 父親因為家裡太吵鬧而大發雷霆將客人趕出門</span><span class="lr-opt-text ">(B) 母親因為煮飯太過辛勞而在廚房暗自哭泣埋怨</span><span class="lr-opt-text ">(C) 煤氣燈突然熄滅導致大廳陷入一片混亂與驚恐</span><span class="lr-opt-text is-correct">(D) 瞎子先生在大廳唱鼓兒詞，全家與鄰人齊聚熱鬧歡樂的溫馨眾生相</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。第7段大意：雨天盲藝人摸索來唱鼓兒詞，母親憐憫盛飯贈米，晚上煤氣燈點亮滿堂歡聚聽唱，展現溫厚的人情味與家庭和樂。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 雨天摸索進作者家後門唱鼓兒詞的是什麼樣的人物？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 唱一段「鄭元和學丐」的瞎子先生</span><span class="lr-opt-text ">(B) 鎮上私塾的教書先生</span><span class="lr-opt-text ">(C) 遠道而來的雜技藝人</span><span class="lr-opt-text ">(D) 擅長吹笛的道士</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。課文原文：「唱鼓兒詞的總在下雨天從我家後門摸索進來，坐在廚房的長凳上，唱一段『鄭元和學丐』……請瞎子先生吃。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-8">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 08 段</span>
+            <h3 class="lr-para-title-v1">第 8 段：颱風天穀倉揀麴好玩時光</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p08.jpg" class="lr-para-thumb-v1" alt="第 8 段：颱風天穀倉揀麴好玩時光">
+              <div class="lr-img-cap-v1">📷 第 8 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>八、九月颱風季雨水多，大家都靠看天上的雲彩知道颱風要來了。 走廊堆滿穀子，因為連續下雨潮濕發霉，長出一粒粒綠色的麴菌。 媽媽叫我和小幫工把發霉的麴挑出來。我覺得這個工作太好玩了，竟然盼望雨一直下不要停，這樣我就可以天天在穀堆裡打滾玩耍！</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>颱風連日豪雨使穀倉穀子發霉，孩子們把在穀堆裡</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【揀麴】</span>
+                </span>
+                <span>當成最好玩的遊戲。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 八、九月颱風季節連日大雨，走廊下堆積如山的穀子會發生什麼變化？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 被老鼠偷吃一空</span><span class="lr-opt-text ">(B) 被大水全部沖走</span><span class="lr-opt-text ">(C) 迅速發芽長成稻苗</span><span class="lr-opt-text is-correct">(D) 幾天不晒發霉長出一粒粒綠色的麴</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文原文：「走廊下堆積如山的穀子，幾天不晒就要發霉，穀子發霉就是一粒粒綠色的麴。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中作者為什麼「盼望天一直不要晴起來」？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 因為害怕出門會被大太陽曬傷</span><span class="lr-opt-text ">(B) 因為可以不用去學堂考試</span><span class="lr-opt-text ">(C) 因為想要看大水沖垮橋樑的奇觀</span><span class="lr-opt-text is-correct">(D) 因為覺得揀綠麴的工作真好玩，想天天滾在穀子裡</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文原文：「這工作真好玩，所以我盼望天一直不要晴起來。麴會越來越多，我就可以天天滾在穀子裡揀麴，多高興哪！」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第8段的段落大意主要表現出作者怎樣的童年心理？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 抱怨母親分配太多農事工作給自己的不滿</span><span class="lr-opt-text ">(B) 嚮往成為專業氣象預報人員的遠大志向</span><span class="lr-opt-text is-correct">(C) 天真地把颱風天走廊揀發霉綠麴當成好玩遊戲的童真趣味</span><span class="lr-opt-text ">(D) 擔心家中糧食受損的早熟憂慮</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。第8段大意：颱風季穀子發霉長麴，作者卻天真地把揀麴當成有趣好玩的遊戲，甚至期盼天不要晴，展現天真爛漫的童心。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-9">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 09 段</span>
+            <h3 class="lr-para-title-v1">第 9 段：成長轉折與雨天格外思母</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p09.jpg" class="lr-para-thumb-v1" alt="第 9 段：成長轉折與雨天格外思母">
+              <div class="lr-img-cap-v1">📷 第 9 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>如果能一直當小孩子，就能永遠沉浸在雨天的歡樂。但人總是會長大的。 離家到杭州讀中學後，下雨天反而讓我感到孤單淒涼，因為我好想念老家的媽媽。 下雨天我特別想媽媽，因為小時候只有在雨天，媽媽不用忙農務，我才能整天黏在她身邊，下雨天總是給我一份貼近媽媽的溫暖。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者長大離家赴杭州念中學，每逢下雨天倚窗望雨，心中倍加思念</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【母親】</span>
+                </span>
+                <span>與溫暖的家。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 課文中作者說「下雨天，我格外想她」，為什麼雨天會給作者「一份靠近母親的感覺」？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 因為杭州中學的宿舍窗戶跟老家房間完全一模一樣</span><span class="lr-opt-text ">(B) 因為母親曾答應雨天一定會寫信寄包裹給她</span><span class="lr-opt-text is-correct">(C) 因為在幼年時，只有雨天裡有更多時間纏著母親聽故事</span><span class="lr-opt-text ">(D) 因為母親每逢下雨天就會親自搭車到杭州送傘</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。課文原文：「因為在幼年時，只有雨天裡，我就有更多的時間纏著她，雨給我一份靠近母親的感覺。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第9段在全文情節與情感發展上，具有怎樣的轉折作用？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 突然中斷回憶，開始詳細介紹現代杭州西湖的交通建設</span><span class="lr-opt-text ">(B) 記錄作者在杭州求學期間每次考試名列前茅的驕傲</span><span class="lr-opt-text is-correct">(C) 由童年無憂無慮的歡樂，轉入長大離家求學時雨天思念母親的淒涼感傷</span><span class="lr-opt-text ">(D) 批評杭州的中學教育制度遠遠不如家鄉私塾</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。第9段大意與轉折：離家到杭州念中學後，作者感到寂寞淒涼，雨天不再只是純粹玩耍，而是引發對母親與故鄉深切的思念，由樂轉悲。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 課文中作者寫道「然而誰能不長大呢？到杭州念中學了，下雨天，我有一股淒涼寂寞之感」，主要原因是什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 與中學同學相處不融洽感到非常孤立</span><span class="lr-opt-text ">(B) 學校課業壓力太沉重讓她適應不良</span><span class="lr-opt-text ">(C) 杭州的雨水比故鄉冰冷且常常伴隨暴風</span><span class="lr-opt-text is-correct">(D) 離家遠赴杭州求學，雨天格外想念遠在故鄉的母親</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (D)。課文原文：「到杭州念中學了，下雨天，我有一股淒涼寂寞之感，因為我想念遠在故鄉的母親。下雨天，我格外想她。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-10">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 10 段</span>
+            <h3 class="lr-para-title-v1">第 10 段：西湖雨中漫步與放鶴亭笛聲</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p10.jpg" class="lr-para-thumb-v1" alt="第 10 段：西湖雨中漫步與放鶴亭笛聲">
+              <div class="lr-img-cap-v1">📷 第 10 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>杭州西湖晴天雨天風景都很美，但我最喜歡一個人在雨中沿著湖畔漫步。 湖面碧藍、梅花枝條低垂，孤山放鶴亭忽然傳來優美悠揚的笛聲。 我輕聲說：「大太陽下的西湖適合大聲高歌；而煙雨濛濛的西湖，最適合吹笛子了。」說完笛聲再次響起，悠然伴著陣陣細雨聲。</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者在煙雨濛濛的西湖邊漫步，聽見放鶴亭傳來悠揚深情的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【笛聲】</span>
+                </span>
+                <span>，引起心靈共鳴。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 作者在杭州念中學時，總喜歡在雨中徘徊何處？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 風光迷人的西子湖畔</span><span class="lr-opt-text ">(B) 故鄉老家的稻田邊</span><span class="lr-opt-text ">(C) 繁華熱鬧的杭州市集</span><span class="lr-opt-text ">(D) 莊嚴肅穆的靈隱寺大殿</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。課文原文：「杭州的西子湖，風雨陰晴，風光不同，然而我總喜歡在雨中徘徊湖畔。」
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第10段的段落大意主要描繪了什麼樣的情境？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text is-correct">(A) 作者雨中漫步西湖湖畔，伴隨放鶴亭悠揚笛聲與瀟瀟雨聲相和的詩意意境</span><span class="lr-opt-text ">(B) 描寫西湖遭遇百年難得一見的特大暴風雨，遊客紛紛走避的情景</span><span class="lr-opt-text ">(C) 記錄作者在西湖邊經營茶樓、接待文人雅士高歌品茗的創業經歷</span><span class="lr-opt-text ">(D) 說明作者跟隨音樂老師在西湖斷橋邊學習吹奏長笛的辛勤過程</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (A)。第10段大意：作者喜在雨中徘徊西湖湖畔，望著碧藍湖水與低斜梅花，聽見放鶴亭笛聲相和，感嘆煙雨迷濛的西湖宜於吹笛，將雨景昇華至古典詩意境界。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 作者望著碧藍如玉的湖面與低斜的梅花時，幽幽地說出了哪句感嘆？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 「山外青山樓外樓，西湖歌舞幾時休。」</span><span class="lr-opt-text is-correct">(B) 「明亮陽光下的西湖，宜於高歌；而煙雨迷濛中的西湖，宜於吹笛。」</span><span class="lr-opt-text ">(C) 「欲把西湖比西子，淡妝濃抹總相宜。」</span><span class="lr-opt-text ">(D) 「落花流水春去也，天上人間。」</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (B)。課文原文：「『明亮陽光下的西湖，宜於高歌；而煙雨迷濛中的西湖，宜於吹笛。』我幽幽地說。於是笛聲又起，與瀟瀟雨聲相和。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="lr-para-card-v1" id="v1-para-11">
+          <div class="lr-para-card-v1-header">
+            <span class="lr-para-badge-v1">第 11 段</span>
+            <h3 class="lr-para-title-v1">第 11 段：二十年笛聲餘韻與永恆思念</h3>
+          </div>
+          <div class="lr-para-grid-v1">
+            <div class="lr-img-col-v1">
+              <img src="assets/images/p11.jpg" class="lr-para-thumb-v1" alt="第 11 段：二十年笛聲餘韻與永恆思念">
+              <div class="lr-img-cap-v1">📷 第 11 段情境插圖</div>
+            </div>
+            <div class="lr-content-col-v1">
+              <!-- 一、段落重點提要（易讀課文） -->
+              <div class="lr-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>二十年的漫長時光過去了，西湖那悠揚低沉的笛聲雖然已經離我很遙遠， 但每逢下雨天，我彷彿依然能清清楚楚聽見那聲音，聽見對故鄉與母親永恆的愛……</span>
+              </div>
+
+              <!-- 二、段落大意填空 -->
+              <div class="lr-summary-box-v1">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>數十年歲月流逝，西湖的笛聲依然迴盪在雨中，化為作者對故鄉永恆的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【思念】</span>
+                </span>
+                <span>與牽掛。</span>
+              </div>
+
+              <!-- 三、即時理解檢核單選題 -->
+              <div class="lr-quiz-sec-v1">
+                <span class="lr-sec-tag">🎯 【即時理解檢核（單選題）】：</span>
+                
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 文末提到「二十年了」，那低沉而遙遠的笛聲在雨中依稀迴盪，化為了作者怎樣的情感？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 對世俗功名利祿與榮華富貴的強烈渴望</span><span class="lr-opt-text ">(B) 對童年調皮搗蛋行為的慚愧不安</span><span class="lr-opt-text is-correct">(C) 對母親與故鄉永恆深沉的思念與眷戀</span><span class="lr-opt-text ">(D) 對年輕時代浪費光陰的懊悔自責</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。課文結尾：「二十年了，那笛聲低沉而遙遠，然而我仍能依稀聽見，在雨中……」笛聲象徵著對母親、童年與故鄉無盡的深情追憶。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文標題「下雨天，真好」貫穿全文，最後凝聚昇華的核心情感是什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 慶祝下雨天可以不用外出工作、在家睡大覺的輕鬆</span><span class="lr-opt-text ">(B) 讚嘆下雨能緩解土地乾旱、促進農作物生長</span><span class="lr-opt-text is-correct">(C) 貫穿雨天記憶中，對純真童年與至深母愛的永恆感恩與眷戀</span><span class="lr-opt-text ">(D) 介紹江南水鄉氣候特徵與傳統農具的實用價值</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。「下雨天，真好」貫穿全文，從幼年聽故事、玩水放船、吃炒豆，到青年求學思親，凝聚為對母愛與親情的永恆眷戀與感恩。
+              </div>
+            </div>
+            
+            <div class="lr-q-row-v1">
+              <div class="lr-q-stem-v1">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第11段作為全文結尾，它的段落大意與主要作用是什麼？</span>
+              </div>
+              <div class="lr-options-grid-v1">
+                <span class="lr-opt-text ">(A) 宣布作者決定放棄寫作，轉而投入音樂演奏的全新志向</span><span class="lr-opt-text ">(B) 說明作者二十年後終於重返故鄉，重新見到了母親與長工</span><span class="lr-opt-text is-correct">(C) 總結二十年來雨中笛聲的餘韻，將對雨天的喜愛凝聚為對母親永恆的思念</span><span class="lr-opt-text ">(D) 抱怨二十年來江南氣候異常，雨季變得短暫而乾燥</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>正確答案為 (C)。第11段大意：二十年光陰流轉，低沉遙遠的笛聲依然在雨中迴盪，化為作者心中對母親與故鄉永恆的追思與鄉愁，餘韻悠長。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          </div>
+
+          <!-- ==================== 版本二內容（康乃爾筆記法版） ==================== -->
+          <div class="lr-sheet-v2" id="v2Container">
+            <div class="cornell-list">
+              
+        <div class="cornell-para-card" id="c-para-1">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 1 段：清晨掀簾望雨</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第1段的段落大意主要在描寫什麼內容？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 抱怨連日大雨造成出門不便與淹水</span><span class="lr-opt-text is-correct">(B) 清晨看見滿窗水珠，欣喜迎接美好的下雨天</span><span class="lr-opt-text ">(C) 描繪夏日午後突然刮起狂風與暴雨</span><span class="lr-opt-text ">(D) 記錄自己在學校上課時看見窗外下雨</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 第1段大意：清晨作者掀開簾子，看見窗戶上撒滿水珠，心中非常歡喜與期待，慶幸又是個美好的下雨天。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 作者在清晨拉開窗簾，看到窗戶上滿是水珠，心中的感受是什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 抱怨天色陰暗不能去玩耍</span><span class="lr-opt-text ">(B) 害怕打雷驚嚇得想要大哭</span><span class="lr-opt-text is-correct">(C) 感到由衷欣喜並讚嘆真好</span><span class="lr-opt-text ">(D) 擔心出門上學一定會遲到</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 作者清晨看見滿窗水珠，由衷讚嘆「下雨天，真好」，心中感到無比歡喜。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 課文開頭第一句話「下雨天，真好」，奠定了全文怎樣的感情基調？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 驚恐、慌張與急迫的避難氣氛</span><span class="lr-opt-text is-correct">(B) 喜愛、溫馨與懷念的歡欣基調</span><span class="lr-opt-text ">(C) 嚴肅、客觀與冷靜的氣象觀察</span><span class="lr-opt-text ">(D) 憂傷、埋怨與煩躁的無奈心情</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 開門見山點出主旨，奠定全篇對雨天、童年與親情的喜愛與懷念。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p01.jpg" class="cornell-para-thumb" alt="第 1 段：清晨掀簾望雨">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>今天一早，我拉開窗簾看外面，玻璃窗上全是圓滾滾的水珠。 哇，太好了！今天又是一個讓人開心的下雨天！</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>清晨作者掀開簾子，看見窗戶撒滿水珠，由衷讚嘆：</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【「真好」】</span>
+                </span>
+                <span>，又是個美好的下雨天。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">清晨醒來看見窗外細雨綿綿，作者為什麼會由衷讚嘆「下雨天，真好」？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">因為下雨天帶給作者打從心底的喜悅與安全感，也勾起了對故鄉與童年歡樂時光的甜蜜回憶。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-2">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 2 段：雨天童年時光機與雨珠鍊子</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 課文中作者說「用雨珠的鍊子把它串起來」，這句話是把屋簷落下的水珠想像成什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 想像成打破玻璃窗戶的堅硬冰雹</span><span class="lr-opt-text is-correct">(B) 想像成可以串起美麗童年回憶的手鍊</span><span class="lr-opt-text ">(C) 想像成鎖住大門的冰冷鐵鍊</span><span class="lr-opt-text ">(D) 想像成把衣服淋溼弄髒的泥水</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 作者發揮豐富想像力，把一滴滴晶瑩剔透的雨珠想像成串起美好童年記憶的美麗手鍊。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 作者說要把童年好時光「用雨珠的鍊子把它串起來，繞在手腕上」，代表什麼意思？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 抱怨雨水打在手腕十分冰冷</span><span class="lr-opt-text is-correct">(B) 想把美好的童年回憶珍藏心底</span><span class="lr-opt-text ">(C) 想收集雨水做成珍貴首飾</span><span class="lr-opt-text ">(D) 打算製作手工藝品販賣賺錢</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 用雨珠串起童年好時光，比喻將美好的童年回憶永遠珍藏在心底。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第2段的段落大意主要表達了什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 說明江南地區梅雨季衣服晾不乾的氣候特點</span><span class="lr-opt-text is-correct">(B) 描寫雨天能帶作者重回歡樂童年，想把回憶珍藏起來</span><span class="lr-opt-text ">(C) 記錄作者在房間裡製作手工首飾與項鍊的過程</span><span class="lr-opt-text ">(D) 抱怨屋裡掛滿溼衣服和地板冒溼氣非常麻煩</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 第2段大意：連日陰雨潮溼，作者卻不抱怨，因為雨天帶她回到魂牽夢縈的故鄉與童年歡樂，想把好時光串在手腕上珍藏。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p02.jpg" class="cornell-para-thumb" alt="第 2 段：雨天童年時光機與雨珠鍊子">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>就算雨下了一整個月，家裡掛滿溼衣服像萬國旗，牆壁地板都潮溼，我一點也不抱怨。 下雨天就像時光機，帶我離開吵鬧的世界，回到我朝思暮想的快樂童年老家。 童年那些美好時光，我好像用一顆顆雨珠做成美麗手鍊，緊緊戴在手腕上珍藏。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>連綿陰雨把作者帶回故鄉，讓她重新享受歡樂的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【童年】</span>
+                </span>
+                <span>時光，並想用雨珠串在手腕上珍藏。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">作者想把一顆顆晶瑩的「雨珠」串在手腕上，這象徵了她心中想珍藏什麼？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">象徵作者渴望把童年那些無憂無慮、溫馨甜蜜的美好時光永遠串起並珍藏在身邊。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-3">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 3 段：被窩聽故事與慈顏如菩薩</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第3段的段落大意主要在描寫什麼溫馨場景？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 母親天未亮就冒雨在廚房為全家人辛勞煮早飯</span><span class="lr-opt-text ">(B) 全家人在狂風暴雨中忙著修補漏水的屋瓦</span><span class="lr-opt-text is-correct">(C) 雨天長工不用下田，母親在熱被窩陪作者講故事</span><span class="lr-opt-text ">(D) 作者在清晨冒著大雨跟隨老師到學堂背誦四書</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 第3段大意：下雨天長工不下田，母親不用早起做飯，在熱被窩裡給作者講雨天的故事，面容慈祥如菩薩。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中提到「我的啟蒙老師說菩薩慈眉善目」，「啟蒙老師」是指什麼樣的老師？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 官府裡負責審判案件的法官大人</span><span class="lr-opt-text ">(B) 廟宇裡專門替信徒解籤講道的師父</span><span class="lr-opt-text is-correct">(C) 教導幼童初級知識、開啟智慧的第一位老師</span><span class="lr-opt-text ">(D) 在大學專門指導博士研究的高級教授</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 「啟蒙老師」是指在童年啟發智慧、教導基礎識字與品格的第一位老師。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 作者將母親的面容比喻為「菩薩」，展現出母親怎樣的神態？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 憂鬱沉默充滿心事</span><span class="lr-opt-text is-correct">(B) 慈眉善目溫柔慈愛</span><span class="lr-opt-text ">(C) 忙碌勞碌神情疲憊</span><span class="lr-opt-text ">(D) 威嚴莊重令人敬畏</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 課文寫道啟蒙老師說菩薩慈眉善目，母親的長相就像菩薩一樣溫柔慈愛。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p03.jpg" class="cornell-para-thumb" alt="第 3 段：被窩聽故事與慈顏如菩薩">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>六歲時在浙江永嘉老家，我睡在媽媽溫暖的手臂彎裡。 早晨聽見屋頂瓦片嘩嘩的雨聲，我心裡好安心。因為雨天長工不下田工作，媽媽不用起大早煮飯，可以多陪我躺一下。 我吵著要媽媽講雨天的故事。微弱的晨光中我看著媽媽慈祥的臉龐，就像溫柔善良的菩薩一樣美麗。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>下雨天母親能多睡一會兒並在被窩講故事，母親面容慈祥，就像尊</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【菩薩】</span>
+                </span>
+                <span>一樣溫柔。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">在下雨天的清晨，母親為什麼能安心躺在被窩裡給孩子講故事？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">因為下雨天長工和農事暫停，母親難得不必起早操勞家務，得以享受溫暖親密的母子時光。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-4">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 4 段：套舊皮靴踩水與漂木船布姑娘</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第4段的段落大意主要描繪了作者童年雨天的哪種情趣？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 穿靴踏水放木船布姑娘的純真樂趣</span><span class="lr-opt-text ">(B) 擔心新鞋弄髒被父母責備</span><span class="lr-opt-text ">(C) 觀察雨水落入水溝的流速</span><span class="lr-opt-text ">(D) 幫忙長工修理走廊的破洞</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 第4段大意：作者穿上叔叔的舊皮靴在爛泥踩水，在水溝放漂阿榮伯雕的小木船載著母親縫的布姑娘，充滿純真樂趣。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中「吱嗒吱嗒」的聲音是指什麼聲音？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 廚房裡炒豆子爆裂開來的聲音</span><span class="lr-opt-text is-correct">(B) 穿著大皮靴在爛泥地裡踩水的聲音</span><span class="lr-opt-text ">(C) 屋簷雨水滴落在鐵皮上的聲音</span><span class="lr-opt-text ">(D) 小木船撞擊水溝石頭的聲音</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 課文原文：「我跟著小木船在爛泥地裡踩水，吱嗒吱嗒地響。」是指穿著皮靴在爛泥地裡踩水發出的聲響。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 木片小船上的「布姑娘」是怎麼製作出來的？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 木匠特別雕刻的小型玩偶</span><span class="lr-opt-text ">(B) 花錢去街上買回來的木偶</span><span class="lr-opt-text ">(C) 父親用竹篾編織出的玩具</span><span class="lr-opt-text is-correct">(D) 母親用碎紅布剪裁包紮而成</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文描寫水溝裡小木船中間坐著母親縫的大紅「布姑娘」，是母親用碎布精心巧手製作的。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p04.jpg" class="cornell-para-thumb" alt="第 4 段：套舊皮靴踩水與漂木船布姑娘">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>雨越下越大，我穿上大人的大皮靴，跑到院子踩泥巴玩水。 水溝滿了，白繡球花瓣掉在水上。我把長工阿榮伯雕的小木船放進水溝，船上坐著媽媽縫的紅布娃娃。 小木船和花瓣一起順水流，我跟在旁邊踩水，發出吱嗒吱嗒的歡樂聲音。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者雨天穿大皮靴在泥地踩水玩耍，水溝漂著小木船，上面載著可愛的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【布姑娘】</span>
+                </span>
+                <span>一起冒險。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">作者穿上父親的大皮靴在泥地裡踩水玩木船，表現出怎樣的童年心境？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">表現出無拘無束、天真爛漫、好奇且富有冒險想像力的純真童心。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-5">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 5 段：穀倉炒豆香甜與備受寵愛</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 作者坐在長工阿榮伯懷裡吃炒豆時，懷裡還抱著什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 一隻可愛的小花貓</span><span class="lr-opt-text ">(B) 一本學校的國文課本</span><span class="lr-opt-text ">(C) 一雙叔叔的舊皮靴</span><span class="lr-opt-text ">(D) 一個裝滿零食的小竹籃</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 課文原文：「我把小花貓抱在懷裡，自己再坐在阿榮伯懷裡，等著阿榮伯把一粒粒又香又脆的炒豆子剝了殼送到我嘴裡。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中「肚子鼓得跟蜜蜂似的」描繪了作者怎樣的情態？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 生病消化不良而肚子痛</span><span class="lr-opt-text ">(B) 貪心搶吃長工的便當</span><span class="lr-opt-text ">(C) 飽餐後急著要去寫功課</span><span class="lr-opt-text is-correct">(D) 吃炒豆、芝麻糖和柑子，滿足又快活</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 豆子吃夠了吃芝麻糖，口乾吃柑子，形容小女孩在雨天吃得心滿意足又快活。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第5段的段落大意主要在表達作者雨天的哪種感受？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 有吃有玩、備受長工疼愛而不感寂寞</span><span class="lr-opt-text ">(B) 能夠整天睡覺不用出門做農事</span><span class="lr-opt-text ">(C) 可以在家看電視聽音樂很自在</span><span class="lr-opt-text ">(D) 院子裡的莊稼生長迅速令人欣慰</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 第5段大意：雨天長工不下田休閒陪伴，阿榮伯餵吃炒豆點心，備受疼愛，讓作者深深感受到溫暖與不寂寞。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p05.jpg" class="cornell-para-thumb" alt="第 5 段：穀倉炒豆香甜與備受寵愛">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>長工們下雨不用耕田，聚在穀倉後彈豆子玩。 我抱著小貓坐在阿榮伯腿上，吃他剝好的香脆炒豆，又吃芝麻糖和甜甜的柑橘，肚子飽得鼓鼓的。 下雨天長工叔叔們都很疼我、有吃又有玩，家裡熱熱鬧鬧，我一點都不會寂寞。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>長工阿榮伯抱作者坐櫃檯吃香脆炒豆，長工們的疼愛讓她感到</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【不寂寞】</span>
+                </span>
+                <span>又溫暖。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">長工阿榮伯與其他長工對作者的細心疼愛，帶給作者什麼樣的感受？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">帶給作者備受呵護與寵愛的幸福感，讓她心裡感到無比溫暖，一點也不覺得寂寞。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-6">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 6 段：黃梅天花木扶疏與採玉蘭香溢滿身</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 第6段的段落大意主要描繪了什麼樣的雨天生活畫面？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 描寫母親因為家裡潮溼發霉而決定舉家搬遷到乾燥城市的經過</span><span class="lr-opt-text ">(B) 描寫作者因為爬樹採摘玉蘭花不慎跌落受傷的驚險事件</span><span class="lr-opt-text is-correct">(C) 描寫黃梅天花木生機、父親廊下賞雨品茗，以及採玉蘭花送鄰居的溫馨情景</span><span class="lr-opt-text ">(D) 描寫大雨淹沒院子，全家人合力搶救受困花草與農作物的緊急過程</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 第6段大意：黃梅天母親抱怨潮溼、父親悠閒賞雨品茗教認花，作者採玉蘭花分送鄰居，香氣四溢，展現溫馨與鄰里人情美。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中作者提到高大的玉蘭花「開了滿樹，下雨天謝得快」，她趕緊採了滿籃子做什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 全部泡進熱水裡煮成玉蘭花茶</span><span class="lr-opt-text ">(B) 藏在自己的書包裡帶去學校送老師</span><span class="lr-opt-text is-correct">(C) 分送給左鄰右舍一同分享花香</span><span class="lr-opt-text ">(D) 拿去街上市集販賣換取零用錢</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 課文原文：「牆邊那株高大的玉蘭花開了滿樹，下雨天謝得快，我得趕緊爬上去採，採了滿籃子送左右鄰居。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第6段中，作者的父母面對下雨天的心情有什麼明顯的對比？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 父母兩人都非常討厭下雨，一起大聲斥責天氣</span><span class="lr-opt-text ">(B) 父親忙著在院子裡搶收作物，母親則躲在房裡睡覺</span><span class="lr-opt-text ">(C) 母親興奮地想出門踏青，父親卻愁眉苦臉嘆氣</span><span class="lr-opt-text is-correct">(D) 母親抱怨到處黏答答，父親卻端著茶壺悠閒在廊下賞雨</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文原文：「五月黃梅天，到處黏答答的，母親走進走出地抱怨，父親卻端著宜興茶壺，坐在廊下賞雨。」形成生動的心境對比。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p06.jpg" class="cornell-para-thumb" alt="第 6 段：黃梅天花木扶疏與採玉蘭香溢滿身">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>五月梅雨季黏答答，媽媽忙進忙出抱怨，爸爸卻悠閒地拿著茶壺坐在走廊賞雨。 雨水淋濕花木，爸爸用煙管指著花朵教我認花：丁香花、一丈紅、大理花與桂花。 高大的玉蘭花開滿樹，怕下雨花謝掉，我爬上樹採滿一整籃分送鄰居。香香的雨水灑了我一身，好舒服好香！</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>五月黃梅雨季，父親在走廊品茶賞雨，作者爬樹採下芬芳的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【玉蘭花】</span>
+                </span>
+                <span>分送給鄰居。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">作者採摘玉蘭花分送給左鄰右舍，展現了鄉村鄰里間怎樣的人情美？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">展現了純樸鄉村中互相關懷、分享美好芬芳且真摯熱絡的濃厚人情味。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-7">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 7 段：唱鼓兒詞與大廳喜氣洋洋</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 晚上全家人聚在大廳聽唱鼓詞，點起發出嘶嘶聲的照明是什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 微弱幽暗的桐油燈</span><span class="lr-opt-text ">(B) 搖晃閃爍的小蠟燭</span><span class="lr-opt-text ">(C) 懸掛在門口的小燈籠</span><span class="lr-opt-text is-correct">(D) 亮晃晃且發出嘶嘶聲的煤氣燈</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文寫道：「寬敞的大廳正中央燃起了亮晃晃的煤氣燈，發出嘶嘶的聲音。煤氣燈一亮，我就有做喜事的感覺。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第7段的段落大意主要呈現出什麼樣的雨天景象？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 父親因為家裡太吵鬧而大發雷霆將客人趕出門</span><span class="lr-opt-text ">(B) 母親因為煮飯太過辛勞而在廚房暗自哭泣埋怨</span><span class="lr-opt-text ">(C) 煤氣燈突然熄滅導致大廳陷入一片混亂與驚恐</span><span class="lr-opt-text is-correct">(D) 瞎子先生在大廳唱鼓兒詞，全家與鄰人齊聚熱鬧歡樂的溫馨眾生相</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 第7段大意：雨天盲藝人摸索來唱鼓兒詞，母親憐憫盛飯贈米，晚上煤氣燈點亮滿堂歡聚聽唱，展現溫厚的人情味與家庭和樂。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 雨天摸索進作者家後門唱鼓兒詞的是什麼樣的人物？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 唱一段「鄭元和學丐」的瞎子先生</span><span class="lr-opt-text ">(B) 鎮上私塾的教書先生</span><span class="lr-opt-text ">(C) 遠道而來的雜技藝人</span><span class="lr-opt-text ">(D) 擅長吹笛的道士</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 課文原文：「唱鼓兒詞的總在下雨天從我家後門摸索進來，坐在廚房的長凳上，唱一段『鄭元和學丐』……請瞎子先生吃。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p07.jpg" class="cornell-para-thumb" alt="第 7 段：唱鼓兒詞與大廳喜氣洋洋">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>盲人說唱藝人在雨天摸索到後門，在廚房長凳唱悲傷的故事。媽媽一邊煮飯一邊感動流淚，盛大碗白飯招待他，還送他一整包米。 晚上大廳點亮明亮的煤氣燈，請鄰居一起來聽。煤氣燈點亮讓我覺得好像家裡辦喜事一樣開心熱鬧！ 媽媽和長輩聽得眼圈哭紅，我開心地吃著炒米糕和花生糖，爸爸則悄悄躲進書房寫唐詩。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>雨天盲人先生來家中彈唱鼓詞，大家熱情款待，夜晚點起明亮的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【煤氣燈】</span>
+                </span>
+                <span>，全家好熱鬧。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">盲人先生雨天來家中彈唱鼓詞，夜晚點起煤氣燈，給全家帶來什麼樣的氣氛？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">大家圍坐熱鬧聽故事，氣氛歡樂溫馨，全家就像過年或辦喜事一樣喜氣洋洋。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-8">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 8 段：颱風天穀倉揀麴好玩時光</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 八、九月颱風季節連日大雨，走廊下堆積如山的穀子會發生什麼變化？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 被老鼠偷吃一空</span><span class="lr-opt-text ">(B) 被大水全部沖走</span><span class="lr-opt-text ">(C) 迅速發芽長成稻苗</span><span class="lr-opt-text is-correct">(D) 幾天不晒發霉長出一粒粒綠色的麴</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文原文：「走廊下堆積如山的穀子，幾天不晒就要發霉，穀子發霉就是一粒粒綠色的麴。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文中作者為什麼「盼望天一直不要晴起來」？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 因為害怕出門會被大太陽曬傷</span><span class="lr-opt-text ">(B) 因為可以不用去學堂考試</span><span class="lr-opt-text ">(C) 因為想要看大水沖垮橋樑的奇觀</span><span class="lr-opt-text is-correct">(D) 因為覺得揀綠麴的工作真好玩，想天天滾在穀子裡</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文原文：「這工作真好玩，所以我盼望天一直不要晴起來。麴會越來越多，我就可以天天滾在穀子裡揀麴，多高興哪！」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第8段的段落大意主要表現出作者怎樣的童年心理？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 抱怨母親分配太多農事工作給自己的不滿</span><span class="lr-opt-text ">(B) 嚮往成為專業氣象預報人員的遠大志向</span><span class="lr-opt-text is-correct">(C) 天真地把颱風天走廊揀發霉綠麴當成好玩遊戲的童真趣味</span><span class="lr-opt-text ">(D) 擔心家中糧食受損的早熟憂慮</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 第8段大意：颱風季穀子發霉長麴，作者卻天真地把揀麴當成有趣好玩的遊戲，甚至期盼天不要晴，展現天真爛漫的童心。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p08.jpg" class="cornell-para-thumb" alt="第 8 段：颱風天穀倉揀麴好玩時光">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>八、九月颱風季雨水多，大家都靠看天上的雲彩知道颱風要來了。 走廊堆滿穀子，因為連續下雨潮濕發霉，長出一粒粒綠色的麴菌。 媽媽叫我和小幫工把發霉的麴挑出來。我覺得這個工作太好玩了，竟然盼望雨一直下不要停，這樣我就可以天天在穀堆裡打滾玩耍！</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>颱風連日豪雨使穀倉穀子發霉，孩子們把在穀堆裡</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【揀麴】</span>
+                </span>
+                <span>當成最好玩的遊戲。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">颱風天穀倉穀子發霉本是壞事，為什麼孩子們卻把「揀麴」當成最好玩的遊戲？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">因為孩子們在穀堆中尋找菌絲當尋寶，用純真無邪的眼光將辛苦的大人勞動轉化為有趣的遊戲。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-9">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 9 段：成長轉折與雨天格外思母</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 課文中作者說「下雨天，我格外想她」，為什麼雨天會給作者「一份靠近母親的感覺」？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 因為杭州中學的宿舍窗戶跟老家房間完全一模一樣</span><span class="lr-opt-text ">(B) 因為母親曾答應雨天一定會寫信寄包裹給她</span><span class="lr-opt-text is-correct">(C) 因為在幼年時，只有雨天裡有更多時間纏著母親聽故事</span><span class="lr-opt-text ">(D) 因為母親每逢下雨天就會親自搭車到杭州送傘</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 課文原文：「因為在幼年時，只有雨天裡，我就有更多的時間纏著她，雨給我一份靠近母親的感覺。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第9段在全文情節與情感發展上，具有怎樣的轉折作用？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 突然中斷回憶，開始詳細介紹現代杭州西湖的交通建設</span><span class="lr-opt-text ">(B) 記錄作者在杭州求學期間每次考試名列前茅的驕傲</span><span class="lr-opt-text is-correct">(C) 由童年無憂無慮的歡樂，轉入長大離家求學時雨天思念母親的淒涼感傷</span><span class="lr-opt-text ">(D) 批評杭州的中學教育制度遠遠不如家鄉私塾</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 第9段大意與轉折：離家到杭州念中學後，作者感到寂寞淒涼，雨天不再只是純粹玩耍，而是引發對母親與故鄉深切的思念，由樂轉悲。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> D </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 課文中作者寫道「然而誰能不長大呢？到杭州念中學了，下雨天，我有一股淒涼寂寞之感」，主要原因是什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 與中學同學相處不融洽感到非常孤立</span><span class="lr-opt-text ">(B) 學校課業壓力太沉重讓她適應不良</span><span class="lr-opt-text ">(C) 杭州的雨水比故鄉冰冷且常常伴隨暴風</span><span class="lr-opt-text is-correct">(D) 離家遠赴杭州求學，雨天格外想念遠在故鄉的母親</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(D) 課文原文：「到杭州念中學了，下雨天，我有一股淒涼寂寞之感，因為我想念遠在故鄉的母親。下雨天，我格外想她。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p09.jpg" class="cornell-para-thumb" alt="第 9 段：成長轉折與雨天格外思母">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>如果能一直當小孩子，就能永遠沉浸在雨天的歡樂。但人總是會長大的。 離家到杭州讀中學後，下雨天反而讓我感到孤單淒涼，因為我好想念老家的媽媽。 下雨天我特別想媽媽，因為小時候只有在雨天，媽媽不用忙農務，我才能整天黏在她身邊，下雨天總是給我一份貼近媽媽的溫暖。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者長大離家赴杭州念中學，每逢下雨天倚窗望雨，心中倍加思念</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【母親】</span>
+                </span>
+                <span>與溫暖的家。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">長大到杭州念中學後，下雨天為什麼反而讓作者感到「淒涼」並格外想念母親？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">因為隻身在外求學、離鄉背井，陰雨天勾起了遊子的鄉愁，更加渴望故鄉與母親溫暖的懷抱。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-10">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 10 段：西湖雨中漫步與放鶴亭笛聲</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 作者在杭州念中學時，總喜歡在雨中徘徊何處？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 風光迷人的西子湖畔</span><span class="lr-opt-text ">(B) 故鄉老家的稻田邊</span><span class="lr-opt-text ">(C) 繁華熱鬧的杭州市集</span><span class="lr-opt-text ">(D) 莊嚴肅穆的靈隱寺大殿</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 課文原文：「杭州的西子湖，風雨陰晴，風光不同，然而我總喜歡在雨中徘徊湖畔。」
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> A </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 第10段的段落大意主要描繪了什麼樣的情境？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text is-correct">(A) 作者雨中漫步西湖湖畔，伴隨放鶴亭悠揚笛聲與瀟瀟雨聲相和的詩意意境</span><span class="lr-opt-text ">(B) 描寫西湖遭遇百年難得一見的特大暴風雨，遊客紛紛走避的情景</span><span class="lr-opt-text ">(C) 記錄作者在西湖邊經營茶樓、接待文人雅士高歌品茗的創業經歷</span><span class="lr-opt-text ">(D) 說明作者跟隨音樂老師在西湖斷橋邊學習吹奏長笛的辛勤過程</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(A) 第10段大意：作者喜在雨中徘徊西湖湖畔，望著碧藍湖水與低斜梅花，聽見放鶴亭笛聲相和，感嘆煙雨迷濛的西湖宜於吹笛，將雨景昇華至古典詩意境界。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> B </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 作者望著碧藍如玉的湖面與低斜的梅花時，幽幽地說出了哪句感嘆？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 「山外青山樓外樓，西湖歌舞幾時休。」</span><span class="lr-opt-text is-correct">(B) 「明亮陽光下的西湖，宜於高歌；而煙雨迷濛中的西湖，宜於吹笛。」</span><span class="lr-opt-text ">(C) 「欲把西湖比西子，淡妝濃抹總相宜。」</span><span class="lr-opt-text ">(D) 「落花流水春去也，天上人間。」</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(B) 課文原文：「『明亮陽光下的西湖，宜於高歌；而煙雨迷濛中的西湖，宜於吹笛。』我幽幽地說。於是笛聲又起，與瀟瀟雨聲相和。」
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p10.jpg" class="cornell-para-thumb" alt="第 10 段：西湖雨中漫步與放鶴亭笛聲">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>杭州西湖晴天雨天風景都很美，但我最喜歡一個人在雨中沿著湖畔漫步。 湖面碧藍、梅花枝條低垂，孤山放鶴亭忽然傳來優美悠揚的笛聲。 我輕聲說：「大太陽下的西湖適合大聲高歌；而煙雨濛濛的西湖，最適合吹笛子了。」說完笛聲再次響起，悠然伴著陣陣細雨聲。</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>作者在煙雨濛濛的西湖邊漫步，聽見放鶴亭傳來悠揚深情的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【笛聲】</span>
+                </span>
+                <span>，引起心靈共鳴。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">漫步西湖時聽見放鶴亭傳來的悠揚笛聲，引發了作者怎樣的心靈共鳴？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">笛聲與西湖煙雨交融，撫慰了作者孤獨的心靈，將思鄉之情昇華為優美深遠的詩意體悟。</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="cornell-para-card" id="c-para-11">
+          <!-- 上：段落標題 -->
+          <div class="cornell-card-header">
+            <span class="cornell-header-title">第 11 段：二十年笛聲餘韻與永恆思念</span>
+          </div>
+
+          <!-- 中：雙欄結構（左：理解測驗，右：重點與大意） -->
+          <div class="cornell-mid-grid">
+            <!-- 中左：單選理解測驗 -->
+            <div class="cornell-mid-left">
+              <div class="cornell-sec-title">🎯 【即時理解測驗】：</div>
+              <div class="cornell-quiz-box">
+                
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">1. 文末提到「二十年了」，那低沉而遙遠的笛聲在雨中依稀迴盪，化為了作者怎樣的情感？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 對世俗功名利祿與榮華富貴的強烈渴望</span><span class="lr-opt-text ">(B) 對童年調皮搗蛋行為的慚愧不安</span><span class="lr-opt-text is-correct">(C) 對母親與故鄉永恆深沉的思念與眷戀</span><span class="lr-opt-text ">(D) 對年輕時代浪費光陰的懊悔自責</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 課文結尾：「二十年了，那笛聲低沉而遙遠，然而我仍能依稀聽見，在雨中……」笛聲象徵著對母親、童年與故鄉無盡的深情追憶。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">2. 課文標題「下雨天，真好」貫穿全文，最後凝聚昇華的核心情感是什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 慶祝下雨天可以不用外出工作、在家睡大覺的輕鬆</span><span class="lr-opt-text ">(B) 讚嘆下雨能緩解土地乾旱、促進農作物生長</span><span class="lr-opt-text is-correct">(C) 貫穿雨天記憶中，對純真童年與至深母愛的永恆感恩與眷戀</span><span class="lr-opt-text ">(D) 介紹江南水鄉氣候特徵與傳統農具的實用價值</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 「下雨天，真好」貫穿全文，從幼年聽故事、玩水放船、吃炒豆，到青年求學思親，凝聚為對母愛與親情的永恆眷戀與感恩。
+              </div>
+            </div>
+            
+            <div class="cornell-q-item">
+              <div class="cornell-q-stem">
+                <span class="lr-bracket-box">(<span class="lr-ans-key"> C </span><span class="lr-blank-empty">&nbsp;&nbsp;&nbsp;&nbsp;</span>)</span>
+                <span class="lr-q-stem-text">3. 第11段作為全文結尾，它的段落大意與主要作用是什麼？</span>
+              </div>
+              <div class="cornell-options-grid">
+                <span class="lr-opt-text ">(A) 宣布作者決定放棄寫作，轉而投入音樂演奏的全新志向</span><span class="lr-opt-text ">(B) 說明作者二十年後終於重返故鄉，重新見到了母親與長工</span><span class="lr-opt-text is-correct">(C) 總結二十年來雨中笛聲的餘韻，將對雨天的喜愛凝聚為對母親永恆的思念</span><span class="lr-opt-text ">(D) 抱怨二十年來江南氣候異常，雨季變得短暫而乾燥</span>
+              </div>
+              <div class="lr-hint-v1">
+                💡 <strong>【解析】：</strong>(C) 第11段大意：二十年光陰流轉，低沉遙遠的笛聲依然在雨中迴盪，化為作者心中對母親與故鄉永恆的追思與鄉愁，餘韻悠長。
+              </div>
+            </div>
+            
+              </div>
+            </div>
+
+            <!-- 中右：段落情境圖、重點提要、大意填空 -->
+            <div class="cornell-mid-right">
+              <!-- 1. 段落情境視覺圖 -->
+              <div class="cornell-img-wrap">
+                <img src="assets/images/p11.jpg" class="cornell-para-thumb" alt="第 11 段：二十年笛聲餘韻與永恆思念">
+              </div>
+
+              <!-- 2. 重點提示（易讀課文） -->
+              <div class="cornell-easy-block">
+                <span class="lr-sec-tag">📖 【段落重點提要】：</span>
+                <span>二十年的漫長時光過去了，西湖那悠揚低沉的笛聲雖然已經離我很遙遠， 但每逢下雨天，我彷彿依然能清清楚楚聽見那聲音，聽見對故鄉與母親永恆的愛……</span>
+              </div>
+
+              <!-- 3. 文意填空 -->
+              <div class="cornell-summary-block">
+                <span class="lr-sec-tag">✍️ 【段落大意填空】：</span>
+                <span>數十年歲月流逝，西湖的笛聲依然迴盪在雨中，化為作者對故鄉永恆的</span>
+                <span class="lr-blank-slot">
+                  <span class="lr-blank-empty">【＿＿＿＿＿＿】</span>
+                  <span class="lr-blank-ans">【思念】</span>
+                </span>
+                <span>與牽掛。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 下：思考與整理（段落提問） -->
+          <div class="cornell-bottom-row">
+            <div class="cornell-reflect-header">
+              <span class="cornell-reflect-title">💬 【思考與整理】：</span>
+              <span class="cornell-reflect-q">幾十年過去了，西湖的笛聲為什麼依然在作者心頭迴盪不絕？</span>
+            </div>
+            <div class="cornell-reflect-student">
+              <span class="cornell-reflect-label">答：</span>
+              <div class="cornell-reflect-line"></div>
+            </div>
+            <div class="cornell-reflect-teacher">
+              <span class="cornell-reflect-teacher-tag">💡 【參考答案】：</span>
+              <span class="cornell-reflect-ans">因為笛聲已化為作者對故鄉、童年往事與慈愛母親永不磨滅的深沉思念與牽掛。</span>
+            </div>
+          </div>
+        </div>
+        
+            </div>
+            
+    <!-- 康乃爾底部全課總結欄 -->
+    <div class="cornell-summary-section">
+      <div class="cornell-sum-title">
+        <span>🏁 【全課核心情感與學習總結】</span>
+      </div>
+      <div class="cornell-sum-desc">
+        <strong>導引思考：</strong>琦君在本文中以「下雨天」為情感核心線索，串起童年故鄉聽故事、踩水、吃炒豆、採玉蘭花等甜蜜回憶，抒發離鄉後對母親的深切思念。請簡要總結作者感到「真好」的核心理由，並寫下本課最打動你的情節：
+      </div>
+      <div class="cornell-sum-lines">
+        <div class="cornell-sum-line"></div>
+        <div class="cornell-sum-line"></div>
+        <div class="cornell-sum-line"></div>
+      </div>
+    </div>
+    
+          </div>
+
+          
+          <div style="text-align:center; font-size:11.5px; color:#64748b; margin-top:12px; border-top:1px dashed #cbd5e1; padding-top:6px;">
+            🌧️ 琦君〈下雨天，真好〉課堂課後複習學習單 ‧ 嘉義縣立新港國中適性教學教材 ‧ CC BY-NC-SA 4.0
+          </div>
+        </div>
+        
+
+  <script>
+    let localTeacherMode = false;
+    let localVersion = 'v1';
+
+    function updateLocalDisplay() {
+      const s = document.querySelector('.lr-sheet');
+      const btnMode = document.getElementById('btn-local-mode');
+      const btnVer = document.getElementById('btn-local-version');
+      const lbl = document.getElementById('lrCurrentModeLabel');
+      const titleH = document.getElementById('lrSheetTitleHeader');
+
+      if (!s) return;
+
+      // Version
+      if (localVersion === 'v2') {
+        s.classList.remove('view-v1');
+        s.classList.add('view-v2');
+        if (btnVer) btnVer.textContent = '📑 切換為：精緻篇章版';
+        if (titleH) titleH.textContent = '第 3 課 琦君〈下雨天，真好〉全課逐段精讀評量（康乃爾筆記法版）';
+      } else {
+        s.classList.remove('view-v2');
+        s.classList.add('view-v1');
+        if (btnVer) btnVer.textContent = '📓 切換為：康乃爾筆記版';
+        if (titleH) titleH.textContent = '第 3 課 琦君〈下雨天，真好〉全課逐段精讀評量（精緻篇章版）';
+      }
+
+      // Mode
+      if (localTeacherMode) {
+        s.classList.remove('mode-student');
+        s.classList.add('mode-teacher');
+        if (btnMode) btnMode.textContent = '🎓 切換為：學生練習版';
+        if (lbl) {
+          lbl.textContent = '【教師解答版 (含紅字詳解與干擾項標示)】';
+          lbl.style.color = '#dc2626';
+        }
+      } else {
+        s.classList.remove('mode-teacher');
+        s.classList.add('mode-student');
+        if (btnMode) btnMode.textContent = '👨‍🏫 切換為：教師解答版';
+        if (lbl) {
+          lbl.textContent = '【學生練習版】';
+          lbl.style.color = '#0284c7';
+        }
+      }
+    }
+
+    function toggleLocalMode() {
+      localTeacherMode = !localTeacherMode;
+      updateLocalDisplay();
+    }
+
+    function toggleLocalVersion() {
+      localVersion = (localVersion === 'v1') ? 'v2' : 'v1';
+      updateLocalDisplay();
+    }
+
+    updateLocalDisplay();
+  </script>
+</body>
+</html>
