@@ -72,6 +72,36 @@
       print-color-adjust: exact !important;
     }
 
+    
+    /* QR Code on Header */
+    .hw-qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 5px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #ffffff;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .hw-qr-img {
+      width: 54px;
+      height: 54px;
+      display: block;
+    }
+    .hw-qr-caption {
+      font-size: 9px;
+      color: #0369a1;
+      font-weight: bold;
+      margin-top: 1px;
+      white-space: nowrap;
+    }
+    .hw-a4-sheet.hide-qr .hw-qr-box {
+      display: none !important;
+    }
+
     /* Sheet Header */
     .hw-sheet-header {
       margin-bottom: 8px;
@@ -381,6 +411,10 @@
     <button class="hw-tool-btn primary" onclick="window.print()">
       🖨️ 直接列印此作業單 (A4)
     </button>
+    <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-size:13px; font-weight:bold; background:#e0f2fe; padding:6px 12px; border-radius:6px; border:1px solid #7dd3fc; color:#0369a1; user-select:none;">
+      <input type="checkbox" id="chk-local-w1-qr" onchange="toggleW1QrLocal(this.checked)" checked style="cursor:pointer;">
+      📱 附學習網址 QR Code
+    </label>
     <button class="hw-tool-btn" onclick="toggleTraceLocal()" id="btn-local-trace">
       👁️ 隱藏第1組描紅提示
     </button>
@@ -395,9 +429,15 @@
                   <div class="hw-school-sub">新港國中 國語文領域 ‧ 適性教學課堂評量</div>
                   <h2 class="hw-main-title">第 3 課 琦君〈下雨天，真好〉 生字語詞習寫練習單</h2>
                 </div>
-                <div class="hw-student-meta">
-                  <div>____年____班　座號：____　姓名：____________</div>
-                  <div style="font-size:12px; color:#64748b; margin-top:3px;">評量：□ 優秀　□ 良好　□ 待加強 ｜ 批閱：______</div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div class="hw-student-meta">
+                    <div>____年____班　座號：____　姓名：____________</div>
+                    <div style="font-size:12px; color:#64748b; margin-top:3px;">評量：□ 優秀　□ 良好　□ 待加強 ｜ 批閱：______</div>
+                  </div>
+                  <div class="hw-qr-box" id="w1QrBox">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="自主學習網 QR Code" class="hw-qr-img">
+                    <span class="hw-qr-caption">📱 自主學習網</span>
+                  </div>
                 </div>
               </div>
               <div class="hw-goal-banner">
@@ -861,6 +901,15 @@
 
   <script>
     let traceOn = true;
+    function toggleW1QrLocal(show) {
+      const sheet = document.querySelector('.hw-a4-sheet');
+      if (!sheet) return;
+      if (show) {
+        sheet.classList.remove('hide-qr');
+      } else {
+        sheet.classList.add('hide-qr');
+      }
+    }
     function toggleTraceLocal() {
       traceOn = !traceOn;
       const traces = document.querySelectorAll('.hw-char-trace, .hw-zhuyin-trace');
