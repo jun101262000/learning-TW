@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔤 [S01] 相似字形音義特訓學習單 ‧ 琦君〈下雨天，真好〉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --accent-warm: #f59e0b;
+      --accent-green: #10b981;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --bg-page: #f1f5f9;
+      --border-card: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "BiauKai", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 16px 10px 80px 10px;
+    }
+
+    /* Top Action Bar (Screen Only) */
+    .no-print-toolbar {
+      max-width: 900px;
+      margin: 0 auto 16px auto;
+      background: #ffffff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    }
+
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tool-btn {
+      padding: 6px 13px;
+      font-size: 13.5px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .tool-btn:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+    .tool-btn.primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    }
+    .tool-btn.primary:hover {
+      background: var(--primary-dark);
+    }
+    .tool-btn.success {
+      background: #059669;
+      color: #ffffff;
+      border-color: #047857;
+    }
+    .tool-btn.warm {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fde68a;
+    }
+
+    /* A4 Paper Container */
+    .a4-paper {
+      max-width: 820px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 15mm 16mm;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      position: relative;
+    }
+
+    /* Header */
+    .ws-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+      gap: 12px;
+    }
+    .ws-title-area {
+      flex: 1;
+    }
+    .ws-school {
+      font-size: 14px;
+      color: #475569;
+      letter-spacing: 1.5px;
+      font-weight: 500;
+    }
+    .ws-main-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: 1px;
+      margin: 3px 0 6px 0;
+    }
+    .ws-code-badge {
+      display: inline-block;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 2px 8px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-right: 6px;
+    }
+    .ws-student-meta {
+      display: flex;
+      gap: 14px;
+      font-size: 14px;
+      color: #334155;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .meta-box {
+      border-bottom: 1.5px solid #94a3b8;
+      padding: 0 10px;
+      min-width: 70px;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* QR Code */
+    .ws-qr-box {
+      text-align: center;
+      flex-shrink: 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 6px;
+      background: #f8fafc;
+    }
+    .ws-qr-img {
+      width: 60px;
+      height: 60px;
+      display: block;
+      margin: 0 auto;
+    }
+    .ws-qr-text {
+      font-size: 10px;
+      font-weight: bold;
+      color: #0369a1;
+      margin-top: 2px;
+    }
+
+    /* Instructional Objective Banner */
+    .ws-goal-banner {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #0369a1;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Sections */
+    .ws-section {
+      margin-bottom: 22px;
+      page-break-inside: avoid;
+    }
+    .ws-sec-title {
+      font-size: 16.5px;
+      font-weight: bold;
+      color: #0369a1;
+      background: #f8fafc;
+      border-left: 4px solid #0284c7;
+      padding: 6px 12px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ws-sec-desc {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: normal;
+    }
+
+    /* Question Item */
+    .q-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      transition: all 0.15s ease;
+    }
+    .q-item:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .q-stem-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      font-size: 15.5px;
+      color: #0f172a;
+    }
+    .audio-icon-btn {
+      background: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: bold;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+    .audio-icon-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Options Row */
+    .opt-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      padding-left: 32px;
+    }
+    .opt-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .opt-item:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .opt-item.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+      box-shadow: 0 0 0 1px #0284c7;
+    }
+    .opt-audio-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 1px 3px;
+      opacity: 0.75;
+      transition: opacity 0.15s;
+    }
+    .opt-audio-btn:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    /* Cloze Fill Item */
+    .cloze-blank-box {
+      display: inline-block;
+      min-width: 50px;
+      padding: 1px 8px;
+      border-bottom: 2px solid #0284c7;
+      color: #0284c7;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Teacher Answer Banner */
+    .teacher-sol-banner {
+      display: none;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      font-size: 13px;
+      color: #92400e;
+    }
+    body.teacher-mode .teacher-sol-banner {
+      display: block !important;
+    }
+    body.teacher-mode .opt-item.is-correct {
+      background: #dcfce7 !important;
+      border-color: #10b981 !important;
+      color: #15803d !important;
+      font-weight: bold !important;
+    }
+
+    /* Floating Submission Banner (Screen Only) */
+    .submission-bar {
+      margin-top: 24px;
+      padding: 16px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .score-banner {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0369a1;
+      display: none;
+    }
+
+    /* Print Styles: Pure Clean A4 Exam Sheet */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+      .no-print, .no-print-toolbar, .audio-icon-btn, .opt-audio-btn, .submission-bar {
+        display: none !important;
+      }
+      .a4-paper {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .ws-header {
+        border-bottom: 2px solid #000000 !important;
+      }
+      .ws-sec-title {
+        background: #ffffff !important;
+        border-left: 3px solid #000000 !important;
+        color: #000000 !important;
+      }
+      .q-item {
+        border: 1px solid #cbd5e1 !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .opt-container {
+        padding-left: 10px !important;
+      }
+      .opt-item {
+        border: 1px solid #94a3b8 !important;
+        background: #ffffff !important;
+        color: #000000 !important;
+      }
+      .opt-item.selected {
+        box-shadow: none !important;
+        font-weight: bold !important;
+      }
+      /* In teacher mode print */
+      body.teacher-mode .teacher-sol-banner {
+        display: block !important;
+        background: #f8fafc !important;
+        border-left: 3px solid #000000 !important;
+        color: #000000 !important;
+      }
+      body.teacher-mode .opt-item.is-correct {
+        border: 2px solid #000000 !important;
+        text-decoration: underline !important;
+        font-weight: bold !important;
+      }
+      @page {
+        size: A4 portrait;
+        margin: 12mm 15mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Tool Bar (Screen Only) -->
+  <div class="no-print-toolbar no-print">
+    <div class="toolbar-left">
+      <a href="./index.html" class="tool-btn">🔙 返回數位教材主頁</a>
+      <span style="font-weight:bold; color:#0369a1; font-size:14.5px;">🎧 [S01] 相似字有聲學習單</span>
+      <select id="userSeatSelect" class="tool-btn" style="background:#f0f9ff; border-color:#bae6fd; color:#0369a1;">
+        <option value="01">👤 01 號學生</option>
+        <option value="02">👤 02 號學生</option>
+        <option value="03">👤 03 號學生</option>
+        <option value="04">👤 04 號學生</option>
+        <option value="05">👤 05 號學生</option>
+        <option value="06">👤 06 號學生</option>
+        <option value="老師">👨‍🏫 老師模式</option>
+      </select>
+    </div>
+
+    <div class="toolbar-right">
+      <button class="tool-btn warm" onclick="toggleTeacherMode()" id="teacherModeBtn">
+        👁️ 切換教師解答版
+      </button>
+      <button class="tool-btn" onclick="exportWordDoc()" style="background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8;">
+        📥 匯出 Word 檔（大聲朗讀版）
+      </button>
+      <button class="tool-btn success" onclick="window.print()">
+        🖨️ A4 純淨列印
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 Paper Content -->
+  <div class="a4-paper" id="worksheetPaper">
+    <!-- Header -->
+    <header class="ws-header">
+      <div class="ws-title-area">
+        <div class="ws-school">嘉義縣立新港國中 國語文領域 課堂學習評量卷</div>
+        <h1 class="ws-main-title">
+          <span class="ws-code-badge">S01</span>第 3 課 琦君〈下雨天，真好〉相似字形音義特訓單
+        </h1>
+        <div class="ws-student-meta">
+          <span>年級班級：七年____班</span>
+          <span>座號：<span class="meta-box" id="dispSeatNumber">01</span></span>
+          <span>姓名：<span class="meta-box">＿＿＿＿</span></span>
+          <span>得分：<span class="meta-box" id="dispTotalScore">＿＿</span></span>
+        </div>
+      </div>
+      <div class="ws-qr-box">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="教材QR碼" class="ws-qr-img">
+        <div class="ws-qr-text">手機掃描聽朗讀</div>
+      </div>
+    </header>
+
+    <!-- Goal Banner -->
+    <div class="ws-goal-banner">
+      <div>
+        <strong>🎯 核心目標：</strong>熟練「縈、瑩、營、螢」與「麴、掬、鞠」之部首形義、字音與課文生活成語辨析。
+      </div>
+      <div class="no-print">
+        <span style="font-size:12px; color:#0369a1;">🔊 提示：點擊任何 🔊 按鈕或句子可直接慢速語音朗讀，題目目標字已設定防透題遮罩！</span>
+      </div>
+    </div>
+
+    <!-- 一大題：看詞語選注音 (7題) -->
+    <section class="ws-section" id="sec-zhuyin">
+      <div class="ws-sec-title">
+        <span>一大題：看詞語選正確注音（共 7 題，每題 4 分）</span>
+        <span class="ws-sec-desc">請仔細看題目詞語，點擊或選出正確的讀音</span>
+      </div>
+      <div id="zhuyinQuestionsContainer">
+        <!-- Generated by JS -->
+      </div>
+    </section>
+
+    <!-- 二大題：看注音選國字 (7題) -->
+    <section class="ws-section" id="sec-char">
+      <div class="ws-sec-title">
+        <span>二大題：看注音選正確國字（共 7 題，每題 5 分）</span>
+        <span class="ws-sec-desc">請依句子前後文與注音，選出字形正確的國字</span>
+      </div>
+      <div id="charQuestionsContainer">
+        <!-- Generated by JS -->
+      </div>
+    </section>
+
+    <!-- 三大題：文意成語與生活詞語填空 (7題) -->
+    <section class="ws-section" id="sec-cloze">
+      <div class="ws-sec-title">
+        <span>三大題：成語文意與生活詞語填空（共 7 題，每題 5 分）</span>
+        <span class="ws-sec-desc">請選出括號中最適當的目標字（粗體字為重點詞語提示）</span>
+      </div>
+      <div id="clozeQuestionsContainer">
+        <!-- Generated by JS -->
+      </div>
+    </section>
+
+    <!-- 底部作答提交與計分欄 (螢幕專用) -->
+    <div class="submission-bar no-print">
+      <div class="score-banner" id="scoreBanner">
+        🎉 恭喜完成！您的測驗得分為：<span id="finalScoreVal" style="color:#ef4444; font-size:24px;">0</span> 分！
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="tool-btn primary" onclick="submitWorksheetAnswers()" style="padding:10px 24px; font-size:16px;">
+          🚀 送出成果並同步至 Google 試算表
+        </button>
+        <button class="tool-btn" onclick="resetWorksheetAnswers()">
+          🔄 清除重填
+        </button>
+      </div>
+      <p style="font-size:12.5px; color:#64748b; margin-top:4px;" id="syncStatusTip">
+        成績、耗時與座號將自動記錄並送出給任課教師。
+      </p>
+    </div>
+  </div>
+
+  <!-- JavaScript Engine -->
+  <script>
+    const zhuyinData = [{"id": "zy1", "display_word": "晶【 瑩 】剔透", "audio_stem": "晶什麼剔透", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˊ", "ㄧㄥˇ", "ㄧㄣˊ", "ㄧㄥ"], "hint": "玉部，形容美玉透明光潔，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy2", "display_word": "魂牽夢【 縈 】", "audio_stem": "魂牽夢什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˊ", "ㄧㄥˇ", "ㄧㄣˊ", "ㄧㄥ"], "hint": "糸部，思緒如絲線旋繞，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy3", "display_word": "步步為【 營 】", "audio_stem": "步步為什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˊ", "ㄧㄥˇ", "ㄧㄣˊ", "ㄧㄥ"], "hint": "宮部，軍隊安扎營地小心防守，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy4", "display_word": "映雪囊【 螢 】", "audio_stem": "映雪囊什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˊ", "ㄧㄥˇ", "ㄧㄣˊ", "ㄧㄥ"], "hint": "虫部，夜間尾巴發光的小昆蟲，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy5", "display_word": "綠【 麴 】發霉", "audio_stem": "綠什麼發霉", "ans": "ㄑㄩˊ", "options": ["ㄑㄩˊ", "ㄐㄩˊ", "ㄑㄩ", "ㄐㄩ"], "hint": "麥部發酵菌絲，音同水渠的「渠（ㄑㄩˊ）」，請勿念錯！"}, {"id": "zy6", "display_word": "笑容可【 掬 】", "audio_stem": "笑容可什麼", "ans": "ㄐㄩˊ", "options": ["ㄐㄩˊ", "ㄑㄩˊ", "ㄐㄩ", "ㄑㄩ"], "hint": "手部，雙手合捧滿臉笑容，音同局面的「局（ㄐㄩˊ）」。"}, {"id": "zy7", "display_word": "【 鞠 】躬盡瘁", "audio_stem": "什麼躬盡瘁", "ans": "ㄐㄩˊ", "options": ["ㄐㄩˊ", "ㄑㄩˊ", "ㄐㄩ", "ㄑㄩ"], "hint": "革部，皮革彎曲躬身行禮，音同局面的「局（ㄐㄩˊ）」。"}];
+    const charData = [{"id": "qc1", "display_context": "琉璃藝術品晶【 ㄧㄥˊ 】剔透。", "audio_stem": "琉璃藝術品晶什麼剔透", "ans": "瑩", "options": ["瑩", "縈", "營", "螢"], "hint": "表示美玉光潔透亮，底部部首為「玉」。"}, {"id": "qc2", "display_context": "雨天把作者帶回魂牽夢【 ㄧㄥˊ 】的故鄉。", "audio_stem": "雨天把作者帶回魂牽夢什麼的故鄉", "ans": "縈", "options": ["縈", "瑩", "營", "螢"], "hint": "表示思念如細絲線纏繞，底部部首為「糸」。"}, {"id": "qc3", "display_context": "她做事情小心謹慎，步步為【 ㄧㄥˊ 】。", "audio_stem": "她做事情小心謹慎，步步為什麼", "ans": "營", "options": ["營", "縈", "瑩", "螢"], "hint": "表示像軍營防守安營，底部為宮室「呂」。"}, {"id": "qc4", "display_context": "古代書生映雪囊【 ㄧㄥˊ 】，在困境中苦讀。", "audio_stem": "古代書生映雪囊什麼，在困境中苦讀", "ans": "螢", "options": ["螢", "縈", "瑩", "營"], "hint": "表示在黑夜裡發光的小昆蟲，底部部首為「虫」。"}, {"id": "qc5", "display_context": "屋內潮濕受潮，書本抽屜長出了一層綠【 ㄑㄩˊ 】。", "audio_stem": "屋內潮濕受潮，書本抽屜長出了一層綠什麼", "ans": "麴", "options": ["麴", "掬", "鞠", "渠"], "hint": "指受潮發霉生出的菌絲，部首為「麥」，讀音ㄑㄩˊ。"}, {"id": "qc6", "display_context": "王里長平日待人熱忱，總是笑容可【 ㄐㄩˊ 】。", "audio_stem": "王里長平日待人熱忱，總是笑容可什麼", "ans": "掬", "options": ["掬", "麴", "鞠", "局"], "hint": "指雙手捧起笑容，部首為「手（扌）」，讀音ㄐㄩˊ。"}, {"id": "qc7", "display_context": "他對地方鄉親事務【 ㄐㄩˊ 】躬盡瘁，令人感佩。", "audio_stem": "他對地方鄉親事務什麼躬盡瘁，令人感佩", "ans": "鞠", "options": ["鞠", "掬", "麴", "局"], "hint": "指彎身躬行行禮，部首為「革」，讀音ㄐㄩˊ。"}];
+    const clozeData = [{"id": "cl1", "display_html": "古代讀書人<strong>映雪囊（　）</strong>，伏案夜讀，就是期望有朝一日能金榜題名，光耀門楣。", "audio_stem": "古代讀書人映雪囊什麼，伏案夜讀，就是期望有朝一日能金榜題名，光耀門楣。", "context_before": "古代讀書人映雪囊", "context_after": "，伏案夜讀，就是期望有朝一日能金榜題名，光耀門楣。", "ans": "螢", "options": ["螢", "瑩", "縈", "營"], "annotation": "【映雪囊螢】：比喻在困境中勤奮讀書。因螢火蟲是昆蟲，故用虫部的「螢」。"}, {"id": "cl2", "display_html": "姍姍的琉璃作品<strong>晶（　）剔透</strong>、獨具風格，頗受好評。", "audio_stem": "姍姍的琉璃作品晶什麼剔透、獨具風格，頗受好評。", "context_before": "姍姍的琉璃作品晶", "context_after": "剔透、獨具風格，頗受好評。", "ans": "瑩", "options": ["瑩", "螢", "縈", "營"], "annotation": "【晶瑩剔透】：透明光潔無雜質。玉石般的光澤，故用玉部的「瑩」。"}, {"id": "cl3", "display_html": "商場競爭多變，但她做事仍<strong>步步為（　）</strong>，嚴防敵手攻擊。", "audio_stem": "商場競爭多變，但她做事仍步步為什麼，嚴防敵手攻擊。", "context_before": "商場競爭多變，但她做事仍步步為", "context_after": "，嚴防敵手攻擊。", "ans": "營", "options": ["營", "縈", "瑩", "螢"], "annotation": "【步步為營】：軍隊前進一程就建立營壘。比喻行動做事極其謹慎防備。"}, {"id": "cl4", "display_html": "她心中不時<strong>（　）繞</strong>著如何突破、創新的念頭。", "audio_stem": "她心中不時什麼繞著如何突破、創新的念頭。", "context_before": "她心中不時", "context_after": "繞著如何突破、創新的念頭。", "ans": "縈", "options": ["縈", "營", "瑩", "螢"], "annotation": "【縈繞】：在心頭盤旋纏繞，如絲線迴旋，故用糸部的「縈」。"}, {"id": "cl5", "display_html": "王里長平日總是<strong>笑容可（　）</strong>，鄰居都喜歡親近他。", "audio_stem": "王里長平日總是笑容可什麼，鄰居都喜歡親近他。", "context_before": "王里長平日總是笑容可", "context_after": "，鄰居都喜歡親近他。", "ans": "掬", "options": ["掬", "鞠", "麴", "菊"], "annotation": "【笑容可掬】：笑容滿面，彷彿用雙手捧著一般，故用手部的「掬」。"}, {"id": "cl6", "display_html": "他對鄉裡的事務更是<strong>（　）躬盡瘁</strong>，因此得到眾人的肯定與稱頌。", "audio_stem": "他對鄉裡的事務更是什麼躬盡瘁，因此得到眾人的肯定與稱頌。", "context_before": "他對鄉裡的事務更是", "context_after": "躬盡瘁，因此得到眾人的肯定與稱頌。", "ans": "鞠", "options": ["鞠", "掬", "麴", "菊"], "annotation": "【鞠躬盡瘁】：恭敬戒慎，竭盡全力。躬身彎腰，故用革部的「鞠」。"}, {"id": "cl7", "display_html": "梅雨時節氣候潮濕，櫥櫃角落發霉長出了<strong>綠（　）</strong>。", "audio_stem": "梅雨時節氣候潮濕，櫥櫃角落發霉長出了綠什麼。", "context_before": "梅雨時節氣候潮濕，櫥櫃角落發霉長出了綠", "context_after": "。", "ans": "麴", "options": ["麴", "掬", "鞠", "麥"], "annotation": "【綠麴】：本課指受潮發霉生出的絲狀微生物，以穀物為原料，故用麥部的「麴」。"}];
+    const GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWxukvaDgEbsW-N4YoFKYPJZvQdQdHemfIesEvw5jcLhjrxBJhgAW_6jpylq0QVdaD/exec";
+
+    let startTime = Date.now();
+    let isTeacherMode = false;
+    let userAnswers = {};
+
+    // Web Speech API Voice Synthesizer
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.85; // 慢速清晰
+      window.speechSynthesis.speak(u);
+    }
+
+    // Render Zhuyin Questions
+    function renderZhuyinQuestions() {
+      const c = document.getElementById('zhuyinQuestionsContainer');
+      let html = '';
+      zhuyinData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('注音：${opt}')" title="報讀選項">🔊</button>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')">🔊 報讀題目</button>
+                <span>第 ${qNum} 題：請選出正確的注音 ➔ <strong>${q.display_word}</strong></span>
+              </div>
+            </div>
+            <div class="opt-container">
+              ${optHtml}
+            </div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 解析：${q.hint}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Char Questions
+    function renderCharQuestions() {
+      const c = document.getElementById('charQuestionsContainer');
+      let html = '';
+      charData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('國字：${opt}')" title="報讀選項">🔊</button>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')">🔊 報讀題目</button>
+                <span>第 ${qNum} 題：請選出正確的國字 ➔ ${q.display_context}</span>
+              </div>
+            </div>
+            <div class="opt-container">
+              ${optHtml}
+            </div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 解析：${q.hint}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Cloze Questions
+    function renderClozeQuestions() {
+      const c = document.getElementById('clozeQuestionsContainer');
+      let html = '';
+      clozeData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('國字：${opt}')" title="報讀選項">🔊</button>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')">🔊 報讀句子</button>
+                <span>第 ${qNum} 題：${q.display_html}</span>
+              </div>
+            </div>
+            <div class="opt-container">
+              ${optHtml}
+            </div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 詞義解析：${q.annotation}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Option Click
+    function chooseOption(qid, val, el) {
+      userAnswers[qid] = val;
+      const parent = el.closest('.opt-container');
+      parent.querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Teacher Mode Toggle
+    function toggleTeacherMode() {
+      isTeacherMode = !isTeacherMode;
+      document.body.classList.toggle('teacher-mode', isTeacherMode);
+      const btn = document.getElementById('teacherModeBtn');
+      if (isTeacherMode) {
+        btn.textContent = '🎓 切換學生練習版';
+        btn.style.background = '#dcfce7';
+        btn.style.color = '#15803d';
+        // Highlight correct options
+        markAllCorrectOptions();
+      } else {
+        btn.textContent = '👁️ 切換教師解答版';
+        btn.style.background = '#fef3c7';
+        btn.style.color = '#b45309';
+      }
+    }
+
+    function markAllCorrectOptions() {
+      const allQ = [...zhuyinData, ...charData, ...clozeData];
+      allQ.forEach(q => {
+        const item = document.getElementById('item-' + q.id);
+        if (!item) return;
+        item.querySelectorAll('.opt-item').forEach(optEl => {
+          if (optEl.getAttribute('data-val') === q.ans) {
+            optEl.classList.add('is-correct');
+          }
+        });
+      });
+    }
+
+    // Submit Answers & Send to Google Sheets
+    function submitWorksheetAnswers() {
+      let score = 0;
+      let totalQ = zhuyinData.length + charData.length + clozeData.length;
+      let correctCount = 0;
+
+      // Grade Zhuyin (4 pts each = 28)
+      zhuyinData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 4;
+          correctCount++;
+        }
+      });
+      // Grade Char (5 pts each = 35)
+      charData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 5;
+          correctCount++;
+        }
+      });
+      // Grade Cloze (5 pts (first 6) + 7 pts (last 1) = 37 => Total 100)
+      clozeData.forEach((q, idx) => {
+        const pts = (idx === clozeData.length - 1) ? 7 : 5;
+        if (userAnswers[q.id] === q.ans) {
+          score += pts;
+          correctCount++;
+        }
+      });
+
+      document.getElementById('dispTotalScore').textContent = score;
+      document.getElementById('finalScoreVal').textContent = score;
+      document.getElementById('scoreBanner').style.display = 'block';
+
+      // Auto Highlight correct / wrong
+      markAllCorrectOptions();
+      document.body.classList.add('teacher-mode');
+
+      // Sync payload
+      const seat = document.getElementById('userSeatSelect').value;
+      const durationSec = Math.round((Date.now() - startTime) / 1000);
+      const tipEl = document.getElementById('syncStatusTip');
+      tipEl.innerHTML = `<span style="color:#0284c7;">⏳ 正在同步成果至 Google 試算表...</span>`;
+
+      const payload = {
+        action: 'quiz_submit',
+        userRole: seat,
+        sheetCode: 'S01',
+        title: '相似字形音義特訓學習單',
+        score: score,
+        totalQuestions: totalQ,
+        correctCount: correctCount,
+        durationSeconds: durationSec,
+        submittedAt: new Date().toISOString()
+      };
+
+      try {
+        fetch(GOOGLE_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          tipEl.innerHTML = `<span style="color:#10b981; font-weight:bold;">✅ 已成功將座號 ${seat} 成果送出至教師試算表！（耗時 ${durationSec} 秒）</span>`;
+        }).catch(err => {
+          tipEl.innerHTML = `<span style="color:#b45309;">💡 成果已於本機核算完成（離線環境不影響作答）</span>`;
+        });
+      } catch(e) {
+        tipEl.innerHTML = `<span style="color:#b45309;">💡 成果已於本機核算完成</span>`;
+      }
+
+      speak(`測驗完成！你的得分是 ${score} 分！`);
+    }
+
+    function resetWorksheetAnswers() {
+      userAnswers = {};
+      document.querySelectorAll('.opt-item').forEach(el => {
+        el.classList.remove('selected', 'is-correct');
+      });
+      document.getElementById('dispTotalScore').textContent = '＿＿';
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.body.classList.remove('teacher-mode');
+      isTeacherMode = false;
+      const btn = document.getElementById('teacherModeBtn');
+      btn.textContent = '👁️ 切換教師解答版';
+      btn.style.background = '#fef3c7';
+      btn.style.color = '#b45309';
+      document.getElementById('syncStatusTip').textContent = '成績、耗時與座號將自動記錄並送出給任課教師。';
+    }
+
+    // Export Word Document Compatible with "大聲朗讀" (Read Aloud)
+    function exportWordDoc() {
+      const seat = document.getElementById('userSeatSelect').value;
+      let docContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8">
+          <title>相似字形音義特訓單 (Word大聲朗讀版)</title>
+          <style>
+            body { font-family: "標楷體", "DFKai-SB", serif; font-size: 14pt; line-height: 1.8; }
+            h1 { font-size: 20pt; text-align: center; color: #0369a1; margin-bottom: 5pt; }
+            h2 { font-size: 16pt; color: #0f172a; margin-top: 15pt; border-bottom: 1.5pt solid #0284c7; padding-bottom: 3pt; }
+            .meta { font-size: 12pt; text-align: center; margin-bottom: 15pt; }
+            .q-box { margin-bottom: 10pt; }
+            .opts { margin-left: 20pt; color: #334155; }
+            .ans-note { color: #dc2626; font-size: 11pt; margin-top: 2pt; margin-left: 20pt; }
+          </style>
+        </head>
+        <body>
+          <h1>嘉義縣立新港國中 國語文領域 課堂學習評量卷</h1>
+          <div class="meta">【S01 相似字形音義特訓單】 班級：七年____班  座號：${seat}  姓名：＿＿＿＿  得分：＿＿</div>
+          <p><em>💡 提示：在 Word 中點選上方功能區「校閱」➔「大聲朗讀」（或按快捷鍵 Ctrl+Alt+Space），即可練習逐題自動發音朗讀！</em></p>
+
+          <h2>一大題：看詞語選正確注音</h2>
+      `;
+
+      zhuyinData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出正確的注音。</strong> 題目詞語：${q.display_word}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 解析：${q.hint}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>二大題：看注音選正確國字</h2>`;
+      charData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出正確的國字。</strong> 句子：${q.display_context}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 解析：${q.hint}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>三大題：成語文意與生活詞語填空</h2>`;
+      clozeData.forEach((q, idx) => {
+        const plainText = q.display_html.replaceAll('<strong>', '').replaceAll('</strong>', '');
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出最適當的字填入（　）。</strong> 句子：${plainText}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 詞義解析：${q.annotation}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `</body></html>`;
+
+      const blob = new Blob(['﻿' + docContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `S01_相似字形音義特訓學習單_${isTeacherMode ? '教師解答版' : '學生練習版'}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Init
+    document.getElementById('userSeatSelect').addEventListener('change', function(e) {
+      document.getElementById('dispSeatNumber').textContent = e.target.value;
+      if (e.target.value === '老師' && !isTeacherMode) {
+        toggleTeacherMode();
+      }
+    });
+
+    renderZhuyinQuestions();
+    renderCharQuestions();
+    renderClozeQuestions();
+  </script>
+</body>
+</html>
