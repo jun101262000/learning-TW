@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📚 語文與適性教學 數位互動教材庫</title>
+  <title>115數位學習網頁</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
@@ -35,11 +35,11 @@
       margin-bottom: 28px;
     }
     header h1 {
-      font-size: 28px;
+      font-size: 30px;
       color: #0369a1;
       margin-bottom: 8px;
       font-weight: 900;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
     header p {
       font-size: 15px;
@@ -47,7 +47,7 @@
       line-height: 1.6;
     }
 
-    /* 頂部快捷 QR Code 橫幅 */
+    /* 投影快捷 QR Code 橫幅 */
     .qr-banner {
       background: #ffffff;
       border: 1px solid #bae6fd;
@@ -70,7 +70,7 @@
     .qr-info h4 { font-size: 16px; color: #0284c7; margin-bottom: 4px; }
     .qr-info p { font-size: 13.5px; color: #64748b; }
 
-    /* 書架卡片網格 */
+    /* 書架網格 */
     .bookshelf-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -88,7 +88,6 @@
       flex-direction: column;
       justify-content: space-between;
       transition: all 0.25s ease;
-      position: relative;
     }
     .book-card:hover {
       transform: translateY(-4px);
@@ -164,16 +163,16 @@
 <body>
 
   <header>
-    <h1>📚 國中適性語文 數位互動教材庫</h1>
+    <h1>📚 115數位學習網頁</h1>
     <p>自製電子書（雙模式）：支援學生端純淨 A4 列印 ｜ 教師端大屏投影逐題秀答案</p>
   </header>
 
   <!-- 投影快速掃碼列 -->
   <div class="qr-banner">
-    <img src="qrcode_learning_tw.png" alt="教材庫 QR Code">
+    <img src="qrcode_learning_tw.png" alt="115數位學習網頁 QR Code">
     <div class="qr-info">
       <h4>📱 學生課堂自主學習掃碼</h4>
-      <p>請學生以平板或手機相機掃描 QR Code，即可進入教材總目錄選擇當日單元。</p>
+      <p>請學生以平板或手機相機掃描 QR Code，即可進入 115數位學習網頁 選擇當日進度。</p>
     </div>
   </div>
 
@@ -207,7 +206,6 @@
         </p>
       </div>
       <div class="card-footer">
-        <!-- 未來第二本書完成後，將 href 改成第二本書的檔名（例如 ./book2.html 或 ./ch04/），並移除 disabled class 即可 -->
         <a href="./book2.html" class="open-btn disabled">⏳ 敬請期待</a>
       </div>
     </div>
@@ -215,7 +213,7 @@
   </main>
 
   <footer>
-    <p>教育部教材合理使用教學專案 ｜ 教師備課創新計畫</p>
+    <p>115學年度教材數位化專案 ｜ 教師備課創新計畫</p>
   </footer>
 
 </body>
