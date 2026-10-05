@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏆 [CL3-101] 綜合會考有聲練習卷 ‧ 琦君〈下雨天，真好〉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7; --primary-dark: #0369a1; --accent-warm: #f59e0b;
+      --text-main: #0f172a; --bg-page: #f1f5f9; --border-card: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", sans-serif;
+      background-color: var(--bg-page); color: var(--text-main);
+      font-size: 16px; line-height: 1.6; padding: 16px 12px 90px 12px;
+    }
+    .no-print-toolbar {
+      max-width: 900px; margin: 0 auto 16px auto; background: #ffffff;
+      border: 1.5px solid #bae6fd; border-radius: 12px; padding: 12px 18px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .tool-btn {
+      padding: 8px 16px; font-size: 14.5px; font-weight: bold; border-radius: 8px;
+      border: 1.5px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .tool-btn:hover { background: #f8fafc; border-color: #94a3b8; }
+    .tool-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tool-btn.warm { background: #fef3c7; color: #b45309; border-color: #fde047; }
+    .tool-btn.success { background: #dcfce7; color: #15803d; border-color: #86efac; }
+
+    .a4-paper {
+      max-width: 900px; margin: 0 auto; background: #ffffff; padding: 30px 36px;
+      border-radius: 14px; border: 1px solid var(--border-card); box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+    .ws-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 2.5px solid #0284c7; padding-bottom: 14px; margin-bottom: 18px; gap: 16px;
+    }
+    .ws-code-badge {
+      background: #0284c7; color: #fff; font-size: 13.5px; padding: 2px 12px;
+      border-radius: 6px; font-family: monospace; font-weight: 900;
+    }
+    .ws-student-meta { display: flex; gap: 16px; font-size: 14.5px; color: #334155; margin-top: 6px; font-weight: bold; }
+    .meta-box { border-bottom: 2px solid #64748b; padding: 0 10px; min-width: 70px; text-align: center; color: #0284c7; }
+
+    /* Req 4: 字加大、間距拉大、換頁規範 */
+    .ws-section { margin-bottom: 28px; }
+    .ws-sec-title {
+      font-size: 18.5px; font-weight: bold; color: #0369a1; background: #f0f9ff;
+      border-left: 5px solid #0284c7; padding: 10px 16px; margin-bottom: 16px;
+      border-radius: 0 8px 8px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .q-item {
+      background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 10px;
+      padding: 16px 20px; margin-bottom: 22px; transition: border 0.15s;
+    }
+    .audio-icon-btn {
+      background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0284c7; border-radius: 6px;
+      padding: 4px 10px; font-size: 15px; cursor: pointer; flex-shrink: 0;
+    }
+    .opt-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 8px; }
+    @media (max-width: 600px) {
+      .opt-container { grid-template-columns: 1fr; }
+    }
+    .opt-item {
+      background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 8px;
+      padding: 9px 12px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 15.5px; cursor: pointer; line-height: 1.4; transition: all 0.15s ease;
+    }
+    .opt-item:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .opt-item.selected { background: #e0f2fe; border-color: #0284c7; color: #0369a1; font-weight: bold; }
+    .teacher-sol-banner { display: none !important; margin-top: 10px; padding: 8px 14px; background: #fef3c7; color: #92400e; border-radius: 8px; font-size: 14.5px; border-left: 4px solid #f59e0b; }
+    body.teacher-mode .teacher-sol-banner { display: block !important; }
+    .teacher-mode .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+
+    /* Req 5: 座號報到 Modal */
+    .seat-modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 99999;
+    }
+    .seat-modal-box {
+      background: #ffffff; border-radius: 16px; padding: 26px 30px; max-width: 460px; width: 92%;
+      border: 2px solid #38bdf8; box-shadow: 0 10px 30px rgba(0,0,0,0.25); text-align: center;
+    }
+    .seat-grid-btn {
+      padding: 12px; font-size: 17px; font-weight: bold; border-radius: 10px;
+      border: 2px solid #cbd5e1; background: #f8fafc; color: #1e293b; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .seat-grid-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .seat-grid-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,0.35); }
+
+    @media print {
+      @page { size: A4 portrait; margin: 14mm 12mm; }
+      body { background: #fff; padding: 0; font-size: 15px; }
+      .no-print, .no-print-toolbar, .submission-bar, .seat-modal-overlay { display: none !important; }
+      .a4-paper { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      /* Req 4: 一大題可以超過1頁，但進入下一大題一定要強制換頁 */
+      .ws-section {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-bottom: 24px !important;
+      }
+      .ws-section:first-of-type {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      .q-item {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 18px !important;
+        padding: 12px 16px !important;
+        border: 1px solid #cbd5e1;
+      }
+      .audio-icon-btn, .opt-audio-btn { display: none !important; }
+      .teacher-sol-banner { display: none !important; }
+      body.teacher-mode .teacher-sol-banner { display: block !important; }
+      .opt-container { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Req 5: 進入試卷時的座號選擇對話框 -->
+  <div id="seatSelectModal" class="seat-modal-overlay">
+    <div class="seat-modal-box">
+      <div style="font-size:36px; margin-bottom:8px;">👋</div>
+      <h3 style="font-size:21px; font-weight:900; color:#0369a1; margin-bottom:6px;">
+        歡迎進入【綜合會考】有聲練習卷
+      </h3>
+      <p style="font-size:14.5px; color:#64748b; margin-bottom:18px;">
+        請先點選您的作答座號，確認後點擊「開始作答」開啟測驗與計時：
+      </p>
+      
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:14px;">
+        <button class="seat-grid-btn active" onclick="pickSeatModal('01', this)">01 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('02', this)">02 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('03', this)">03 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('04', this)">04 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('05', this)">05 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('06', this)">06 號</button>
+      </div>
+      <button class="seat-grid-btn" style="width:100%; margin-bottom:18px; font-size:14.5px;" onclick="pickSeatModal('test.', this)">
+        🎓 教師示範 / 測試模式 (test.)
+      </button>
+
+      <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:17px;" onclick="confirmStartQuiz()">
+        🚀 確認座號，開始作答！
+      </button>
+    </div>
+  </div>
+
+  <div class="no-print-toolbar no-print">
+    <div class="toolbar-left">
+      <a href="./index.html" class="tool-btn">🔙 返回教材首頁</a>
+      <span style="font-weight:bold; color:#0369a1; font-size:14px;">🎧 綜合會考練習卷</span>
+      <select id="sheetVariantSelect" class="tool-btn" onchange="changeSheetVariant(this.value)" style="background:#f0f9ff; border-color:#bae6fd; color:#0369a1; font-weight:bold;">
+        <option value="101">📜 卷一 (CL3-101)</option>
+        <option value="102">📜 卷二 (CL3-102)</option>
+        <option value="103">📜 卷三 (CL3-103)</option>
+        <option value="rand">🎲 隨機全新洗牌卷</option>
+      </select>
+      <button class="tool-btn" onclick="openSeatModal()" id="btnCurSeat" style="background:#f8fafc; font-weight:bold; color:#0284c7;">
+        👤 座號：01號 [變更]
+      </button>
+    </div>
+    <div class="toolbar-right">
+      <button class="tool-btn warm" id="teacherModeBtn" onclick="toggleTeacherMode()">👁️ 切換教師解答版</button>
+      <button class="tool-btn" onclick="exportWordDoc()" style="background:#eff6ff; color:#1d4ed8;">📥 匯出 Word 檔</button>
+      <button class="tool-btn success" onclick="window.print()">🖨️ A4 純淨列印</button>
+    </div>
+  </div>
+
+  <div class="a4-paper">
+    <header class="ws-header">
+      <div>
+        <div style="font-size:13px; color:#64748b; font-weight:bold;">國語文領域 課堂學習評量卷</div>
+        <h1 style="font-size:20px; font-weight:900; color:#0369a1; margin:3px 0;">
+          <span class="ws-code-badge" id="sheetCodeBadge">CL3-101</span> <span id="sheetMainTitleText">第 3 課 琦君〈下雨天，真好〉綜合會考有聲練習卷 (卷一)</span>
+        </h1>
+        <div class="ws-student-meta">
+          <span>年級班級：七年____班</span>
+          <span>座號：<span class="meta-box" id="dispSeatNumber">01</span></span>
+          <span>姓名：<span class="meta-box">＿＿＿＿</span></span>
+          <span>得分：<span class="meta-box" id="dispTotalScore">＿＿</span></span>
+        </div>
+      </div>
+      <div style="text-align:center; border:1px solid #cbd5e1; border-radius:6px; padding:3px 6px; background:#f8fafc;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="QR" style="width:54px; height:54px; display:block;">
+        <div style="font-size:9px; font-weight:bold; color:#0369a1;">手機掃描聽朗讀</div>
+      </div>
+    </header>
+
+    <!-- 一大題：課文理解與深究 (11題，第 1 頁) -->
+    <section class="ws-section" id="sec-comp-p1">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('一大題：課文理解與深究。全課 11 個段落深度理解單選題，請選出正確答案。')">🔊 聽大題說明</button>
+          <span>一大題：課文理解與深究（共 11 題，每題 5 分，共 55 分）</span>
+        </div>
+        <span style="font-size:12px; color:#64748b;">全課 11 個段落深度理解單選題</span>
+      </div>
+      <div id="compP1Container"></div>
+    </section>
+
+    <!-- 二大題：文學素養與延伸探究 (10題，第 2 頁) -->
+    <section class="ws-section" id="sec-comp-p2">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('二大題：文學素養與延伸探究。共 10 題素養單選題，請選出最適當的答案。')">🔊 聽大題說明</button>
+          <span>二大題：文學素養與延伸探究（共 10 題，每題 4.5 分，共 45 分，滿分 100 分）</span>
+        </div>
+        <span style="font-size:12px; color:#64748b;">修辭、作法、文旨與語文常識素養題</span>
+      </div>
+      <div id="compP2Container"></div>
+    </section>
+
+    <div class="submission-bar no-print" style="margin-top:20px; text-align:center;">
+      <div id="scoreBanner" style="display:none; font-size:20px; font-weight:bold; color:#0369a1; background:#f0f9ff; padding:8px 24px; border-radius:20px; border:2px solid #bae6fd; margin-bottom:10px;">
+        🎉 恭喜完成！您的測驗得分為：<span id="finalScoreVal" style="color:#ef4444; font-size:24px;">0</span> 分！
+      </div>
+      <button class="tool-btn primary" onclick="submitAnswers()" style="padding:10px 24px; font-size:16px;">🚀 送出成果並同步至 Google 試算表</button>
+      <button class="tool-btn" onclick="resetAnswers()">🔄 清除重填</button>
+      <p id="syncTip" style="font-size:12px; color:#64748b; margin-top:6px;">成績與耗時將自動記錄並送出給教師。</p>
+    </div>
+  </div>
+
+  <script>
+    const p1Pool = [[{"para": 1, "q": "1.【第1段】作者在清晨拉開窗簾，看到窗戶上滿是水珠，心中的感受是什麼？", "opts": ["擔心出門上學一定會遲到", "抱怨天色陰暗不能去玩耍", "感到由衷欣喜並讚嘆真好", "害怕打雷驚嚇得想要大哭"], "ans": 2}, {"para": 1, "q": "1.【第1段】課文開頭第一句話「下雨天，真好」，奠定了全文怎樣的感情基調？", "opts": ["憂傷、埋怨與煩躁的無奈心情", "喜愛、溫馨與懷念的歡欣基調", "驚恐、慌張與急迫的避難氣氛", "嚴肅、客觀與冷靜的氣象觀察"], "ans": 1}, {"para": 1, "q": "1.【第1段】第1段的段落大意主要在描寫什麼內容？", "opts": ["抱怨連日大雨造成出門不便與淹水", "描繪夏日午後突然刮起狂風與暴雨", "記錄自己在學校上課時看見窗外下雨", "清晨看見滿窗水珠，欣喜迎接美好的下雨天"], "ans": 3}], [{"para": 2, "q": "2.【第2段】作者說要把童年好時光「用雨珠的鍊子把它串起來，繞在手腕上」，代表什麼意思？", "opts": ["想收集雨水做成珍貴首飾", "抱怨雨水打在手腕十分冰冷", "打算製作手工藝品販賣賺錢", "想把美好的童年回憶珍藏心底"], "ans": 3}, {"para": 2, "q": "2.【第2段】第2段的段落大意主要表達了什麼？", "opts": ["抱怨屋裡掛滿溼衣服和地板冒溼氣非常麻煩", "描寫雨天能帶作者重回歡樂童年，想把回憶珍藏起來", "說明江南地區梅雨季衣服晾不乾的氣候特點", "記錄作者在房間裡製作手工首飾與項鍊的過程"], "ans": 1}, {"para": 2, "q": "2.【第2段】課文中作者說「用雨珠的鍊子把它串起來」，這句話是把屋簷落下的水珠想像成什麼？", "opts": ["想像成可以串起美麗童年回憶的手鍊", "想像成把衣服淋溼弄髒的泥水", "想像成鎖住大門的冰冷鐵鍊", "想像成打破玻璃窗戶的堅硬冰雹"], "ans": 0}], [{"para": 3, "q": "3.【第3段】第3段的段落大意主要在描寫什麼溫馨場景？", "opts": ["作者在清晨冒著大雨跟隨老師到學堂背誦四書", "雨天長工不用下田，母親在熱被窩陪作者講故事", "母親天未亮就冒雨在廚房為全家人辛勞煮早飯", "全家人在狂風暴雨中忙著修補漏水的屋瓦"], "ans": 1}, {"para": 3, "q": "3.【第3段】作者將母親的面容比喻為「菩薩」，展現出母親怎樣的神態？", "opts": ["威嚴莊重令人敬畏", "憂鬱沉默充滿心事", "慈眉善目溫柔慈愛", "忙碌勞碌神情疲憊"], "ans": 2}, {"para": 3, "q": "3.【第3段】課文中提到「我的啟蒙老師說菩薩慈眉善目」，「啟蒙老師」是指什麼樣的老師？", "opts": ["在大學專門指導博士研究的高級教授", "廟宇裡專門替信徒解籤講道的師父", "官府裡負責審判案件的法官大人", "教導幼童初級知識、開啟智慧的第一位老師"], "ans": 3}], [{"para": 4, "q": "4.【第4段】第4段的段落大意主要描繪了作者童年雨天的哪種情趣？", "opts": ["穿靴踏水放木船布姑娘的純真樂趣", "觀察雨水落入水溝的流速", "幫忙長工修理走廊的破洞", "擔心新鞋弄髒被父母責備"], "ans": 0}, {"para": 4, "q": "4.【第4段】木片小船上的「布姑娘」是怎麼製作出來的？", "opts": ["花錢去街上買回來的木偶", "木匠特別雕刻的小型玩偶", "母親用碎紅布剪裁包紮而成", "父親用竹篾編織出的玩具"], "ans": 2}, {"para": 4, "q": "4.【第4段】課文中「吱嗒吱嗒」的聲音是指什麼聲音？", "opts": ["屋簷雨水滴落在鐵皮上的聲音", "小木船撞擊水溝石頭的聲音", "廚房裡炒豆子爆裂開來的聲音", "穿著大皮靴在爛泥地裡踩水的聲音"], "ans": 3}], [{"para": 5, "q": "5.【第5段】作者坐在長工阿榮伯懷裡吃炒豆時，懷裡還抱著什麼？", "opts": ["一隻可愛的小花貓", "一雙叔叔的舊皮靴", "一本學校的國文課本", "一個裝滿零食的小竹籃"], "ans": 0}, {"para": 5, "q": "5.【第5段】第5段的段落大意主要在表達作者雨天的哪種感受？", "opts": ["可以在家看電視聽音樂很自在", "有吃有玩、備受長工疼愛而不感寂寞", "院子裡的莊稼生長迅速令人欣慰", "能夠整天睡覺不用出門做農事"], "ans": 1}, {"para": 5, "q": "5.【第5段】課文中「肚子鼓得跟蜜蜂似的」描繪了作者怎樣的情態？", "opts": ["貪心搶吃長工的便當", "生病消化不良而肚子痛", "吃炒豆、芝麻糖和柑子，滿足又快活", "飽餐後急著要去寫功課"], "ans": 2}], [{"para": 6, "q": "6.【第6段】第6段中，作者的父母面對下雨天的心情有什麼明顯的對比？", "opts": ["母親興奮地想出門踏青，父親卻愁眉苦臉嘆氣", "父親忙著在院子裡搶收作物，母親則躲在房裡睡覺", "父母兩人都非常討厭下雨，一起大聲斥責天氣", "母親抱怨到處黏答答，父親卻端著茶壺悠閒在廊下賞雨"], "ans": 3}, {"para": 6, "q": "6.【第6段】課文中作者提到高大的玉蘭花「開了滿樹，下雨天謝得快」，她趕緊採了滿籃子做什麼？", "opts": ["分送給左鄰右舍一同分享花香", "拿去街上市集販賣換取零用錢", "全部泡進熱水裡煮成玉蘭花茶", "藏在自己的書包裡帶去學校送老師"], "ans": 0}, {"para": 6, "q": "6.【第6段】第6段的段落大意主要描繪了什麼樣的雨天生活畫面？", "opts": ["描寫大雨淹沒院子，全家人合力搶救受困花草與農作物的緊急過程", "描寫母親因為家裡潮溼發霉而決定舉家搬遷到乾燥城市的經過", "描寫黃梅天花木生機、父親廊下賞雨品茗，以及採玉蘭花送鄰居的溫馨情景", "描寫作者因為爬樹採摘玉蘭花不慎跌落受傷的驚險事件"], "ans": 2}], [{"para": 7, "q": "7.【第7段】第7段的段落大意主要呈現出什麼樣的雨天景象？", "opts": ["瞎子先生在大廳唱鼓兒詞，全家與鄰人齊聚熱鬧歡樂的溫馨眾生相", "父親因為家裡太吵鬧而大發雷霆將客人趕出門", "母親因為煮飯太過辛勞而在廚房暗自哭泣埋怨", "煤氣燈突然熄滅導致大廳陷入一片混亂與驚恐"], "ans": 0}, {"para": 7, "q": "7.【第7段】雨天摸索進作者家後門唱鼓兒詞的是什麼樣的人物？", "opts": ["擅長吹笛的道士", "遠道而來的雜技藝人", "唱一段「鄭元和學丐」的瞎子先生", "鎮上私塾的教書先生"], "ans": 2}, {"para": 7, "q": "7.【第7段】晚上全家人聚在大廳聽唱鼓詞，點起發出嘶嘶聲的照明是什麼？", "opts": ["微弱幽暗的桐油燈", "亮晃晃且發出嘶嘶聲的煤氣燈", "搖晃閃爍的小蠟燭", "懸掛在門口的小燈籠"], "ans": 1}], [{"para": 8, "q": "8.【第8段】第8段的段落大意主要表現出作者怎樣的童年心理？", "opts": ["擔心家中糧食受損的早熟憂慮", "天真地把颱風天走廊揀發霉綠麴當成好玩遊戲的童真趣味", "抱怨母親分配太多農事工作給自己的不滿", "嚮往成為專業氣象預報人員的遠大志向"], "ans": 1}, {"para": 8, "q": "8.【第8段】課文中作者為什麼「盼望天一直不要晴起來」？", "opts": ["因為覺得揀綠麴的工作真好玩，想天天滾在穀子裡", "因為可以不用去學堂考試", "因為想要看大水沖垮橋樑的奇觀", "因為害怕出門會被大太陽曬傷"], "ans": 0}, {"para": 8, "q": "8.【第8段】八、九月颱風季節連日大雨，走廊下堆積如山的穀子會發生什麼變化？", "opts": ["被老鼠偷吃一空", "被大水全部沖走", "迅速發芽長成稻苗", "幾天不晒發霉長出一粒粒綠色的麴"], "ans": 3}], [{"para": 9, "q": "9.【第9段】第9段在全文情節與情感發展上，具有怎樣的轉折作用？", "opts": ["由童年無憂無慮的歡樂，轉入長大離家求學時雨天思念母親的淒涼感傷", "突然中斷回憶，開始詳細介紹現代杭州西湖的交通建設", "批評杭州的中學教育制度遠遠不如家鄉私塾", "記錄作者在杭州求學期間每次考試名列前茅的驕傲"], "ans": 0}, {"para": 9, "q": "9.【第9段】課文中作者寫道「然而誰能不長大呢？到杭州念中學了，下雨天，我有一股淒涼寂寞之感」，主要原因是什麼？", "opts": ["學校課業壓力太沉重讓她適應不良", "杭州的雨水比故鄉冰冷且常常伴隨暴風", "離家遠赴杭州求學，雨天格外想念遠在故鄉的母親", "與中學同學相處不融洽感到非常孤立"], "ans": 2}, {"para": 9, "q": "9.【第9段】課文中作者說「下雨天，我格外想她」，為什麼雨天會給作者「一份靠近母親的感覺」？", "opts": ["因為母親每逢下雨天就會親自搭車到杭州送傘", "因為母親曾答應雨天一定會寫信寄包裹給她", "因為杭州中學的宿舍窗戶跟老家房間完全一模一樣", "因為在幼年時，只有雨天裡有更多時間纏著母親聽故事"], "ans": 3}], [{"para": 10, "q": "10.【第10段】第10段的段落大意主要描繪了什麼樣的情境？", "opts": ["描寫西湖遭遇百年難得一見的特大暴風雨，遊客紛紛走避的情景", "說明作者跟隨音樂老師在西湖斷橋邊學習吹奏長笛的辛勤過程", "記錄作者在西湖邊經營茶樓、接待文人雅士高歌品茗的創業經歷", "作者雨中漫步西湖湖畔，伴隨放鶴亭悠揚笛聲與瀟瀟雨聲相和的詩意意境"], "ans": 3}, {"para": 10, "q": "10.【第10段】作者在杭州念中學時，總喜歡在雨中徘徊何處？", "opts": ["故鄉老家的稻田邊", "風光迷人的西子湖畔", "繁華熱鬧的杭州市集", "莊嚴肅穆的靈隱寺大殿"], "ans": 1}, {"para": 10, "q": "10.【第10段】作者望著碧藍如玉的湖面與低斜的梅花時，幽幽地說出了哪句感嘆？", "opts": ["「明亮陽光下的西湖，宜於高歌；而煙雨迷濛中的西湖，宜於吹笛。」", "「落花流水春去也，天上人間。」", "「山外青山樓外樓，西湖歌舞幾時休。」", "「欲把西湖比西子，淡妝濃抹總相宜。」"], "ans": 0}], [{"para": 11, "q": "11.【第11段】第11段作為全文結尾，它的段落大意與主要作用是什麼？", "opts": ["說明作者二十年後終於重返故鄉，重新見到了母親與長工", "總結二十年來雨中笛聲的餘韻，將對雨天的喜愛凝聚為對母親永恆的思念", "抱怨二十年來江南氣候異常，雨季變得短暫而乾燥", "宣布作者決定放棄寫作，轉而投入音樂演奏的全新志向"], "ans": 1}, {"para": 11, "q": "11.【第11段】課文標題「下雨天，真好」貫穿全文，最後凝聚昇華的核心情感是什麼？", "opts": ["讚嘆下雨能緩解土地乾旱、促進農作物生長", "介紹江南水鄉氣候特徵與傳統農具的實用價值", "貫穿雨天記憶中，對純真童年與至深母愛的永恆感恩與眷戀", "慶祝下雨天可以不用外出工作、在家睡大覺的輕鬆"], "ans": 2}, {"para": 11, "q": "11.【第11段】文末提到「二十年了」，那低沉而遙遠的笛聲在雨中依稀迴盪，化為了作者怎樣的情感？", "opts": ["對母親與故鄉永恆深沉的思念與眷戀", "對年輕時代浪費光陰的懊悔自責", "對童年調皮搗蛋行為的慚愧不安", "對世俗功名利祿與榮華富貴的強烈渴望"], "ans": 0}]];
+    const p2Pool = [{"q": "1. 課文以「下雨天，真好」為題，貫穿全文的情感主軸是什麼？", "opts": ["歌詠大自然的氣象奇觀與暴雨威力", "透過雨天的溫馨回憶，抒發對故鄉童年與雙親的深摯懷念", "描寫江南農村耕作的貧困與艱辛", "探討梅雨與颱風季節的水利防洪知識"], "ans": 1}, {"q": "2. 作者說「那些有趣的好時光啊，我要用雨珠的鍊子把它串起來，繞在手腕上」，這句話使用了何種修辭手法？", "opts": ["擬人，說明雨滴具有神奇魔法會跳舞", "誇飾，形容雨珠特別大顆像拳頭一樣", "形象化譬喻，將無形的珍貴童年回憶化為美麗的雨珠項鍊珍藏在心中", "頂真與回文，使語句讀起來順口"], "ans": 2}, {"q": "3. 課文中描寫母親的長相「真像個菩薩」，主要在強調母親的何種特質？", "opts": ["慈祥、溫柔、寬厚待人的崇高母愛", "母親非常喜歡每天吃齋唸佛", "母親每天吃素不發脾氣", "母親只喜歡安靜不愛說話"], "ans": 0}, {"q": "4. 盲人說唱先生敲著竹板來到潘宅，母親熱情盛了滿滿一大碗白飯給他，這個舉動展現了傳統農村社會的何種美德？", "opts": ["炫耀家境富有糧食吃不完", "憐貧惜弱、淳樸敦厚、樂於助人的溫暖同理心", "只是為了打發盲人快點離開免得嘈雜", "互相攀比誰家施捨的飯比較多"], "ans": 1}, {"q": "5. 關於文章後半段作者來到杭州念中學，情調與前半段童年描寫有何不同？", "opts": ["由悲傷沉痛轉為狂歡興奮", "由嚴肅說理轉為滑稽搞笑", "由熱鬧天真的童趣，轉為離家青年的寂寞感傷與深沉思親之情", "由寫景記敘轉為政治辯論"], "ans": 2}, {"q": "6. 西湖煙雨濛濛中，放鶴亭傳來的「笛聲」在全文結尾象徵著什麼？", "opts": ["想要成為一名優秀的西洋長笛演奏家", "西湖風景區非常熱鬧的觀光叫賣聲", "暴風雨即將來襲的防汛警報", "悠長永恆的鄉愁與對故鄉母親無盡的深切思念"], "ans": 3}, {"q": "7. 下列文句中，何者運用的形象化比喻方式（把一種事物比作另一種事物），與「屋子裡掛滿萬國旗似的溼衣服」相同？", "opts": ["太陽公公對著大地微微笑", "他的笑聲震破了整個屋頂", "我一口氣喝乾了整座大湖的水", "雨絲像一根根細銀針從天空灑落"], "ans": 3}, {"q": "8.【生活情境素養】連續好幾天下雨，教室外面溼答答不能去操場運動，下列何種應對心態最符合琦君「下雨天真好」的生活智慧？", "opts": ["轉換心境，在室內靜下心閱讀、畫畫或與好友溫馨談天", "不斷抱怨天氣不好，在教室大發脾氣踢桌椅", "不顧危險直接衝到大雨中奔跑踩泥巴打架", "整天趴在桌上睡覺浪費美好光陰"], "ans": 0}, {"q": "9.【人際與童年素養】作者小時候用紙做小雨傘、跟長工一起玩小木船與炒豆子。這種看似簡單的童年遊戲，為什麼能成為她一輩子最難忘的美好回憶？", "opts": ["因為裡面充滿了家人與長工真摯溫暖的陪伴與疼愛", "因為這些手工玩具可以拿去市集賣很多零用錢", "因為下雨天就可以不用去私塾寫功課", "因為長工雕刻的木船比買來的塑膠玩具更大"], "ans": 0}, {"q": "10.【文學賞析】夏承燾先生稱讚琦君的散文特色為「溫柔敦厚，寓意深遠」，這在本文中如何具體體現？", "opts": ["詞藻華麗堆砌，大量使用難懂深奧的古文僻字", "嚴厲批判舊社會制度與農村陋習", "通篇記錄歷史年份與氣象科學統計數據", "文字樸實自然、感情真摯深切，以愛與感恩串聯溫暖的人情世故與深刻回憶"], "ans": 3}];
+    const GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWxukvaDgEbsW-N4YoFKYPJZvQdQdHemfIesEvw5jcLhjrxBJhgAW_6jpylq0QVdaD/exec";
+
+    let currentSheetCode = 'CL3-101';
+    let currentVariantName = '卷一';
+    let isTeacherMode = false;
+    let startTime = Date.now();
+    let userAnswers = {};
+    let curP1List = [];
+    let curP2List = [];
+    let selectedSeat = '01';
+    let quizStarted = false;
+
+    // Req 5: 座號選擇互動邏輯
+    function pickSeatModal(seat, btn) {
+      selectedSeat = seat;
+      document.querySelectorAll('.seat-grid-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function confirmStartQuiz() {
+      const modal = document.getElementById('seatSelectModal');
+      if (modal) modal.style.display = 'none';
+      const seatLabel = selectedSeat === 'test.' ? '👨‍🏫 老師模式 (test.)' : `👤 座號：${selectedSeat}號 [變更]`;
+      const btn = document.getElementById('btnCurSeat');
+      if (btn) btn.textContent = seatLabel;
+      const metaSeat = document.getElementById('dispSeatNumber');
+      if (metaSeat) metaSeat.textContent = selectedSeat === 'test.' ? '測試' : selectedSeat;
+      
+      quizStarted = true;
+      startTime = Date.now();
+      speak('已選擇' + (selectedSeat === 'test.' ? '老師模式' : selectedSeat + '號') + '，請開始作答！');
+    }
+
+    function openSeatModal() {
+      const modal = document.getElementById('seatSelectModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    function speak(t) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      let s = String(t || '').replace(/步步為營/g, '步步維營').replace(/步步為/g, '步步維');
+      const u = new SpeechSynthesisUtterance(s);
+      u.lang = 'zh-TW'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function selectP1Questions(seed) {
+      // 从 11 段題庫中，每段抽 1 題共 11 題
+      const chosen = [];
+      p1Pool.forEach((paraGroup, pIdx) => {
+        const qIdx = (seed + pIdx) % paraGroup.length;
+        chosen.push({ ...paraGroup[qIdx], id: `cp1_${pIdx+1}` });
+      });
+      return chosen;
+    }
+
+    function initLists() {
+      curP1List = selectP1Questions(0);
+      curP2List = p2Pool.map((q, idx) => ({ ...q, id: `cp2_${idx+1}` }));
+    }
+
+    function changeSheetVariant(val) {
+      resetAnswers();
+      if (val === '101') {
+        currentSheetCode = 'CL3-101'; currentVariantName = '卷一';
+        curP1List = selectP1Questions(0);
+        curP2List = p2Pool.map((q, idx) => ({ ...q, id: `cp2_${idx+1}` }));
+      } else if (val === '102') {
+        currentSheetCode = 'CL3-102'; currentVariantName = '卷二';
+        curP1List = selectP1Questions(1);
+        curP2List = shuffle(p2Pool.map((q, idx) => ({ ...q, id: `cp2_${idx+1}` })));
+      } else if (val === '103') {
+        currentSheetCode = 'CL3-103'; currentVariantName = '卷三';
+        curP1List = selectP1Questions(2);
+        curP2List = shuffle(p2Pool.map((q, idx) => ({ ...q, id: `cp2_${idx+1}` })));
+      } else {
+        const r = Math.floor(Math.random() * 900) + 104;
+        currentSheetCode = 'CL3-' + r; currentVariantName = '隨機卷(' + r + ')';
+        curP1List = selectP1Questions(r % 3);
+        curP2List = shuffle(p2Pool.map((q, idx) => ({ ...q, id: `cp2_${idx+1}` })));
+      }
+      document.getElementById('sheetCodeBadge').textContent = currentSheetCode;
+      document.getElementById('sheetMainTitleText').textContent = `第 3 課 琦君〈下雨天，真好〉綜合會考有聲練習卷 (${currentVariantName})`;
+      document.title = `🏆 [${currentSheetCode}] 綜合會考有聲練習卷 (${currentVariantName})`;
+      render();
+    }
+
+    function render() {
+      // Render Part 1 (11 Qs)
+      const p1Box = document.getElementById('compP1Container');
+      let h1 = '';
+      curP1List.forEach((q, idx) => {
+        let optH = '';
+        q.opts.forEach((opt, oIdx) => {
+          optH += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOpt('${q.id}', '${oIdx}', this)">
+              <span>(${letters[oIdx]}) ${opt}</span>
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('選項${letters[oIdx]}：${opt}')">🔊</button>
+            </div>
+          `;
+        });
+        h1 += `
+          <div class="q-item" id="item-${q.id}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="audio-icon-btn no-print" onclick="speak('題目：${q.q}')">🔊 朗讀題幹</button>
+                <span style="font-size:16.5px; font-weight:500;">${q.q}</span>
+              </div>
+            </div>
+            <div class="opt-container">${optH}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}"><strong>【正解】：</strong>(${letters[q.ans]}) ${q.opts[q.ans]}</div>
+          </div>
+        `;
+      });
+      p1Box.innerHTML = h1;
+
+      // Render Part 2 (10 Qs)
+      const p2Box = document.getElementById('compP2Container');
+      let h2 = '';
+      curP2List.forEach((q, idx) => {
+        let optH = '';
+        q.opts.forEach((opt, oIdx) => {
+          optH += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOpt('${q.id}', '${oIdx}', this)">
+              <span>(${letters[oIdx]}) ${opt}</span>
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('選項${letters[oIdx]}：${opt}')">🔊</button>
+            </div>
+          `;
+        });
+        h2 += `
+          <div class="q-item" id="item-${q.id}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="audio-icon-btn no-print" onclick="speak('題目：${q.q}')">🔊 朗讀題幹</button>
+                <span style="font-size:16.5px; font-weight:500;">${q.q}</span>
+              </div>
+            </div>
+            <div class="opt-container">${optH}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}"><strong>【正解】：</strong>(${letters[q.ans]}) ${q.opts[q.ans]}</div>
+          </div>
+        `;
+      });
+      p2Box.innerHTML = h2;
+    }
+
+    function chooseOpt(qid, val, el) {
+      userAnswers[qid] = String(val);
+      el.closest('.opt-container').querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function toggleTeacherMode() {
+      isTeacherMode = !isTeacherMode;
+      document.body.classList.toggle('teacher-mode', isTeacherMode);
+      document.getElementById('teacherModeBtn').textContent = isTeacherMode ? '🎓 切換學生練習版' : '👁️ 切換教師解答版';
+      if (isTeacherMode) {
+        [...curP1List, ...curP2List].forEach(q => {
+          const item = document.getElementById('item-' + q.id);
+          if (item) item.querySelectorAll('.opt-item').forEach(o => { if(o.getAttribute('data-val') === String(q.ans)) o.classList.add('is-correct'); });
+        });
+      } else {
+        document.querySelectorAll('.opt-item').forEach(o => o.classList.remove('is-correct'));
+      }
+    }
+
+    function submitAnswers() {
+      let score = 0; let correct = 0;
+      curP1List.forEach(q => { if(userAnswers[q.id] === String(q.ans)) { score += 5; correct++; } });
+      curP2List.forEach(q => { if(userAnswers[q.id] === String(q.ans)) { score += 4.5; correct++; } });
+      score = Math.round(score);
+      document.getElementById('dispTotalScore').textContent = score;
+      document.getElementById('finalScoreVal').textContent = score;
+      document.getElementById('scoreBanner').style.display = 'block';
+
+      if (!isTeacherMode) toggleTeacherMode();
+
+      // Req 3 & Req 5: 老師模式中生成的評量資料，座號欄標記為 test.
+      const seat = (selectedSeat === 'test.' || isTeacherMode) ? 'test.' : selectedSeat;
+      const dur = Math.round((Date.now() - startTime) / 1000);
+      const tip = document.getElementById('syncTip');
+      tip.innerHTML = '⏳ 正在同步成果至 Google 試算表...';
+
+      fetch(GOOGLE_WEBHOOK_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'quiz_submit', userRole: seat, sheetCode: currentSheetCode,
+          title: `綜合會考有聲練習卷(${currentVariantName})`, score: score,
+          totalQuestions: 21, correctCount: correct, durationSeconds: dur,
+          submittedAt: new Date().toISOString()
+        })
+      }).then(() => {
+        tip.innerHTML = `<span style="color:#10b981; font-weight:bold;">✅ 已送出座號 ${seat} 成果！（得分：${score} 分）</span>`;
+      }).catch(() => {
+        tip.innerHTML = '💡 成果已於本機核算完成';
+      });
+
+      speak(`測驗完成！你的得分是 ${score} 分！`);
+    }
+
+    function resetAnswers() {
+      userAnswers = {};
+      document.querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected', 'is-correct'));
+      document.getElementById('dispTotalScore').textContent = '＿＿';
+      document.getElementById('scoreBanner').style.display = 'none';
+      if (isTeacherMode) toggleTeacherMode();
+    }
+
+    function exportWordDoc() {
+      let doc = `<html><head><meta charset="utf-8"><title>綜合會考練習卷</title></head><body>`;
+      doc += `<h1>國語文領域 課堂學習評量卷</h1>`;
+      doc += `<h3>【${currentSheetCode} 綜合會考有聲練習卷 (${currentVariantName})】 得分：＿＿</h3>`;
+      doc += `<h2>一大題：課文理解與深究</h2>`;
+      curP1List.forEach((q, idx) => {
+        doc += `<p><strong>${idx+1}. ${q.q}</strong></p><p>A.${q.opts[0]}  B.${q.opts[1]}  C.${q.opts[2]}  D.${q.opts[3]}</p>`;
+        if(isTeacherMode) doc += `<p style="color:red">【正解】：(${letters[q.ans]}) ${q.opts[q.ans]}</p>`;
+      });
+      doc += `<h2>二大題：文學素養與延伸探究</h2>`;
+      curP2List.forEach((q, idx) => {
+        doc += `<p><strong>${idx+1}. ${q.q}</strong></p><p>A.${q.opts[0]}  B.${q.opts[1]}  C.${q.opts[2]}  D.${q.opts[3]}</p>`;
+        if(isTeacherMode) doc += `<p style="color:red">【正解】：(${letters[q.ans]}) ${q.opts[q.ans]}</p>`;
+      });
+      doc += `</body></html>`;
+      const blob = new Blob(['\ufeff' + doc], { type: 'application/msword' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = `${currentSheetCode}_綜合會考有聲練習卷_${currentVariantName}.doc`;
+      a.click();
+    }
+
+    initLists();
+    render();
+  </script>
+</body>
+</html>

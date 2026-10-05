@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔤 [SL3-101] 相似字形音義特訓學習單 ‧ 琦君〈下雨天，真好〉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --accent-warm: #f59e0b;
+      --accent-green: #10b981;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --bg-page: #f1f5f9;
+      --border-card: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "BiauKai", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 16px 10px 80px 10px;
+    }
+
+    /* Top Action Bar (Screen Only) */
+    .no-print-toolbar {
+      max-width: 880px;
+      margin: 0 auto 16px auto;
+      background: #ffffff;
+      border: 1.5px solid #bae6fd;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+    }
+    .toolbar-left, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tool-btn {
+      padding: 6px 14px;
+      font-size: 13.5px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .tool-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .tool-btn.primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+    .tool-btn.primary:hover {
+      background: var(--primary-dark);
+    }
+    .tool-btn.warm {
+      background: #fef3c7;
+      color: #b45309;
+      border-color: #fde047;
+    }
+    .tool-btn.success {
+      background: #dcfce7;
+      color: #15803d;
+      border-color: #86efac;
+    }
+
+    /* A4 Paper Layout */
+    .a4-paper {
+      max-width: 880px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 24px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid var(--border-card);
+    }
+
+    /* Worksheet Header */
+    .ws-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      gap: 16px;
+    }
+    .ws-title-area {
+      flex: 1;
+    }
+    .ws-school {
+      font-size: 13.5px;
+      color: #64748b;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .ws-main-title {
+      font-size: 21px;
+      font-weight: 900;
+      color: #0369a1;
+      margin: 4px 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .ws-code-badge {
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 13px;
+      padding: 2px 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .ws-student-meta {
+      display: flex;
+      gap: 14px;
+      font-size: 13.5px;
+      color: #334155;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .meta-box {
+      border-bottom: 1.5px solid #94a3b8;
+      padding: 0 8px;
+      min-width: 65px;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* QR Code */
+    .ws-qr-box {
+      text-align: center;
+      flex-shrink: 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 6px;
+      background: #f8fafc;
+    }
+    .ws-qr-img {
+      width: 58px;
+      height: 58px;
+      display: block;
+      margin: 0 auto;
+    }
+    .ws-qr-text {
+      font-size: 9.5px;
+      font-weight: bold;
+      color: #0369a1;
+      margin-top: 2px;
+    }
+
+    /* Goal Banner */
+    .ws-goal-banner {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      color: #0369a1;
+      margin-bottom: 14px;
+      line-height: 1.5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Req 6 & Req 4: Sections (字加大、間距拉大、大題換頁) */
+    .ws-section {
+      margin-bottom: 28px;
+    }
+    .ws-sec-title {
+      font-size: 18.5px;
+      font-weight: bold;
+      color: #0369a1;
+      background: #f0f9ff;
+      border-left: 5px solid #0284c7;
+      padding: 10px 16px;
+      margin-bottom: 16px;
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .ws-sec-desc {
+      font-size: 13.5px;
+      color: #64748b;
+      font-weight: normal;
+    }
+
+    /* Question Item (Req 4: 拉大題目間距，加大字體) */
+    .q-item {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+      transition: all 0.15s ease;
+    }
+    .q-item:hover {
+      border-color: #94a3b8;
+    }
+    .q-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .q-stem-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      font-size: 16.5px;
+      color: #0f172a;
+    }
+
+    /* Audio Play Button (純 🔊 圖示) */
+    .audio-icon-btn {
+      background: #f0f9ff;
+      border: 1.5px solid #bae6fd;
+      color: #0284c7;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: bold;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .audio-icon-btn:hover {
+      background: #e0f2fe;
+      transform: scale(1.05);
+    }
+
+    /* Option Container */
+    .opt-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    @media (max-width: 600px) {
+      .opt-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .opt-item {
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 9px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 15.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .opt-item:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .opt-item.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+      box-shadow: 0 0 0 1px #0284c7;
+    }
+    .opt-audio-btn {
+      border: none;
+      background: none;
+      font-size: 14px;
+      cursor: pointer;
+      color: #0284c7;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .opt-audio-btn:hover {
+      background: #e0f2fe;
+    }
+
+    /* Cloze Input box */
+    .cloze-input-box {
+      width: 90px;
+      padding: 4px 8px;
+      font-size: 17px;
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid #0284c7;
+      border-radius: 6px;
+      font-family: inherit;
+      color: #0f172a;
+      outline: none;
+      background: #ffffff;
+    }
+
+    /* Req 5: Teacher Solution Banner (學生模式預設完全隱藏，絕不洩題) */
+    .teacher-sol-banner {
+      display: none !important;
+      margin-top: 10px;
+      padding: 8px 14px;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 8px;
+      font-size: 14.5px;
+      border-left: 4px solid #f59e0b;
+    }
+    body.teacher-mode .teacher-sol-banner {
+      display: block !important;
+    }
+    .teacher-mode .opt-item.is-correct {
+      border: 2.5px solid #10b981 !important;
+      background: #dcfce7 !important;
+      color: #15803d !important;
+      font-weight: bold;
+    }
+
+    /* Submit Bottom Bar */
+    .submission-bar {
+      margin-top: 30px;
+      padding-top: 18px;
+      border-top: 2px dashed #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .score-banner {
+      font-size: 20px;
+      font-weight: bold;
+      color: #0369a1;
+      background: #f0f9ff;
+      border: 2px solid #bae6fd;
+      padding: 10px 26px;
+      border-radius: 24px;
+      display: none;
+    }
+
+    /* Req 5: 座號報到 Modal */
+    .seat-modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 99999;
+    }
+    .seat-modal-box {
+      background: #ffffff; border-radius: 16px; padding: 26px 30px; max-width: 460px; width: 92%;
+      border: 2px solid #38bdf8; box-shadow: 0 10px 30px rgba(0,0,0,0.25); text-align: center;
+    }
+    .seat-grid-btn {
+      padding: 12px; font-size: 17px; font-weight: bold; border-radius: 10px;
+      border: 2px solid #cbd5e1; background: #f8fafc; color: #1e293b; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .seat-grid-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .seat-grid-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,0.35); }
+
+    /* Req 4: Print Styles (字加大、間距拉大、大題強制換頁) */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 14mm 12mm;
+      }
+      body {
+        background: #ffffff;
+        padding: 0;
+        font-size: 15px;
+      }
+      .no-print, .no-print-toolbar, .submission-bar, .seat-modal-overlay {
+        display: none !important;
+      }
+      .a4-paper {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      /* Req 4: 一大題可以超過1頁，但進入下一大題一定要強制換頁 */
+      .ws-section {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-bottom: 24px !important;
+      }
+      .ws-section:first-of-type {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      .q-item {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 18px !important;
+        padding: 12px 16px !important;
+        border: 1px solid #cbd5e1;
+      }
+      .opt-audio-btn, .audio-icon-btn {
+        display: none !important;
+      }
+      .teacher-sol-banner {
+        display: none !important;
+      }
+      body.teacher-mode .teacher-sol-banner {
+        display: block !important;
+      }
+      .opt-item {
+        border: 1px solid #94a3b8;
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 6px 10px !important;
+      }
+      .ws-sec-title {
+        background: none;
+        border-left: 3px solid #000000;
+        color: #000000;
+        padding: 4px 8px;
+        margin-bottom: 12px;
+      }
+      .ws-goal-banner {
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Req 5: 進入試卷時的座號選擇對話框 -->
+  <div id="seatSelectModal" class="seat-modal-overlay">
+    <div class="seat-modal-box">
+      <div style="font-size:36px; margin-bottom:8px;">👋</div>
+      <h3 style="font-size:21px; font-weight:900; color:#0369a1; margin-bottom:6px;">
+        歡迎進入【相似字形音義】有聲特訓單
+      </h3>
+      <p style="font-size:14.5px; color:#64748b; margin-bottom:18px;">
+        請先點選您的作答座號，確認後點擊「開始作答」開啟測驗與計時：
+      </p>
+      
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:14px;">
+        <button class="seat-grid-btn active" onclick="pickSeatModal('01', this)">01 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('02', this)">02 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('03', this)">03 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('04', this)">04 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('05', this)">05 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('06', this)">06 號</button>
+      </div>
+      <button class="seat-grid-btn" style="width:100%; margin-bottom:18px; font-size:14.5px;" onclick="pickSeatModal('test.', this)">
+        🎓 教師示範 / 測試模式 (test.)
+      </button>
+
+      <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:17px;" onclick="confirmStartQuiz()">
+        🚀 確認座號，開始作答！
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Action Bar (Screen Only) -->
+  <div class="no-print-toolbar no-print">
+    <div class="toolbar-left">
+      <a href="./index.html" class="tool-btn">🔙 返回教材首頁</a>
+      <span style="font-weight:bold; color:#0369a1; font-size:14px;">🎧 相似字有聲學習單</span>
+      
+      <!-- Req 2 & 4: 卷別切換 (SL3-101, SL3-102...) -->
+      <select id="sheetVariantSelect" class="tool-btn" onchange="changeSheetVariant(this.value)" style="background:#f0f9ff; border-color:#bae6fd; color:#0369a1; font-weight:bold;">
+        <option value="101">📜 卷一 (SL3-101)</option>
+        <option value="102">📜 卷二 (SL3-102)</option>
+        <option value="103">📜 卷三 (SL3-103)</option>
+        <option value="rand">🎲 隨機全新洗牌卷</option>
+      </select>
+
+      <button class="tool-btn" onclick="openSeatModal()" id="btnCurSeat" style="background:#f8fafc; font-weight:bold; color:#0284c7;">
+        👤 座號：01號 [變更]
+      </button>
+    </div>
+    <div class="toolbar-right">
+      <button class="tool-btn warm" id="teacherModeBtn" onclick="toggleTeacherMode()">
+        👁️ 切換教師解答版
+      </button>
+      <button class="tool-btn" onclick="exportWordDoc()" style="background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8;">
+        📥 匯出 Word 檔（大聲朗讀版）
+      </button>
+      <button class="tool-btn success" onclick="window.print()">
+        🖨️ A4 純淨列印 (一大題一頁)
+      </button>
+    </div>
+  </div>
+
+  <!-- A4 Paper Content -->
+  <div class="a4-paper" id="worksheetPaper">
+    <!-- Header -->
+    <header class="ws-header">
+      <div class="ws-title-area">
+        <div class="ws-school">國語文領域 課堂學習評量卷</div>
+        <h1 class="ws-main-title">
+          <span class="ws-code-badge" id="sheetCodeBadge">SL3-101</span><span id="sheetMainTitleText">第 3 課 琦君〈下雨天，真好〉相似字形音義特訓單 (卷一)</span>
+        </h1>
+        <div class="ws-student-meta">
+          <span>年級班級：七年____班</span>
+          <span>座號：<span class="meta-box" id="dispSeatNumber">01</span></span>
+          <span>姓名：<span class="meta-box">＿＿＿＿</span></span>
+          <span>得分：<span class="meta-box" id="dispTotalScore">＿＿</span></span>
+        </div>
+      </div>
+      <div class="ws-qr-box">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="教材QR碼" class="ws-qr-img">
+        <div class="ws-qr-text">手機掃描聽朗讀</div>
+      </div>
+    </header>
+
+    <!-- Goal Banner -->
+    <div class="ws-goal-banner">
+      <div>
+        <strong>🎯 核心目標：</strong>熟練「縈、瑩、營、螢」與「麴、掬、鞠」之部首形義、字音與課文生活成語辨析。
+      </div>
+      <div class="no-print">
+        <span style="font-size:12px; color:#0369a1;">🔊 提示：點擊任何 🔊 按鈕可直接慢速語音朗讀，目標字已設定防透題「什麼」替換！</span>
+      </div>
+    </div>
+
+    <!-- 一大題：看詞語選注音 (7題，第一頁) -->
+    <section class="ws-section" id="sec-zhuyin">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('一大題：看詞語選正確注音。請仔細看題目詞語，點擊或選出正確的讀音。')">🔊 聽大題說明</button>
+          <span>一大題：看詞語選正確注音（共 7 題，每題 3 分）</span>
+        </div>
+        <span class="ws-sec-desc">請仔細看題目詞語，點擊或選出正確的讀音</span>
+      </div>
+      <div id="zhuyinQuestionsContainer"></div>
+    </section>
+
+    <!-- 二大題：看注音選國字 - 詞語版 (7題，第二頁) -->
+    <section class="ws-section" id="sec-char-words">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('二大題：看詞語注音選正確國字。請依詞語前後字與注音，選出字形正確的國字。')">🔊 聽大題說明</button>
+          <span>二大題：看詞語注音選正確國字（共 7 題，每題 3 分）</span>
+        </div>
+        <span class="ws-sec-desc">請依詞語前後字與注音，選出字形正確的國字</span>
+      </div>
+      <div id="charWordsQuestionsContainer"></div>
+    </section>
+
+    <!-- 三大題：看注音選國字 - 句子版 (7題，第三頁) -->
+    <section class="ws-section" id="sec-char-sent">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('三大題：看句子注音選正確國字。請依句子文意與注音，選出字形正確的國字。')">🔊 聽大題說明</button>
+          <span>三大題：看句子注音選正確國字（共 7 題，每題 3 分）</span>
+        </div>
+        <span class="ws-sec-desc">請依句子文意與注音，選出字形正確的國字</span>
+      </div>
+      <div id="charSentQuestionsContainer"></div>
+    </section>
+
+    <!-- 四大題：成語文意與生活詞語填空 (7題，第四頁) -->
+    <section class="ws-section" id="sec-cloze">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('四大題：成語文意與生活詞語填空。請選出括號中最適當的目標字。')">🔊 聽大題說明</button>
+          <span>四大題：成語文意與生活詞語填空（共 7 題，每題 3 分）</span>
+        </div>
+        <span class="ws-sec-desc">請選出括號中最適當的目標字（粗體字為重點詞語視覺提示）</span>
+      </div>
+      <div id="clozeQuestionsContainer"></div>
+    </section>
+
+    <!-- 五大題：核心詞語選字填空題 (7題，第五頁 Req 5 & 8) -->
+    <section class="ws-section" id="sec-word-cloze">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('五大題：核心詞語選字填空。請從上方備選字庫中，選出正確的國字填入空格。')">🔊 聽大題說明</button>
+          <div>
+            <span>五大題：核心詞語選字填空（共 7 題，每題 2 分，全對 100 分）</span>
+            <span class="ws-sec-desc" style="display:block; margin-top:2px;">請從上方備選字庫中，選出正確的國字填入空格</span>
+          </div>
+        </div>
+        <div class="no-print">
+          <label style="font-size:13px; font-weight:bold; color:#0369a1; cursor:pointer; display:inline-flex; align-items:center; gap:5px;">
+            <input type="checkbox" id="toggleWordBankChk" checked onchange="toggleWordBankDisplay(this.checked)">
+            🔲 顯示上方備選字庫
+          </label>
+        </div>
+      </div>
+
+      <!-- 集中參考字方框 (可選擇是否要給參考字) -->
+      <div id="simWordBankBox" style="background:#f0f9ff; border:1.5px dashed #0284c7; border-radius:8px; padding:10px 16px; margin-bottom:12px; text-align:center;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1; margin-right:8px;">🧩 備選字庫：</span>
+        <span style="font-size:19px; font-weight:900; color:#0f172a; letter-spacing:8px; font-family:'Iansui', '芫荽', '標楷體', sans-serif;">
+          【 縈、 瑩、 營、 螢、 麴、 掬、 鞠 】
+        </span>
+      </div>
+
+      <div id="wordClozeQuestionsContainer"></div>
+    </section>
+
+    <!-- 底部作答提交與計分欄 (螢幕專用) -->
+    <div class="submission-bar no-print">
+      <div class="score-banner" id="scoreBanner">
+        🎉 恭喜完成！您的測驗得分為：<span id="finalScoreVal" style="color:#ef4444; font-size:24px;">0</span> 分！
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="tool-btn primary" onclick="submitWorksheetAnswers()" style="padding:10px 24px; font-size:16px;">
+          🚀 送出成果並同步至 Google 試算表
+        </button>
+        <button class="tool-btn" onclick="resetWorksheetAnswers()">
+          🔄 清除重填
+        </button>
+      </div>
+      <p style="font-size:12.5px; color:#64748b; margin-top:4px;" id="syncStatusTip">
+        成績、耗時與座號將自動記錄並送出給任課教師。
+      </p>
+    </div>
+  </div>
+
+  <!-- JavaScript Engine -->
+  <script>
+    const rawZhuyinData = [{"id": "zy1", "display_word": "晶【 瑩 】剔透", "audio_stem": "晶什麼剔透", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˇ", "ㄧㄥˊ", "ㄧㄣˊ", "ㄧㄥ"], "hint": "玉部，形容美玉透明光潔，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy2", "display_word": "綠【 麴 】發霉", "audio_stem": "綠什麼發霉", "ans": "ㄑㄩˊ", "options": ["ㄐㄩˊ", "ㄐㄩ", "ㄑㄩˊ", "ㄑㄩ"], "hint": "麥部，釀酒菌種，音同渠（ㄑㄩˊ），勿誤讀為ㄐㄩˊ。"}, {"id": "zy3", "display_word": "魂牽夢【 縈 】", "audio_stem": "魂牽夢什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˊ", "ㄧㄣˊ", "ㄧㄥˇ", "ㄧㄥ"], "hint": "糸部，思念纏繞心頭，讀音同迎（ㄧㄥˊ）。"}, {"id": "zy4", "display_word": "笑容可【 掬 】", "audio_stem": "笑容可什麼", "ans": "ㄐㄩˊ", "options": ["ㄑㄩˊ", "ㄐㄩ", "ㄑㄩ", "ㄐㄩˊ"], "hint": "手部，雙手捧笑滿面堆笑，音同局（ㄐㄩˊ）。"}, {"id": "zy5", "display_word": "步步為【 營 】", "audio_stem": "步步維什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄣˊ", "ㄧㄥˊ", "ㄧㄥˇ", "ㄧㄥ"], "hint": "宮/爪部，軍營防守行動謹慎，音同迎（ㄧㄥˊ），正音為步步維營。"}, {"id": "zy6", "display_word": "【 鞠 】躬盡瘁", "audio_stem": "什麼躬盡瘁", "ans": "ㄐㄩˊ", "options": ["ㄐㄩˊ", "ㄑㄩˊ", "ㄐㄩ", "ㄑㄩ"], "hint": "革部，彎身竭盡心力，音同局（ㄐㄩˊ）。"}, {"id": "zy7", "display_word": "映雪囊【 螢 】", "audio_stem": "映雪囊什麼", "ans": "ㄧㄥˊ", "options": ["ㄧㄥˇ", "ㄧㄣˊ", "ㄧㄥˊ", "ㄧㄥ"], "hint": "虫部，夜間發光小昆蟲，讀音同迎（ㄧㄥˊ）。"}];
+    const rawCharWordsData = [{"id": "cw1", "display_word": "綠【 ㄑㄩˊ 】發霉", "audio_stem": "綠什麼發霉", "ans": "麴", "options": ["掬", "鞠", "麴", "渠"], "hint": "釀造發霉用麥，故為麥部「麴」，音ㄑㄩˊ。"}, {"id": "cw2", "display_word": "晶【 ㄧㄥˊ 】剔透", "audio_stem": "晶什麼剔透", "ans": "瑩", "options": ["瑩", "縈", "螢", "營"], "hint": "美玉純淨透明，部首為玉部「瑩」。"}, {"id": "cw3", "display_word": "【 ㄐㄩˊ 】躬盡瘁", "audio_stem": "什麼躬盡瘁", "ans": "鞠", "options": ["麴", "掬", "局", "鞠"], "hint": "彎腰行禮、鞠躬盡瘁，部首為革部「鞠」。"}, {"id": "cw4", "display_word": "魂牽夢【 ㄧㄥˊ 】", "audio_stem": "魂牽夢什麼", "ans": "縈", "options": ["瑩", "縈", "營", "螢"], "hint": "思念如絲線纏繞迴盪，部首為糸部「縈」。"}, {"id": "cw5", "display_word": "笑容可【 ㄐㄩˊ 】", "audio_stem": "笑容可什麼", "ans": "掬", "options": ["掬", "鞠", "麴", "菊"], "hint": "雙手捧出笑容，部首為手部「掬」。"}, {"id": "cw6", "display_word": "映雪囊【 ㄧㄥˊ 】", "audio_stem": "映雪囊什麼", "ans": "螢", "options": ["營", "縈", "螢", "瑩"], "hint": "夏夜提燈的小昆蟲，部首為虫部「螢」。"}, {"id": "cw7", "display_word": "步步為【 ㄧㄥˊ 】", "audio_stem": "步步維什麼", "ans": "營", "options": ["瑩", "營", "縈", "螢"], "hint": "軍營防守防線，部首為爪/宮部「營」。"}];
+    const rawCharSentData = [{"id": "cs1", "display_context": "夏夜草叢中，滿是提著小燈籠的【 ㄧㄥˊ 】火蟲。", "audio_stem": "夏夜草叢中，滿是提著小燈籠的什麼火蟲。", "ans": "螢", "options": ["縈", "螢", "瑩", "營"], "hint": "虫部，小昆蟲螢火蟲。"}, {"id": "cs2", "display_context": "遇到長輩與師長，我們應當有禮貌地深深三【 ㄐㄩˊ 】躬。", "audio_stem": "遇到長輩與師長，我們應當有禮貌地深深三什麼躬。", "ans": "鞠", "options": ["麴", "掬", "局", "鞠"], "hint": "革部，鞠躬行禮。"}, {"id": "cs3", "display_context": "故鄉的雨天與母親的溫柔面容，常令作者魂牽夢【 ㄧㄥˊ 】。", "audio_stem": "故鄉的雨天與母親的溫柔面容，常令作者魂牽夢什麼。", "ans": "縈", "options": ["縈", "瑩", "營", "螢"], "hint": "糸部，思緒如絲纏繞。"}, {"id": "cs4", "display_context": "老闆待客極具親和力，總是笑容可【 ㄐㄩˊ 】地迎客。", "audio_stem": "老闆待客極具親和力，總是笑容可什麼地迎客。", "ans": "掬", "options": ["鞠", "麴", "掬", "菊"], "hint": "手部，雙手合捧笑容。"}, {"id": "cs5", "display_context": "草葉上的清晨露珠，在陽光照耀下如水晶般晶【 ㄧㄥˊ 】。", "audio_stem": "草葉上的清晨露珠，在陽光照耀下如水晶般晶什麼。", "ans": "瑩", "options": ["縈", "瑩", "螢", "營"], "hint": "玉部，美玉純淨光澤。"}, {"id": "cs6", "display_context": "連續幾天下雨受潮，穀倉裡的穀子都長出綠【 ㄑㄩˊ 】發霉了。", "audio_stem": "連續幾天下雨受潮，穀倉裡的穀子都長出綠什麼發霉了。", "ans": "麴", "options": ["麴", "掬", "鞠", "渠"], "hint": "麥部，受潮發酵之菌。"}, {"id": "cs7", "display_context": "行事謀劃必須步步為【 ㄧㄥˊ 】，方能確保萬無一失。", "audio_stem": "行事謀劃必須步步維什麼，方能確保萬無一失。", "ans": "營", "options": ["螢", "縈", "營", "瑩"], "hint": "爪/宮部，軍營經營防守。"}];
+    const rawClozeData = [{"id": "cz1", "context_before": "諸葛亮為了輔佐蜀漢，一生奮鬥、", "context_after": "躬盡瘁，令人敬佩。", "display_html": "諸葛亮為了輔佐蜀漢，一生奮鬥、<strong>（　）躬盡瘁</strong>，令人敬佩。", "audio_stem": "諸葛亮為了輔佐蜀漢，一生奮鬥、什麼躬盡瘁，令人敬佩。", "ans": "鞠", "options": ["麴", "掬", "局", "鞠"], "annotation": "【鞠躬盡瘁】：革部「鞠」，恭敬謹慎竭盡全力。"}, {"id": "cz2", "context_before": "離家多年的遊子，每逢佳節便對故鄉老屋與慈母魂牽夢", "context_after": "。", "display_html": "離家多年的遊子，每逢佳節便對故鄉老屋與慈母<strong>魂牽夢（　）</strong>。", "audio_stem": "離家多年的遊子，每逢佳節便對故鄉老屋與慈母魂牽夢什麼。", "ans": "縈", "options": ["縈", "瑩", "螢", "營"], "annotation": "【魂牽夢縈】：糸部「縈」，思念深刻縈繞在心。"}, {"id": "cz3", "context_before": "這顆頂級南非鑽石經過完美車工，看起來晶", "context_after": "剔透，毫無瑕疵。", "display_html": "這顆頂級南非鑽石經過完美車工，看起來<strong>晶（　）剔透</strong>，毫無瑕疵。", "audio_stem": "這顆頂級南非鑽石經過完美車工，看起來晶什麼剔透，毫無瑕疵。", "ans": "瑩", "options": ["縈", "瑩", "螢", "營"], "annotation": "【晶瑩剔透】：玉部「瑩」，光亮明徹如美玉。"}, {"id": "cz4", "context_before": "傳統古法釀造紹興老酒，必須遵循古訓選用優質酒", "context_after": "進行自然發酵。", "display_html": "傳統古法釀造紹興老酒，必須遵循古訓選用優質<strong>酒（　）</strong>進行自然發酵。", "audio_stem": "傳統古法釀造紹興老酒，必須遵循古訓選用優質酒什麼進行自然發酵。", "ans": "麴", "options": ["掬", "鞠", "麴", "渠"], "annotation": "【酒麴】：麥部「麴」，發酵釀酒專用。"}, {"id": "cz5", "context_before": "車世賢經理面對每位上門的顧客，總是笑容可", "context_after": "，深受大家喜愛。", "display_html": "車世賢經理面對每位上門的顧客，總是<strong>笑容可（　）</strong>，深受大家喜愛。", "audio_stem": "車世賢經理面對每位上門的顧客，總是笑容可什麼，深受大家喜愛。", "ans": "掬", "options": ["掬", "鞠", "麴", "菊"], "annotation": "【笑容可掬】：手部「掬」，滿面春風笑容洋溢。"}, {"id": "cz6", "context_before": "面對變化莫測的市場競爭，創業團隊處處謹慎，步步為", "context_after": "。", "display_html": "面對變化莫測的市場競爭，創業團隊處處謹慎，<strong>步步為（　）</strong>。", "audio_stem": "面對變化莫測的市場競爭，創業團隊處處謹慎，步步維什麼。", "ans": "營", "options": ["縈", "營", "螢", "瑩"], "annotation": "【步步為營】：爪/宮部「營」，每前進一步皆設防紮營，極為謹慎。"}, {"id": "cz7", "context_before": "古代車胤家貧無油點燈，夏夜捕捉", "context_after": "火蟲裝入白練囊苦讀，終成大器。", "display_html": "古代車胤家貧無油點燈，夏夜捕捉<strong>（　）火蟲</strong>裝入白練囊苦讀，終成大器。", "audio_stem": "古代車胤家貧無油點燈，夏夜捕捉什麼火蟲裝入白練囊苦讀，終成大器。", "ans": "螢", "options": ["營", "縈", "螢", "瑩"], "annotation": "【囊螢夜讀】：虫部「螢」，螢火蟲之光照亮書頁。"}];
+    const rawWordClozeData = [{"id": "swc_1", "stem": "晶（　）剔透", "audio_stem": "晶什麼剔透", "ans": "瑩", "hint": "玉部，透明光潔，如玉純淨"}, {"id": "swc_2", "stem": "綠（　）發霉", "audio_stem": "綠什麼發霉", "ans": "麴", "hint": "麥部，受潮發霉生出之微生物菌絲"}, {"id": "swc_3", "stem": "魂牽夢（　）", "audio_stem": "魂牽夢什麼", "ans": "縈", "hint": "糸部，思緒如絲線纏繞"}, {"id": "swc_4", "stem": "笑容可（　）", "audio_stem": "笑容可什麼", "ans": "掬", "hint": "手部，雙手合捧笑容，滿面堆笑"}, {"id": "swc_5", "stem": "步步為（　）", "audio_stem": "步步維什麼", "ans": "營", "hint": "宮部，安營防守，行動謹慎"}, {"id": "swc_6", "stem": "（　）躬盡瘁", "audio_stem": "什麼躬盡瘁", "ans": "鞠", "hint": "革部，躬身彎腰，竭盡心力"}, {"id": "swc_7", "stem": "映雪囊（　）", "audio_stem": "映雪囊什麼", "ans": "螢", "hint": "虫部，夜間尾巴發光的小昆蟲"}];
+    const GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWxukvaDgEbsW-N4YoFKYPJZvQdQdHemfIesEvw5jcLhjrxBJhgAW_6jpylq0QVdaD/exec";
+
+    let curZhuyinData = JSON.parse(JSON.stringify(rawZhuyinData));
+    let curCharWordsData = JSON.parse(JSON.stringify(rawCharWordsData));
+    let curCharSentData = JSON.parse(JSON.stringify(rawCharSentData));
+    let curClozeData = JSON.parse(JSON.stringify(rawClozeData));
+    let curWordClozeData = JSON.parse(JSON.stringify(rawWordClozeData));
+
+    let currentSheetCode = 'SL3-101';
+    let currentVariantName = '卷一';
+    let startTime = Date.now();
+    let isTeacherMode = false;
+    let userAnswers = {};
+    let selectedSeat = '01';
+    let quizStarted = false;
+
+    // Req 5: 座號選擇互動邏輯
+    function pickSeatModal(seat, btn) {
+      selectedSeat = seat;
+      document.querySelectorAll('.seat-grid-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
+    function confirmStartQuiz() {
+      const modal = document.getElementById('seatSelectModal');
+      if (modal) modal.style.display = 'none';
+      const seatLabel = selectedSeat === 'test.' ? '👨‍🏫 老師模式 (test.)' : `👤 座號：${selectedSeat}號 [變更]`;
+      const btn = document.getElementById('btnCurSeat');
+      if (btn) btn.textContent = seatLabel;
+      const metaSeat = document.getElementById('dispSeatNumber');
+      if (metaSeat) metaSeat.textContent = selectedSeat === 'test.' ? '測試' : selectedSeat;
+      
+      quizStarted = true;
+      startTime = Date.now();
+      speak('已選擇' + (selectedSeat === 'test.' ? '老師模式' : selectedSeat + '號') + '，請開始作答！');
+    }
+
+    function openSeatModal() {
+      const modal = document.getElementById('seatSelectModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    // Web Speech API Voice Synthesizer with Req 3 報讀與 步步維營修正
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      let t = String(text || '');
+      t = t.replace(/步步為營/g, '步步維營').replace(/步步為/g, '步步維');
+      const u = new SpeechSynthesisUtterance(t);
+      u.lang = 'zh-TW';
+      u.rate = 0.85; // 慢速清晰
+      window.speechSynthesis.speak(u);
+    }
+
+    function toggleWordBankDisplay(show) {
+      const b = document.getElementById('simWordBankBox');
+      if (b) b.style.display = show ? 'block' : 'none';
+    }
+
+    // 洗牌輔助函式 (Fisher-Yates)
+    function shuffleArray(arr, seed) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // 切換卷別與隨機生成新卷 (Req 2 & 4: SL3-101, SL3-102...)
+    function changeSheetVariant(val) {
+      resetWorksheetAnswers();
+      if (val === '101') {
+        currentSheetCode = 'SL3-101';
+        currentVariantName = '卷一';
+        // 卷一：預設交叉混合排序
+        curZhuyinData = JSON.parse(JSON.stringify(rawZhuyinData));
+        curCharWordsData = JSON.parse(JSON.stringify(rawCharWordsData));
+        curCharSentData = JSON.parse(JSON.stringify(rawCharSentData));
+        curClozeData = JSON.parse(JSON.stringify(rawClozeData));
+        curWordClozeData = JSON.parse(JSON.stringify(rawWordClozeData));
+      } else if (val === '102') {
+        currentSheetCode = 'SL3-102';
+        currentVariantName = '卷二';
+        curZhuyinData = shuffleArray(rawZhuyinData);
+        curCharWordsData = shuffleArray(rawCharWordsData);
+        curCharSentData = shuffleArray(rawCharSentData);
+        curClozeData = shuffleArray(rawClozeData);
+        curWordClozeData = shuffleArray(rawWordClozeData);
+      } else if (val === '103') {
+        currentSheetCode = 'SL3-103';
+        currentVariantName = '卷三';
+        curZhuyinData = shuffleArray(rawZhuyinData);
+        curCharWordsData = shuffleArray(rawCharWordsData);
+        curCharSentData = shuffleArray(rawCharSentData);
+        curClozeData = shuffleArray(rawClozeData);
+        curWordClozeData = shuffleArray(rawWordClozeData);
+      } else {
+        const randId = Math.floor(Math.random() * 900) + 104;
+        currentSheetCode = 'SL3-' + randId;
+        currentVariantName = '隨機卷(' + randId + ')';
+        curZhuyinData = shuffleArray(rawZhuyinData);
+        curCharWordsData = shuffleArray(rawCharWordsData);
+        curCharSentData = shuffleArray(rawCharSentData);
+        curClozeData = shuffleArray(rawClozeData);
+        curWordClozeData = shuffleArray(rawWordClozeData);
+      }
+
+      // 更新頁面標題與編碼徽章
+      document.getElementById('sheetCodeBadge').textContent = currentSheetCode;
+      document.getElementById('sheetMainTitleText').textContent = `第 3 課 琦君〈下雨天，真好〉相似字形音義特訓單 (${currentVariantName})`;
+      document.title = `🔤 [${currentSheetCode}] 相似字特訓學習單 (${currentVariantName})`;
+
+      renderAllSections();
+    }
+
+    // Render Zhuyin Questions
+    function renderZhuyinQuestions() {
+      const c = document.getElementById('zhuyinQuestionsContainer');
+      let html = '';
+      curZhuyinData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('注音：${opt}')" title="報讀選項">🔊</button>
+              <span>${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')" title="朗讀題目">🔊</button>
+                <span>第 ${qNum} 題：請選出正確的注音 ➔ <strong>${q.display_word}</strong></span>
+              </div>
+            </div>
+            <div class="opt-container">${optHtml}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 解析：${q.hint}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Char Words Questions
+    function renderCharWordsQuestions() {
+      const c = document.getElementById('charWordsQuestionsContainer');
+      let html = '';
+      curCharWordsData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('國字：${opt}')" title="報讀選項">🔊</button>
+              <span style="font-family:'Iansui','芫荽','標楷體',sans-serif;">${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')" title="朗讀題目">🔊</button>
+                <span>第 ${qNum} 題：請選出正確的國字 ➔ <strong>${q.display_word}</strong></span>
+              </div>
+            </div>
+            <div class="opt-container">${optHtml}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 解析：${q.hint}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Char Sent Questions
+    function renderCharSentQuestions() {
+      const c = document.getElementById('charSentQuestionsContainer');
+      let html = '';
+      curCharSentData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('國字：${opt}')" title="報讀選項">🔊</button>
+              <span style="font-family:'Iansui','芫荽','標楷體',sans-serif;">${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')" title="朗讀題目">🔊</button>
+                <span>第 ${qNum} 題：請選出正確的國字 ➔ ${q.display_context}</span>
+              </div>
+            </div>
+            <div class="opt-container">${optHtml}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 解析：${q.hint}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Cloze Questions
+    function renderClozeQuestions() {
+      const c = document.getElementById('clozeQuestionsContainer');
+      let html = '';
+      curClozeData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        let optHtml = '';
+        q.options.forEach(opt => {
+          optHtml += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOption('${q.id}', '${opt}', this)">
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('國字：${opt}')" title="報讀選項">🔊</button>
+              <span style="font-family:'Iansui','芫荽','標楷體',sans-serif;">${opt}</span>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="q-item" id="item-${q.id}">
+            <div class="q-header">
+              <div class="q-stem-row">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')" title="朗讀題目">🔊</button>
+                <span>第 ${qNum} 題：${q.display_html}</span>
+              </div>
+            </div>
+            <div class="opt-container">${optHtml}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}">
+              <strong>【正解】：</strong>${q.ans} ｜ 詞義解析：${q.annotation}
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    // Render Word Cloze Questions (Req 5: 徹底杜絕洩題，輸入框清空，解答完全隱藏)
+    function renderWordClozeQuestions() {
+      const c = document.getElementById('wordClozeQuestionsContainer');
+      let html = '';
+      curWordClozeData.forEach((q, idx) => {
+        const qNum = idx + 1;
+        const stemHtml = q.stem.replace('（　）', `<input type="text" class="cloze-input-box" id="inp-${q.id}" maxlength="1" oninput="userAnswers['${q.id}']=this.value.trim()" value="" autocomplete="off" placeholder=" ">`);
+        html += `
+          <div class="q-item" id="item-${q.id}" style="padding:8px 12px;">
+            <div class="q-header" style="margin-bottom:0;">
+              <div class="q-stem-row" style="font-size:15px;">
+                <button class="audio-icon-btn no-print" onclick="speak('${q.audio_stem}')" title="朗讀題目">🔊</button>
+                <span>第 ${qNum} 題：${stemHtml}</span>
+                <span class="teacher-sol-banner" id="sol-${q.id}" style="margin-left:10px;">
+                  <strong>【正解】：${q.ans}</strong> (${q.hint})
+                </span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      c.innerHTML = html;
+    }
+
+    function renderAllSections() {
+      renderZhuyinQuestions();
+      renderCharWordsQuestions();
+      renderCharSentQuestions();
+      renderClozeQuestions();
+      renderWordClozeQuestions();
+    }
+
+    // Option Click
+    function chooseOption(qid, val, el) {
+      userAnswers[qid] = val;
+      const parent = el.closest('.opt-container');
+      parent.querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Teacher Mode Toggle
+    function toggleTeacherMode() {
+      isTeacherMode = !isTeacherMode;
+      document.body.classList.toggle('teacher-mode', isTeacherMode);
+      const btn = document.getElementById('teacherModeBtn');
+      if (isTeacherMode) {
+        btn.textContent = '🎓 切換學生練習版';
+        btn.style.background = '#dcfce7';
+        btn.style.color = '#15803d';
+        markAllCorrectOptions();
+      } else {
+        btn.textContent = '👁️ 切換教師解答版';
+        btn.style.background = '#fef3c7';
+        btn.style.color = '#b45309';
+        clearTeacherHighlights();
+      }
+    }
+
+    function markAllCorrectOptions() {
+      const allMCQ = [...curZhuyinData, ...curCharWordsData, ...curCharSentData, ...curClozeData];
+      allMCQ.forEach(q => {
+        const item = document.getElementById('item-' + q.id);
+        if (!item) return;
+        item.querySelectorAll('.opt-item').forEach(optEl => {
+          if (optEl.getAttribute('data-val') === q.ans) {
+            optEl.classList.add('is-correct');
+          }
+        });
+      });
+      curWordClozeData.forEach(q => {
+        const inp = document.getElementById('inp-' + q.id);
+        if (inp) {
+          inp.value = q.ans;
+          inp.style.color = '#15803d';
+          inp.style.fontWeight = 'bold';
+        }
+      });
+    }
+
+    function clearTeacherHighlights() {
+      document.querySelectorAll('.opt-item').forEach(optEl => {
+        optEl.classList.remove('is-correct');
+      });
+      curWordClozeData.forEach(q => {
+        const inp = document.getElementById('inp-' + q.id);
+        if (inp) {
+          inp.value = userAnswers[q.id] || '';
+          inp.style.color = '#0f172a';
+          inp.style.fontWeight = 'bold';
+        }
+      });
+    }
+
+    // Submit Answers & Send to Google Sheets (Req 3: 老師模式座號標記為 test.)
+    function submitWorksheetAnswers() {
+      let score = 0;
+      let totalQ = curZhuyinData.length + curCharWordsData.length + curCharSentData.length + curClozeData.length + curWordClozeData.length;
+      let correctCount = 0;
+
+      // Grade Zhuyin (3 pts each = 21)
+      curZhuyinData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 3;
+          correctCount++;
+        }
+      });
+      // Grade Char Words (3 pts each = 21)
+      curCharWordsData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 3;
+          correctCount++;
+        }
+      });
+      // Grade Char Sent (3 pts each = 21)
+      curCharSentData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 3;
+          correctCount++;
+        }
+      });
+      // Grade Cloze (3 pts each = 21)
+      curClozeData.forEach(q => {
+        if (userAnswers[q.id] === q.ans) {
+          score += 3;
+          correctCount++;
+        }
+      });
+      // Grade Word Cloze (2 pts each (14) + 2 bonus = 16 => Total 100)
+      curWordClozeData.forEach((q, idx) => {
+        const inp = document.getElementById('inp-' + q.id);
+        const ansVal = (inp ? inp.value.trim() : '') || userAnswers[q.id];
+        const pts = (idx === curWordClozeData.length - 1) ? 4 : 2;
+        if (ansVal === q.ans) {
+          score += pts;
+          correctCount++;
+        }
+      });
+
+      document.getElementById('dispTotalScore').textContent = score;
+      document.getElementById('finalScoreVal').textContent = score;
+      document.getElementById('scoreBanner').style.display = 'block';
+
+      // Auto Highlight correct / wrong
+      markAllCorrectOptions();
+      document.body.classList.add('teacher-mode');
+
+      // Req 3 & Req 5: 老師模式中生成的評量資料，座號欄標記為 test.
+      const seat = (selectedSeat === 'test.' || isTeacherMode) ? 'test.' : selectedSeat;
+      const durationSec = Math.round((Date.now() - startTime) / 1000);
+      const tipEl = document.getElementById('syncStatusTip');
+      tipEl.innerHTML = `<span style="color:#0284c7;">⏳ 正在同步成果至 Google 試算表...</span>`;
+
+      const payload = {
+        action: 'quiz_submit',
+        userRole: seat,
+        sheetCode: currentSheetCode,
+        title: `相似字形音義特訓學習單(${currentVariantName})`,
+        score: score,
+        totalQuestions: totalQ,
+        correctCount: correctCount,
+        durationSeconds: durationSec,
+        submittedAt: new Date().toISOString()
+      };
+
+      try {
+        fetch(GOOGLE_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(() => {
+          tipEl.innerHTML = `<span style="color:#10b981; font-weight:bold;">✅ 已成功將座號 ${seat} 成果送出至教師試算表！（耗時 ${durationSec} 秒）</span>`;
+        }).catch(err => {
+          tipEl.innerHTML = `<span style="color:#b45309;">💡 成果已於本機核算完成（離線環境不影響作答）</span>`;
+        });
+      } catch(e) {
+        tipEl.innerHTML = `<span style="color:#b45309;">💡 成果已於本機核算完成</span>`;
+      }
+
+      speak(`測驗完成！你的得分是 ${score} 分！`);
+    }
+
+    function resetWorksheetAnswers() {
+      userAnswers = {};
+      document.querySelectorAll('.opt-item').forEach(el => {
+        el.classList.remove('selected', 'is-correct');
+      });
+      document.querySelectorAll('.cloze-input-box').forEach(inp => {
+        inp.value = '';
+        inp.placeholder = ' ';
+      });
+      document.getElementById('dispTotalScore').textContent = '＿＿';
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.body.classList.remove('teacher-mode');
+      isTeacherMode = false;
+      const btn = document.getElementById('teacherModeBtn');
+      btn.textContent = '👁️ 切換教師解答版';
+      btn.style.background = '#fef3c7';
+      btn.style.color = '#b45309';
+      document.getElementById('syncStatusTip').textContent = '成績、耗時與座號將自動記錄並送出給任課教師。';
+    }
+
+    // Export Word Document
+    function exportWordDoc() {
+      const seatVal = document.getElementById('userSeatSelect').value;
+      const seat = (seatVal === '老師' || isTeacherMode) ? 'test.' : seatVal;
+      const showBank = document.getElementById('toggleWordBankChk') ? document.getElementById('toggleWordBankChk').checked : true;
+
+      let docContent = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8">
+          <title>相似字形音義特訓單 (Word大聲朗讀版 - ${currentSheetCode})</title>
+          <style>
+            body { font-family: "標楷體", "DFKai-SB", serif; font-size: 13pt; line-height: 1.6; }
+            h1 { font-size: 18pt; text-align: center; color: #0369a1; margin-bottom: 4pt; }
+            h2 { font-size: 15pt; color: #0f172a; margin-top: 12pt; border-bottom: 1.5pt solid #0284c7; padding-bottom: 2pt; page-break-before: always; }
+            .meta { font-size: 11pt; text-align: center; margin-bottom: 12pt; }
+            .q-box { margin-bottom: 8pt; }
+            .opts { margin-left: 18pt; color: #334155; }
+            .ans-note { color: #dc2626; font-size: 10.5pt; margin-top: 2pt; margin-left: 18pt; }
+            .bank-box { background: #f0f9ff; border: 1.5pt dashed #0284c7; padding: 6pt 10pt; text-align: center; font-size: 13pt; margin-bottom: 8pt; }
+          </style>
+        </head>
+        <body>
+          <h1>國語文領域 課堂學習評量卷</h1>
+          <div class="meta">【${currentSheetCode} 相似字特訓單（${currentVariantName}）】 班級：七年____班  座號：${seat}  姓名：＿＿＿＿  得分：＿＿</div>
+          <p><em>💡 提示：在 Word 中點選上方功能區「校閱」➔「大聲朗讀」（或按快捷鍵 Ctrl+Alt+Space），即可練習逐題自動發音朗讀！</em></p>
+
+          <h2>一大題：看詞語選正確注音</h2>
+      `;
+
+      curZhuyinData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出正確的注音。</strong> 題目詞語：${q.display_word}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 解析：${q.hint}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>二大題：看詞語注音選正確國字</h2>`;
+      curCharWordsData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出正確的國字。</strong> 詞語：${q.display_word}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 解析：${q.hint}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>三大題：看句子注音選正確國字</h2>`;
+      curCharSentData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出正確的國字。</strong> 句子：${q.display_context}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 解析：${q.hint}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>四大題：成語文意與生活詞語填空</h2>`;
+      curClozeData.forEach((q, idx) => {
+        const plainText = q.display_html.replaceAll('<strong>', '').replaceAll('</strong>', '');
+        docContent += `
+          <div class="q-box">
+            <p><strong>第 ${idx+1} 題：請選出最適當的字填入（　）。</strong> 句子：${plainText}</p>
+            <p class="opts">（A）${q.options[0]}  （B）${q.options[1]}  （C）${q.options[2]}  （D）${q.options[3]}</p>
+            ${isTeacherMode ? `<p class="ans-note">【正解】：${q.ans} ｜ 詞義解析：${q.annotation}</p>` : ''}
+          </div>
+        `;
+      });
+
+      docContent += `<h2>五大題：核心詞語選字填空</h2>`;
+      if (showBank) {
+        docContent += `<div class="bank-box"><strong>🧩 備選字庫：</strong>【 縈、 瑩、 營、 螢、 麴、 掬、 鞠 】</div>`;
+      }
+      curWordClozeData.forEach((q, idx) => {
+        docContent += `
+          <div class="q-box">
+            <p>第 ${idx+1} 題：${q.stem} ${isTeacherMode ? `<span class="ans-note">【正解】：${q.ans} (${q.hint})</span>` : ''}</p>
+          </div>
+        `;
+      });
+
+      docContent += `</body></html>`;
+
+      const blob = new Blob(['﻿' + docContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${currentSheetCode}_相似字特訓學習單_${currentVariantName}_${isTeacherMode ? '教師解答版' : '學生練習版'}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Init
+    document.getElementById('userSeatSelect').addEventListener('change', function(e) {
+      document.getElementById('dispSeatNumber').textContent = e.target.value;
+      if (e.target.value === '老師' && !isTeacherMode) {
+        toggleTeacherMode();
+      }
+    });
+
+    renderAllSections();
+  </script>
+</body>
+</html>

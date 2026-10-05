@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⏳ [QL3-101] 課文情節圖文排序有聲學習單 ‧ 琦君〈下雨天，真好〉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7; --primary-dark: #0369a1; --accent-warm: #f59e0b;
+      --text-main: #0f172a; --bg-page: #f1f5f9; --border-card: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", sans-serif;
+      background-color: var(--bg-page); color: var(--text-main);
+      font-size: 16px; line-height: 1.6; padding: 16px 12px 90px 12px;
+    }
+    .no-print-toolbar {
+      max-width: 920px; margin: 0 auto 16px auto; background: #ffffff;
+      border: 1.5px solid #bae6fd; border-radius: 12px; padding: 12px 18px;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .toolbar-left, .toolbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .tool-btn {
+      padding: 8px 16px; font-size: 14.5px; font-weight: bold; border-radius: 8px;
+      border: 1.5px solid #cbd5e1; background: #ffffff; color: #334155; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 6px; text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .tool-btn:hover { background: #f8fafc; border-color: #94a3b8; }
+    .tool-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .tool-btn.warm { background: #fef3c7; color: #b45309; border-color: #fde047; }
+    .tool-btn.success { background: #dcfce7; color: #15803d; border-color: #86efac; }
+
+    .a4-paper {
+      max-width: 920px; margin: 0 auto; background: #ffffff; padding: 32px 36px;
+      border-radius: 14px; border: 1px solid var(--border-card); box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+    .ws-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      border-bottom: 3px solid #0284c7; padding-bottom: 16px; margin-bottom: 20px; gap: 16px;
+    }
+    .ws-code-badge {
+      background: #0284c7; color: #fff; font-size: 14px; padding: 3px 12px;
+      border-radius: 6px; font-family: monospace; font-weight: 900;
+    }
+    .ws-student-meta { display: flex; gap: 18px; font-size: 15px; color: #334155; margin-top: 6px; font-weight: bold; }
+    .meta-box { border-bottom: 2px solid #64748b; padding: 0 10px; min-width: 75px; text-align: center; color: #0284c7; }
+
+    /* Req 4: 字加大、間距拉大、換頁規範 */
+    .ws-section { margin-bottom: 28px; }
+    .ws-sec-title {
+      font-size: 18.5px; font-weight: bold; color: #0369a1; background: #f0f9ff;
+      border-left: 5px solid #0284c7; padding: 10px 16px; margin-bottom: 18px;
+      border-radius: 0 8px 8px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .q-item {
+      background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 12px;
+      padding: 18px 22px; margin-bottom: 24px; transition: border 0.15s;
+    }
+    .q-item:hover { border-color: #94a3b8; }
+    .audio-icon-btn {
+      background: #f0f9ff; border: 1.5px solid #bae6fd; color: #0284c7; border-radius: 6px;
+      padding: 4px 10px; font-size: 15px; cursor: pointer; flex-shrink: 0;
+    }
+    .opt-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+    .opt-item {
+      background: #f8fafc; border: 2px solid #cbd5e1; border-radius: 8px;
+      padding: 10px 14px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 15.5px; cursor: pointer; transition: all 0.15s ease;
+    }
+    .opt-item:hover { background: #f1f5f9; border-color: #94a3b8; }
+    .opt-item.selected { background: #e0f2fe !important; border-color: #0284c7 !important; color: #0369a1 !important; font-weight: bold; }
+    .opt-audio-btn { background: none; border: none; font-size: 16px; cursor: pointer; color: #0284c7; padding: 2px 6px; }
+
+    /* 圖文重組卡片樣式 */
+    .seq-reorder-item {
+      background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px;
+      padding: 14px 18px; margin-bottom: 14px; display: flex; align-items: center;
+      justify-content: space-between; gap: 14px; flex-wrap: wrap; transition: all 0.15s;
+    }
+    .seq-reorder-item:hover { border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,0.1); }
+    
+    .teacher-sol-banner { display: none !important; margin-top: 12px; padding: 8px 14px; background: #fef3c7; color: #92400e; border-radius: 8px; font-size: 14.5px; border-left: 4px solid #f59e0b; }
+    body.teacher-mode .teacher-sol-banner { display: block !important; }
+    .teacher-mode .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+
+    /* Req 5: 座號報到 Modal */
+    .seat-modal-overlay {
+      position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center; z-index: 99999;
+    }
+    .seat-modal-box {
+      background: #ffffff; border-radius: 16px; padding: 26px 30px; max-width: 460px; width: 92%;
+      border: 2px solid #38bdf8; box-shadow: 0 10px 30px rgba(0,0,0,0.25); text-align: center;
+    }
+    .seat-grid-btn {
+      padding: 12px; font-size: 17px; font-weight: bold; border-radius: 10px;
+      border: 2px solid #cbd5e1; background: #f8fafc; color: #1e293b; cursor: pointer;
+      transition: all 0.15s;
+    }
+    .seat-grid-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .seat-grid-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; box-shadow: 0 2px 8px rgba(2,132,199,0.35); }
+
+    @media print {
+      @page { size: A4 portrait; margin: 14mm 12mm; }
+      body { background: #fff; padding: 0; font-size: 15px; }
+      .no-print, .no-print-toolbar, .submission-bar, .seat-modal-overlay { display: none !important; }
+      .a4-paper { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      /* Req 4: 一大題可以超過1頁，但進入下一大題一定要強制換頁 */
+      .ws-section {
+        page-break-before: always !important;
+        break-before: page !important;
+        margin-bottom: 24px !important;
+      }
+      .ws-section:first-of-type {
+        page-break-before: auto !important;
+        break-before: auto !important;
+      }
+      .q-item, .seq-reorder-item {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-bottom: 16px !important;
+        padding: 12px 16px !important;
+      }
+      .audio-icon-btn, .opt-audio-btn { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Req 5: 進入試卷時的座號選擇對話框 -->
+  <div id="seatSelectModal" class="seat-modal-overlay">
+    <div class="seat-modal-box">
+      <div style="font-size:36px; margin-bottom:8px;">👋</div>
+      <h3 style="font-size:21px; font-weight:900; color:#0369a1; margin-bottom:6px;">
+        歡迎進入【圖文排序】有聲學習單
+      </h3>
+      <p style="font-size:14.5px; color:#64748b; margin-bottom:18px;">
+        請先點選您的作答座號，確認後點擊「開始作答」開啟測驗與計時：
+      </p>
+      
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin-bottom:14px;">
+        <button class="seat-grid-btn active" onclick="pickSeatModal('01', this)">01 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('02', this)">02 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('03', this)">03 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('04', this)">04 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('05', this)">05 號</button>
+        <button class="seat-grid-btn" onclick="pickSeatModal('06', this)">06 號</button>
+      </div>
+      <button class="seat-grid-btn" style="width:100%; margin-bottom:18px; font-size:14.5px;" onclick="pickSeatModal('test.', this)">
+        🎓 教師示範 / 測試模式 (test.)
+      </button>
+
+      <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:17px;" onclick="confirmStartQuiz()">
+        🚀 確認座號，開始作答！
+      </button>
+    </div>
+  </div>
+
+  <div class="no-print-toolbar no-print">
+    <div class="toolbar-left">
+      <a href="./index.html" class="tool-btn">🔙 返回教材首頁</a>
+      <span style="font-weight:bold; color:#0369a1; font-size:15px;">🎧 情節圖文排序試卷</span>
+      <select id="sheetVariantSelect" class="tool-btn" onchange="changeSheetVariant(this.value)" style="background:#f0f9ff; border-color:#bae6fd; color:#0369a1; font-weight:bold;">
+        <option value="101">📜 卷一 (QL3-101)</option>
+        <option value="102">📜 卷二 (QL3-102)</option>
+        <option value="103">📜 卷三 (QL3-103)</option>
+        <option value="rand">🎲 隨機全新洗牌卷</option>
+      </select>
+      <button class="tool-btn" onclick="openSeatModal()" id="btnCurSeat" style="background:#f8fafc; font-weight:bold; color:#0284c7;">
+        👤 座號：01號 [變更]
+      </button>
+    </div>
+    <div class="toolbar-right">
+      <button class="tool-btn success" id="teacherModeBtn" onclick="toggleTeacherMode()">👁️ 切換教師解答版</button>
+      <button class="tool-btn warm" onclick="exportWordDoc()">📄 匯出 Word</button>
+      <button class="tool-btn primary" onclick="window.print()">🖨️ A4 純淨列印</button>
+    </div>
+  </div>
+
+  <div class="a4-paper">
+    <header class="ws-header">
+      <div style="flex:1;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+          <span class="ws-code-badge" id="sheetCodeBadge">QL3-101</span>
+          <span style="font-size:13px; color:#64748b; font-weight:bold;">國語文領域 ‧ 適性教學評量卷</span>
+        </div>
+        <h1 style="font-size:24px; font-weight:900; color:#0369a1; margin-bottom:4px;" id="sheetMainTitleText">
+          第 3 課 琦君〈下雨天，真好〉課文情節圖文排序有聲學習單 (卷一)
+        </h1>
+        <div class="ws-student-meta">
+          <span>班級：<span class="meta-box">國三資源班</span></span>
+          <span>座號：<span class="meta-box" id="dispMetaSeat">01</span></span>
+          <span>姓名：<span class="meta-box">＿＿＿＿</span></span>
+          <span>得分：<span class="meta-box" id="dispTotalScore" style="color:#ef4444;">＿＿</span></span>
+        </div>
+      </div>
+      <div class="ws-qr-box no-print">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlAAAAJQAQAAAABpmWfoAAAEHklEQVR4nO2d0W7kIBRDwdr//2VW0+lMgCRjO82KauXz0A6JsSKQroBcSG3lLnCbU4mVDgwtIVY6MLSEWOnA0BJipQNDS4iVDgwtIVZL2urP408dLrXvcpvutK780vT30oM6MLSEWOnA0BJitS5ela9486S+S31sagexaqyTHnSApf5IrHRgaAmxWhmvykEMekWt2pXK8Huskx7UgaElxEoHhpYQq7XxqmeLVW0aWT0YZ4Ib6UEdGFpCrHRgaAmx+j3xqnxFqn5M1YbSP38qxEoGupQRKx0YWkKsLsSrNlx+xqfXulVfKkMU60mz68DQEmKlA0NLiNXK8VU9FfTRqk5x7J89FWIlA13KiJUODC0hVma8arvL4+xvy16o72i1r5Nm14GhJcRKB4aWEKuV+Veti0Yb29UyxadN9ZoxpgcdYKk/EisdGFpCrJa0VX3N7Mb/22pVH5lqF8/6u8/f6UEdGFpCrHRgaAmxWje+au9Y9cy2Ohpp1V3E6u/c/FSIlQx0KSNWOjC0hFjZ46v2Kk7jrON5YBvuvGqn2XVgaAmx0oGhJcRq3Xyw7HYMjrkMx3sH2zB/TA86wFJ/JFY6MLSEWK1cv2q73TWv+d9+pFV32Vm3PxViJQNdyoiVDgwtIVb2+KpMa+n9qvqY615P3h+m2R1gqT8SKx0YWkKsVs4HH/SzvHEN/mgeWHYZWOlBHRhaQqx0YGgJsVqbf1W/I9S4WnW0J6e+72/vDG9+KsRKBrqUESsdGFpCrC7lX9XdeTJjrlVJ/tVtIFYy0KWMWP1X5/W1XYQax1ytG2P1125/KsRKBrqUESsdGFpCrC6f11cOzuV7RqTaxbBxPJb3gz64UOeEWOnA0BJitXY/ztE5V/O+nDadkTzOINODOjC0hFjpwNASYrU2/6p+Feec9X2pfuv2mVnpQR0YWkKsdGBoCbFau3+wdLsH+93M8692+o2c9KAODC0hVjowtIRY/a78qzJkg9ZpVtjPBZPP4IMLdU6IlQ4MLSFWK/OvyjB62t4K7k9ub19/t1McNkV6UAeGlhArHRhaQqxWj68+rVfN+e3j+X5Zv3KBXeOUWOnA0BJitXZ8tbE/SWa/N6dM5zc8SA/qwNASYqUDQ0uI1fp80Qf9fLA/n6+Vkf5bOZkPusCucUqsdGBoCbFaGa/KEJX6fND5ezitU29fVL35qRArGehSRqx0YGgJsfrh91LbsJ95f55o2eUyPEiz68DQEmKlA0NLiNXa8dXM2a6bOn17MOf1XQGXah0SKx0YWkKs1sarRt8R1uF+vj/4E/Cj2gOx0oGhJcRqZbyqw8U+X2FcuarvmeC8zzA96ABL/ZFY6cDQEmL1e/KvroGL9Q6IlQ4MLSFWOjC0hFjpwNASYqUDQ0uIlQ4MLSFWOje21V9GdfasR002QAAAAABJRU5ErkJggg==" alt="自主學習網" style="width:62px; height:62px; display:block; margin:0 auto;">
+        <span style="font-size:10px; font-weight:bold; color:#0369a1; display:block; margin-top:2px;">📱 線上自主學習</span>
+      </div>
+    </header>
+
+    <!-- 一大題：課文情節先後時序選擇題 (5題) -->
+    <section class="ws-section" id="secMcq">
+      <div class="ws-sec-title">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="audio-icon-btn no-print" onclick="speak('一大題：課文情節先後時序選擇題。請依課文敘事時間軸，選出時序正確的答案。')">🔊 聽大題說明</button>
+          <span>一大題：課文情節先後時序選擇題（共 5 題，每題 10 分，共 50 分）</span>
+        </div>
+        <span style="font-size:13.5px; color:#64748b; font-weight:normal;">請依課文敘事時間軸，選出時序正確的答案</span>
+      </div>
+      <div id="seqMcqContainer"></div>
+    </section>
+
+    <!-- 二大題：關鍵情節時間軸圖文重組排序題 (6題) -->
+    <section class="ws-section" id="secReorder">
+      <div class="ws-sec-title">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button class="audio-icon-btn no-print" onclick="speak('二大題：關鍵情節時間軸圖文重組排序題。請觀察插圖與事件文字，點選右側上移或下移按鈕，調整卡片至正確時間順序。')">🔊 聽大題說明</button>
+            <span>二大題：關鍵情節時間軸「圖文重組排序題」（共 6 題，每題 8.3 分，共 50 分，全對 100 分）</span>
+          </div>
+          <span style="font-size:13.5px; color:#64748b; font-weight:normal; display:block; margin-top:4px;">
+            請觀察插圖與事件文字，點選右側「▲ 上移」或「▼ 下移」調整卡片至正確時間順序（紙本列印請於括號內填入 1~6）
+          </span>
+        </div>
+        <button class="tool-btn no-print" onclick="shuffleReorderOnly()" style="font-size:13px; padding:4px 12px;">🔀 重新打散順序</button>
+      </div>
+      <div id="seqReorderContainer"></div>
+      <div id="reorderAnsBanner" class="teacher-sol-banner" style="display:none; margin-top:14px;">
+        <strong>【正確時間時序】：</strong>推窗望雨 (1) ➔ 母親被窩講古 (3) ➔ 穿皮靴放木船 (4) ➔ 廊下品茗採花 (6) ➔ 煤氣燈聽唱鼓詞 (7) ➔ 西湖煙雨笛聲 (10)
+      </div>
+    </section>
+
+    <div class="submission-bar no-print" style="margin-top:26px; text-align:center;">
+      <div id="scoreBanner" style="display:none; font-size:21px; font-weight:bold; color:#0369a1; background:#f0f9ff; padding:10px 28px; border-radius:24px; border:2px solid #bae6fd; margin-bottom:12px;">
+        🎉 恭喜完成！您的測驗得分為：<span id="finalScoreVal" style="color:#ef4444; font-size:26px;">0</span> 分！
+      </div>
+      <button class="tool-btn primary" onclick="submitAnswers()" style="padding:12px 28px; font-size:16.5px;">🚀 送出成果並同步至 Google 試算表</button>
+      <button class="tool-btn" onclick="resetAnswers()" style="padding:12px 18px; font-size:15px;">🔄 清除重填</button>
+      <p id="syncTip" style="font-size:13px; color:#64748b; margin-top:8px;">成績與作答耗時將即時同步給授課教師。</p>
+    </div>
+  </div>
+
+  <script>
+    const rawMcqData = [{"id": "sq1", "q": "下列關於童年雨天情節，哪一件事發生在「父親廊下品茶賞雨、作者採玉蘭花」之前？", "opts": ["離家到杭州女中求學", "鑽進母親被窩聽菩薩故事", "西湖放鶴亭聽悠揚笛聲", "二十年後回憶母親已逝"], "ans": "鑽進母親被窩聽菩薩故事", "hint": "母親在被窩講故事屬於童年清晨，早於五月黃梅天父親廊下品茗。"}, {"id": "sq2", "q": "盲人先生至家中大廳唱《鄭元和學丐》時，家中點亮了什麼照明設備？", "opts": ["亮晃晃的煤氣燈", "微弱的煤油小油燈", "刺眼的現代電燈泡", "五彩的喜慶紅燈籠"], "ans": "亮晃晃的煤氣燈", "hint": "大廳正中央燃起亮晃晃的煤氣燈，發出嘶嘶聲音。"}, {"id": "sq3", "q": "「八月颱風大雨，孩子們在穀倉揀綠麴」這段情節，發生在作者人生哪個時期？", "opts": ["杭州女中求學時期", "二十歲漫步西湖時期", "成年後旅居海外時期", "故鄉歡樂童年時期"], "ans": "故鄉歡樂童年時期", "hint": "揀綠麴為故鄉童年八月颱風天長工翻穀時的歡樂童年遊戲。"}, {"id": "sq4", "q": "作者第一次在煙雨中聽見放鶴亭悠揚深情的笛聲，地點是在哪裡？", "opts": ["故鄉廚房走廊", "杭州女中宿舍", "浙江杭州西湖", "作者家中大廳"], "ans": "浙江杭州西湖", "hint": "作者二十歲漫步在西湖蘇堤，孤山放鶴亭傳來悠揚笛聲。"}, {"id": "sq5", "q": "全文貫穿始終、串聯作者童年與成年各時期回憶的核心情感線索是什麼？", "opts": ["對小木船的懷念", "雨天與對母親的思念", "品茗賞玉蘭花的雅興", "對吃炒花生的回味"], "ans": "雨天與對母親的思念", "hint": "全文以「雨天」為情感紅線，串起對故鄉與摯愛母親的永恆眷戀。"}];
+    const allMilestones = [{"step": 1, "title": "清晨推開窗戶，看見滿窗水珠，由衷讚嘆「下雨天，真好」。"}, {"step": 2, "title": "屋內長繩晾滿衣裳，細雨如萬千小珠串起童年美麗回憶。"}, {"step": 3, "title": "鑽進母親溫暖熱被窩聽故事，讚嘆母親如菩薩般慈祥。"}, {"step": 4, "title": "套上叔叔舊皮靴在爛泥地踩水，放小木船載著大紅布姑娘。"}, {"step": 5, "title": "坐在長工阿榮伯膝頭上吃炒花生炒豆，聽故事看雨中花貓。"}, {"step": 6, "title": "五月黃梅雨季，父親廊下品茶賞雨作唐詩，小女孩採玉蘭花送鄰。"}, {"step": 7, "title": "大廳燃起明亮煤氣燈嘶嘶響，全家聚集聽盲人先生唱鼓兒詞。"}, {"step": 8, "title": "八月颱風大雨穀倉穀子發霉，孩子們歡天喜地滿地幫忙揀綠麴。"}, {"step": 9, "title": "離家赴杭州念中學，每逢下雨天倚窗望雨，倍加思念母親。"}, {"step": 10, "title": "漫步西湖蘇堤細雨如煙，孤山放鶴亭傳來悠揚幽怨的笛聲。"}, {"step": 11, "title": "二十年歲月流轉，母親已逝，西湖笛聲化作永恆的眷戀與感恩。"}];
+    const paraImages = ["assets/images/p01.jpg", "assets/images/p02.jpg", "assets/images/p03.jpg", "assets/images/p04.jpg", "assets/images/p05.jpg", "assets/images/p06.jpg", "assets/images/p07.jpg", "assets/images/p08.jpg", "assets/images/p09.jpg", "assets/images/p10.jpg", "assets/images/p11.jpg"];
+    const GOOGLE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwWxukvaDgEbsW-N4YoFKYPJZvQdQdHemfIesEvw5jcLhjrxBJhgAW_6jpylq0QVdaD/exec";
+
+    let currentSheetCode = 'QL3-101';
+    let currentVariantName = '卷一';
+    let isTeacherMode = false;
+    let selectedSeatTemp = '01';
+    let activeSeat = '01';
+    let startTime = Date.now();
+    let userAnswers = {};
+    let curMcqList = [];
+    let curReorderList = [];
+    const targetSteps = [1, 3, 4, 6, 7, 10]; // 6 大核心插圖情節
+
+    function speak(t) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      let s = String(t || '').replace(/步步為營/g, '步步維營').replace(/步步為/g, '步步維');
+      const u = new SpeechSynthesisUtterance(s);
+      u.lang = 'zh-TW'; u.rate = 0.85;
+      window.speechSynthesis.speak(u);
+    }
+
+    function pickSeatModal(seat, btn) {
+      selectedSeatTemp = seat;
+      document.querySelectorAll('.seat-grid-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function confirmStartQuiz() {
+      activeSeat = selectedSeatTemp;
+      document.getElementById('seatSelectModal').style.display = 'none';
+      document.getElementById('dispMetaSeat').textContent = activeSeat === 'test.' ? '測試' : activeSeat;
+      document.getElementById('btnCurSeat').textContent = `👤 座號：${activeSeat === 'test.' ? '老師(test.)' : activeSeat + '號'} [變更]`;
+      startTime = Date.now();
+      speak(`座號${activeSeat === 'test.' ? '老師' : activeSeat}號，測驗開始，請仔細看圖排序！`);
+    }
+
+    function openSeatModal() {
+      document.getElementById('seatSelectModal').style.display = 'flex';
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function initLists() {
+      curMcqList = [...rawMcqData];
+      // 預設將 6 個核心步驟打散排列
+      const filtered = allMilestones.filter(m => targetSteps.includes(m.step));
+      curReorderList = [filtered[2], filtered[0], filtered[4], filtered[1], filtered[5], filtered[3]];
+    }
+
+    function shuffleReorderOnly() {
+      const filtered = allMilestones.filter(m => targetSteps.includes(m.step));
+      curReorderList = shuffle(filtered);
+      renderReorder();
+    }
+
+    function changeSheetVariant(val) {
+      resetAnswers();
+      if (val === '101') {
+        currentSheetCode = 'QL3-101'; currentVariantName = '卷一';
+        initLists();
+      } else if (val === '102') {
+        currentSheetCode = 'QL3-102'; currentVariantName = '卷二';
+        curMcqList = shuffle(rawMcqData);
+        curReorderList = shuffle(allMilestones.filter(m => targetSteps.includes(m.step)));
+      } else if (val === '103') {
+        currentSheetCode = 'QL3-103'; currentVariantName = '卷三';
+        curMcqList = shuffle(rawMcqData);
+        curReorderList = shuffle(allMilestones.filter(m => targetSteps.includes(m.step)));
+      } else {
+        const r = Math.floor(Math.random() * 900) + 104;
+        currentSheetCode = 'QL3-' + r; currentVariantName = '隨機卷(' + r + ')';
+        curMcqList = shuffle(rawMcqData);
+        curReorderList = shuffle(allMilestones.filter(m => targetSteps.includes(m.step)));
+      }
+      document.getElementById('sheetCodeBadge').textContent = currentSheetCode;
+      document.getElementById('sheetMainTitleText').textContent = `第 3 課 琦君〈下雨天，真好〉課文情節圖文排序有聲學習單 (${currentVariantName})`;
+      document.title = `⏳ [${currentSheetCode}] 情節圖文排序有聲學習單 (${currentVariantName})`;
+      render();
+    }
+
+    function render() {
+      // Render MCQ
+      const mcqBox = document.getElementById('seqMcqContainer');
+      let h1 = '';
+      curMcqList.forEach((q, idx) => {
+        let optH = '';
+        q.opts.forEach(opt => {
+          optH += `
+            <div class="opt-item" data-qid="${q.id}" data-val="${opt}" onclick="chooseOpt('${q.id}', '${opt}', this)">
+              <span>${opt}</span>
+              <button class="opt-audio-btn no-print" onclick="event.stopPropagation(); speak('選項：${opt}')">🔊</button>
+            </div>
+          `;
+        });
+        h1 += `
+          <div class="q-item" id="item-${q.id}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="audio-icon-btn no-print" onclick="speak('第 ${idx+1} 題：${q.q}')">🔊 朗讀題幹</button>
+                <span style="font-size:16.5px; font-weight:bold; color:#0f172a;">
+                  <strong>第 ${idx+1} 題：</strong>${q.q}
+                </span>
+              </div>
+            </div>
+            <div class="opt-container">${optH}</div>
+            <div class="teacher-sol-banner" id="sol-${q.id}"><strong>【正解】：</strong>${q.ans} ｜ 💡 解析：${q.hint}</div>
+          </div>
+        `;
+      });
+      mcqBox.innerHTML = h1;
+
+      renderReorder();
+    }
+
+    function renderReorder() {
+      const reorderBox = document.getElementById('seqReorderContainer');
+      let h2 = '';
+      curReorderList.forEach((item, idx) => {
+        const imgSrc = paraImages[item.step - 1];
+        h2 += `
+          <div class="seq-reorder-item" id="reorder-${item.step}">
+            <div style="display:flex; align-items:center; gap:16px; flex:1; flex-wrap:wrap;">
+              <!-- 順序標籤 (紙本列印顯示填空框) -->
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span class="no-print" style="background:#0284c7; color:#fff; font-weight:bold; font-size:15px; padding:6px 14px; border-radius:8px; min-width:85px; text-align:center;">
+                  順序 ${idx+1}
+                </span>
+                <span style="font-size:16px; font-weight:bold; color:#0369a1;">（　）</span>
+              </div>
+              <!-- 水彩情境插圖 -->
+              <div style="text-align:center; flex-shrink:0;">
+                <img src="${imgSrc}" alt="情節插圖" style="width:115px; height:80px; object-fit:cover; border-radius:8px; border:1.5px solid #94a3b8; box-shadow:0 2px 6px rgba(0,0,0,0.08);">
+                <span style="display:block; font-size:11px; color:#64748b; margin-top:2px; font-weight:bold;">第 ${item.step} 段插圖</span>
+              </div>
+              <!-- 情節內容 -->
+              <div style="flex:1; min-width:240px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <button class="audio-icon-btn no-print" onclick="speak('${item.title}')">🔊 朗讀情節</button>
+                  <span style="font-size:16px; font-weight:bold; color:#0f172a; line-height:1.6;">${item.title}</span>
+                </div>
+              </div>
+            </div>
+            <!-- 上移下移互動按鈕 -->
+            <div class="no-print" style="display:flex; flex-direction:column; gap:6px; margin-left:10px;">
+              <button class="tool-btn" onclick="moveItem(${idx}, -1)" style="padding:6px 12px; font-size:13.5px;" ${idx===0?'disabled':''}>▲ 上移</button>
+              <button class="tool-btn" onclick="moveItem(${idx}, 1)" style="padding:6px 12px; font-size:13.5px;" ${idx===curReorderList.length-1?'disabled':''}>▼ 下移</button>
+            </div>
+          </div>
+        `;
+      });
+      reorderBox.innerHTML = h2;
+    }
+
+    function moveItem(idx, dir) {
+      const target = idx + dir;
+      if (target < 0 || target >= curReorderList.length) return;
+      const tmp = curReorderList[idx];
+      curReorderList[idx] = curReorderList[target];
+      curReorderList[target] = tmp;
+      renderReorder();
+    }
+
+    function chooseOpt(qid, val, el) {
+      userAnswers[qid] = val;
+      el.closest('.opt-container').querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function toggleTeacherMode() {
+      isTeacherMode = !isTeacherMode;
+      document.body.classList.toggle('teacher-mode', isTeacherMode);
+      document.getElementById('teacherModeBtn').textContent = isTeacherMode ? '🎓 切換學生練習版' : '👁️ 切換教師解答版';
+      document.getElementById('reorderAnsBanner').style.display = isTeacherMode ? 'block' : 'none';
+      if (isTeacherMode) {
+        curMcqList.forEach(q => {
+          const item = document.getElementById('item-' + q.id);
+          if (item) item.querySelectorAll('.opt-item').forEach(o => { if(o.getAttribute('data-val') === q.ans) o.classList.add('is-correct'); });
+        });
+        // 教師模式自動排列為正確順序
+        curReorderList.sort((a, b) => a.step - b.step);
+        renderReorder();
+      } else {
+        document.querySelectorAll('.opt-item').forEach(o => o.classList.remove('is-correct'));
+      }
+    }
+
+    function submitAnswers() {
+      let score = 0; let correct = 0;
+      curMcqList.forEach(q => { if(userAnswers[q.id] === q.ans) { score += 10; correct++; } });
+      
+      // 計算圖文排序正確率
+      const isSortedCorrectly = curReorderList.every((item, idx, arr) => idx === 0 || item.step >= arr[idx-1].step);
+      if (isSortedCorrectly) {
+        score += 50; correct += 6;
+      } else {
+        let sortedInPlace = 0;
+        const sortedCopy = [...curReorderList].sort((a,b) => a.step - b.step);
+        curReorderList.forEach((it, i) => { if(it.step === sortedCopy[i].step) sortedInPlace++; });
+        score += Math.round(sortedInPlace * 8.33);
+        correct += sortedInPlace;
+      }
+      score = Math.min(100, Math.round(score));
+
+      document.getElementById('dispTotalScore').textContent = score;
+      document.getElementById('finalScoreVal').textContent = score;
+      document.getElementById('scoreBanner').style.display = 'block';
+
+      if (!isTeacherMode) toggleTeacherMode();
+
+      const seat = (activeSeat === '老師' || activeSeat === 'test.' || isTeacherMode) ? 'test.' : activeSeat;
+      const dur = Math.round((Date.now() - startTime) / 1000);
+      const tip = document.getElementById('syncTip');
+      tip.innerHTML = '⏳ 正在同步成果至 Google 試算表...';
+
+      fetch(GOOGLE_WEBHOOK_URL, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'quiz_submit', userRole: seat, sheetCode: currentSheetCode,
+          title: `情節圖文排序有聲學習單(${currentVariantName})`, score: score,
+          totalQuestions: 11, correctCount: correct, durationSeconds: dur,
+          submittedAt: new Date().toISOString()
+        })
+      }).then(() => {
+        tip.innerHTML = `<span style="color:#10b981; font-weight:bold;">✅ 已送出座號 ${seat} 成果！（得分：${score} 分）</span>`;
+      }).catch(() => {
+        tip.innerHTML = '💡 成果已於本機核算完成';
+      });
+
+      speak(`測驗完成！你的得分是 ${score} 分！`);
+    }
+
+    function resetAnswers() {
+      userAnswers = {};
+      document.querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected', 'is-correct'));
+      document.getElementById('dispTotalScore').textContent = '＿＿';
+      document.getElementById('scoreBanner').style.display = 'none';
+      if (isTeacherMode) toggleTeacherMode();
+    }
+
+    function exportWordDoc() {
+      let doc = `<html><head><meta charset="utf-8"><title>情節排序學習單</title></head><body>`;
+      doc += `<h1>國語文領域 課堂學習評量卷</h1>`;
+      doc += `<h3>【${currentSheetCode} 課文情節圖文排序有聲學習單 (${currentVariantName} - 座號：${activeSeat}號)】 得分：＿＿</h3>`;
+      doc += `<h2>一大題：課文情節先後時序選擇題</h2>`;
+      curMcqList.forEach((q, idx) => {
+        doc += `<p><strong>${idx+1}. ${q.q}</strong></p><p>A.${q.opts[0]}  B.${q.opts[1]}  C.${q.opts[2]}  D.${q.opts[3]}</p>`;
+        if(isTeacherMode) doc += `<p style="color:red">【正解】：${q.ans}</p>`;
+      });
+      doc += `<h2>二大題：關鍵情節時間軸圖文重組排序題</h2><p>請依據事件先後順序，於（　）內填入正確號碼 1 到 6：</p>`;
+      curReorderList.forEach((item, idx) => {
+        doc += `<p>（　）事件：${item.title}</p>`;
+      });
+      if(isTeacherMode) doc += `<p style="color:red">【正確時序】：推窗 ➔ 被窩說故事 ➔ 套皮靴放木船 ➔ 廊下品茗採花 ➔ 煤氣燈聽鼓詞 ➔ 西湖笛聲</p>`;
+      doc += `</body></html>`;
+      const blob = new Blob(['\ufeff' + doc], { type: 'application/msword' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = `${currentSheetCode}_課文情節圖文排序有聲學習單_${currentVariantName}.doc`;
+      a.click();
+    }
+
+    initLists();
+    render();
+  </script>
+</body>
+</html>
