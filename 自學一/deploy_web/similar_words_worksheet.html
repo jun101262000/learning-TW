@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>自學一 相似字形音義特訓學習單</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --bg-page: #f8fafc;
+    --text-main: #0f172a;
+    --border-card: #cbd5e1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "BiauKai", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 20px 16px 80px 16px;
+  }
+  .portal-back-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 13.5px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+  }
+  .portal-back-btn:hover { background: #e2e8f0; }
+  .sheet-header-bar {
+    max-width: 900px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sheet-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1.5px solid var(--border-card);
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .sheet-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0369a1;
+    margin-bottom: 4px;
+  }
+  .sheet-subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+  .student-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #0284c7;
+  }
+  .audio-play-btn {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #0284c7;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .tool-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+  }
+  .tool-btn.primary { background: #0284c7; color: #fff; border-color: #0369a1; font-weight: bold; }
+  .tool-btn.active-state { background: #10b981 !important; color: #fff !important; }
+  .sheet-footer {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ws-ans-key { color: #dc2626 !important; font-weight: bold; }
+  body.hide-answers .ws-ans-key { display: none !important; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet-header-bar { display: none !important; }
+    .sheet-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+    .audio-play-btn { display: none !important; }
+  }
+  .blank-holder { display: none; }
+  body.hide-answers .blank-holder { display: inline-block; }
+  </style>
+</head>
+<body class="hide-answers">
+  <div class="sheet-header-bar">
+    <a href="../index.html" class="portal-back-btn">🏠 回115數位學習網頁</a>
+    <div style="display:flex; gap:8px;">
+      <button id="toggleAnsBtn" class="tool-btn" onclick="toggleAnswers()">👁️ 顯示教師解答</button>
+      <button class="tool-btn primary" onclick="window.print()">🖨️ 列印 A4 紙本</button>
+    </div>
+  </div>
+
+  <div class="sheet-container">
+    <div class="sheet-title">自學一 六朝名士畫廊----世說新語選</div>
+    <div class="sheet-subtitle">相似字形音義與多音字辨析特訓學習單</div>
+    <div class="student-info-row">
+      <span>班級：＿＿＿＿</span>
+      <span>座號：＿＿＿＿</span>
+      <span>姓名：＿＿＿＿</span>
+      <span>得分：＿＿＿＿</span>
+    </div>
+
+    <div style="font-size:14.5px; font-weight:bold; color:#0369a1; margin-bottom:12px;">
+      說明：請仔細分辨題目字詞的音、形、義，將正確選項填入括號中：
+    </div>
+
+    <div>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄐㄧ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 1. 詞語：<strong>木屐</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄐㄧ。詞語：<strong>木屐</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄐㄧ</div><div>(B) ㄐㄧˋ</div><div>(C) ㄐㄧˊ</div><div>(D) ㄐㄧˇ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄓㄢˇ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 2. 詞語：<strong>蹍之</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄓㄢˇ。詞語：<strong>蹍之</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄓㄢˇ</div><div>(B) ㄋㄧㄢˇ</div><div>(C) ㄓㄢˋ</div><div>(D) ㄓㄢ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄔㄣ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 3. 詞語：<strong>瞋甚</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄔㄣ。詞語：<strong>瞋甚</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄔㄣ</div><div>(B) ㄕㄣˋ</div><div>(C) ㄔㄣˊ</div><div>(D) ㄔㄥ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄋㄧㄝˋ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 4. 詞語：<strong>齧破</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄋㄧㄝˋ。詞語：<strong>齧破</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄋㄧㄝˋ</div><div>(B) ㄑㄧㄝˋ</div><div>(C) ㄋㄧㄝ</div><div>(D) ㄋㄧㄝˊ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄐㄩㄢˋ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 5. 詞語：<strong>忿狷</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄐㄩㄢˋ。詞語：<strong>忿狷</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄐㄩㄢˋ</div><div>(B) ㄐㄩㄢ</div><div>(C) ㄑㄩㄢˊ</div><div>(D) ㄒㄩㄢˋ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (ㄔ)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 6. 詞語：<strong>郗太尉</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('ㄔ。詞語：<strong>郗太尉</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) ㄔ</div><div>(B) ㄒㄧ</div><div>(C) ㄑㄧ</div><div>(D) ㄔˇ</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (筯)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 7. 詞語：<strong>以【ㄓㄨˋ】刺之</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('筯。詞語：<strong>以【ㄓㄨˋ】刺之</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 筯</div><div>(B) 箸</div><div>(C) 著</div><div>(D) 助</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (屐)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 8. 詞語：<strong>木【ㄐㄧ】之齒</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('屐。詞語：<strong>木【ㄐㄧ】之齒</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 屐</div><div>(B) 居</div><div>(C) 屜</div><div>(D) 展</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (輾 / 蹍)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 9. 詞語：<strong>【ㄓㄢˇ】轉難眠 vs 踏【ㄓㄢˇ】</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('輾 / 蹍。詞語：<strong>【ㄓㄢˇ】轉難眠 vs 踏【ㄓㄢˇ】</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 輾 / 蹍</div><div>(B) 展 / 碾</div><div>(C) 碾 / 蹍</div><div>(D) 輾 / 碾</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (狷)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 10. 詞語：<strong>忿【ㄐㄩㄢˋ】之性</strong>
+        </div>
+        <button class="audio-play-btn" onclick="speak('狷。詞語：<strong>忿【ㄐㄩㄢˋ】之性</strong>')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 狷</div><div>(B) 娟</div><div>(C) 涓</div><div>(D) 券</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (瞋)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 11. 句子：他氣得雙目圓【ㄔㄣ】，大發雷霆。
+        </div>
+        <button class="audio-play-btn" onclick="speak('瞋。句子：他氣得雙目圓【ㄔㄣ】，大發雷霆。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 瞋</div><div>(B) 慎</div><div>(C) 填</div><div>(D) 縝</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (齧)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 12. 句子：老鼠常常【ㄋㄧㄝˋ】咬木製家具。
+        </div>
+        <button class="audio-play-btn" onclick="speak('齧。句子：老鼠常常【ㄋㄧㄝˋ】咬木製家具。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 齧</div><div>(B) 咬</div><div>(C) 咀</div><div>(D) 嚼</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (嗇)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 13. 句子：王戎行事極為【ㄙㄜˋ】嗇，鑽破李核以防人得種。
+        </div>
+        <button class="audio-play-btn" onclick="speak('嗇。句子：王戎行事極為【ㄙㄜˋ】嗇，鑽破李核以防人得種。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 嗇</div><div>(B) 薔</div><div>(C) 嬙</div><div>(D) 檣</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (坦腹)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 14. 
+        </div>
+        <button class="audio-play-btn" onclick="speak('坦腹。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 坦腹</div><div>(B) 正襟</div><div>(C) 忿狷</div><div>(D) 暴怒</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (不隨)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 15. 
+        </div>
+        <button class="audio-play-btn" onclick="speak('不隨。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 不隨</div><div>(B) 爭相</div><div>(C) 隨聲</div><div>(D) 大肆</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (東)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 16. 郗公挑女婿，看中王羲之率真灑脫的雅量，當場定為（　）床快婿。
+        </div>
+        <button class="audio-play-btn" onclick="speak('東。郗公挑女婿，看中王羲之率真灑脫的雅量，當場定為（　）床快婿。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 東</div><div>(B) 西</div><div>(C) 南</div><div>(D) 北</div></div>
+    </div>    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:12px 14px; margin-bottom:10px; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="font-size:15px; color:#1e293b;">
+          ( <span class="ws-ans-key">A (內)</span><span class="blank-holder" style="display:inline-block; width:28px; text-align:center;">　</span> ) 17. 王藍田抓起圓轉的雞蛋，取（　）口中咬破吐出，宣洩憤怒。
+        </div>
+        <button class="audio-play-btn" onclick="speak('內。王藍田抓起圓轉的雞蛋，取（　）口中咬破吐出，宣洩憤怒。')">🔊</button>
+      </div>
+      <div style='display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:6px; margin-left:24px; font-size:13.5px;'><div>(A) 內</div><div>(B) 納</div><div>(C) 入</div><div>(D) 進</div></div>
+    </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>原版架構：米克師 ｜ 教學研發與適性數位化：Jun的晨光慢步 ｜ CC BY-NC-SA 4.0</span>
+      <span>相似字特訓學習單</span>
+    </div>
+  </div>
+
+  <script>
+  function speak(text) {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "zh-TW";
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+  function toggleAnswers() {
+    document.body.classList.toggle("hide-answers");
+    const btn = document.getElementById("toggleAnsBtn");
+    if (btn) {
+      const isHidden = document.body.classList.contains("hide-answers");
+      btn.innerText = isHidden ? "👁️ 顯示教師解答" : "🔒 切換學生練習版";
+    }
+  }
+  </script>
+</body>
+</html>

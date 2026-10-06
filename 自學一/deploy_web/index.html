@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自學一 六朝名士畫廊----世說新語選 互動電子書</title>
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-warm: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-card: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "標楷體", "DFKai-SB", "BiauKai", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* Sticky Header Container (Wraps top-bar & nav-tabs together to eliminate click obstruction) */
+    .sticky-header-container {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #ffffff;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+    header.top-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 10px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .portal-back-btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+      transition: all 0.2s ease;
+    }
+    .portal-back-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transform: translateY(-1px);
+    }
+    .site-title {
+      font-size: 19px;
+      font-weight: bold;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .author-credit {
+      font-size: 12px;
+      color: #64748b;
+      margin-left: 6px;
+      font-weight: normal;
+    }
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tool-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .tool-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .tool-btn.primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+    }
+    .tool-btn.primary:hover {
+      background: var(--primary-dark);
+    }
+    .tool-btn.warn {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
+    /* Navigation Tabs */
+    nav.nav-tabs {
+      background: #ffffff;
+      border-bottom: 2px solid #bae6fd;
+      display: flex;
+      gap: 4px;
+      padding: 6px 18px 0;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 9px 18px;
+      font-size: 15.5px;
+      font-weight: bold;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid #e2e8f0;
+      border-bottom: none;
+      background: #f8fafc;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .tab-btn.active {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #7dd3fc;
+      border-bottom: 3.5px solid #0284c7;
+    }
+
+    /* Main Container */
+    main.main-content {
+      max-width: 1100px;
+      margin: 22px auto;
+      padding: 0 16px;
+    }
+    .tab-pane {
+      display: none;
+    }
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 21px;
+      font-weight: 900;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .sec-badge.assess {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    /* Audio Play Button */
+    .audio-btn {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid #bae6fd;
+      background: #f0f9ff;
+      color: #0284c7;
+      font-size: 13.5px;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .audio-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Blank Interactive Box (Red font answer) */
+    .blank-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 90px;
+      padding: 2px 10px;
+      margin: 0 3px;
+      border-bottom: 2.5px dashed #0284c7;
+      background: #e0f2fe;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #0369a1;
+      transition: all 0.2s;
+      user-select: none;
+      vertical-align: middle;
+    }
+    .blank-box:hover {
+      background: #bae6fd;
+      border-color: #0369a1;
+    }
+    .blank-box .blank-prompt {
+      font-size: 13.5px;
+      color: #0284c7;
+    }
+    .blank-box .blank-ans {
+      display: none;
+      color: #dc2626 !important; /* 紅字 */
+      font-weight: 900;
+      font-size: 16px;
+    }
+    .blank-box.revealed {
+      background: #fee2e2;
+      border-bottom-color: #ef4444;
+    }
+    .blank-box.revealed .blank-prompt { display: none; }
+    .blank-box.revealed .blank-ans { display: inline; }
+
+    body.show-all-answers .blank-box {
+      background: #fee2e2;
+      border-bottom-color: #ef4444;
+    }
+    body.show-all-answers .blank-box .blank-prompt { display: none; }
+    body.show-all-answers .blank-box .blank-ans { display: inline; }
+
+    /* Double Column Table for Text & Translation */
+    .parallel-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid #cbd5e1;
+    }
+    .parallel-table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 900;
+      border: 1px solid #cbd5e1;
+      text-align: left;
+    }
+    .parallel-table td {
+      padding: 14px 16px;
+      border: 1px solid #e2e8f0;
+      font-size: 16px;
+      line-height: 1.8;
+      vertical-align: top;
+      background: #ffffff;
+    }
+    .parallel-table tr:nth-child(even) td {
+      background: #fcfdfe;
+    }
+
+    /* Media Containers */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .comic-img-wrapper {
+      text-align: center;
+      margin: 20px 0;
+      padding: 12px;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1.5px solid #cbd5e1;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    }
+    .comic-img {
+      max-width: 95%;
+      width: auto;
+      height: auto;
+      max-height: 850px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      cursor: zoom-in;
+    }
+
+    /* Accordion / Expandable Cards */
+    .expand-card {
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .expand-header {
+      padding: 12px 16px;
+      background: #f8fafc;
+      font-size: 16px;
+      font-weight: bold;
+      color: #0f172a;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .expand-header:hover {
+      background: #f1f5f9;
+    }
+    .expand-body {
+      display: none;
+      padding: 14px 18px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 15.5px;
+      line-height: 1.8;
+      color: #334155;
+    }
+    .expand-body.open {
+      display: block;
+    }
+
+    /* Quiz Assessment Cards */
+    .quiz-card {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+    .quiz-card.answered-correct {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+    .quiz-card.answered-wrong {
+      border-color: #ef4444;
+      background: #fef2f2;
+    }
+    .quiz-q-stem {
+      font-size: 16.5px;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.6;
+    }
+    .quiz-opts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .quiz-opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      font-size: 15.5px;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .quiz-opt-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .quiz-opt-btn.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+    }
+    .quiz-opt-btn.correct {
+      background: #dcfce7 !important;
+      border-color: #10b981 !important;
+      color: #15803d !important;
+      font-weight: bold;
+    }
+    .quiz-opt-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: #ef4444 !important;
+      color: #b91c1c !important;
+    }
+    .quiz-expl-box {
+      display: none;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #f1f5f9;
+      border-left: 4px solid #0284c7;
+      border-radius: 0 6px 6px 0;
+      font-size: 14.5px;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .quiz-expl-box.open {
+      display: block;
+    }
+
+    /* Matching Question Layout */
+    .match-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .match-table th {
+      background: #f1f5f9;
+      padding: 10px 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: 1px solid #cbd5e1;
+    }
+    .match-table td {
+      padding: 12px 14px;
+      border: 1px solid #e2e8f0;
+      font-size: 15.5px;
+      background: #ffffff;
+      vertical-align: middle;
+    }
+    .match-select {
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1.5px solid #cbd5e1;
+      font-size: 15px;
+      font-family: inherit;
+      width: 100%;
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .match-select.correct {
+      border-color: #10b981;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .match-select.wrong {
+      border-color: #ef4444;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    /* Floating Magnifier Tool */
+    #floatingMagBtn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      background: #0284c7;
+      color: #ffffff;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    #floatingMagBtn:hover {
+      transform: scale(1.08);
+      background: #0369a1;
+    }
+
+    /* Magnifier Modal */
+    .mag-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .mag-content-box {
+      background: #ffffff;
+      max-width: 750px;
+      width: 100%;
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .mag-text-view {
+      font-size: 34px;
+      line-height: 1.8;
+      color: #0f172a;
+      padding: 20px;
+      background: #f8fafc;
+      border: 2px dashed #38bdf8;
+      border-radius: 10px;
+      margin: 16px 0;
+      min-height: 120px;
+      font-family: "標楷體", "DFKai-SB", serif;
+      word-break: break-all;
+    }
+
+    /* Audio Worksheet Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-box {
+      background: #ffffff;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .modal-header {
+      padding: 16px 20px;
+      background: #0284c7;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 19px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-footer {
+      padding: 12px 20px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #f8fafc;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 24px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Header Container (Wraps top-bar & nav-tabs together to eliminate click obstruction) -->
+  <div class="sticky-header-container">
+    <header class="top-bar">
+      <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <a href="../../index.html" class="portal-back-btn">🏠 回115數位學習網頁</a>
+        <div class="site-title">
+          <span>🎨 自學一 六朝名士畫廊----世說新語選 (課本.P166)</span>
+          <span class="author-credit">原版工具：米克師 / 延伸開發：Jun的晨光慢步 / CC BY-NC-SA 4.0</span>
+        </div>
+      </div>
+
+      <div class="header-tools">
+        <!-- 身分與座號選擇 (老師 vs 01-06號學生) -->
+        <div id="roleBadgeContainer" style="background:#f1f5f9; padding:5px 12px; border-radius:8px; font-size:13.5px; border:1.5px solid #bae6fd; display:flex; align-items:center; gap:8px;">
+          <span>👤 身分:</span>
+          <strong id="roleBadge" style="color:#0284c7; font-size:14px;">👨‍🏫 老師 (測試與上課)</strong>
+          <button class="tool-btn" style="padding:2px 7px; font-size:12px;" onclick="openRoleModal()">切換</button>
+        </div>
+        <button id="rateToggleBtn" class="tool-btn" onclick="cycleSpeechRate()">⚡ 語速 0.85x</button>
+        <button class="tool-btn" onclick="stopAllSpeech()">⏹️ 停止朗讀</button>
+        <button id="ansToggleBtn" class="tool-btn warn" onclick="toggleAllAnswers()">👁️ 顯示全部解答</button>
+        <button class="tool-btn primary" onclick="openAudioModal()">🎧 學習單有聲專區</button>
+        <a href="classroom_worksheet.html" target="_blank" class="tool-btn">📄 課堂學習單</a>
+        <a href="audio_quiz.html" target="_blank" class="tool-btn">📝 獨立有聲卷</a>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs (Strictly 5 Tabs) -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab(0)">📋 【Tab 1】課前說明</button>
+      <button class="tab-btn" onclick="switchTab(1)">📚 【Tab 2】世說新語</button>
+      <button class="tab-btn" onclick="switchTab(2)">🛏️ 【Tab 3】坦腹東床</button>
+      <button class="tab-btn" onclick="switchTab(3)">🥚 【Tab 4】王藍田食雞子</button>
+      <button class="tab-btn" onclick="switchTab(4)">👤 【Tab 5】人物形象掃描</button>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ==================== TAB 1: 課前說明 ==================== -->
+    <section id="tab-pane-0" class="tab-pane active">
+      <div class="card" style="background:#f0f9ff; border-color:#bae6fd;">
+        <div class="card-header">
+          <div class="card-title">📋 課前說明：自學一 六朝名士畫廊----世說新語選</div>
+          <button class="audio-btn" onclick="speakText('自學一 六朝名士畫廊，世說新語選。課本第166頁。學習目標：一、認識世說新語的特色和價值。二、理解坦腹東床、王藍田食雞子的故事內容和人物特色。三、能理解人物性格解釋，並填入對應人名的事蹟簡述中。')">🔊 朗讀學習目標</button>
+        </div>
+        <div style="padding:10px 8px;">
+          <h3 style="font-size:18px; color:#0369a1; margin-bottom:14px;">🎯 本單元核心學習目標：</h3>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-left:5px solid #0284c7; border-radius:8px; padding:16px;">
+              <strong style="color:#0284c7; font-size:17px;">學習目標 1：</strong>
+              <span style="font-size:16.5px; line-height:1.8; color:#1e293b;">認識《世說新語》的成書背景、內容特色與文學價值。</span>
+            </div>
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-left:5px solid #10b981; border-radius:8px; padding:16px;">
+              <strong style="color:#10b981; font-size:17px;">學習目標 2：</strong>
+              <span style="font-size:16.5px; line-height:1.8; color:#1e293b;">理解〈坦腹東床〉、〈王藍田食雞子〉的故事內容、情節起承轉合與生動的人物特色。</span>
+            </div>
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-left:5px solid #f59e0b; border-radius:8px; padding:16px;">
+              <strong style="color:#f59e0b; font-size:17px;">學習目標 3：</strong>
+              <span style="font-size:16.5px; line-height:1.8; color:#1e293b;">能理解魏晉名士的性格解釋，並填入對應人名的事蹟簡述中，完成形象掃描練習。</span>
+            </div>
+          </div>
+
+          <div style="margin-top:28px; text-align:center;">
+            <button class="tool-btn primary" style="padding:12px 28px; font-size:17px;" onclick="switchTab(1)">👉 進入【Tab 2】開始認識《世說新語》</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: 世說新語 ==================== -->
+    <section id="tab-pane-1" class="tab-pane">
+      <!-- 學習區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge">學習區</span>
+            <span>世說新語（課本.P166）</span>
+          </div>
+          <button class="audio-btn" onclick="speakText('世說新語整體介紹。原名世說，由南朝宋皇族劉義慶召集門下文士合力編撰而成。書中舞台時間為東漢末年至東晉末年的魏晉時期。內容以真人真事為基礎的軼聞瑣事。文學定位為筆記小說，不是正式史書。文學價值為開創志人筆記小說的巔峰，具高度歷史與文學研究價值。')">🔊 朗讀學習區內容</button>
+        </div>
+
+        <div style="font-size:16.5px; line-height:1.9; color:#1e293b;">
+          <p style="margin-bottom:12px;">
+            <strong>原名：</strong>《世說》
+          </p>
+          <p style="margin-bottom:12px;">
+            <strong>主編：</strong>南朝 劉宋皇族
+            <span class="blank-box" onclick="toggleBlank(this)" data-ans="劉義慶"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">劉義慶</span></span>
+            ，他召集眾多文士合力編撰而成。
+          </p>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px; margin-bottom:14px;">
+            <h4 style="font-size:16.5px; color:#0369a1; margin-bottom:6px;">🕒 書中舞台時間：</h4>
+            <p>東漢末年到東晉末年，也就是魏晉南北朝的<strong>魏晉時期</strong>。</p>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px; margin-bottom:14px;">
+            <h4 style="font-size:16.5px; color:#0369a1; margin-bottom:6px;">📖 內容核心：</h4>
+            <p>
+              以
+              <span class="blank-box" onclick="toggleBlank(this)" data-ans="真人真事"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">真人真事</span></span>
+              為基礎的
+              <span class="blank-box" onclick="toggleBlank(this)" data-ans="軼聞瑣事"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">軼聞瑣事</span></span>
+              。
+            </p>
+            <p style="font-size:14.5px; color:#64748b; margin-top:4px;">
+              💡 <strong>軼聞瑣事：</strong>像是大家在茶餘飯後「聽說某某人做了這件蠢事、說了這句話」，然後由文士記錄下來的趣味軼事。
+            </p>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px; margin-bottom:14px;">
+            <h4 style="font-size:16.5px; color:#0369a1; margin-bottom:6px;">🏛️ 文學定位：</h4>
+            <p>
+              是<strong>小說</strong>，不是正式的史書。雖然以真人真事為基礎，但融合了民間傳說、社會耳語與文學藝術加工，不能全部視為百分之百嚴謹的歷史紀實。
+            </p>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:14px;">
+            <h4 style="font-size:16.5px; color:#0369a1; margin-bottom:6px;">💎 文學價值：</h4>
+            <ul style="padding-left:22px; display:flex; flex-direction:column; gap:6px;">
+              <li>呈現人物多元面貌的 <span class="blank-box" onclick="toggleBlank(this)" data-ans="志人小說"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">志人小說</span></span>。</li>
+              <li>篇幅不長、言簡意賅的 <span class="blank-box" onclick="toggleBlank(this)" data-ans="筆記小說"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">筆記小說</span></span>。</li>
+              <li>特色：此書善用對比、譬喻、誇飾等技巧，寥寥幾筆就讓名士形象躍然紙上。</li>
+              <li><span class="blank-box" onclick="toggleBlank(this)" data-ans="具研究價值"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">具研究價值</span></span>：因人物和事件都是真人真事，所以可供後代學者研究魏晉時期的名人生活、社會風氣和風流韻事。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- 評量區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge assess">評量區</span>
+            <span>世說新語 文意選擇測驗 (共3題)</span>
+          </div>
+          <span style="font-size:13.5px; color:#64748b;">點擊題號朗讀題幹，點選項即時反饋</span>
+        </div>
+
+        <!-- 題1 -->
+        <div class="quiz-card" id="qc-1-1">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第1題。《世說新語》原名《世說》，是由南朝宋時期的哪一位皇族文人召集文士合力編撰而成的？A、王導。B、劉義慶。C、王羲之。D、郗鑒。')">🔊</button>
+            <span><strong>1.</strong> 《世說新語》原名《世說》，是由南朝宋時期的哪一位皇族文人召集文士合力編撰而成的？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-1', 'A', 'B')">(A) 王導</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-1', 'B', 'B')">(B) 劉義慶</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-1', 'C', 'B')">(C) 王羲之</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-1', 'D', 'B')">(D) 郗鑒</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-1-1')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-1-1-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：《世說新語》由南朝宋臨川王劉義慶召集門下文士共同編撰而成。
+          </div>
+        </div>
+
+        <!-- 題2 -->
+        <div class="quiz-card" id="qc-1-2">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第2題。關於《世說新語》的內容與文學特色，下列敘述何者最正確？A、內容多為虛構的神仙鬼怪幻想故事。B、篇幅冗長繁複，屬於長篇章回小說。C、以真人真事的軼聞瑣事為基礎，為著名的志人筆記小說。D、是官府頒布的正史，毫無文學加工。')">🔊</button>
+            <span><strong>2.</strong> 關於《世說新語》的內容與文學特色，下列敘述何者最正確？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-2', 'A', 'C')">(A) 內容多為虛構的神仙鬼怪幻想故事</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-2', 'B', 'C')">(B) 篇幅冗長繁複，屬於長篇章回小說</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-2', 'C', 'C')">(C) 以真人真事的軼聞瑣事為基礎，為著名的志人筆記小說</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-2', 'D', 'C')">(D) 是官府頒布的正史，毫無文學加工</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-1-2')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-1-2-expl">
+            <strong>【正確答案：C】</strong><br>
+            解析：《世說新語》記錄魏晉名士的軼聞瑣事，篇幅短小精鍊，融合藝術加工，是著名的志人筆記小說。
+          </div>
+        </div>
+
+        <!-- 題3 (原題) -->
+        <div class="quiz-card" id="qc-1-3">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第3題。有關世說新語一書的說明，下列敘述何者錯誤？A、屬於筆記小說，是中國志人小說的傑出作品。B、由南朝宋劉義慶編撰，依時代分類，屬於歷史小說。C、全書共三十六類，記載東漢到東晉間高士名流的軼聞瑣事。D、文字簡潔精鍊，故事精彩有趣，對中國後世小說影響深遠。')">🔊</button>
+            <span><strong>3.</strong> 有關《世說新語》一書的說明，下列敘述何者<strong>錯誤</strong>？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-3', 'A', 'B')">(A) 屬於筆記小說，是中國志人小說的傑出作品</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-3', 'B', 'B')">(B) 由南朝宋劉義慶編撰，依時代分類，屬於歷史小說</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-3', 'C', 'B')">(C) 全書共三十六類，記載東漢到東晉間高士名流的軼聞瑣事</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-1-3', 'D', 'B')">(D) 文字簡潔精鍊，故事精彩有趣，對中國後世小說影響深遠</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-1-3')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-1-3-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：《世說新語》不是依時代分類，也不是歷史小說，而是按人物言行德行分類（共三十六篇）的「志人筆記小說」。
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <button class="tool-btn" style="padding:10px 20px; font-size:15.5px;" onclick="switchTab(0)">⬅️ 上一步：【Tab 1】課前說明</button>
+          <button class="tool-btn primary" style="padding:10px 24px; font-size:15.5px;" onclick="switchTab(2)">👉 下一步：【Tab 3】坦腹東床</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: 坦腹東床 ==================== -->
+    <section id="tab-pane-2" class="tab-pane">
+      <!-- 學習區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge">學習區</span>
+            <span>坦腹東床(東床快婿)(課本.P168-169)</span>
+          </div>
+          <button class="audio-btn" onclick="speakText('坦腹東床課文學習區。請依序觀看課文影片、欣賞漫畫看圖說故事、研讀原文與翻譯、掌握起承轉合情節與五石散重點解析。')">🔊 朗讀導言</button>
+        </div>
+
+        <!-- 1. 課文影片 -->
+        <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">🎬 1. 課文導讀影片：</h4>
+        <div class="video-container">
+          <iframe src="https://www.youtube.com/embed/uyyK9eAcW-w" title="坦腹東床 影片" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div style="text-align:right; margin-bottom:20px;">
+          <a href="https://www.youtube.com/watch?v=uyyK9eAcW-w" target="_blank" class="tool-btn" style="font-size:12.5px;">🔗 在 YouTube 另開影片</a>
+        </div>
+
+        <!-- 2. 課文圖片 (置中放大) -->
+        <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">🖼️ 2. 課文漫畫：看圖說故事</h4>
+        <div class="comic-img-wrapper">
+          <img src="assets/images/comic_tanfu.jpg" alt="漫畫-袒腹東床" class="comic-img" onclick="openMagnifier(this.alt)">
+          <div style="font-size:14px; color:#64748b; margin-top:8px;">▲ 點擊圖片可放大檢視，請同學觀察王羲之與其他王家子弟的舉動差異</div>
+        </div>
+
+        <!-- 3. 原文與翻譯雙欄對照 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+          <h4 style="font-size:17px; color:#0369a1;">📜 3. 原文與翻譯對照：</h4>
+          <button class="audio-btn" onclick="speakText('原文：郗太尉在京口，遣門生與王丞相書，求女婿。丞相語郗信：君往東廂，任意選之。門生歸，白郗曰：王家諸郎，亦皆可嘉，聞來覓婿，咸自矜持；唯有一郎，在東床上坦腹臥，如不聞。郗公云：正此好！訪之，乃是逸少。因嫁女與焉。')">🔊 朗讀全文</button>
+        </div>
+        <table class="parallel-table">
+          <thead>
+            <tr>
+              <th style="width:48%;">原文 (課本P.169)</th>
+              <th style="width:52%;">翻譯 (課本P.168)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                郗太尉在京口，遣門生與王丞相書，求女婿。<br>
+                丞相語郗信：「君往東廂，任意選之。」
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('郗太尉在京口，遣門生與王丞相書，求女婿。丞相語郗信：君往東廂，任意選之。')">🔊</button>
+              </td>
+              <td>
+                郗太尉在京口時，派遣門生送信給丞相王導，信中說想在王家的子姪中挑一個女婿。<br>
+                丞相對使者說：「請你到東廂中任意挑選吧！」
+              </td>
+            </tr>
+            <tr>
+              <td>
+                門生歸，白郗曰：「王家諸郎，亦皆可嘉，聞來覓婿，咸自矜持；唯有一郎，在東床上坦腹臥，如不聞。」
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('門生歸，白郗曰：王家諸郎，亦皆可嘉，聞來覓婿，咸自矜持；唯有一郎，在東床上坦腹臥，如不聞。')">🔊</button>
+              </td>
+              <td>
+                門生回去後，向郗太尉報告：「王家的子弟都很不錯，聽說來挑女婿，個個都很莊重。只有一位躺在東邊的床上露出肚皮，似乎不當一回事。」
+              </td>
+            </tr>
+            <tr>
+              <td>
+                郗公云：「正此好！」<br>
+                訪之，乃是逸少。因嫁女與焉。<br>
+                <em>（世說新語雅量篇）</em>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('郗公云：正此好！訪之，乃是逸少。因嫁女與焉。')">🔊</button>
+              </td>
+              <td>
+                太尉說：「嗯！就是這一個最好！」<br>
+                打聽之後，原來是大書法家王羲之，就將女兒嫁給他。<br>
+                後人便以「坦腹東床」或「東床快婿」指稱女婿。<br>
+                <em>（此則故事出自雅量篇）</em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 4. 起承轉合分析 (紅字挖空) -->
+        <div style="margin-top:20px;">
+          <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">📊 4. 從「袒腹東床」看起承轉合：</h4>
+          <p style="font-size:14.5px; color:#64748b; margin-bottom:8px;">
+            <strong>人物列表：</strong>太尉郗鑒（郗太尉）、王氏家族子弟（王導等王家年輕人）、王羲之
+          </p>
+          <table class="parallel-table">
+            <thead>
+              <tr>
+                <th style="width:25%;">結構階段</th>
+                <th style="width:75%;">情節內容 (紅字為填答處)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>起：事件的開始</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="郗鑒派人到王家選婿"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">郗鑒派人到王家選婿</span></span>
+                  。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>承：故事發展</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="王家子弟爭相表現"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">王家子弟爭相表現</span></span>
+                  （個個端莊拘謹、咸自矜持）。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>轉：意想不到的轉折</strong></td>
+                <td>
+                  1. <span class="blank-box" onclick="toggleBlank(this)" data-ans="唯獨一人淡定、袒腹東床"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">唯獨一人淡定、袒腹東床</span></span>。<br>
+                  2. 信使回報時「特別」形容了這個不拘小節的怪人。
+                </td>
+              </tr>
+              <tr>
+                <td><strong>合：最後的結局</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="郗鑒大喜，當場決定把女兒嫁給他"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">郗鑒大喜，當場決定把女兒嫁給他</span></span>。<br>
+                  <em>💡 成語：袒腹東床 = 東床快婿（指稱女婿）</em>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 5. 坦腹東床之重點解析 (點題目展開) -->
+        <div style="margin-top:20px;">
+          <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">🔍 5. 坦腹東床之重點解析（點擊題目展開解析）：</h4>
+
+          <!-- 重點 1 -->
+          <div class="expand-card">
+            <div class="expand-header" onclick="toggleCard(this)">
+              <span>❓ 1. 王羲之真的只是個隨便的大叔嗎？</span>
+              <span>▼</span>
+            </div>
+            <div class="expand-body">
+              <strong>當然不是！</strong>王羲之當時已經有一定的名望（出身名門、才氣縱橫）。他這種「坦腹」的舉動，在崇尚「魏晉風度」（率真、自然、不拘泥於世俗禮教）的時代，其實是一種極高層次的自信與個性展現，剛好對中了郗鑒欣賞名士的胃口。
+            </div>
+          </div>
+
+          <!-- 重點 2 -->
+          <div class="expand-card">
+            <div class="expand-header" onclick="toggleCard(this)">
+              <span>💊 2. 袒腹東床的另一層解讀：「五石散」(又稱：寒食散)</span>
+              <span>▼</span>
+            </div>
+            <div class="expand-body">
+              <h5 style="color:#0369a1; margin-bottom:4px;">2-1. 五石散是什麼？</h5>
+              <p style="margin-bottom:10px;">
+                它是一種由五種礦物（主要是石鍾乳、紫石英、白石英、硫黃、赤石脂等）研磨而成的中藥粉末。本來是用來治病的，但被魏晉文人拿來當作「養生、追求精神亢奮與審美」的仙丹。<br>
+                <span style="color:#dc2626;"><strong>真相：</strong>長期吃五石散的副作用非常可怕（慢性重金屬中毒、皮膚潰爛、脾氣暴躁、甚至精神錯亂而死）。許多魏晉名士其實都因長期嗑藥而短壽或痛苦不堪。</span>
+              </p>
+
+              <h5 style="color:#0369a1; margin-bottom:4px;">2-2. 吃下去會有什麼感覺？（神奇的副作用）</h5>
+              <ul style="padding-left:20px; margin-bottom:10px; display:flex; flex-direction:column; gap:4px;">
+                <li><strong>「石散發作」（散發）：</strong>藥力發作時，身體會感覺像火燒一樣燥熱，所以吃完要吃冷食、喝溫酒，稱為「寒食散」。</li>
+                <li><strong>皮膚變得極度敏感：</strong>因為身體發熱發燙，所以不能穿厚衣服、不能用粗布擦身體，衣服要寬大（這也是魏晉名士流行穿寬袍大袖、袒胸露乳的主因之一！可以呼應前面的「袒腹東床」）。</li>
+                <li><strong>精神亢奮與狂躁：</strong>人會變得飄飄欲仙、精力過剩、甚至情緒失控。如果不透過大量的「散步、走動」來把藥力發散掉（這叫「行散」），身體就會中毒甚至死掉。</li>
+              </ul>
+
+              <h5 style="color:#0369a1; margin-bottom:4px;">2-3. 「五石散」是古代的不良流行：</h5>
+              <p style="margin-bottom:10px;">
+                魏晉文人追求飄逸成仙的狂熱風氣，盲目跟風服食重金屬，成了古代危害極深的不良風潮。
+              </p>
+
+              <div style="background:#fee2e2; border-left:4px solid #ef4444; padding:10px 14px; border-radius:0 6px 6px 0;">
+                <h5 style="color:#b91c1c; margin-bottom:4px;">⚠️ 2-4. 結語與反毒省思：</h5>
+                <p style="color:#7f1d1d; margin:0;">
+                  千萬不要看古人吃就跟著學！這就像古裝版的『有害流行時尚』，吃了不但不會成仙，反而會把自己搞得痛苦萬分！來路不明或明知有害的人事物，就要完全遠離！
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 評量區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge assess">評量區</span>
+            <span>坦腹東床 文意選擇測驗 (共3題)</span>
+          </div>
+          <span style="font-size:13.5px; color:#64748b;">點擊題號朗讀題幹，點選項即時反饋</span>
+        </div>
+
+        <!-- 題1 (原題) -->
+        <div class="quiz-card" id="qc-2-1">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第1題。郗太尉聽了門生對王家諸郎的觀察後，從他的回答和選擇，可看出他欣賞王羲之的何種特質？A、飽讀詩書，才華洋溢。B、坦腹東床，體格強健。C、本性率真，毫不做作。D、孤芳自賞，與眾不同。')">🔊</button>
+            <span><strong>1.</strong> 郗太尉聽了門生對王家諸郎的觀察後，從他的回答和選擇，可看出他欣賞王羲之的何種特質？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-1', 'A', 'C')">(A) 飽讀詩書，才華洋溢</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-1', 'B', 'C')">(B) 坦腹東床，體格強健</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-1', 'C', 'C')">(C) 本性率真，毫不做作</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-1', 'D', 'C')">(D) 孤芳自賞，與眾不同</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-2-1')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-2-1-expl">
+            <strong>【正確答案：C】</strong><br>
+            解析：王家子弟個個拘謹做作（咸自矜持），只有王羲之坦然躺臥、神情自若，郗太尉欣賞的是其「本性率真、自然豁達」的名士風度。
+          </div>
+        </div>
+
+        <!-- 題2 -->
+        <div class="quiz-card" id="qc-2-2">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第2題。後人常以坦腹東床或東床快婿來借指下列何者？A、值得信賴的媒人。B、令人滿意的稱職女婿。C、醫術高超的郎中。D、恭敬有禮的門生門客。')">🔊</button>
+            <span><strong>2.</strong> 後人常以「坦腹東床」或「東床快婿」來借指下列何者？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-2', 'A', 'B')">(A) 值得信賴的媒人</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-2', 'B', 'B')">(B) 令人滿意的稱職女婿</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-2', 'C', 'B')">(C) 醫術高超的郎中</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-2', 'D', 'B')">(D) 恭敬有禮的門生門客</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-2-2')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-2-2-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：「東床快婿」源自郗太尉在東廂選王羲之為婿的典故，後代用來稱讚令岳父滿意的好女婿。
+          </div>
+        </div>
+
+        <!-- 題3 -->
+        <div class="quiz-card" id="qc-2-3">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第3題。關於魏晉名士服食五石散的敘述，下列何者最正確？A、是一種完全無害且能益壽延年的神藥仙丹。B、服後身體極度燥熱發燙，故名士流行穿寬袍大袖並散步發散藥力。C、只有窮困百姓才會服食，世族貴族完全禁止。D、現代醫學證實長期服用五石散有益身心健康。')">🔊</button>
+            <span><strong>3.</strong> 關於魏晉名士服食「五石散」的敘述，下列何者最正確？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-3', 'A', 'B')">(A) 是一種完全無害且能益壽延年的神藥仙丹</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-3', 'B', 'B')">(B) 服後身體極度燥熱發燙，故名士流行穿寬袍大袖並散步發散藥力</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-3', 'C', 'B')">(C) 只有窮困百姓才會服食，世族貴族完全禁止</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-2-3', 'D', 'B')">(D) 現代醫學證實長期服用五石散有益身心健康</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-2-3')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-2-3-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：五石散由重金屬礦物研磨而成，服後全身發燙燥熱，名士因此穿寬大袍子並快步行走發散藥力（行散），實為有害不良流行。
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <button class="tool-btn" style="padding:10px 20px; font-size:15.5px;" onclick="switchTab(1)">⬅️ 上一步：【Tab 2】世說新語</button>
+          <button class="tool-btn primary" style="padding:10px 24px; font-size:15.5px;" onclick="switchTab(3)">👉 下一步：【Tab 4】王藍田食雞子</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: 王藍田食雞子 ==================== -->
+    <section id="tab-pane-3" class="tab-pane">
+      <!-- 學習區 (無影片，直接圖片開始) -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge">學習區</span>
+            <span>王藍田食雞子)(課本.P170-171)</span>
+          </div>
+          <button class="audio-btn" onclick="speakText('王藍田食雞子課文學習區。請依序欣賞課文漫畫看圖說故事、研讀原文與白話翻譯、掌握王藍田急躁性格與連續動作動詞分析。')">🔊 朗讀導言</button>
+        </div>
+
+        <!-- 1. 課文圖片 (置中放大不截斷) -->
+        <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">🖼️ 1. 課文漫畫：看圖說故事</h4>
+        <div class="comic-img-wrapper">
+          <img src="assets/images/comic_wanglantian.jpg" alt="漫畫-王藍田食雞子" class="comic-img" onclick="openMagnifier(this.alt)">
+          <div style="font-size:14px; color:#64748b; margin-top:8px;">▲ 點擊圖片可放大檢視，請同學觀察王藍田吃雞蛋時氣急敗壞的一連串動作</div>
+        </div>
+
+        <!-- 2. 原文與翻譯雙欄對照 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+          <h4 style="font-size:17px; color:#0369a1;">📜 2. 原文與翻譯對照：</h4>
+          <button class="audio-btn" onclick="speakText('王藍田性急，嘗食雞子，以筯刺之，不得，便大怒，舉以擲地。雞子於地圓轉未止，仍下地以屐齒蹍之，又不得，瞋甚。復於地取內口中，齧破即吐之。王右軍聞而大笑，曰：使安期有此性，猶當無一豪可論，況藍田耶？世說新語忿狷篇。')">🔊 朗讀全文</button>
+        </div>
+        <table class="parallel-table">
+          <thead>
+            <tr>
+              <th style="width:48%;">原文 (課本P.170)</th>
+              <th style="width:52%;">翻譯 (課本P.171)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                王藍田性急，嘗食雞子，以筯刺之，不得，便大怒，舉以擲地。
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('王藍田性急，嘗食雞子，以筯刺之，不得，便大怒，舉以擲地。')">🔊</button>
+              </td>
+              <td>
+                王藍田性情急躁，有一次吃雞蛋時，用筷子去刺，沒有刺到，就非常生氣，便拿起蛋來扔在地上。
+              </td>
+            </tr>
+            <tr>
+              <td>
+                雞子於地圓轉未止，仍下地以屐齒蹍之，又不得，瞋甚。
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('雞子於地圓轉未止，仍下地以屐齒蹍之，又不得，瞋甚。')">🔊</button>
+              </td>
+              <td>
+                雞蛋在地上轉個不停，他就從坐榻上下來用木屐去踩，沒有踩到，因此更加憤怒。
+              </td>
+            </tr>
+            <tr>
+              <td>
+                復於地取內口中，齧破即吐之。
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('復於地取內口中，齧破即吐之。')">🔊</button>
+              </td>
+              <td>
+                又從地上把蛋撿起來放入口中，用力咬破後立刻吐出。
+              </td>
+            </tr>
+            <tr>
+              <td>
+                王右軍聞而大笑，曰：「使安期有此性，猶當無一豪可論，況藍田耶？」<br>
+                <em>（世說新語忿狷篇）</em>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-left:4px;" onclick="speakText('王右軍聞而大笑，曰：使安期有此性，猶當無一豪可論，況藍田耶？')">🔊</button>
+              </td>
+              <td>
+                王羲之聽到此事大笑說：「即使他父親安期有這種個性，我都認為一無可取了，何況是藍田呢！」<br>
+                <em>（此則故事出自忿狷篇）</em>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 3. 從「王藍田食雞子」看人物特色 (互動表格紅字挖空) -->
+        <div style="margin-top:20px;">
+          <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">📊 3. 從「王藍田食雞子」看人物特色：</h4>
+          <table class="parallel-table">
+            <thead>
+              <tr>
+                <th style="width:30%;">探討項目</th>
+                <th style="width:70%;">內容特徵 (紅字為填答處)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>名字</strong></td>
+                <td>王藍田（本名王述，封藍田侯）</td>
+              </tr>
+              <tr>
+                <td><strong>性格</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="性急暴躁、情緒失控、行事偏激"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">性急暴躁、情緒失控、行事偏激</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>做了什麼動作<br>(連續動詞)(課本P170)</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="食、刺、擲、蹍（踩）、內（納、放）、齧、吐"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">食、刺、擲、蹍（踩）、內（納、放）、齧、吐</span></span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>安期是誰？</strong></td>
+                <td>
+                  <span class="blank-box" onclick="toggleBlank(this)" data-ans="王藍田的爸爸(王導)"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">王藍田的爸爸(王導)</span></span><br>
+                  <span style="font-size:13.5px; color:#64748b;">💡 備課補充：王藍田之父王承，字安期，為東海太守，以穩重著稱。教材備課書特別註明為「王藍田的爸爸(王導)」，指其同族長輩之意。</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 4. 想想看：填入王藍田動作的圖 (課本 P171 想想看 3) -->
+        <div style="margin-top:24px; background:#f0fdf4; border:1.5px solid #86efac; border-radius:12px; padding:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <h4 style="font-size:18px; color:#15803d; margin:0; display:flex; align-items:center; gap:8px;">
+              <span>🖼️ 4. 想想看：填入王藍田動作的圖 (課本 P171 想想看 3)</span>
+            </h4>
+            <button class="audio-btn" onclick="speakText('題目：想想看。王藍田食雞子時，曾做了：甲、以筯刺之，不得。乙、舉以擲地。丙、以屐齒蹍之。丁、齧破即吐之等動作，如圖所示，請將相對應動作的代號填入括號中。一、在嘴裡咬破即吐之是代號丁。二、拿筷子刺蛋是代號甲。三、用木屐齒踩蛋是代號丙。四、舉蛋用力摔在地上是代號乙。')">🔊 朗讀整題與動作說明</button>
+          </div>
+
+          <p style="font-size:16px; color:#166534; line-height:1.8; margin-bottom:14px;">
+            王藍田食雞子時，曾做了：<strong>甲「以筯刺之，不得」</strong>、<strong>乙「舉以擲地」</strong>、<strong>丙「以屐齒蹍之」</strong>、<strong>丁「齧破即吐之」</strong>等動作，如圖所示，請觀察下圖各步驟，將相對應動作的代號填入括號中：
+          </p>
+
+          <!-- 動作示意圖片 (置中放大、可放大鏡) -->
+          <div style="text-align:center; margin:16px 0; background:#ffffff; padding:16px; border-radius:10px; border:1px solid #bbf7d0;">
+            <img src="assets/images/action_egg.png" alt="王藍田食雞子動作圖" style="max-width:100%; max-height:420px; width:auto; border-radius:8px; cursor:zoom-in; box-shadow:0 3px 10px rgba(0,0,0,0.06);" onclick="openMagnifier('王藍田食雞子動作圖解析：1. 丁「齧破即吐之」；2. 甲「以筯刺之，不得」；3. 丙「以屐齒蹍之」；4. 乙「舉以擲地」')">
+            <div style="font-size:13px; color:#64748b; margin-top:6px;">🔍 點擊圖片可放大觀看細節</div>
+          </div>
+
+          <!-- 互動填答區 -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px; margin-top:14px;">
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px;">
+              <div style="font-size:15px; font-weight:bold; color:#1e293b; margin-bottom:6px;">
+                <strong>步驟 1.</strong> 嘴裡咬碎吐出：
+              </div>
+              <div>
+                <span class="blank-box" onclick="toggleBlank(this)" data-ans="丁「齧破即吐之」"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">代號：丁「齧破即吐之」</span></span>
+              </div>
+            </div>
+
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px;">
+              <div style="font-size:15px; font-weight:bold; color:#1e293b; margin-bottom:6px;">
+                <strong>步驟 2.</strong> 筷子夾戳不中：
+              </div>
+              <div>
+                <span class="blank-box" onclick="toggleBlank(this)" data-ans="甲「以筯刺之，不得」"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">代號：甲「以筯刺之，不得」</span></span>
+              </div>
+            </div>
+
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px;">
+              <div style="font-size:15px; font-weight:bold; color:#1e293b; margin-bottom:6px;">
+                <strong>步驟 3.</strong> 木屐鞋底猛踩：
+              </div>
+              <div>
+                <span class="blank-box" onclick="toggleBlank(this)" data-ans="丙「以屐齒蹍之」"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">代號：丙「以屐齒蹍之」</span></span>
+              </div>
+            </div>
+
+            <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px;">
+              <div style="font-size:15px; font-weight:bold; color:#1e293b; margin-bottom:6px;">
+                <strong>步驟 4.</strong> 憤怒摔在地上：
+              </div>
+              <div>
+                <span class="blank-box" onclick="toggleBlank(this)" data-ans="乙「舉以擲地」"><span class="blank-prompt">[ 點擊揭曉 ]</span><span class="blank-ans">代號：乙「舉以擲地」</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 評量區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge assess">評量區</span>
+            <span>王藍田食雞子 文意選擇測驗 (共3題)</span>
+          </div>
+          <span style="font-size:13.5px; color:#64748b;">點擊題號朗讀題幹，點選項即時反饋</span>
+        </div>
+
+        <!-- 題1 (原題) -->
+        <div class="quiz-card" id="qc-3-1">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第1題。王羲之聽到王藍田食雞子的事笑說：即使他父親安期有這種個性，我都認為一無可取了，何況是藍田呢！王羲之這段話透露出什麼訊息？A、讚美王安期虎父無犬子。B、肯定王安期的教子有方。C、譏諷安期父子都性急魯莽。D、認為王安期比王藍田穩重。')">🔊</button>
+            <span><strong>1.</strong> 王羲之聽到王藍田食雞子的事笑說：「使安期有此性，猶當無一豪可論，況藍田耶？」王羲之這段話透露出什麼訊息？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-1', 'A', 'D')">(A) 讚美王安期虎父無犬子</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-1', 'B', 'D')">(B) 肯定王安期的教子有方</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-1', 'C', 'D')">(C) 譏諷安期父子都性急魯莽</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-1', 'D', 'D')">(D) 認為王安期比王藍田穩重</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-3-1')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-3-1-expl">
+            <strong>【正確答案：D】</strong><br>
+            解析：王安期素有清譽且為人穩重，王羲之認為連德高望重的安期若有急躁脾氣都無足稱道，何況藍田，言下之意反映出王安期平日為人穩重。
+          </div>
+        </div>
+
+        <!-- 題2 (原題) -->
+        <div class="quiz-card" id="qc-3-2">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第2題。王藍田性急，嘗食雞子，以筯刺之，不得，便大怒，舉以擲地。雞子於地圓轉未止，仍下地以屐齒蹍之，又不得，瞋甚。復於地取內口中，齧破即吐之。依據此段文字，下列敘述何者正確？A、由以筯刺之可推知王藍田武藝高強。B、由舉以擲地可推知王藍田因憤怒而擲蛋。C、由仍下地以屐齒蹍之可推知王藍田處事態度審慎周延。D、由齧破即吐之可推知王藍田怒氣已消，情緒漸趨平穩。')">🔊</button>
+            <span><strong>2.</strong> 「王藍田性急，嘗食雞子，以筯刺之，不得，便大怒，舉以擲地。雞子於地圓轉未止，仍下地以屐齒蹍之，又不得，瞋甚。復於地取內口中，齧破即吐之。」依據此段文字，下列敘述何者<strong>正確</strong>？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-2', 'A', 'B')">(A) 由「以筯刺之」可推知王藍田武藝高強</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-2', 'B', 'B')">(B) 由「舉以擲地」可推知王藍田因憤怒而擲蛋</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-2', 'C', 'B')">(C) 由「仍下地以屐齒蹍之」可推知王藍田處事態度審慎周延</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-2', 'D', 'B')">(D) 由「齧破即吐之」可推知王藍田怒氣已消，情緒漸趨平穩</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-3-2')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-3-2-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：王藍田用筷子戳不中雞蛋便勃然大怒將蛋摔在地上，表現出「因憤怒而擲蛋」的急躁性格。
+          </div>
+        </div>
+
+        <!-- 題3 -->
+        <div class="quiz-card" id="qc-3-3">
+          <div class="quiz-q-stem">
+            <button class="audio-btn" onclick="speakText('第3題。作者在描寫王藍田吃蛋的過程中，連續使用了食、刺、擲、蹍、內、齧、吐等動詞，其寫作手法的最大效果為何？A、展現古代貴族講究的餐桌禮儀。B、透過緊湊傳神的動作描寫，生動凸顯王藍田性急暴躁的個性。C、說明古代料理雞蛋的方法極為繁複。D、透過靜態描寫烘托恬淡悠閒的隱士生活。')">🔊</button>
+            <span><strong>3.</strong> 作者在描寫王藍田吃蛋的過程中，連續使用了「食、刺、擲、蹍、內、齧、吐」等動詞，其寫作手法的最大效果為何？</span>
+          </div>
+          <div class="quiz-opts-grid">
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-3', 'A', 'B')">(A) 展現古代貴族講究的餐桌禮儀</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-3', 'B', 'B')">(B) 透過緊湊傳神的動作描寫，生動凸顯王藍田性急暴躁的個性</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-3', 'C', 'B')">(C) 說明古代料理雞蛋的方法極為繁複</button>
+            <button class="quiz-opt-btn" onclick="checkChoice(this, 'qc-3-3', 'D', 'B')">(D) 透過靜態描寫烘托恬淡悠閒的隱士生活</button>
+          </div>
+          <button class="tool-btn" style="padding:3px 8px; font-size:12px;" onclick="toggleExpl('qc-3-3')">💡 查看解析</button>
+          <div class="quiz-expl-box" id="qc-3-3-expl">
+            <strong>【正確答案：B】</strong><br>
+            解析：作者運用密集的連續動詞，將王藍田暴躁易怒、氣急敗壞的連鎖失控反應描寫得生動傳神。
+          </div>
+        </div>
+
+        <div style="margin-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <button class="tool-btn" style="padding:10px 20px; font-size:15.5px;" onclick="switchTab(2)">⬅️ 上一步：【Tab 3】坦腹東床</button>
+          <button class="tool-btn primary" style="padding:10px 24px; font-size:15.5px;" onclick="switchTab(4)">👉 下一步：【Tab 5】人物形象掃描</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: 人物形象掃描 ==================== -->
+    <section id="tab-pane-4" class="tab-pane">
+      <!-- 只有學習區，沒有評量區 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="sec-badge">學習區</span>
+            <span>人物形象掃描(課本.P174)</span>
+          </div>
+          <button class="audio-btn" onclick="speakText('人物形象掃描學習區。從世說的故事中，我們可以看到魏晉名士處世的風貌。請先理解性格解釋，再根據人物事蹟簡述選出最適合的性格填入空格內。')">🔊 朗讀導言</button>
+        </div>
+
+        <!-- 1. 填答說明 -->
+        <div style="background:#f0f9ff; border-left:4px solid #0284c7; padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:18px;">
+          <h4 style="font-size:16.5px; color:#0369a1; margin-bottom:4px;">📝 填答說明：</h4>
+          <p style="font-size:15.5px; color:#1e293b; margin:0;">
+            從《世說》的故事中，我們可以看到魏晉名士處世的風貌。請根據下列人物的事蹟簡述，選出最適合的性格填入空格內。
+          </p>
+        </div>
+
+        <!-- 2. 性格解釋 (互動點選式) -->
+        <div style="margin-bottom:24px; background:#f8fafc; border:1.5px solid #bae6fd; border-radius:12px; padding:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+            <h4 style="font-size:17.5px; color:#0369a1; margin:0;">💡 性格詞庫與互動解釋（點擊卡片查看定義與名士典範）：</h4>
+            <button class="audio-btn" onclick="speakText('性格解釋。一、聰慧機靈：聰明、機智的人。二、吝嗇小氣：一毛不拔、氣量狹小、過度節省。三、不隨聲附和：拒絕盲從他人的言論。四、眼光獨特：擁有與眾不同的審美眼光、見解或洞察力。五、不隨俗流：不跟隨世俗的潮流、不盲目融入大眾的群體價值觀。')">🔊 完整朗讀五大性格詞庫</button>
+          </div>
+          <p style="font-size:14px; color:#64748b; margin-bottom:12px;">
+            💡 點擊任一張性格卡片可展開/收合深度解析與事蹟對照，點擊 🔊 可個別聆聽報讀：
+          </p>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
+            <!-- 卡片 1 -->
+            <div class="trait-card" onclick="toggleTraitCard(this)" style="background:#ffffff; border:2px solid #bae6fd; border-radius:10px; padding:14px; cursor:pointer; transition:all 0.2s;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#0284c7; font-size:17px;">【聰慧機靈】</strong>
+                <button class="audio-btn" style="padding:2px 7px; font-size:12px;" onclick="event.stopPropagation(); speakText('聰慧機靈，聰明、機智的人。例如孔融被批評時反應敏捷，妙語如珠令對方啞口無言。')">🔊 報讀</button>
+              </div>
+              <div class="trait-desc" style="font-size:15px; color:#334155; margin-top:8px; line-height:1.7;">
+                <strong>釋義：</strong>聰明、機智的人。<br>
+                <span style="font-size:13.5px; color:#64748b;">📖 課本典範：孔融隨父訪李膺，妙答陳韙「小時了了」，展現敏捷機智。</span>
+              </div>
+            </div>
+
+            <!-- 卡片 2 -->
+            <div class="trait-card" onclick="toggleTraitCard(this)" style="background:#ffffff; border:2px solid #bae6fd; border-radius:10px; padding:14px; cursor:pointer; transition:all 0.2s;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#0284c7; font-size:17px;">【吝嗇小氣】</strong>
+                <button class="audio-btn" style="padding:2px 7px; font-size:12px;" onclick="event.stopPropagation(); speakText('吝嗇小氣，一毛不拔、氣量狹小、過度節省。例如王戎家財萬貫，賣李子卻怕別人得種而先鑽核破壞。')">🔊 報讀</button>
+              </div>
+              <div class="trait-desc" style="font-size:15px; color:#334155; margin-top:8px; line-height:1.7;">
+                <strong>釋義：</strong>一毛不拔、氣量狹小、過度節省。<br>
+                <span style="font-size:13.5px; color:#64748b;">📖 課本典範：王戎身為富豪，賣李子前卻先把果核鑽洞，極端小氣。</span>
+              </div>
+            </div>
+
+            <!-- 卡片 3 -->
+            <div class="trait-card" onclick="toggleTraitCard(this)" style="background:#ffffff; border:2px solid #bae6fd; border-radius:10px; padding:14px; cursor:pointer; transition:all 0.2s;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#0284c7; font-size:17px;">【不隨聲附和】</strong>
+                <button class="audio-btn" style="padding:2px 7px; font-size:12px;" onclick="event.stopPropagation(); speakText('不隨聲附和，拒絕盲從他人的言論，有獨立思考主見。例如眾人盲目逢迎王導，王藍田卻不隨聲附和。')">🔊 報讀</button>
+              </div>
+              <div class="trait-desc" style="font-size:15px; color:#334155; margin-top:8px; line-height:1.7;">
+                <strong>釋義：</strong>拒絕盲從他人的言論，堅持獨立主見。<br>
+                <span style="font-size:13.5px; color:#64748b;">📖 課本典範：眾人奉承權貴王導之言，王藍田卻能獨立思考而不阿諛。</span>
+              </div>
+            </div>
+
+            <!-- 卡片 4 -->
+            <div class="trait-card" onclick="toggleTraitCard(this)" style="background:#ffffff; border:2px solid #bae6fd; border-radius:10px; padding:14px; cursor:pointer; transition:all 0.2s;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#0284c7; font-size:17px;">【眼光獨特】</strong>
+                <button class="audio-btn" style="padding:2px 7px; font-size:12px;" onclick="event.stopPropagation(); speakText('眼光獨特，擁有與眾不同的審美眼光、見解或洞察力。例如郗太尉獨具慧眼看中坦腹東床的王羲之。')">🔊 報讀</button>
+              </div>
+              <div class="trait-desc" style="font-size:15px; color:#334155; margin-top:8px; line-height:1.7;">
+                <strong>釋義：</strong>擁有與眾不同的審美眼光、見解或洞察力。<br>
+                <span style="font-size:13.5px; color:#64748b;">📖 課本典範：郗太尉不受王家諸郎做作拘謹迷惑，一眼相中王羲之之真率。</span>
+              </div>
+            </div>
+
+            <!-- 卡片 5 -->
+            <div class="trait-card" onclick="toggleTraitCard(this)" style="background:#ffffff; border:2px solid #bae6fd; border-radius:10px; padding:14px; cursor:pointer; transition:all 0.2s;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="color:#0284c7; font-size:17px;">【不隨俗流】</strong>
+                <button class="audio-btn" style="padding:2px 7px; font-size:12px;" onclick="event.stopPropagation(); speakText('不隨俗流，不跟隨世俗的潮流、不盲目融入大眾的群體價值觀。例如富人七夕曬綾羅錦緞與書籍，郝隆坦腹曬肚皮誇腹中有書。')">🔊 報讀</button>
+              </div>
+              <div class="trait-desc" style="font-size:15px; color:#334155; margin-top:8px; line-height:1.7;">
+                <strong>釋義：</strong>不跟隨世俗潮流、不盲目融入大眾群體價值觀。<br>
+                <span style="font-size:13.5px; color:#64748b;">📖 課本典範：世俗七夕曬名貴書籍衣物，郝隆坦腹曬肚皮誇腹中有真學問。</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 名士事蹟與性格配對表格 -->
+        <h4 style="font-size:17px; color:#0369a1; margin-bottom:8px;">👥 請根據下列人物事蹟簡述，選出最適合的性格填入空格內：</h4>
+        <table class="match-table">
+          <thead>
+            <tr>
+              <th style="width:16%;">人名</th>
+              <th style="width:56%;">事蹟簡述</th>
+              <th style="width:28%;">形象特色 (選擇填答)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>郝隆</strong><br>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-top:4px;" onclick="speakText('郝隆。炎熱的七月七日，富裕人家在這天將所有的書搬出來晒，郝隆卻坦腹躺在太陽下。')">🔊 報讀</button>
+              </td>
+              <td>炎熱的七月七日，富裕人家在這天將所有的書搬出來晒，郝隆卻坦腹躺在太陽下。(參見P168)</td>
+              <td>
+                <select class="match-select" id="match-1" data-ans="不隨俗流" onchange="checkSingleMatch(this)">
+                  <option value="">-- 請選擇性格 --</option>
+                  <option value="聰慧機靈">聰慧機靈</option>
+                  <option value="吝嗇小氣">吝嗇小氣</option>
+                  <option value="不隨聲附和">不隨聲附和</option>
+                  <option value="眼光獨特">眼光獨特</option>
+                  <option value="不隨俗流">不隨俗流</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>郗太尉</strong><br>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-top:4px;" onclick="speakText('郗太尉。郗太尉挑女婿，聽到王導的子弟個個都很莊重，只有王羲之露出肚皮躺在床上，便選王羲之為女婿。')">🔊 報讀</button>
+              </td>
+              <td>郗太尉挑女婿，聽到王導的子弟個個都很莊重，只有王羲之露出肚皮躺在床上，便選王羲之為女婿。(參見P168)</td>
+              <td>
+                <select class="match-select" id="match-2" data-ans="眼光獨特" onchange="checkSingleMatch(this)">
+                  <option value="">-- 請選擇性格 --</option>
+                  <option value="聰慧機靈">聰慧機靈</option>
+                  <option value="吝嗇小氣">吝嗇小氣</option>
+                  <option value="不隨聲附和">不隨聲附和</option>
+                  <option value="眼光獨特">眼光獨特</option>
+                  <option value="不隨俗流">不隨俗流</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>孔融</strong><br>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-top:4px;" onclick="speakText('孔融。孔融隨父親拜訪聲望極高的李膺，在場賓客陳韙批評孔融小時了了，大未必佳，孔融的回應讓他說不出話來。')">🔊 報讀</button>
+              </td>
+              <td>孔融隨父親拜訪聲望極高的李膺，在場賓客陳韙批評孔融「小時了了，大未必佳」，孔融的回應讓他說不出話來。(參見P172)</td>
+              <td>
+                <select class="match-select" id="match-3" data-ans="聰慧機靈" onchange="checkSingleMatch(this)">
+                  <option value="">-- 請選擇性格 --</option>
+                  <option value="聰慧機靈">聰慧機靈</option>
+                  <option value="吝嗇小氣">吝嗇小氣</option>
+                  <option value="不隨聲附和">不隨聲附和</option>
+                  <option value="眼光獨特">眼光獨特</option>
+                  <option value="不隨俗流">不隨俗流</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>王戎</strong><br>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-top:4px;" onclick="speakText('王戎。王戎家境富有，但賣李子時怕別人得到這些種子，總先把李核鑽個洞。')">🔊 報讀</button>
+              </td>
+              <td>王戎家境富有，但賣李子時怕別人得到這些種子，總先把李核鑽個洞。(參見P170)</td>
+              <td>
+                <select class="match-select" id="match-4" data-ans="吝嗇小氣" onchange="checkSingleMatch(this)">
+                  <option value="">-- 請選擇性格 --</option>
+                  <option value="聰慧機靈">聰慧機靈</option>
+                  <option value="吝嗇小氣">吝嗇小氣</option>
+                  <option value="不隨聲附和">不隨聲附和</option>
+                  <option value="眼光獨特">眼光獨特</option>
+                  <option value="不隨俗流">不隨俗流</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <strong>王藍田</strong><br>
+                <button class="audio-btn" style="padding:1px 5px; font-size:11px; margin-top:4px;" onclick="speakText('王藍田。王導位高權重，每說一句話，大家都爭相讚許，王藍田卻不認為王導所說的每句話都是對的。')">🔊 報讀</button>
+              </td>
+              <td>王導位高權重，每說一句話，大家都爭相讚許，王藍田卻不認為王導所說的每句話都是對的。(參見P170)</td>
+              <td>
+                <select class="match-select" id="match-5" data-ans="不隨聲附和" onchange="checkSingleMatch(this)">
+                  <option value="">-- 請選擇性格 --</option>
+                  <option value="聰慧機靈">聰慧機靈</option>
+                  <option value="吝嗇小氣">吝嗇小氣</option>
+                  <option value="不隨聲附和">不隨聲附和</option>
+                  <option value="眼光獨特">眼光獨特</option>
+                  <option value="不隨俗流">不隨俗流</option>
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:16px; display:flex; gap:10px; justify-content:center;">
+          <button class="tool-btn primary" onclick="checkAllMatches()">✅ 檢查全部配對答案</button>
+          <button class="tool-btn warn" onclick="revealAllMatches()">👁️ 顯示配對解答</button>
+        </div>
+
+        <div style="margin-top:24px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <button class="tool-btn" style="padding:10px 20px; font-size:15.5px;" onclick="switchTab(3)">⬅️ 上一步：【Tab 4】王藍田食雞子</button>
+          <a href="audio_quiz.html" target="_blank" class="tool-btn primary" style="padding:10px 24px; font-size:15.5px;">📝 前往獨立綜合有聲測驗卷</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Magnifier Button -->
+  <button id="floatingMagBtn" style="display:none;" onclick="openMagnifier()" title="放大選取的文字">🔍</button>
+
+  <!-- Magnifier Modal -->
+  <div id="magModal" class="mag-modal" onclick="if(event.target===this)closeMagnifier()">
+    <div class="mag-content-box">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 style="color:#0369a1; font-size:20px;">🔍 文字放大鏡 (特教適性)</h3>
+        <button style="border:none; background:none; font-size:24px; cursor:pointer;" onclick="closeMagnifier()">✕</button>
+      </div>
+      <div id="magContent" class="mag-text-view">請在頁面上選取文字後點擊放大鏡</div>
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button class="audio-btn" onclick="speakText(document.getElementById('magContent').innerText)">🔊 朗讀此段文字</button>
+        <button class="tool-btn primary" onclick="closeMagnifier()">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Worksheet Section Modal (學習單有聲專區) -->
+  <div id="audioModal" class="modal-overlay" onclick="if(event.target===this)closeAudioModal()">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🎧 學習單有聲專區 (回家複習/有聲作答)</h3>
+        <button class="close-btn" onclick="closeAudioModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:14.5px; color:#475569; margin-bottom:14px;">
+          本專區整合全課評量區單選題（9題）與【Tab 5】人物形象配合題（5題），學生可在此依編碼報讀填答，亦可開啟獨立有聲卷！
+        </p>
+
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+          <a href="audio_quiz.html" target="_blank" class="tool-btn primary" style="width:100%; text-align:center; justify-content:center; padding:10px;">
+            📝 開啟全螢幕獨立「有聲測驗卷」（自動計時、算分、防呆）
+          </a>
+        </div>
+
+        <h4 style="color:#0369a1; margin-bottom:8px; border-bottom:1.5px solid #bae6fd; padding-bottom:4px;">📋 有聲題目編號清單：</h4>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:15px;">
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q1-01]</strong> 世說新語：劉義慶編撰</span>
+            <button class="audio-btn" onclick="speakText('世說新語題目一。原名世說，由南朝宋劉義慶召集文士編撰。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q1-02]</strong> 世說新語：內容與志人小說價值</span>
+            <button class="audio-btn" onclick="speakText('世說新語題目二。以真人真事的軼聞瑣事為基礎，為著名的志人筆記小說。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q1-03]</strong> 世說新語：說明錯誤判斷</span>
+            <button class="audio-btn" onclick="speakText('世說新語題目三。世說新語屬於志人筆記小說，非歷史小說。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q2-01]</strong> 坦腹東床：郗太尉欣賞特質</span>
+            <button class="audio-btn" onclick="speakText('坦腹東床題目一。郗太尉欣賞王羲之本性率真，毫不做作。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q2-02]</strong> 坦腹東床：東床快婿借指稱謂</span>
+            <button class="audio-btn" onclick="speakText('坦腹東床題目二。東床快婿借指令人滿意的稱職女婿。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q2-03]</strong> 坦腹東床：五石散文化與害處</span>
+            <button class="audio-btn" onclick="speakText('坦腹東床題目三。五石散服用後極度燥熱，名士穿寬袍大袖並散步行走發散藥力。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q3-01]</strong> 王藍田食雞子：王安期為人評價</span>
+            <button class="audio-btn" onclick="speakText('王藍田食雞子題目一。王羲之的話暗示王安期比王藍田穩重。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q3-02]</strong> 王藍田食雞子：擲地文意分析</span>
+            <button class="audio-btn" onclick="speakText('王藍田食雞子題目二。舉以擲地可推知王藍田因憤怒而擲蛋。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[Q3-03]</strong> 王藍田食雞子：連續動詞修辭效果</span>
+            <button class="audio-btn" onclick="speakText('王藍田食雞子題目三。食、刺、擲、蹍、內、齧、吐連續動詞凸顯性急暴躁。')">🔊 報讀</button>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span><strong>[M-01~05]</strong> 人物形象掃描配合題：5位魏晉名士</span>
+            <button class="audio-btn" onclick="speakText('人物形象配合題：郝隆不隨俗流，郗太尉眼光獨特，孔融聰慧機靈，王戎吝嗇小氣，王藍田不隨聲附和。')">🔊 報讀</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="tool-btn primary" onclick="closeAudioModal()">完成瀏覽</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role Selection Modal (老師 vs 01-06號學生) -->
+  <div id="roleModal" class="modal-overlay" onclick="if(event.target===this)closeRoleModal()">
+    <div class="modal-box" style="max-width:480px; padding:22px; background:#ffffff; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:20px; color:#0369a1; margin:0;">👤 選擇課堂身分與座號</h3>
+        <button class="close-btn" style="border:none; background:none; font-size:22px; cursor:pointer;" onclick="closeRoleModal()">✕</button>
+      </div>
+      <p style="font-size:14px; color:#64748b; line-height:1.6; margin-bottom:16px;">
+        請依教學情境切換身分：<br>
+        🔹 <strong>老師模式</strong>：測試與上課展示用，免作答防呆，隨時可觀看解答。<br>
+        🔹 <strong>學生模式（01-06號）</strong>：評量區與有聲卷填答用，即時記錄座號作答。
+      </p>
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:12px;">
+        <button class="tool-btn" style="grid-column:span 2; padding:12px; font-size:16px; justify-content:center; background:#e0f2fe; color:#0369a1; border:2px solid #7dd3fc;" onclick="setRole('teacher')">
+          👨‍🏫 老師 (測試與上課用)
+        </button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('01')">👦 01 號 學生</button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('02')">👧 02 號 學生</button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('03')">👦 03 號 學生</button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('04')">👧 04 號 學生</button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('05')">👦 05 號 學生</button>
+        <button class="tool-btn" style="padding:10px; font-size:15px; justify-content:center;" onclick="setRole('06')">👧 06 號 學生</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching (Bulletproof & Direct)
+    function switchTab(idx) {
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach((b, i) => {
+        if (i === idx) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      for (let i = 0; i < 5; i++) {
+        const pane = document.getElementById('tab-pane-' + i);
+        if (pane) {
+          if (i === idx) {
+            pane.classList.add('active');
+            pane.style.display = 'block';
+          } else {
+            pane.classList.remove('active');
+            pane.style.display = 'none';
+          }
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Role handling (Teacher vs 01-06 Student)
+    let currentRole = 'teacher';
+    try {
+      currentRole = localStorage.getItem('userRole') || 'teacher';
+    } catch(e) {}
+
+    function updateRoleDisplay() {
+      const badge = document.getElementById('roleBadge');
+      if (!badge) return;
+      if (currentRole === 'teacher') {
+        badge.innerText = '👨‍🏫 老師 (測試與上課)';
+        badge.style.color = '#0284c7';
+      } else {
+        badge.innerText = `${currentRole} 號 學生`;
+        badge.style.color = '#10b981';
+      }
+    }
+    function setRole(r) {
+      currentRole = r;
+      try { localStorage.setItem('userRole', r); } catch(e){}
+      updateRoleDisplay();
+      closeRoleModal();
+    }
+    function openRoleModal() {
+      document.getElementById('roleModal').style.display = 'flex';
+    }
+    function closeRoleModal() {
+      document.getElementById('roleModal').style.display = 'none';
+    }
+
+    // Toggle trait card (性格卡片展開/收合)
+    function toggleTraitCard(el) {
+      el.classList.toggle('expanded');
+      if (el.classList.contains('expanded')) {
+        el.style.borderColor = '#0284c7';
+        el.style.background = '#f0f9ff';
+      } else {
+        el.style.borderColor = '#bae6fd';
+        el.style.background = '#ffffff';
+      }
+    }
+
+    // Speech Synthesis
+    let currentRate = 0.85;
+    function cycleSpeechRate() {
+      if (currentRate === 0.7) currentRate = 0.85;
+      else if (currentRate === 0.85) currentRate = 1.0;
+      else currentRate = 0.7;
+      document.getElementById('rateToggleBtn').innerText = `⚡ 語速 ${currentRate}x`;
+    }
+    function stopAllSpeech() {
+      window.speechSynthesis.cancel();
+    }
+    function speakText(txt) {
+      window.speechSynthesis.cancel();
+      if (!txt) return;
+      const u = new SpeechSynthesisUtterance(txt);
+      u.rate = currentRate;
+      u.lang = 'zh-TW';
+      window.speechSynthesis.speak(u);
+    }
+
+    // Global Red Font Answers Toggle
+    function toggleAllAnswers() {
+      document.body.classList.toggle('show-all-answers');
+      const isShow = document.body.classList.contains('show-all-answers');
+      document.getElementById('ansToggleBtn').innerText = isShow ? '🙈 學生填答模式' : '👁️ 顯示全部解答';
+    }
+    function toggleBlank(el) {
+      el.classList.toggle('revealed');
+    }
+
+    // Quiz Check
+    function checkChoice(btn, cardId, chosen, correct) {
+      const card = document.getElementById(cardId);
+      const btns = card.querySelectorAll('.quiz-opt-btn');
+      btns.forEach(b => b.classList.remove('selected', 'correct', 'wrong'));
+      btn.classList.add('selected');
+      if (chosen === correct) {
+        btn.classList.add('correct');
+        card.classList.add('answered-correct');
+        card.classList.remove('answered-wrong');
+      } else {
+        btn.classList.add('wrong');
+        card.classList.add('answered-wrong');
+        card.classList.remove('answered-correct');
+      }
+    }
+    function toggleExpl(cardId) {
+      const box = document.getElementById(cardId + '-expl');
+      box.classList.toggle('open');
+    }
+
+    // Accordion
+    function toggleCard(header) {
+      const body = header.nextElementSibling;
+      body.classList.toggle('open');
+      const arrow = header.querySelector('span:last-child');
+      if (arrow) arrow.innerText = body.classList.contains('open') ? '▲' : '▼';
+    }
+
+    // Matching Questions
+    function checkSingleMatch(sel) {
+      if (!sel.value) {
+        sel.classList.remove('correct', 'wrong');
+        return;
+      }
+      if (sel.value === sel.dataset.ans) {
+        sel.classList.add('correct');
+        sel.classList.remove('wrong');
+      } else {
+        sel.classList.add('wrong');
+        sel.classList.remove('correct');
+      }
+    }
+    function checkAllMatches() {
+      let count = 0;
+      for (let i = 1; i <= 5; i++) {
+        const sel = document.getElementById('match-' + i);
+        if (sel.value === sel.dataset.ans) {
+          sel.classList.add('correct');
+          sel.classList.remove('wrong');
+          count++;
+        } else {
+          sel.classList.add('wrong');
+          sel.classList.remove('correct');
+        }
+      }
+      alert(`配對結果：答對 ${count} / 5 題！`);
+    }
+    function revealAllMatches() {
+      for (let i = 1; i <= 5; i++) {
+        const sel = document.getElementById('match-' + i);
+        sel.value = sel.dataset.ans;
+        sel.classList.add('correct');
+        sel.classList.remove('wrong');
+      }
+    }
+
+    // Floating Magnifier
+    document.addEventListener('mouseup', handleTextSel);
+    document.addEventListener('touchend', handleTextSel);
+    function handleTextSel() {
+      const s = window.getSelection().toString().trim();
+      const btn = document.getElementById('floatingMagBtn');
+      if (s.length > 0) {
+        btn.style.display = 'flex';
+        btn.dataset.text = s;
+      } else {
+        setTimeout(() => {
+          if (!window.getSelection().toString().trim()) {
+            btn.style.display = 'none';
+          }
+        }}, 250);
+      }
+    }
+    function openMagnifier(explicit) {
+      const txt = explicit || document.getElementById('floatingMagBtn').dataset.text || '請先在畫面上選取任何文字';
+      document.getElementById('magContent').innerText = txt;
+      document.getElementById('magModal').style.display = 'flex';
+    }
+    function closeMagnifier() {
+      document.getElementById('magModal').style.display = 'none';
+    }
+
+    // Audio Modal
+    function openAudioModal() {
+      document.getElementById('audioModal').style.display = 'flex';
+    }
+    function closeAudioModal() {
+      document.getElementById('audioModal').style.display = 'none';
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateRoleDisplay();
+      switchTab(0);
+    });
+  </script>
+</body>
+</html>

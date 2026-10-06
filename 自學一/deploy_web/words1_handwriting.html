@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>自學一 生字語詞習寫作業單</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --bg-page: #f8fafc;
+    --text-main: #0f172a;
+    --border-card: #cbd5e1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "BiauKai", "Microsoft JhengHei", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    padding: 20px 16px 80px 16px;
+  }
+  .portal-back-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 13.5px;
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+  }
+  .portal-back-btn:hover { background: #e2e8f0; }
+  .sheet-header-bar {
+    max-width: 900px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sheet-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1.5px solid var(--border-card);
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .sheet-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #0369a1;
+    margin-bottom: 4px;
+  }
+  .sheet-subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+  .student-info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #0284c7;
+  }
+  .audio-play-btn {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    color: #0284c7;
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .tool-btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    cursor: pointer;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+  }
+  .tool-btn.primary { background: #0284c7; color: #fff; border-color: #0369a1; font-weight: bold; }
+  .tool-btn.active-state { background: #10b981 !important; color: #fff !important; }
+  .sheet-footer {
+    margin-top: 30px;
+    padding-top: 10px;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 12px;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+  .ws-ans-key { color: #dc2626 !important; font-weight: bold; }
+  body.hide-answers .ws-ans-key { display: none !important; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet-header-bar { display: none !important; }
+    .sheet-container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+    .audio-play-btn { display: none !important; }
+  }
+  .tianzi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; }
+  </style>
+</head>
+<body class="hide-answers">
+  <div class="sheet-header-bar">
+    <a href="../index.html" class="portal-back-btn">🏠 回115數位學習網頁</a>
+    <div style="display:flex; gap:8px;">
+      <button id="toggleAnsBtn" class="tool-btn" onclick="toggleAnswers()">👁️ 顯示教師解答</button>
+      <button class="tool-btn primary" onclick="window.print()">🖨️ 列印 A4 紙本</button>
+    </div>
+  </div>
+
+  <div class="sheet-container">
+    <div class="sheet-title">自學一 六朝名士畫廊----世說新語選</div>
+    <div class="sheet-subtitle">生字語詞習寫與認讀作業單</div>
+    <div class="student-info-row">
+      <span>班級：＿＿＿＿</span>
+      <span>座號：＿＿＿＿</span>
+      <span>姓名：＿＿＿＿</span>
+      <span>得分：＿＿＿＿</span>
+    </div>
+
+    <div style="font-size:14.5px; font-weight:bold; margin-bottom:8px; color:#0369a1;">
+      說明：請依田字格筆順練寫下列 8 個核心生字，並熟記字音、字義與記憶口訣：
+    </div>
+
+    <div class="tianzi-grid">
+    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：邑 (9畫)</span>
+        <button class="audio-play-btn" onclick="speak('郗。ㄔ。希罕的邑國右耳旁，即是郗太尉之郗。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 郗 】 ㄔ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">郗</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">姓氏，如太尉郗鑒</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>希罕的邑國右耳旁，即是郗太尉之郗。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：竹 (15畫)</span>
+        <button class="audio-play-btn" onclick="speak('筯。ㄓㄨˋ。竹子助人夾菜夾蛋的工具即為筯。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 筯 】 ㄓㄨˋ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">筯</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">筷子，同「箸」</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>竹子助人夾菜夾蛋的工具即為筯。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：尸 (10畫)</span>
+        <button class="audio-play-btn" onclick="speak('屐。ㄐㄧ。尸身底下踏著木板走，即是古代木屐。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 屐 】 ㄐㄧ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">屐</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">木底鞋，底下有齒</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>尸身底下踏著木板走，即是古代木屐。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：足 (19畫)</span>
+        <button class="audio-play-btn" onclick="speak('蹍。ㄓㄢˇ。足部用力輾壓過去，即是蹍之。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 蹍 】 ㄓㄢˇ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">蹍</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">踩踏、碾壓</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>足部用力輾壓過去，即是蹍之。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：目 (15畫)</span>
+        <button class="audio-play-btn" onclick="speak('瞋。ㄔㄣ。目部眼睛睜得真大怒視，即是瞋目。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 瞋 】 ㄔㄣ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">瞋</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">發怒睜大眼睛</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>目部眼睛睜得真大怒視，即是瞋目。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：齒 (21畫)</span>
+        <button class="audio-play-btn" onclick="speak('齧。ㄋㄧㄝˋ。齒部在下用力咬嚼，即為齧齒之齧。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 齧 】 ㄋㄧㄝˋ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">齧</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">用牙齒咬、咬破</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>齒部在下用力咬嚼，即為齧齒之齧。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：犬 (10畫)</span>
+        <button class="audio-play-btn" onclick="speak('狷。ㄐㄩㄢˋ。犬旁性急如狂狷，即是忿狷之狷。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 狷 】 ㄐㄩㄢˋ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">狷</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">急躁偏激、性情狹窄</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>犬旁性急如狂狷，即是忿狷之狷。</div>
+    </div>    <div style="border:1.5px solid #000; border-radius:6px; padding:10px; text-align:center; background:#fff; page-break-inside:avoid;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <span style="font-size:13px; font-weight:bold; color:#0369a1;">部首：女 (12畫)</span>
+        <button class="audio-play-btn" onclick="speak('婿。ㄒㄩˋ。女部配胥，指嫁與之乘龍夫婿。')">🔊</button>
+      </div>
+      <div style="font-size:16px; font-weight:bold; margin-bottom:2px;">【 婿 】 ㄒㄩˋ</div>
+      <div style="width:56px; height:56px; border:1.5px solid #000; margin:6px auto; font-size:32px; font-family:'標楷體',serif; display:flex; align-items:center; justify-content:center; background-image:linear-gradient(to right, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%), linear-gradient(to bottom, transparent 49.5%, #94a3b8 49.5%, #94a3b8 50.5%, transparent 50.5%);">
+        <span class="ws-ans-key">婿</span>
+      </div>
+      <div style="font-size:12px; color:#475569; margin-bottom:4px;">女兒或妹妹的丈夫</div>
+      <div style="font-size:11.5px; background:#f0fdf4; padding:4px; border-radius:4px; color:#166534; text-align:left;">💡 <strong>口訣：</strong>女部配胥，指嫁與之乘龍夫婿。</div>
+    </div>
+    </div>
+
+    <div class="sheet-footer">
+      <span>原版架構：米克師 ｜ 教學研發與適性數位化：Jun的晨光慢步 ｜ CC BY-NC-SA 4.0</span>
+      <span>生字語詞習寫作業單</span>
+    </div>
+  </div>
+
+  <script>
+  function speak(text) {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "zh-TW";
+    u.rate = 0.85;
+    window.speechSynthesis.speak(u);
+  }
+  function toggleAnswers() {
+    document.body.classList.toggle("hide-answers");
+    const btn = document.getElementById("toggleAnsBtn");
+    if (btn) {
+      const isHidden = document.body.classList.contains("hide-answers");
+      btn.innerText = isHidden ? "👁️ 顯示教師解答" : "🔒 切換學生練習版";
+    }
+  }
+  </script>
+</body>
+</html>
