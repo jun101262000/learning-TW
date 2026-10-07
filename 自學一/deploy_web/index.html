@@ -1651,17 +1651,72 @@
   </div>
 
   <script>
-    // Tab switching (Bulletproof & Direct)
+    // 1. 全域變數與身分控制
+    var currentRole = 'teacher';
+    try {
+      var savedRole = localStorage.getItem('userRole');
+      if (savedRole) {
+        currentRole = savedRole;
+      }
+    } catch(e) {}
+
+    function updateRoleDisplay() {
+      var badge = document.getElementById('roleBadge');
+      if (!badge) return;
+      if (currentRole === 'teacher') {
+        badge.innerText = '👨‍🏫 老師 (測試與上課)';
+        badge.style.color = '#0284c7';
+      } else {
+        badge.innerText = currentRole + ' 號 學生';
+        badge.style.color = '#10b981';
+      }
+    }
+    window.updateRoleDisplay = updateRoleDisplay;
+
+    function setRole(r) {
+      currentRole = r;
+      try {
+        localStorage.setItem('userRole', r);
+      } catch(e) {}
+      updateRoleDisplay();
+      closeRoleModal();
+    }
+    window.setRole = setRole;
+
+    function openRoleModal() {
+      var modal = document.getElementById('roleModal');
+      if (modal) modal.style.display = 'flex';
+    }
+    window.openRoleModal = openRoleModal;
+
+    function closeRoleModal() {
+      var modal = document.getElementById('roleModal');
+      if (modal) modal.style.display = 'none';
+    }
+    window.closeRoleModal = closeRoleModal;
+
+    // 2. 核心分頁切換邏輯 (嚴格支援 Tab 0~4)
     function switchTab(idx) {
-      const btns = document.querySelectorAll('.tab-btn');
-      btns.forEach((b, i) => {
-        if (i === idx) b.classList.add('active');
-        else b.classList.remove('active');
-      });
-      for (let i = 0; i < 5; i++) {
-        const pane = document.getElementById('tab-pane-' + i);
+      var targetIdx = parseInt(idx, 10);
+      if (isNaN(targetIdx) || targetIdx < 0 || targetIdx > 4) {
+        targetIdx = 0;
+      }
+
+      // 更新頂部按鈕狀態
+      var btns = document.querySelectorAll('.tab-btn');
+      for (var b = 0; b < btns.length; b++) {
+        if (b === targetIdx) {
+          btns[b].classList.add('active');
+        } else {
+          btns[b].classList.remove('active');
+        }
+      }
+
+      // 切換 5 個分頁 panel 的顯示
+      for (var i = 0; i < 5; i++) {
+        var pane = document.getElementById('tab-pane-' + i);
         if (pane) {
-          if (i === idx) {
+          if (i === targetIdx) {
             pane.classList.add('active');
             pane.style.display = 'block';
           } else {
@@ -1670,86 +1725,86 @@
           }
         }
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
 
-    // Role handling (Teacher vs 01-06 Student)
-    let currentRole = 'teacher';
-    try {
-      currentRole = localStorage.getItem('userRole') || 'teacher';
-    } catch(e) {}
-
-    function updateRoleDisplay() {
-      const badge = document.getElementById('roleBadge');
-      if (!badge) return;
-      if (currentRole === 'teacher') {
-        badge.innerText = '👨‍🏫 老師 (測試與上課)';
-        badge.style.color = '#0284c7';
-      } else {
-        badge.innerText = `${currentRole} 號 學生`;
-        badge.style.color = '#10b981';
+      // 滾動到頂部
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch(err) {
+        window.scrollTo(0, 0);
       }
     }
-    function setRole(r) {
-      currentRole = r;
-      try { localStorage.setItem('userRole', r); } catch(e){}
-      updateRoleDisplay();
-      closeRoleModal();
-    }
-    function openRoleModal() {
-      document.getElementById('roleModal').style.display = 'flex';
-    }
-    function closeRoleModal() {
-      document.getElementById('roleModal').style.display = 'none';
-    }
+    window.switchTab = switchTab;
 
-    // Toggle trait card (性格卡片展開/收合)
-    function toggleTraitCard(el) {
-      el.classList.toggle('expanded');
-      if (el.classList.contains('expanded')) {
-        el.style.borderColor = '#0284c7';
-        el.style.background = '#f0f9ff';
-      } else {
-        el.style.borderColor = '#bae6fd';
-        el.style.background = '#ffffff';
-      }
-    }
-
-    // Speech Synthesis
-    let currentRate = 0.85;
+    // 3. 語音朗讀控制
+    var currentRate = 0.85;
     function cycleSpeechRate() {
-      if (currentRate === 0.7) currentRate = 0.85;
-      else if (currentRate === 0.85) currentRate = 1.0;
-      else currentRate = 0.7;
-      document.getElementById('rateToggleBtn').innerText = `⚡ 語速 ${currentRate}x`;
+      if (currentRate === 0.7) {
+        currentRate = 0.85;
+      } else if (currentRate === 0.85) {
+        currentRate = 1.0;
+      } else {
+        currentRate = 0.7;
+      }
+      var btn = document.getElementById('rateToggleBtn');
+      if (btn) {
+        btn.innerText = '⚡ 語速 ' + currentRate + 'x';
+      }
     }
-    function stopAllSpeech() {
-      window.speechSynthesis.cancel();
-    }
-    function speakText(txt) {
-      window.speechSynthesis.cancel();
-      if (!txt) return;
-      const u = new SpeechSynthesisUtterance(txt);
-      u.rate = currentRate;
-      u.lang = 'zh-TW';
-      window.speechSynthesis.speak(u);
-    }
+    window.cycleSpeechRate = cycleSpeechRate;
 
-    // Global Red Font Answers Toggle
+    function stopAllSpeech() {
+      try {
+        if (window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+        }
+      } catch(e) {}
+    }
+    window.stopAllSpeech = stopAllSpeech;
+
+    function speakText(txt) {
+      try {
+        stopAllSpeech();
+        if (!txt || !window.speechSynthesis) return;
+        var u = new SpeechSynthesisUtterance(txt);
+        u.rate = currentRate;
+        u.lang = 'zh-TW';
+        window.speechSynthesis.speak(u);
+      } catch(e) {
+        console.warn('Speech error:', e);
+      }
+    }
+    window.speakText = speakText;
+
+    // 4. 紅字解答揭曉控制
     function toggleAllAnswers() {
       document.body.classList.toggle('show-all-answers');
-      const isShow = document.body.classList.contains('show-all-answers');
-      document.getElementById('ansToggleBtn').innerText = isShow ? '🙈 學生填答模式' : '👁️ 顯示全部解答';
+      var isShow = document.body.classList.contains('show-all-answers');
+      var btn = document.getElementById('ansToggleBtn');
+      if (btn) {
+        if (isShow) {
+          btn.innerText = '🙈 學生填答模式';
+        } else {
+          btn.innerText = '👁️ 顯示全部解答';
+        }
+      }
     }
-    function toggleBlank(el) {
-      el.classList.toggle('revealed');
-    }
+    window.toggleAllAnswers = toggleAllAnswers;
 
-    // Quiz Check
+    function toggleBlank(el) {
+      if (el) {
+        el.classList.toggle('revealed');
+      }
+    }
+    window.toggleBlank = toggleBlank;
+
+    // 5. 選擇題即時批改
     function checkChoice(btn, cardId, chosen, correct) {
-      const card = document.getElementById(cardId);
-      const btns = card.querySelectorAll('.quiz-opt-btn');
-      btns.forEach(b => b.classList.remove('selected', 'correct', 'wrong'));
+      var card = document.getElementById(cardId);
+      if (!card) return;
+      var btns = card.querySelectorAll('.quiz-opt-btn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('selected', 'correct', 'wrong');
+      }
       btn.classList.add('selected');
       if (chosen === correct) {
         btn.classList.add('correct');
@@ -1761,21 +1816,49 @@
         card.classList.remove('answered-correct');
       }
     }
+    window.checkChoice = checkChoice;
+
     function toggleExpl(cardId) {
-      const box = document.getElementById(cardId + '-expl');
-      box.classList.toggle('open');
+      var box = document.getElementById(cardId + '-expl');
+      if (box) {
+        box.classList.toggle('open');
+      }
     }
+    window.toggleExpl = toggleExpl;
 
-    // Accordion
+    // 6. 手風琴折疊卡片
     function toggleCard(header) {
-      const body = header.nextElementSibling;
+      var body = header.nextElementSibling;
+      if (!body) return;
       body.classList.toggle('open');
-      const arrow = header.querySelector('span:last-child');
-      if (arrow) arrow.innerText = body.classList.contains('open') ? '▲' : '▼';
+      var arrow = header.querySelector('span:last-child');
+      if (arrow) {
+        if (body.classList.contains('open')) {
+          arrow.innerText = '▲';
+        } else {
+          arrow.innerText = '▼';
+        }
+      }
     }
+    window.toggleCard = toggleCard;
 
-    // Matching Questions
+    // 7. 性格卡片展開
+    function toggleTraitCard(el) {
+      if (!el) return;
+      el.classList.toggle('expanded');
+      if (el.classList.contains('expanded')) {
+        el.style.borderColor = '#0284c7';
+        el.style.background = '#f0f9ff';
+      } else {
+        el.style.borderColor = '#bae6fd';
+        el.style.background = '#ffffff';
+      }
+    }
+    window.toggleTraitCard = toggleTraitCard;
+
+    // 8. 人物配合題
     function checkSingleMatch(sel) {
+      if (!sel) return;
       if (!sel.value) {
         sel.classList.remove('correct', 'wrong');
         return;
@@ -1788,69 +1871,112 @@
         sel.classList.remove('correct');
       }
     }
+    window.checkSingleMatch = checkSingleMatch;
+
     function checkAllMatches() {
-      let count = 0;
-      for (let i = 1; i <= 5; i++) {
-        const sel = document.getElementById('match-' + i);
-        if (sel.value === sel.dataset.ans) {
-          sel.classList.add('correct');
-          sel.classList.remove('wrong');
-          count++;
-        } else {
-          sel.classList.add('wrong');
-          sel.classList.remove('correct');
+      var count = 0;
+      for (var i = 1; i <= 5; i++) {
+        var sel = document.getElementById('match-' + i);
+        if (sel) {
+          if (sel.value === sel.dataset.ans) {
+            sel.classList.add('correct');
+            sel.classList.remove('wrong');
+            count++;
+          } else {
+            sel.classList.add('wrong');
+            sel.classList.remove('correct');
+          }
         }
       }
-      alert(`配對結果：答對 ${count} / 5 題！`);
+      alert('配對結果：答對 ' + count + ' / 5 題！');
     }
+    window.checkAllMatches = checkAllMatches;
+
     function revealAllMatches() {
-      for (let i = 1; i <= 5; i++) {
-        const sel = document.getElementById('match-' + i);
-        sel.value = sel.dataset.ans;
-        sel.classList.add('correct');
-        sel.classList.remove('wrong');
+      for (var i = 1; i <= 5; i++) {
+        var sel = document.getElementById('match-' + i);
+        if (sel) {
+          sel.value = sel.dataset.ans;
+          sel.classList.add('correct');
+          sel.classList.remove('wrong');
+        }
       }
     }
+    window.revealAllMatches = revealAllMatches;
 
-    // Floating Magnifier
+    // 9. 懸浮放大鏡小工具
     document.addEventListener('mouseup', handleTextSel);
     document.addEventListener('touchend', handleTextSel);
     function handleTextSel() {
-      const s = window.getSelection().toString().trim();
-      const btn = document.getElementById('floatingMagBtn');
-      if (s.length > 0) {
-        btn.style.display = 'flex';
-        btn.dataset.text = s;
-      } else {
-        setTimeout(() => {
-          if (!window.getSelection().toString().trim()) {
-            btn.style.display = 'none';
-          }
-        }}, 250);
-      }
+      try {
+        var s = window.getSelection().toString().trim();
+        var btn = document.getElementById('floatingMagBtn');
+        if (!btn) return;
+        if (s.length > 0) {
+          btn.style.display = 'flex';
+          btn.dataset.text = s;
+        } else {
+          setTimeout(function() {
+            if (!window.getSelection().toString().trim()) {
+              btn.style.display = 'none';
+            }
+          }, 250);
+        }
+      } catch(e) {}
     }
     function openMagnifier(explicit) {
-      const txt = explicit || document.getElementById('floatingMagBtn').dataset.text || '請先在畫面上選取任何文字';
-      document.getElementById('magContent').innerText = txt;
-      document.getElementById('magModal').style.display = 'flex';
+      var magBtn = document.getElementById('floatingMagBtn');
+      var txt = explicit || (magBtn ? magBtn.dataset.text : '') || '請先在畫面上選取任何文字';
+      var magView = document.getElementById('magContent');
+      if (magView) magView.innerText = txt;
+      var modal = document.getElementById('magModal');
+      if (modal) modal.style.display = 'flex';
     }
+    window.openMagnifier = openMagnifier;
+
     function closeMagnifier() {
-      document.getElementById('magModal').style.display = 'none';
+      var modal = document.getElementById('magModal');
+      if (modal) modal.style.display = 'none';
     }
+    window.closeMagnifier = closeMagnifier;
 
-    // Audio Modal
+    // 10. 有聲專區 Modal
     function openAudioModal() {
-      document.getElementById('audioModal').style.display = 'flex';
+      var modal = document.getElementById('audioModal');
+      if (modal) modal.style.display = 'flex';
     }
+    window.openAudioModal = openAudioModal;
+
     function closeAudioModal() {
-      document.getElementById('audioModal').style.display = 'none';
+      var modal = document.getElementById('audioModal');
+      if (modal) modal.style.display = 'none';
+    }
+    window.closeAudioModal = closeAudioModal;
+
+    // 11. 初始化與雙重事件綁定
+    function initTabs() {
+      updateRoleDisplay();
+
+      // 為頂部導覽列按鈕主動綁定 click 事件監聽
+      var tabBtns = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < tabBtns.length; i++) {
+        (function(index) {
+          tabBtns[index].addEventListener('click', function(e) {
+            e.preventDefault();
+            switchTab(index);
+          });
+        })(i);
+      }
+
+      // 預設開啟第一個分頁
+      switchTab(0);
     }
 
-    // Initialize on load
-    window.addEventListener('DOMContentLoaded', () => {
-      updateRoleDisplay();
-      switchTab(0);
-    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTabs);
+    } else {
+      initTabs();
+    }
   </script>
 </body>
 </html>
