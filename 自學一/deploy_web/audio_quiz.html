@@ -382,6 +382,95 @@
       font-size: 26pt;
       cursor: pointer;
     }
+    /* 學生在家練習專用 QR Code 區塊 (直接網址生成) */
+    .qr-study-box {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+      border: 2.5px solid #7dd3fc;
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+      flex-wrap: wrap;
+    }
+    .qr-img-wrapper {
+      background: #ffffff;
+      padding: 8px;
+      border-radius: 12px;
+      border: 2px solid #bae6fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+    }
+    .qr-code-img {
+      width: 145px;
+      height: 145px;
+      display: block;
+      border-radius: 6px;
+    }
+    .qr-info-content {
+      flex: 1;
+      min-width: 280px;
+    }
+    .qr-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .qr-title {
+      font-size: 21pt;
+      font-weight: 900;
+      color: #0369a1;
+    }
+    .qr-desc {
+      font-size: 19pt;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .qr-link-row {
+      font-size: 18pt;
+      font-weight: bold;
+      color: #0f172a;
+      word-break: break-all;
+    }
+    .qr-link-text {
+      color: #0284c7;
+      text-decoration: underline;
+      transition: color 0.15s;
+    }
+    .qr-link-text:hover {
+      color: #0369a1;
+    }
+
+    /* 列印專屬模式 (方便白紙出卷/在家練習) */
+    @media print {
+      header.top-bar, #roleModal, #pauseOverlay, .audio-btn, .opt-audio-btn {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+        font-size: 16pt;
+        padding-bottom: 0;
+      }
+      .paper-card {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .qr-study-box {
+        border: 2px solid #000000 !important;
+        background: #ffffff !important;
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 <body>
@@ -460,6 +549,29 @@
           <span>座號：<span id="seatInfo">👨‍🏫 老師 (測試與上課)</span></span>
           <span>姓名：＿＿＿＿＿＿</span>
           <span>得分：<strong id="finalScore" style="color:#dc2626;">尚未結算</strong></span>
+        </div>
+      </div>
+
+      <!-- 學生在家練習專用 QR Code 區塊 (直接網址生成，支援掃描與點擊) -->
+      <div class="qr-study-box">
+        <div class="qr-img-wrapper">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https%3A%2F%2Fjun101262000.github.io%2Flearning-TW%2F" 
+               alt="線上電子書學習平台 QR Code" 
+               class="qr-code-img"
+               onerror="this.onerror=null; this.src='https://quickchart.io/qr?text=https%3A%2F%2Fjun101262000.github.io%2Flearning-TW%2F&size=220';">
+        </div>
+        <div class="qr-info-content">
+          <div class="qr-title-row">
+            <span class="qr-title">📱 學生在家自主學習／線上作答 QR Code</span>
+            <button type="button" class="audio-btn" onclick="speak('學生在家自主學習與線上作答專用。請用手機或平板相機掃描條碼，即可開啟國文數位自學電子書平台！');">🔊 說明</button>
+          </div>
+          <p class="qr-desc">
+            請使用手機或平板相機掃描 QR Code，即可直接連線至本課線上電子書平台進行互動閱讀、有聲報讀與測驗練習：
+          </p>
+          <div class="qr-link-row">
+            🔗 平台網址：
+            <a href="https://jun101262000.github.io/learning-TW/" target="_blank" class="qr-link-text">https://jun101262000.github.io/learning-TW/</a>
+          </div>
         </div>
       </div>
 

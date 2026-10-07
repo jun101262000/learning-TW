@@ -724,9 +724,85 @@
       font-size: 26pt;
       cursor: pointer;
     }
+
+    /* 懸浮極簡大屏快速控制條 (一鍵收合頂部後顯示) */
+    .floating-top-pill {
+      display: none;
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      z-index: 200;
+      background: #ffffff;
+      border: 2px solid #bae6fd;
+      border-radius: 40px;
+      padding: 6px 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      animation: fadeIn 0.2s ease;
+    }
+    .pill-title {
+      font-size: 16pt;
+      font-weight: 900;
+      color: #0369a1;
+      padding: 0 6px;
+    }
+    .pill-tab-btn {
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 15pt;
+      font-weight: bold;
+      color: #334155;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .pill-tab-btn:hover {
+      background: #e0f2fe;
+      color: #0284c7;
+      border-color: #7dd3fc;
+    }
+    .pill-tab-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+    .pill-toggle-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: none;
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 16pt;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .pill-toggle-btn:hover {
+      background: #0369a1;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 <body>
+
+  <!-- 浮動極簡大屏快速控制條 (一鍵收合頂部後常駐顯示於右上角) -->
+  <div id="floatingTopPill" class="floating-top-pill">
+    <span class="pill-title">🎨 世說新語選</span>
+    <button class="pill-tab-btn" id="ptab-0" onclick="switchTab(0)">Tab 1</button>
+    <button class="pill-tab-btn" id="ptab-1" onclick="switchTab(1)">Tab 2</button>
+    <button class="pill-tab-btn" id="ptab-2" onclick="switchTab(2)">Tab 3</button>
+    <button class="pill-tab-btn" id="ptab-3" onclick="switchTab(3)">Tab 4</button>
+    <button class="pill-tab-btn" id="ptab-4" onclick="switchTab(4)">Tab 5</button>
+    <button class="pill-toggle-btn" onclick="toggleFullHeader()">🔽 展開全部工具列 ⚙️</button>
+  </div>
 
   <!-- 頂部吸頂導覽列容器 (包含工具列與標籤列) -->
   <div class="sticky-header-container">
@@ -740,6 +816,9 @@
       </div>
 
       <div class="header-tools">
+        <!-- 一鍵收合頂部全部 (包含回首頁、標題、所有工具列) -->
+        <button id="fullHeaderCollapseBtn" class="tool-btn" style="background:#0f172a; color:#ffffff; border-color:#0f172a;" onclick="toggleFullHeader()" title="一鍵收合整個頂部控制列，騰出全螢幕大屏視野">▲ 一鍵收合頂部</button>
+
         <!-- 身分與座號選擇 (老師 vs 01-06號學生) -->
         <div id="roleBadgeContainer" style="background:#f1f5f9; padding:6px 14px; border-radius:8px; font-size:18pt; border:2px solid #bae6fd; display:flex; align-items:center; gap:8px;">
           <span>👤 身分:</span>
@@ -1610,8 +1689,8 @@
             </div>
             <div class="quiz-opts-grid">
               <div class="quiz-opt-row">
-                <button class="opt-audio-btn" onclick="speakText('選項A，聰明、機智的人。例如孔融隨父訪李膺，妙答陳韙小時了了')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-1', 'A')">(A) 聰明、機智的人。（孔融妙答陳韙「小時了了」）</button>
+                <button class="opt-audio-btn" onclick="speakText('選項A，聰明、機智的人')">🔊</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-1', 'A')">(A) 聰明、機智的人。</button>
               </div>
               <div class="quiz-opt-row">
                 <button class="opt-audio-btn" onclick="speakText('選項B，一毛不拔、氣量狹小、過度節省')">🔊</button>
@@ -1636,7 +1715,7 @@
             </div>
             <div class="quiz-expl-box" id="trait-card-1-expl">
               <strong>【正確答案：A】</strong><br>
-              解析：聰慧機靈指聰明機智，在《世說新語》中以孔融隨父訪李膺，面對陳韙諷刺能迅速反擊為典範。
+              解析：「聰慧機靈」指天資聰穎、機智敏銳，能靈巧應對各種情境。
             </div>
           </div>
 
@@ -1652,8 +1731,8 @@
                 <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-2', 'A')">(A) 聰明、機智的人。</button>
               </div>
               <div class="quiz-opt-row">
-                <button class="opt-audio-btn" onclick="speakText('選項B，一毛不拔、氣量狹小、過度節省。例如王戎賣李鑽核')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-2', 'B')">(B) 一毛不拔、氣量狹小、過度節省。（王戎賣李鑽核）</button>
+                <button class="opt-audio-btn" onclick="speakText('選項B，一毛不拔、氣量狹小、過度節省')">🔊</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-2', 'B')">(B) 一毛不拔、氣量狹小、過度節省。</button>
               </div>
               <div class="quiz-opt-row">
                 <button class="opt-audio-btn" onclick="speakText('選項C，拒絕盲從他人的言論，堅持獨立主見')">🔊</button>
@@ -1675,7 +1754,7 @@
             </div>
             <div class="quiz-expl-box" id="trait-card-2-expl">
               <strong>【正確答案：B】</strong><br>
-              解析：吝嗇小氣指過度節儉狹隘，例如王戎家財萬貫，賣李子時卻怕別人得好品種而將果核逐一鑽洞。
+              解析：「吝嗇小氣」指過度節省、氣量狹小，甚至一毛不拔。
             </div>
           </div>
 
@@ -1695,12 +1774,12 @@
                 <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-3', 'B')">(B) 一毛不拔、氣量狹小、過度節省。</button>
               </div>
               <div class="quiz-opt-row">
-                <button class="opt-audio-btn" onclick="speakText('選項C，拒絕盲從他人的言論，堅持獨立主見。例如王藍田不阿諛王導')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-3', 'C')">(C) 拒絕盲從他人的言論，堅持獨立主見。（王藍田不阿諛王導）</button>
+                <button class="opt-audio-btn" onclick="speakText('選項C，拒絕盲從他人的言論，堅持獨立主見')">🔊</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-3', 'C')">(C) 拒絕盲從他人的言論，堅持獨立主見。</button>
               </div>
               <div class="quiz-opt-row">
                 <button class="opt-audio-btn" onclick="speakText('選項D，擁有與眾不同的審美眼光、見解或洞察力')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-3', 'D')">(D) 擁有與眾不同的審美眼光、見解或洞察力。</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-4', 'D')">(D) 擁有與眾不同的審美眼光、見解或洞察力。</button>
               </div>
               <div class="quiz-opt-row">
                 <button class="opt-audio-btn" onclick="speakText('選項E，不跟隨世俗潮流、不盲目融入大眾群體價值觀')">🔊</button>
@@ -1714,7 +1793,7 @@
             </div>
             <div class="quiz-expl-box" id="trait-card-3-expl">
               <strong>【正確答案：C】</strong><br>
-              解析：不隨聲附和指堅持獨立思想主見，不隨波逐流奉承他人，王藍田面對眾人讚許王導時依然保持獨立判斷。
+              解析：「不隨聲附和」指堅持獨立主見，拒絕盲目跟從或迎合他人的言論。
             </div>
           </div>
 
@@ -1738,8 +1817,8 @@
                 <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-4', 'C')">(C) 拒絕盲從他人的言論，堅持獨立主見。</button>
               </div>
               <div class="quiz-opt-row">
-                <button class="opt-audio-btn" onclick="speakText('選項D，擁有與眾不同的審美眼光、見解或洞察力。例如郗太尉相中坦腹之王羲之')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-4', 'D')">(D) 擁有與眾不同的審美眼光、見解或洞察力。（郗太尉相中坦腹王羲之）</button>
+                <button class="opt-audio-btn" onclick="speakText('選項D，擁有與眾不同的審美眼光、見解或洞察力')">🔊</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-4', 'D')">(D) 擁有與眾不同的審美眼光、見解或洞察力。</button>
               </div>
               <div class="quiz-opt-row">
                 <button class="opt-audio-btn" onclick="speakText('選項E，不跟隨世俗潮流、不盲目融入大眾群體價值觀')">🔊</button>
@@ -1753,7 +1832,7 @@
             </div>
             <div class="quiz-expl-box" id="trait-card-4-expl">
               <strong>【正確答案：D】</strong><br>
-              解析：眼光獨特指具獨特審美與洞察力，郗太尉不選矜持拘謹的子弟，獨具慧眼相中坦腹東床率真自然的王羲之。
+              解析：「眼光獨特」指具備非凡的洞察力與審美眼光，能看出與眾不同的特質與價值。
             </div>
           </div>
 
@@ -1781,8 +1860,8 @@
                 <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-5', 'D')">(D) 擁有與眾不同的審美眼光、見解或洞察力。</button>
               </div>
               <div class="quiz-opt-row">
-                <button class="opt-audio-btn" onclick="speakText('選項E，不跟隨世俗潮流、不盲目融入大眾群體價值觀。例如郝隆曬肚皮曬書')">🔊</button>
-                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-5', 'E')">(E) 不跟隨世俗潮流、不盲目融入大眾群體價值觀。（郝隆曬肚皮誇腹中有書）</button>
+                <button class="opt-audio-btn" onclick="speakText('選項E，不跟隨世俗潮流、不盲目融入大眾群體價值觀')">🔊</button>
+                <button class="quiz-opt-btn" onclick="selectStepChoice('trait-card-5', 'E')">(E) 不跟隨世俗潮流、不盲目融入大眾群體價值觀。</button>
               </div>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-top:12px;">
@@ -1792,7 +1871,7 @@
             </div>
             <div class="quiz-expl-box" id="trait-card-5-expl">
               <strong>【正確答案：E】</strong><br>
-              解析：不隨俗流指不隨俗附和眾人，世俗富人七夕曬名貴書籍綾羅，郝隆坦腹曬肚皮自豪腹中滿是學問。
+              解析：「不隨俗流」指不盲從世俗潮流與大眾風氣，保有個人獨特的原則與風格。
             </div>
           </div>
         </div>
@@ -2080,10 +2159,27 @@
           本專區整合全課評量區單選題（9題）與【Tab 5】人物形象配合題（10題），學生可在此依編碼報讀填答，亦可開啟獨立有聲卷！
         </p>
 
-        <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+        <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
           <a href="audio_quiz.html" target="_blank" class="tool-btn primary" style="width:100%; text-align:center; justify-content:center; padding:14px; font-size:20pt;">
             📝 開啟全螢幕獨立「有聲測驗卷」（自動計時、算分、防呆與上傳）
           </a>
+        </div>
+
+        <!-- 學生在家線上學習 QR Code 專區 (直接網址生成) -->
+        <div style="display:flex; align-items:center; gap:18px; background:#f0fdf4; border:2px solid #86efac; border-radius:12px; padding:14px 18px; margin-bottom:20px; flex-wrap:wrap;">
+          <div style="background:#ffffff; padding:6px; border-radius:8px; border:1.5px solid #bbf7d0; display:flex; align-items:center; justify-content:center;">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https%3A%2F%2Fjun101262000.github.io%2Flearning-TW%2F" 
+                 alt="自學平台 QR Code" 
+                 style="width:110px; height:110px; display:block;"
+                 onerror="this.onerror=null; this.src='https://quickchart.io/qr?text=https%3A%2F%2Fjun101262000.github.io%2Flearning-TW%2F&size=180';">
+          </div>
+          <div style="flex:1; min-width:260px;">
+            <div style="font-size:20pt; font-weight:900; color:#166534; margin-bottom:6px;">📱 學生在家自主學習掃描 QR Code</div>
+            <p style="font-size:17pt; color:#374151; margin-bottom:6px;">學生在家可用手機或平板相機直接掃描 QR Code 開啟本課線上電子書平台練習！</p>
+            <div style="font-size:16pt; font-weight:bold; color:#0369a1; word-break:break-all;">
+              🔗 <a href="https://jun101262000.github.io/learning-TW/" target="_blank" style="color:#0284c7; text-decoration:underline;">https://jun101262000.github.io/learning-TW/</a>
+            </div>
+          </div>
         </div>
 
         <h4 style="color:#0369a1; font-size:22pt; margin-bottom:12px; border-bottom:2px solid #bae6fd; padding-bottom:6px;">📋 有聲題目編號清單：</h4>
@@ -2130,7 +2226,7 @@
           </div>
           <div style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px; display:flex; justify-content:space-between; align-items:center;">
             <span><strong>[M-01~05]</strong> 人物事蹟配合題：5位魏晉名士</span>
-            <button class="audio-btn" onclick="speakText('人物形象配合題：郝隆不隨俗流，郗太尉眼光獨特，孔融聰慧機靈，王戎吝嗇小氣，王藍田不隨聲附和。')">🔊 報讀</button>
+            <button class="audio-btn" onclick="speakText('人物形象配合題：請依據郝隆、郗太尉、孔融、王戎、王藍田等五位名士的事蹟簡述，選出最適合的性格填入。')">🔊 報讀</button>
           </div>
         </div>
       </div>
@@ -2245,8 +2341,45 @@
     window.closeRoleModal = closeRoleModal;
 
     // =========================================================================
-    // 2. 標籤列切換與折疊收合 (Request 7: 頂部標籤點擊收合)
+    // 2. 頂部一鍵全收合與標籤列切換 (Request 7 & Request 10: 頂部一鍵全收合、全螢幕大屏教學)
     // =========================================================================
+    function toggleFullHeader() {
+      var container = document.querySelector('.sticky-header-container');
+      var pill = document.getElementById('floatingTopPill');
+      if (!container) return;
+      if (container.style.display === 'none') {
+        container.style.display = 'block';
+        if (pill) pill.style.display = 'none';
+      } else {
+        container.style.display = 'none';
+        if (pill) {
+          pill.style.display = 'flex';
+          syncPillTabHighlight();
+        }
+      }
+    }
+    window.toggleFullHeader = toggleFullHeader;
+
+    function syncPillTabHighlight() {
+      var activeTab = 0;
+      var btns = document.querySelectorAll('.tab-btn');
+      for (var b = 0; b < btns.length; b++) {
+        if (btns[b].classList.contains('active')) {
+          activeTab = b;
+          break;
+        }
+      }
+      var pillBtns = document.querySelectorAll('.pill-tab-btn');
+      for (var p = 0; p < pillBtns.length; p++) {
+        if (p === activeTab) {
+          pillBtns[p].classList.add('active');
+        } else {
+          pillBtns[p].classList.remove('active');
+        }
+      }
+    }
+    window.syncPillTabHighlight = syncPillTabHighlight;
+
     function toggleNavTabs() {
       var nav = document.getElementById('mainNavTabs');
       var btn = document.getElementById('navToggleBtn');
@@ -2288,6 +2421,8 @@
           }
         }
       }
+
+      syncPillTabHighlight();
 
       try {
         window.scrollTo({ top: 0, behavior: 'smooth' });
