@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>語文常識一 詞性(上) 課堂教學電子書</title>
+  <title>語文常識一 詞性(上) 課堂教學互動電子書</title>
   <style>
     :root {
       --primary: #0284c7;
@@ -26,24 +26,30 @@
       color: var(--text-main);
       font-size: 19pt; /* 大屏與特教友善大字體 */
       line-height: 1.7;
-      padding-bottom: 80px;
+      padding-bottom: 90px;
       -webkit-font-smoothing: antialiased;
+      position: relative;
     }
 
-    /* 固定頂部工具列 */
-    .classroom-toolbar {
+    /* 固定頂部工具列容器 */
+    .sticky-header-container {
       position: sticky;
       top: 0;
       z-index: 1000;
       background: #ffffff;
-      border-bottom: 2px solid #bae6fd;
       box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      border-bottom: 2px solid #bae6fd;
+    }
+
+    /* 頂部功能工具列 */
+    .classroom-toolbar {
       padding: 10px 18px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      border-bottom: 1px solid #e2e8f0;
     }
 
     .toolbar-left, .toolbar-right {
@@ -54,12 +60,12 @@
     }
 
     .tool-btn {
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 8px;
       border: 1.5px solid #cbd5e1;
       background: #f8fafc;
       color: #1e293b;
-      font-size: 15.5pt;
+      font-size: 15pt;
       font-weight: bold;
       cursor: pointer;
       display: inline-flex;
@@ -88,6 +94,70 @@
       border-color: #eab308;
       box-shadow: 0 0 0 2px rgba(234, 179, 8, 0.4);
     }
+    .tool-btn.danger-active {
+      background: #fee2e2;
+      color: #b91c1c;
+      border-color: #ef4444;
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+    }
+
+    /* 模式切換按鈕群 */
+    .mode-switch-group {
+      display: inline-flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #0284c7;
+    }
+    .mode-btn {
+      padding: 6px 14px;
+      border: none;
+      background: #ffffff;
+      color: #0369a1;
+      font-size: 14.5pt;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .mode-btn.current {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* 頂部頁籤列 (Tabs) */
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      padding: 6px 18px 0;
+      background: #f8fafc;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 9px 20px;
+      font-size: 17pt;
+      font-weight: 900;
+      border-radius: 10px 10px 0 0;
+      border: 2px solid #cbd5e1;
+      border-bottom: none;
+      background: #e2e8f0;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: #0284c7;
+      border-color: #bae6fd;
+      border-top: 4px solid #0284c7;
+    }
 
     /* 螢光筆選項盤 */
     .pen-options {
@@ -111,9 +181,7 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.25);
       transition: transform 0.15s;
     }
-    .color-dot:hover {
-      transform: scale(1.15);
-    }
+    .color-dot:hover { transform: scale(1.15); }
     .color-dot.selected {
       border: 2.5px solid #0f172a;
       transform: scale(1.2);
@@ -138,11 +206,11 @@
     .content-wrapper {
       position: relative;
       max-width: 1200px;
-      margin: 24px auto;
+      margin: 20px auto;
       padding: 0 16px;
     }
 
-    /* 透明畫布 (覆蓋整個主要內容) */
+    /* 透明畫布 */
     #drawingCanvas {
       position: absolute;
       top: 0;
@@ -150,36 +218,103 @@
       width: 100%;
       height: 100%;
       z-index: 500;
-      pointer-events: none; /* 平時不擋點擊 */
+      pointer-events: none;
     }
     body.pen-mode #drawingCanvas {
-      pointer-events: auto; /* 畫筆模式接收觸控/滑鼠事件 */
+      pointer-events: auto;
       cursor: crosshair;
     }
 
-    /* 書本頁首標題 */
+    /* 反白文字轉紅字樣式 */
+    .text-marked-red {
+      color: #dc2626 !important;
+      font-weight: 900 !important;
+      text-decoration: underline wavy #ef4444;
+      text-underline-offset: 4px;
+      cursor: pointer;
+      padding: 0 2px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
+      display: inline;
+    }
+    .text-marked-red:hover {
+      background-color: #fee2e2;
+    }
+
+    /* 反白選字浮動快捷小氣泡 */
+    .selection-popup {
+      position: absolute;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1.5px solid #ef4444;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.25);
+      padding: 5px 8px;
+      transform: translate(-50%, -100%);
+      margin-top: -10px;
+      user-select: none;
+      animation: popIn 0.15s ease-out;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: translate(-50%, -85%) scale(0.95); }
+      to { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+    }
+    .popup-btn {
+      border: none;
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14pt;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .popup-btn:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+      transform: scale(1.03);
+    }
+    .popup-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 14pt;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* 書本頁首橫幅 */
     .book-header {
       background: #ffffff;
       border: 2px solid #bae6fd;
       border-radius: 14px;
-      padding: 24px 30px;
-      margin-bottom: 24px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
       box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
       text-align: center;
-      position: relative;
     }
     .book-title {
-      font-size: 30pt;
+      font-size: 28pt;
       color: #0369a1;
       font-weight: 900;
       letter-spacing: 2px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .book-subtitle {
-      font-size: 21pt;
+      font-size: 20pt;
       color: #0f172a;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .guide-banner {
       display: inline-flex;
@@ -189,25 +324,27 @@
       color: #854d0e;
       border: 1.5px dashed #eab308;
       border-radius: 10px;
-      padding: 8px 20px;
-      font-size: 18pt;
+      padding: 8px 18px;
+      font-size: 16.5pt;
       font-weight: bold;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
-    /* 章節大標題 */
+    /* 章節大卡片 */
     .unit-section {
       background: #ffffff;
       border-radius: 14px;
       border: 1.5px solid var(--border-card);
       box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       overflow: hidden;
     }
     .unit-heading {
       background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       color: #ffffff;
-      padding: 16px 24px;
-      font-size: 24pt;
+      padding: 14px 22px;
+      font-size: 22pt;
       font-weight: 900;
       letter-spacing: 1.5px;
       display: flex;
@@ -217,8 +354,11 @@
     .unit-heading.huici {
       background: linear-gradient(135deg, #0d9488 0%, #115e59 100%);
     }
+    .unit-heading.quiz-heading {
+      background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    }
 
-    /* 表格設計 */
+    /* 表格樣式 */
     .grammar-table {
       width: 100%;
       border-collapse: collapse;
@@ -226,12 +366,12 @@
     }
     .grammar-table th, .grammar-table td {
       border: 1.5px solid #cbd5e1;
-      padding: 18px 20px;
+      padding: 16px 18px;
       vertical-align: top;
     }
     .grammar-table th {
       background: #f8fafc;
-      font-size: 20pt;
+      font-size: 19pt;
       font-weight: 900;
       color: #1e293b;
       text-align: center;
@@ -240,7 +380,6 @@
     .col-def { width: 34%; }
     .col-examples { width: 48%; }
 
-    /* 詞性單元格 */
     .pos-cell {
       text-align: center;
       background: #f0f9ff;
@@ -249,133 +388,299 @@
       display: inline-block;
       background: #0284c7;
       color: #ffffff;
-      font-size: 22pt;
+      font-size: 21pt;
       font-weight: 900;
-      padding: 6px 18px;
+      padding: 5px 16px;
       border-radius: 10px;
-      letter-spacing: 1px;
       box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
     }
     .pos-sub {
-      margin-top: 8px;
-      font-size: 16pt;
+      margin-top: 6px;
+      font-size: 15pt;
       color: #64748b;
       font-weight: bold;
     }
 
-    /* 定義單元格 */
-    .def-cell {
-      background: #ffffff;
-    }
+    .def-cell { background: #ffffff; }
     .def-text {
-      font-size: 19pt;
+      font-size: 18.5pt;
       color: #0f172a;
-      line-height: 1.75;
-      margin-bottom: 12px;
+      line-height: 1.7;
+      margin-bottom: 10px;
     }
     .memory-tip {
       background: #eff6ff;
       border-left: 5px solid #0284c7;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: 0 8px 8px 0;
-      font-size: 18pt;
+      font-size: 17.5pt;
       color: #0369a1;
       font-weight: bold;
       line-height: 1.6;
     }
 
-    /* 例句與解析列表 */
-    .examples-cell {
-      background: #ffffff;
-    }
+    .examples-cell { background: #ffffff; }
     .example-item {
       background: #fafaf9;
       border: 1px solid #e7e5e4;
       border-radius: 10px;
       padding: 12px 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       transition: all 0.2s ease;
     }
-    .example-item:last-child {
-      margin-bottom: 0;
-    }
-    .example-item:hover {
-      border-color: #cbd5e1;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
+    .example-item:last-child { margin-bottom: 0; }
     .sentence-text {
-      font-size: 20pt;
+      font-size: 19.5pt;
       font-weight: bold;
       color: #0f172a;
       line-height: 1.7;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .source-text {
       color: #64748b;
-      font-size: 17pt;
+      font-size: 16.5pt;
       font-weight: normal;
     }
 
-    /* 解析收合/展開容器 */
-    .analysis-container {
-      margin-top: 8px;
+    /* 朗讀語音按鈕 */
+    .tts-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1.5px solid #86efac;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 14pt;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      margin-right: 8px;
+      vertical-align: middle;
+      transition: all 0.2s;
+      user-select: none;
     }
+    .tts-btn:hover {
+      background: #dcfce7;
+      border-color: #22c55e;
+      transform: scale(1.05);
+    }
+    .tts-btn.speaking {
+      background: #22c55e;
+      color: #ffffff;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* 解析收合/展開容器 */
+    .analysis-container { margin-top: 6px; }
     .analysis-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 14px;
+      padding: 3px 12px;
       border-radius: 6px;
       border: 1.5px solid #f59e0b;
       background: #fffbeb;
       color: #b45309;
-      font-size: 17pt;
+      font-size: 16.5pt;
       font-weight: 900;
       cursor: pointer;
       font-family: inherit;
       transition: all 0.2s;
       user-select: none;
     }
-    .analysis-btn:hover {
-      background: #fde68a;
-      color: #92400e;
-    }
-    .analysis-btn .arrow {
-      font-size: 14pt;
-      transition: transform 0.2s;
-    }
-    .analysis-btn.expanded {
-      background: #f59e0b;
-      color: #ffffff;
-    }
-    .analysis-btn.expanded .arrow {
-      transform: rotate(90deg);
-    }
-
+    .analysis-btn:hover { background: #fde68a; color: #92400e; }
+    .analysis-btn .arrow { font-size: 13pt; transition: transform 0.2s; }
+    .analysis-btn.expanded { background: #f59e0b; color: #ffffff; }
+    .analysis-btn.expanded .arrow { transform: rotate(90deg); }
     .analysis-body {
       display: none;
-      margin-top: 10px;
-      padding: 10px 16px;
+      margin-top: 8px;
+      padding: 8px 14px;
       background: #fef2f2;
       border-left: 5px solid #ef4444;
       border-radius: 0 8px 8px 0;
-      font-size: 18.5pt;
+      font-size: 18pt;
       color: #991b1b;
       font-weight: bold;
-      line-height: 1.65;
+      line-height: 1.6;
     }
-    .analysis-body.show {
-      display: block;
-      animation: fadeIn 0.25s ease-out;
+    .analysis-body.show { display: block; animation: fadeIn 0.2s ease-out; }
+
+    /* ==================== 練習題專屬樣式 ==================== */
+    .quiz-container {
+      padding: 16px 20px;
+    }
+    .quiz-item {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      transition: all 0.2s;
+    }
+    .quiz-item:hover {
+      border-color: #bae6fd;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.06);
+    }
+    .quiz-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 19.5pt;
+      font-weight: bold;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .quiz-num {
+      color: #0284c7;
+      font-weight: 900;
+      flex-shrink: 0;
     }
 
-    .other-examples {
-      margin-top: 8px;
-      font-size: 17pt;
-      color: #475569;
-      background: #f1f5f9;
-      padding: 6px 12px;
+    /* 學生書寫大空格 / 教師解答呈現 */
+    .ans-blank {
+      display: inline-block;
+      min-width: 130px;
+      border-bottom: 2.5px solid #0f172a;
+      text-align: center;
+      padding: 0 10px;
+      margin: 0 6px;
+      font-weight: bold;
+      color: transparent;
+      user-select: none;
+      transition: all 0.2s;
+      vertical-align: bottom;
+    }
+    /* 教師模式下的解答 */
+    body.teacher-mode .ans-blank {
+      color: #dc2626 !important;
+      border-bottom-color: #dc2626 !important;
+      background-color: #fef2f2;
+      border-radius: 4px;
+    }
+    /* 單題點擊揭示答案 (僅教師模式允許點擊切換) */
+    body.teacher-mode .quiz-item.revealed .ans-blank,
+    body.teacher-mode .show-all .ans-blank {
+      color: #dc2626 !important;
+      border-bottom-color: #dc2626 !important;
+    }
+
+    /* 學生模式提示徽章 */
+    .student-badge-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
       border-radius: 6px;
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 14pt;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    /* 單選題選項按鈕 */
+    .choices-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 12px 0 6px 36px;
+    }
+    .choice-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-size: 18.5pt;
+      transition: all 0.2s;
+    }
+    .choice-opt:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+    .choice-opt.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+    }
+    /* 教師模式下直接標示正確解答 */
+    body.teacher-mode .choice-opt.correct {
+      background: #fef2f2 !important;
+      border-color: #ef4444 !important;
+      color: #dc2626 !important;
+      font-weight: 900 !important;
+    }
+
+    /* 詞庫百寶箱展示盒 */
+    .word-bank-box {
+      background: #f0fdfa;
+      border: 2px dashed #0d9488;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin: 14px 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .bank-chip {
+      background: #ffffff;
+      border: 1.5px solid #0d9488;
+      color: #0f766e;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 17pt;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    /* 配對網格 */
+    .match-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .match-card {
+      background: #fafaf9;
+      border: 1.5px solid #e7e5e4;
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 19pt;
+      font-weight: bold;
+    }
+
+    /* 閱讀引言框 */
+    .reading-passage-box {
+      background: #f8fafc;
+      border-left: 6px solid #6366f1;
+      padding: 14px 20px;
+      border-radius: 0 10px 10px 0;
+      margin: 12px 0 16px;
+      font-size: 18.5pt;
+      line-height: 1.75;
+      color: #1e1b4b;
+    }
+
+    /* 分頁顯示/隱藏控制 */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
     }
 
     @keyframes fadeIn {
@@ -383,7 +688,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 筆刷模式提示浮動標籤 */
+    /* 筆刷模式指示浮動標籤 */
     .pen-indicator {
       display: none;
       position: fixed;
@@ -400,9 +705,7 @@
       align-items: center;
       gap: 10px;
     }
-    .pen-indicator.show {
-      display: flex;
-    }
+    .pen-indicator.show { display: flex; }
 
     /* 列印樣式 */
     @media print {
@@ -411,95 +714,107 @@
         font-size: 13pt !important;
         padding: 0 !important;
       }
-      .classroom-toolbar, #drawingCanvas, .pen-indicator {
+      .sticky-header-container, #drawingCanvas, .pen-indicator, .selection-popup, .tts-btn {
         display: none !important;
       }
-      .content-wrapper {
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
+      .tab-content {
+        display: block !important; /* 列印時印出全部或當前 */
+        page-break-after: always;
       }
-      .book-header {
-        border: none !important;
-        box-shadow: none !important;
-        padding: 10px 0 !important;
+      .ans-blank {
+        color: transparent !important;
+        border-bottom: 1.5px solid #000000 !important;
       }
-      .book-title { font-size: 20pt !important; }
-      .book-subtitle { font-size: 15pt !important; }
-      .unit-heading {
-        background: #0284c7 !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        font-size: 16pt !important;
-        padding: 8px 12px !important;
-      }
-      .grammar-table th, .grammar-table td {
-        padding: 8px 10px !important;
-        font-size: 13pt !important;
-      }
-      .pos-badge {
-        font-size: 14pt !important;
-        padding: 2px 8px !important;
-      }
-      .sentence-text { font-size: 13.5pt !important; }
-      .analysis-btn {
+      .choice-opt.correct {
+        color: inherit !important;
+        background: transparent !important;
         border: 1px solid #000000 !important;
-        background: transparent !important;
-        color: #000000 !important;
-        font-size: 12pt !important;
-        padding: 2px 6px !important;
-      }
-      .analysis-body {
-        display: block !important; /* 列印時解析直接呈現 */
-        background: transparent !important;
-        border-left: 3px solid #000000 !important;
-        color: #000000 !important;
-        font-size: 12pt !important;
-        padding: 4px 8px !important;
       }
     }
   </style>
 </head>
-<body>
+<body class="student-mode">
 
-  <!-- 固定頂部工具列 -->
-  <header class="classroom-toolbar">
-    <div class="toolbar-left">
-      <a href="../index.html" class="tool-btn" title="返回 115數位學習首頁">
-        🏠 回首頁
-      </a>
-      <button class="tool-btn" id="toggleAllBtn" onclick="toggleAllAnalysis()" title="一鍵展開或收合所有例句解析">
-        💡 <span id="toggleAllText">展開所有解析</span>
-      </button>
-    </div>
+  <!-- 固定頂部工具列容器 -->
+  <div class="sticky-header-container">
+    <div class="classroom-toolbar">
+      <div class="toolbar-left">
+        <a href="../index.html" class="tool-btn" title="返回 115數位學習首頁">
+          🏠 回首頁
+        </a>
 
-    <div class="toolbar-right">
-      <!-- 螢光筆模式按鈕 -->
-      <button class="tool-btn primary" id="penModeBtn" onclick="togglePenMode()" title="開啟螢光筆圈出詞性">
-        🖍️ 螢光筆模式
-      </button>
+        <!-- 學生模式 / 教師模式 核心切換 -->
+        <div class="mode-switch-group">
+          <button class="mode-btn current" id="btnStudentMode" onclick="setAppMode('student')">
+            👨‍🎓 學生練習版 (隱藏解答)
+          </button>
+          <button class="mode-btn" id="btnTeacherMode" onclick="setAppMode('teacher')">
+            👩‍🏫 教師教學版 (紅字解答)
+          </button>
+        </div>
 
-      <!-- 螢光筆調色與粗細盤 -->
-      <div class="pen-options" id="penOptions">
-        <span class="color-dot selected" style="background:#facc15;" onclick="selectColor('rgba(250, 204, 21, 0.45)', this)" title="螢光黃"></span>
-        <span class="color-dot" style="background:#f472b6;" onclick="selectColor('rgba(244, 114, 182, 0.45)', this)" title="螢光粉紅"></span>
-        <span class="color-dot" style="background:#4ade80;" onclick="selectColor('rgba(74, 222, 128, 0.45)', this)" title="螢光綠"></span>
-        <span class="color-dot" style="background:#60a5fa;" onclick="selectColor('rgba(96, 165, 250, 0.45)', this)" title="螢光藍"></span>
-        <span class="color-dot" style="background:#ef4444;" onclick="selectColor('rgba(239, 68, 68, 0.85)', this)" title="紅筆圈選"></span>
-        <div style="width:1px; height:18px; background:#cbd5e1; margin:0 4px;"></div>
-        <button class="size-btn" onclick="selectSize(10, this)">細</button>
-        <button class="size-btn selected" onclick="selectSize(22, this)">中</button>
-        <button class="size-btn" onclick="selectSize(36, this)">粗</button>
-        <button class="tool-btn" style="padding:4px 10px; font-size:13.5pt;" onclick="clearCanvas()" title="清除畫筆痕跡">
-          🧹 清除
+        <!-- 教師模式專屬：一鍵全開答案 -->
+        <button class="tool-btn" id="toggleAllAnsBtn" onclick="toggleTeacherAnswers()" style="display:none;" title="一鍵揭示或隱藏全頁解答">
+          👁️ <span id="toggleAllAnsText">全開答案</span>
+        </button>
+
+        <!-- 朗讀停止按鈕 -->
+        <button class="tool-btn" id="stopTtsBtn" onclick="stopSpeech()" style="display:none; background:#fee2e2; color:#b91c1c;">
+          ⏹️ 停止朗讀
         </button>
       </div>
 
-      <button class="tool-btn" onclick="window.print()" title="列印本頁">
-        🖨️ 列印
-      </button>
+      <div class="toolbar-right">
+        <!-- 反白自動轉紅字模式開關 -->
+        <button class="tool-btn" id="autoRedBtn" onclick="toggleAutoRedMode()" title="開啟後，只要反白選取文字，放開即自動轉為醒目紅字">
+          🔴 <span id="autoRedText">反白自動轉紅字：關</span>
+        </button>
+
+        <!-- 清除文字紅字標記 -->
+        <button class="tool-btn" onclick="clearAllMarkedText()" title="清除全頁所有反白標記的紅字">
+          🔄 清除紅字
+        </button>
+
+        <!-- 螢光筆模式按鈕 -->
+        <button class="tool-btn primary" id="penModeBtn" onclick="togglePenMode()" title="開啟螢光筆圈出詞性">
+          🖍️ 螢光筆
+        </button>
+
+        <!-- 螢光筆調色與粗細盤 -->
+        <div class="pen-options" id="penOptions">
+          <span class="color-dot selected" style="background:#facc15;" onclick="selectColor('rgba(250, 204, 21, 0.45)', this)" title="螢光黃"></span>
+          <span class="color-dot" style="background:#f472b6;" onclick="selectColor('rgba(244, 114, 182, 0.45)', this)" title="螢光粉紅"></span>
+          <span class="color-dot" style="background:#4ade80;" onclick="selectColor('rgba(74, 222, 128, 0.45)', this)" title="螢光綠"></span>
+          <span class="color-dot" style="background:#60a5fa;" onclick="selectColor('rgba(96, 165, 250, 0.45)', this)" title="螢光藍"></span>
+          <span class="color-dot" style="background:#ef4444;" onclick="selectColor('rgba(239, 68, 68, 0.85)', this)" title="紅筆圈選"></span>
+          <div style="width:1px; height:18px; background:#cbd5e1; margin:0 4px;"></div>
+          <button class="size-btn" onclick="selectSize(10, this)">細</button>
+          <button class="size-btn selected" onclick="selectSize(22, this)">中</button>
+          <button class="size-btn" onclick="selectSize(36, this)">粗</button>
+          <button class="tool-btn" style="padding:4px 10px; font-size:13.5pt;" onclick="clearCanvas()" title="清除畫跡">
+            🧹 清除
+          </button>
+        </div>
+
+        <button class="tool-btn" onclick="window.print()" title="列印當前頁面">
+          🖨️ 列印
+        </button>
+      </div>
     </div>
-  </header>
+
+    <!-- 頂部三個分頁頁籤 -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab(0)">
+        📖 分頁 1：課文詞性例句
+      </button>
+      <button class="tab-btn" onclick="switchTab(1)">
+        📝 分頁 2：課本應用練習
+      </button>
+      <button class="tab-btn" onclick="switchTab(2)">
+        📘 分頁 3：課堂習作挑戰
+      </button>
+    </nav>
+  </div>
 
   <!-- 筆刷模式指示浮動窗 -->
   <div class="pen-indicator" id="penIndicator">
@@ -507,694 +822,1305 @@
     <button class="tool-btn" style="padding:2px 8px; font-size:13pt; background:#ffffff; color:#000;" onclick="togglePenMode()">退出</button>
   </div>
 
+  <!-- 反白選字浮動快捷氣泡 -->
+  <div id="selectionPopup" class="selection-popup">
+    <button type="button" class="popup-btn" onclick="applyRedToCurrentSelection()">
+      🔴 轉為紅字
+    </button>
+    <button type="button" class="popup-close" onclick="hideSelectionPopup()" title="關閉">
+      ✕
+    </button>
+  </div>
+
   <!-- 內容包覆容器 -->
   <div class="content-wrapper" id="contentWrapper">
     <!-- 繪圖透明畫布 -->
     <canvas id="drawingCanvas"></canvas>
 
-    <!-- 書本頂部橫幅 -->
-    <div class="book-header">
-      <h1 class="book-title">語文常識一 詞性(上)</h1>
-      <h2 class="book-subtitle">語文天地（一）詞性分類與課文經典例句</h2>
-      <div class="guide-banner">
-        <span>🖍️ 請準備螢光筆，在佳句中圈出那一格要介紹的詞性。</span>
+    <!-- ======================================================== -->
+    <!-- 【分頁 1】課文經典例句與詞性分類 -->
+    <!-- ======================================================== -->
+    <div class="tab-content active" id="tabContent0">
+      <div class="book-header">
+        <h1 class="book-title">語文常識一 詞性(上)</h1>
+        <h2 class="book-subtitle">語文天地（一）詞性分類與課文經典例句</h2>
+        <div class="guide-banner">
+          <span>🖍️ 請準備螢光筆，在佳句中圈出那一格要介紹的詞性。</span>
+          <span style="color:#0284c7;">（💡 提示：反白選取文字可一鍵轉紅字，點擊紅字即可還原！）</span>
+        </div>
       </div>
+
+      <!-- 一、實詞 -->
+      <section class="unit-section">
+        <div class="unit-heading">
+          <span>📖 一、實詞</span>
+          <span style="font-size:18pt; font-weight:normal; opacity:0.95;">（具有實際意義，可單獨充當句子成分）</span>
+        </div>
+        <table class="grammar-table">
+          <thead>
+            <tr>
+              <th class="col-pos">詞性</th>
+              <th class="col-def">定義 DOCX</th>
+              <th class="col-examples">課文經典佳句與詞性解析</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 名詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">名詞</span></td>
+              <td class="def-cell">
+                <div class="def-text">表示人、地、事、物名稱的詞。</div>
+                <div class="memory-tip">💡 記：名＝人事物的名字！</div>
+              </td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('摘了一整天的番薯蒂。田園之秋選')">🔊 朗讀</button>
+                    1. 摘了一整天的番薯蒂。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「番薯蒂」為植物器官名稱（事物）。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('纖纖擢素手，札札弄機杼。迢迢牽牛星')">🔊 朗讀</button>
+                    2. 纖纖擢素手，札札弄機杼。<span class="source-text">（《迢迢牽牛星》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「機杼」為織布機（器物名稱）。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('鳥中之曾參。慈烏夜啼')">🔊 朗讀</button>
+                    3. 鳥中之曾參。<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「曾參」為孔子弟子之名（人名）。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 動詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">動詞</span></td>
+              <td class="def-cell">
+                <div class="def-text">表示人、物的行為、動作或事件發生的詞。</div>
+                <div class="memory-tip">💡 記：動＝動作！</div>
+              </td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('只覺滿天無數黑怪，張牙舞爪，盡向地面攫來。田園之秋選')">🔊 朗讀</button>
+                    1. 只覺滿天無數黑怪，張牙舞爪，盡向地面攫來。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「攫」表示抓取撲來的動作。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('慈烏失其母，啞啞吐哀音。慈烏夜啼')">🔊 朗讀</button>
+                    2. 慈烏失其母，啞啞吐哀音。<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「吐」表示發出、吐露聲音的動作。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('我把阿榮伯給我雕的小木船漂在水溝裡。下雨天，真好！')">🔊 朗讀</button>
+                    3. 我把阿榮伯給我雕的小木船漂在水溝裡。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「漂」表示使船浮動順流的動作。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 形容詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">形容詞</span></td>
+              <td class="def-cell">
+                <div class="def-text">用來表示人、事、物的性質、狀態，用以修飾名詞的詞。</div>
+                <div class="memory-tip">💡 記：形容詞：在名詞前面。</div>
+              </td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('纖纖素手、皎皎河漢女。迢迢牽牛星')">🔊 朗讀</button>
+                    1. 纖纖素手、皎皎河漢女。<span class="source-text">（《迢迢牽牛星》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「纖纖」形容手纖細柔美；「皎皎」形容織女明亮潔白。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('一片清新的空氣，鮮潔的色彩。田園之秋選')">🔊 朗讀</button>
+                    2. 一片清新的空氣，鮮潔的色彩。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「清新」修飾「空氣」；「鮮潔」修飾「色彩」。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('寬敞的大廳正中央燃起了亮晃晃的煤氣燈。下雨天，真好！')">🔊 朗讀</button>
+                    3. 寬敞的大廳正中央燃起了亮晃晃的煤氣燈。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「亮晃晃」形容煤氣燈明亮光耀的狀態。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 副詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">副詞</span></td>
+              <td class="def-cell">
+                <div class="def-text">對動詞的動作或形容詞的性質、狀態給予修飾、限制的詞。</div>
+                <div class="memory-tip">💡 記：副詞：在形容詞、動詞前面。</div>
+              </td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('便在雨水的不斷澆淋下，漸漸地蘇醒。田園之秋選')">🔊 朗讀</button>
+                    1. 便在雨水的不斷澆淋下，漸漸地蘇醒。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">副詞「漸漸」修飾動詞「蘇醒」。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('雨下得越來越大。下雨天，真好！')">🔊 朗讀</button>
+                    2. 雨下得越來越大。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">副詞「越來越」修飾形容詞「大」。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('下雨天，我格外想她。下雨天，真好！')">🔊 朗讀</button>
+                    3. 下雨天，我格外想她。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">副詞「格外」修飾動詞「想」。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 代詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">代詞</span></td>
+              <td class="def-cell"><div class="def-text">具有替代或指示作用的詞（人稱、指示、疑問）。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('人稱代詞：百鳥豈無母，爾獨哀怨深？慈烏夜啼')">🔊 朗讀</button>
+                    1. 人稱代詞：百鳥豈無母，爾獨哀怨深？<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">
+                      「爾」為第二人稱代詞（你）。<br>
+                      <div class="other-examples">其他例子：我、你、他、我們、你們。</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('指示代詞：這是我酷愛這一帶旱地的理由。田園之秋選')">🔊 朗讀</button>
+                    2. 指示代詞：這是我酷愛這一帶旱地的理由。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">
+                      「這」是指示代詞，指代前文提到的原因。<br>
+                      <div class="other-examples">其他例子：這、那、這裡、那兒、這樣。</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('疑問代詞：哪個敢把手舉得最高？田園之秋選')">🔊 朗讀</button>
+                    3. 疑問代詞：哪個敢把手舉得最高？<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">
+                      「哪個」為疑問代詞，相當於「誰」。<br>
+                      <div class="other-examples">其他例子：誰、哪、哪裡、怎麼、怎樣、多少。</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 數詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">數詞</span></td>
+              <td class="def-cell"><div class="def-text">表示數目的多少和順序先後的詞。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('雨下了十天、半月、甚至一個月。下雨天，真好！')">🔊 朗讀</button>
+                    1. 雨下了十天、半月、甚至一個月。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「十」、「半」、「一」表示數量的多少。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('第四樂章牧羊人之歌。田園之秋選')">🔊 朗讀</button>
+                    2. 第四樂章牧羊人之歌。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「第四」表示順序次序（序數詞）。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 量詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge">量詞</span></td>
+              <td class="def-cell"><div class="def-text">表示人、事、物或行為等單位的詞。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('物量詞：等著阿榮伯把一粒粒又香又脆的炒豆子剝了殼送到我嘴裡。下雨天，真好！')">🔊 朗讀</button>
+                    1. 物量詞：等著阿榮伯把一粒粒又香又脆的炒豆子剝了殼送到我嘴裡。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「粒」為計算小而圓顆粒狀物體的單位詞。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('物量詞：眼睛瞇成一條線。下雨天，真好！')">🔊 朗讀</button>
+                    2. 物量詞：眼睛瞇成一條線。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「條」為計算細長物體的單位詞。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('動量詞：拉起青布圍裙擦一下。下雨天，真好！')">🔊 朗讀</button>
+                    3. 動量詞：拉起青布圍裙擦一下。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「下」為計算動作次數的單位詞。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 二、虛詞 -->
+      <section class="unit-section">
+        <div class="unit-heading huici">
+          <span>📖 二、虛詞</span>
+          <span style="font-size:18pt; font-weight:normal; opacity:0.95;">（沒有具體實在意義，主要表示結構關係或語氣）</span>
+        </div>
+        <table class="grammar-table">
+          <thead>
+            <tr>
+              <th class="col-pos">詞性</th>
+              <th class="col-def">定義 DOCX</th>
+              <th class="col-examples">課文經典佳句與詞性解析</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 介詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge" style="background:#0d9488;">介詞</span><div class="pos-sub">（介繫詞）</div></td>
+              <td class="def-cell"><div class="def-text">能夠介繫或引進名詞、代詞到句子裡，表示時間、處所、方向、比較等關係。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('引進處所：長工們不下田，都蹲在大穀倉後面彈豆子玩。下雨天，真好！')">🔊 朗讀</button>
+                    1. 引進處所：長工們不下田，都蹲在大穀倉後面彈豆子玩。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「在」介繫處所名詞「大穀倉後面」。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('引進對象：那時在浙江永嘉老家，我才六歲，睡在母親暖和的手臂彎裡。下雨天，真好！')">🔊 朗讀</button>
+                    2. 引進對象：那時在浙江永嘉老家，我才六歲，睡在母親暖和的手臂彎裡。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('引進比較對象：其心不如禽！慈烏夜啼')">🔊 朗讀</button>
+                    3. 引進比較/對象：其心不如禽！<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「如」引進比較對象「禽獸」（比得上、及得上的意思）。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 連接詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge" style="background:#0d9488;">連接詞</span><div class="pos-sub">（連詞）</div></td>
+              <td class="def-cell"><div class="def-text">用來連接兩個以上的詞、句子甚至段落的詞。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('連接詞語：大理花與劍蘭搶著開。下雨天，真好！')">🔊 朗讀</button>
+                    1. 連接詞語：大理花與劍蘭搶著開。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「與」連接名詞「大理花」和「劍蘭」。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('連接詞語：河漢清且淺。迢迢牽牛星')">🔊 朗讀</button>
+                    2. 連接詞語：河漢清且淺。<span class="source-text">（《迢迢牽牛星》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「且」連接形容詞「清」和「淺」（又清又淺）。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('連接句子：雖然沒做過實驗，只覺好像天上的水壩在洩洪似的。田園之秋選')">🔊 朗讀</button>
+                    3. 連接句子：雖然沒做過實驗，只覺好像天上的水壩在洩洪似的。<span class="source-text">（《田園之秋選》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「雖然……（但是）……」為轉折複句連接詞。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 助詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge" style="background:#0d9488;">助詞</span></td>
+              <td class="def-cell"><div class="def-text">在句中用以表明語氣，或表示詞語間的結構關係。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('表示結構關係：鳥之曾參。慈烏夜啼')">🔊 朗讀</button>
+                    1. 表示結構關係（結構助詞）：鳥之曾參。<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「之」相當於白話文的「的」，表示修飾歸屬關係。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('表示時態語氣：太陽又出來了。田園之秋選。你自己決定吧！')">🔊 朗讀</button>
+                    2. 表示時態/語氣：太陽又出來了。<span class="source-text">（《田園之秋選》）</span><br>
+                    (例2)你自己決定吧！
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「了」、「吧！」置於句尾，表示動作完成或情況的變化。</div>
+                  </div>
+                  <div class="sentence-text" style="margin-top:12px;">
+                    表示疑問語氣：<br>
+                    (1)哭有什麼用呢？
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「呢？」置於句尾，表示疑問語氣。</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 嘆詞 -->
+            <tr>
+              <td class="pos-cell"><span class="pos-badge" style="background:#0d9488;">嘆詞</span><div class="pos-sub">（感嘆詞）</div></td>
+              <td class="def-cell"><div class="def-text">表示說話時的情感，或表示呼喚、應答聲音的詞，通常獨立使用。</div></td>
+              <td class="examples-cell">
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('啊，真好，又是個下雨天。下雨天，真好！')">🔊 朗讀</button>
+                    1. 啊，真好，又是個下雨天。<span class="source-text">（《下雨天，真好！》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「啊」表示驚喜、由衷讚賞的感嘆。</div>
+                  </div>
+                </div>
+                <div class="example-item">
+                  <div class="sentence-text">
+                    <button class="tts-btn" onclick="speakText('嗟哉斯徒輩，其心不如禽！慈烏夜啼')">🔊 朗讀</button>
+                    2. 嗟哉斯徒輩，其心不如禽！<span class="source-text">（《慈烏夜啼》）</span>
+                  </div>
+                  <div class="analysis-container">
+                    <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)"><span class="arrow">▶</span><span>解析</span></button>
+                    <div class="analysis-body">「嗟哉」為感嘆詞，表示痛心疾首、感傷慨嘆的語氣。</div>
+                  </div>
+                  <div style="margin-top:10px; font-size:17.5pt; color:#334155; line-height:1.7;">
+                    <strong>其他舉例：</strong><br>
+                    1.啊！好像棋盤似的。<br>
+                    2.喂！請問是哪一位？<br>
+                    3.唉！真倒楣。<br>
+                    4.哎喲！好痛呵！<br>
+                    5.嗚呼哀哉！
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </div>
 
-    <!-- ==================== 一、實詞 ==================== -->
-    <section class="unit-section">
-      <div class="unit-heading">
-        <span>📖 一、實詞</span>
-        <span style="font-size:18pt; font-weight:normal; opacity:0.95;">（具有實際意義，可單獨充當句子成分）</span>
+    <!-- ======================================================== -->
+    <!-- 【分頁 2】課本應用練習（PDF P.54~57） -->
+    <!-- ======================================================== -->
+    <div class="tab-content" id="tabContent1">
+      <div class="book-header">
+        <h1 class="book-title">課本應用練習（P.54～57）</h1>
+        <h2 class="book-subtitle">第一冊 語法(上) 詞類課後強化應用</h2>
+        <div class="guide-banner">
+          <span>🎧 支援逐題語音報讀 ｜ 👨‍🎓 學生模式純淨作答 ｜ 👩‍🏫 教師模式一鍵秀答案</span>
+        </div>
       </div>
 
-      <table class="grammar-table">
-        <thead>
-          <tr>
-            <th class="col-pos">詞性</th>
-            <th class="col-def">定義 DOCX</th>
-            <th class="col-examples">課文經典佳句與詞性解析</th>
-          </tr>
-        </thead>
-        <tbody>
+      <!-- 大題一：詞性辨別 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 一、詞性辨別：請寫出引號內各字詞的詞性</span>
+        </div>
+        <div class="quiz-container">
+          <!-- 例題 -->
+          <div class="quiz-item" style="background:#f8fafc; border-left:6px solid #0284c7;">
+            <div class="quiz-title-row">
+              <span class="quiz-num">【例題】</span>
+              <div>
+                <button class="tts-btn" onclick="speakText('例題：唯見長江天際流。李白黃鶴樓送孟浩然之廣陵。答案：動詞')">🔊 朗讀</button>
+                唯「見」長江天際流。<span class="source-text">（李白《黃鶴樓送孟浩然之廣陵》）</span>
+                <span style="margin-left:14px;">詞性：<span class="ans-blank" style="color:#0284c7 !important;">動詞</span></span>
+              </div>
+            </div>
+          </div>
 
-          <!-- 1. 名詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">名詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">表示人、地、事、物名稱的詞。</div>
-              <div class="memory-tip">💡 記：名＝人事物的名字！</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 摘了一整天的番薯蒂。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「番薯蒂」為植物器官名稱（事物）。
-                  </div>
+          <!-- 1 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">1.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第一題：先生不知何許人也。陶淵明五柳先生傳')">🔊 朗讀</button>
+                先生不知何許人「也」。<span class="source-text">（陶淵明《五柳先生傳》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">助詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 纖纖擢素手，札札弄機杼。<span class="source-text">（《迢迢牽牛星》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「機杼」為織布機（器物名稱）。
-                  </div>
+          <!-- 2 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">2.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第二題：如果沒有苦練，那即使有再高的天分，也難以開花結果。王溢嘉音樂家與職籃巨星')">🔊 朗讀</button>
+                「如果」沒有苦練，那即使有再高的天分，也難以開花結果。<span class="source-text">（王溢嘉《音樂家與職籃巨星》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">連接詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 鳥中之曾參。<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「曾參」為孔子弟子之名（人名）。
-                  </div>
+          <!-- 3 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">3.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第三題：唉！我不知何時再能與他相見！朱自清背影')">🔊 朗讀</button>
+                「唉」！我不知何時再能與他相見！<span class="source-text">（朱自清《背影》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">嘆詞</span>
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 2. 動詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">動詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">表示人、物的行為、動作或事件發生的詞。</div>
-              <div class="memory-tip">💡 記：動＝動作！</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 只覺滿天無數黑怪，張牙舞爪，盡向地面攫來。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「攫」表示抓取撲來的動作。
-                  </div>
+          <!-- 4 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">4.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第四題：又留蚊於素帳中。沈復兒時記趣')">🔊 朗讀</button>
+                又留蚊「於」素帳中。<span class="source-text">（沈復《兒時記趣》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">介詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 慈烏失其母，啞啞吐哀音。<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「吐」表示發出、吐露聲音的動作。
-                  </div>
+          <!-- 5 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">5.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第五題：撒了滿天的珍珠和一枚又大又亮的銀幣。楊喚夏夜')">🔊 朗讀</button>
+                撒了滿天的珍珠和一「枚」又大又亮的銀幣。<span class="source-text">（楊喚《夏夜》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">量詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 我把阿榮伯給我雕的小木船漂在水溝裡。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「漂」表示使船浮動順流的動作。
-                  </div>
+          <!-- 6 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">6.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第六題：嗟哉斯徒輩。白居易慈烏夜啼')">🔊 朗讀</button>
+                嗟哉「斯」徒輩。<span class="source-text">（白居易《慈烏夜啼》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">代詞</span>
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 3. 形容詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">形容詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">用來表示人、事、物的性質、狀態，用以修飾名詞的詞。</div>
-              <div class="memory-tip">💡 記：形容詞：在名詞前面。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 纖纖素手、皎皎河漢女。<span class="source-text">（《迢迢牽牛星》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「纖纖」形容手纖細柔美；「皎皎」形容織女明亮潔白。
-                  </div>
+          <!-- 7 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">7.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第七題：札札弄機杼。佚名迢迢牽牛星')">🔊 朗讀</button>
+                札札「弄」機杼。<span class="source-text">（佚名《迢迢牽牛星》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">動詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 一片清新的空氣，鮮潔的色彩。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「清新」修飾「空氣」；「鮮潔」修飾「色彩」。
-                  </div>
+          <!-- 8 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">8.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第八題：可名為惡魔與妖巫之出世。陳冠學田園之秋選')">🔊 朗讀</button>
+                可名為「惡」魔與妖巫之出世。<span class="source-text">（陳冠學《田園之秋選》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">形容詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 寬敞的大廳正中央燃起了亮晃晃的煤氣燈。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「亮晃晃」形容煤氣燈明亮光耀的狀態。
-                  </div>
+          <!-- 9 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">9.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第九題：有朋自遠方來。論語')">🔊 朗讀</button>
+                有「朋」自遠方來。<span class="source-text">（《論語》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">名詞</span>
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 4. 副詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">副詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">對動詞的動作或形容詞的性質、狀態給予修飾、限制的詞。</div>
-              <div class="memory-tip">💡 記：副詞：在形容詞、動詞前面。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 便在雨水的不斷澆淋下，漸漸地蘇醒。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    副詞「漸漸」修飾動詞「蘇醒」。
-                  </div>
+          <!-- 10 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">10.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第十題：造飲輒盡，期在必醉，既醉而退，曾不吝情去留。陶淵明五柳先生傳')">🔊 朗讀</button>
+                造飲「輒」盡，期在必醉，既醉而退，曾不吝情去留。<span class="source-text">（陶淵明《五柳先生傳》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">副詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 雨下得越來越大。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    副詞「越來越」修飾形容詞「大」。
-                  </div>
+          <!-- 11 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">11.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第十一題：二十多年來，生活的天地僅限於六席大的斗室之中。杏林子心囚')">🔊 朗讀</button>
+                「二十」多年來，生活的天地僅限於「六」席大的斗室之中。<span class="source-text">（杏林子《心囚》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">數詞</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 下雨天，我格外想她。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    副詞「格外」修飾動詞「想」。
-                  </div>
+      <!-- 大題二：詞性辨析 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 二、詞性辨析：試將下列各句「 」內詞語的詞性寫出來</span>
+        </div>
+        <div class="quiz-container">
+          <div class="quiz-item" style="background:#f8fafc; border-left:6px solid #0284c7;">
+            <div class="quiz-title-row">
+              <span class="quiz-num">【例】</span>
+              <div>
+                <button class="tts-btn" onclick="speakText('範例：說明書上的說明，明白地敘述新產品的使用方法。詞性：形容詞、名詞')">🔊 朗讀</button>
+                「說明」書上的「說明」，明白地敘述新產品的使用方法。
+                <div style="margin-top:6px;">詞性：（ <span style="color:#0284c7; font-weight:bold;">形容詞</span> ／ <span style="color:#0284c7; font-weight:bold;">名詞</span> ）</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 1 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">1.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第一題：他在出版社當翻譯，專門翻譯外國小說。')">🔊 朗讀</button>
+                他在出版社當「翻譯」，專門「翻譯」外國小說。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">名詞</span> ／ <span class="ans-blank">動詞</span> ）
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 5. 代詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">代詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">具有替代或指示作用的詞（人稱、指示、疑問）。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 人稱代詞：百鳥豈無母，爾獨哀怨深？<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「爾」為第二人稱代詞（你）。<br>
-                    <div class="other-examples">其他例子：我、你、他、我們、你們。</div>
-                  </div>
+          <!-- 2 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">2.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第二題：計畫一次環島旅行，是他人生中最重要的計畫。')">🔊 朗讀</button>
+                「計畫」一次環島旅行，是他人生中最重要的「計畫」。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">動詞</span> ／ <span class="ans-blank">名詞</span> ）
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 指示代詞：這是我酷愛這一帶旱地的理由。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「這」是指示代詞，指代前文提到的原因。<br>
-                    <div class="other-examples">其他例子：這、那、這裡、那兒、這樣。</div>
-                  </div>
+          <!-- 3 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">3.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第三題：公司要員工在大廳集會，慶祝勞動節，但這次集會，來的員工卻很少。')">🔊 朗讀</button>
+                公司要員工在大廳「集會」，慶祝勞動節，但這次「集會」，來的員工卻很少。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">動詞</span> ／ <span class="ans-blank">名詞</span> ）
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 疑問代詞：哪個敢把手舉得最高？<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「哪個」為疑問代詞，相當於「誰」。<br>
-                    <div class="other-examples">其他例子：誰、哪、哪裡、怎麼、怎樣、多少。</div>
-                  </div>
+          <!-- 4 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">4.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第四題：聰明人是把聰明用在對的地方。')">🔊 朗讀</button>
+                「聰明」人是把「聰明」用在對的地方。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">形容詞</span> ／ <span class="ans-blank">名詞</span> ）
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 6. 數詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">數詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">表示數目的多少和順序先後的詞。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 雨下了十天、半月、甚至一個月。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「十」、「半」、「一」表示數量的多少。
-                  </div>
+          <!-- 5 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">5.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第五題：她從希臘回來，穿著都變得很希臘。')">🔊 朗讀</button>
+                她從「希臘」回來，穿著都變得很「希臘」。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">名詞</span> ／ <span class="ans-blank">形容詞</span> ）
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 第四樂章牧羊人之歌。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「第四」表示順序次序（序數詞）。
-                  </div>
+          <!-- 6 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">6.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第六題：如果你想知道他究竟發生什麼事情，不妨去一探究竟。')">🔊 朗讀</button>
+                如果你想知道他「究竟」發生什麼事情，不妨去一探「究竟」。
+                <div style="margin-top:8px;">
+                  詞性：（ <span class="ans-blank">副詞</span> ／ <span class="ans-blank">名詞</span> ）
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <!-- 7. 量詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge">量詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">表示人、事、物或行為等單位的詞。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 物量詞：等著阿榮伯把一粒粒又香又脆的炒豆子剝了殼送到我嘴裡。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「粒」為計算小而圓顆粒狀物體的單位詞。
-                  </div>
-                </div>
-              </div>
+      <!-- 大題三：量詞對對碰 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 三、量詞對對碰：請選出下列詞語所搭配的量詞並填入（ ）中</span>
+        </div>
+        <div class="quiz-container">
+          <!-- 量詞詞庫 -->
+          <div class="word-bank-box">
+            <span style="font-weight:900; color:#0d9488; font-size:18pt;">📦 備選量詞庫：</span>
+            <span class="bank-chip">尊</span>
+            <span class="bank-chip">頂</span>
+            <span class="bank-chip">襲</span>
+            <span class="bank-chip">床</span>
+            <span class="bank-chip">幀</span>
+            <span class="bank-chip">樁</span>
+            <span class="bank-chip">副 (付)</span>
+            <span class="bank-chip">帖</span>
+            <span class="bank-chip">盞</span>
+            <span class="bank-chip">幢</span>
+            <span class="bank-chip">縷</span>
+            <span class="bank-chip">口</span>
+            <span class="bank-chip">束</span>
+            <span class="bank-chip">根</span>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 物量詞：眼睛瞇成一條線。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「條」為計算細長物體的單位詞。
-                  </div>
-                </div>
-              </div>
+          <div class="match-grid">
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第一題：一什麼禮服')">🔊</button>
+              1. 一（ <span class="ans-blank" style="min-width:60px;">襲</span> ）禮服
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第二題：一什麼中藥')">🔊</button>
+              2. 一（ <span class="ans-blank" style="min-width:60px;">帖</span> ）中藥
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第三題：一什麼井')">🔊</button>
+              3. 一（ <span class="ans-blank" style="min-width:60px;">口</span> ）井
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第四題：一什麼棉被')">🔊</button>
+              4. 一（ <span class="ans-blank" style="min-width:60px;">床</span> ）棉被
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第五題：一什麼喜事')">🔊</button>
+              5. 一（ <span class="ans-blank" style="min-width:60px;">樁</span> ）喜事
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第六題：一什麼帳篷')">🔊</button>
+              6. 一（ <span class="ans-blank" style="min-width:60px;">頂</span> ）帳篷
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第七題：一什麼輕煙')">🔊</button>
+              7. 一（ <span class="ans-blank" style="min-width:60px;">縷</span> ）輕煙
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第八題：一什麼別墅')">🔊</button>
+              8. 一（ <span class="ans-blank" style="min-width:60px;">幢</span> ）別墅
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第九題：一什麼油畫')">🔊</button>
+              9. 一（ <span class="ans-blank" style="min-width:60px;">幀</span> ）油畫
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第十題：一什麼眼鏡')">🔊</button>
+              10. 一（ <span class="ans-blank" style="min-width:60px;">副</span> ）眼鏡
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第十一題：一什麼佛像')">🔊</button>
+              11. 一（ <span class="ans-blank" style="min-width:60px;">尊</span> ）佛像
+            </div>
+            <div class="quiz-item match-card" onclick="toggleSingleAnswer(this)">
+              <button class="tts-btn" onclick="event.stopPropagation(); speakText('第十二題：一什麼燈')">🔊</button>
+              12. 一（ <span class="ans-blank" style="min-width:60px;">盞</span> ）燈
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 動量詞：拉起青布圍裙擦一下。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「下」為計算動作次數的單位詞。
-                  </div>
-                </div>
-              </div>
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-    </section>
-
-    <!-- ==================== 二、虛詞 ==================== -->
-    <section class="unit-section">
-      <div class="unit-heading huici">
-        <span>📖 二、虛詞</span>
-        <span style="font-size:18pt; font-weight:normal; opacity:0.95;">（沒有具體實在意義，主要表示結構關係或語氣）</span>
+    <!-- ======================================================== -->
+    <!-- 【分頁 3】課堂習作挑戰（習作 P.20~21） -->
+    <!-- ======================================================== -->
+    <div class="tab-content" id="tabContent2">
+      <div class="book-header">
+        <h1 class="book-title">國文習作挑戰（P.20～21）</h1>
+        <h2 class="book-subtitle">語文常識一 語法(上) 詞類 隨堂驗收</h2>
+        <div class="guide-banner">
+          <span>🎧 支援逐題語音報讀 ｜ 👨‍🎓 學生模式純淨作答 ｜ 👩‍🏫 教師模式一鍵秀答案</span>
+        </div>
       </div>
 
-      <table class="grammar-table">
-        <thead>
-          <tr>
-            <th class="col-pos">詞性</th>
-            <th class="col-def">定義 DOCX</th>
-            <th class="col-examples">課文經典佳句與詞性解析</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <!-- 1. 介詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge" style="background:#0d9488;">介詞</span>
-              <div class="pos-sub">（介繫詞）</div>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">能夠介繫或引進名詞、代詞到句子裡，表示時間、處所、方向、比較等關係。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 引進處所：長工們不下田，都蹲在大穀倉後面彈豆子玩。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「在」介繫處所名詞「大穀倉後面」。
-                  </div>
+      <!-- 大題一：詞性練習 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 一、詞性練習：請將下列各題「 」中字詞的詞性寫入空格中</span>
+        </div>
+        <div class="quiz-container">
+          <!-- 1 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">1.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第一題：與朋友交而不信乎？論語學而篇')">🔊 朗讀</button>
+                與朋友交而不信「乎」？<span class="source-text">（《論語·學而篇》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">助詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 引進對象：那時在浙江永嘉老家，我才六歲，睡在母親暖和的手臂彎裡。<span class="source-text">（《下雨天，真好！》）</span>
+          <!-- 2 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">2.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第二題：啊！好像棋盤似的。宋晶宜雅量')">🔊 朗讀</button>
+                「啊」！好像棋盤似的。<span class="source-text">（宋晶宜《雅量》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">嘆詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 引進比較/對象：其心不如禽！<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「如」引進比較對象「禽獸」（比得上、及得上的意思）。
-                  </div>
+          <!-- 3 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">3.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第三題：百鳥豈無母，爾獨哀怨深？白居易慈烏夜啼')">🔊 朗讀</button>
+                百鳥豈無母，爾「獨」哀怨深？<span class="source-text">（白居易《慈烏夜啼》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">副詞</span>
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 2. 連接詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge" style="background:#0d9488;">連接詞</span>
-              <div class="pos-sub">（連詞）</div>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">用來連接兩個以上的詞、句子甚至段落的詞。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 連接詞語：大理花與劍蘭搶著開。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「與」連接名詞「大理花」和「劍蘭」。
-                  </div>
+          <!-- 4 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">4.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第四題：我與父親不相見已二年餘了，我最不能忘記的是他的背影。朱自清背影')">🔊 朗讀</button>
+                我與父親不相見已二年餘了，我最不能忘記的是「他」的背影。<span class="source-text">（朱自清《背影》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">代詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 連接詞語：河漢清且淺。<span class="source-text">（《迢迢牽牛星》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「且」連接形容詞「清」和「淺」（又清又淺）。
-                  </div>
+          <!-- 5 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">5.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第五題：我卻很尊敬我的祖父母，因為這飯確實是他們掙的。陳之藩謝天')">🔊 朗讀</button>
+                我卻很尊敬我的祖父母，因為這飯確實是他們「掙」的。<span class="source-text">（陳之藩《謝天》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">動詞</span>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 3 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  3. 連接句子：雖然沒做過實驗，只覺好像天上的水壩在洩洪似的。<span class="source-text">（《田園之秋選》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「雖然……（但是）……」為轉折複句連接詞。
-                  </div>
+          <!-- 6 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">6.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第六題：羊隊和牛群告別了田野回家了。楊喚夏夜')">🔊 朗讀</button>
+                羊隊「和」牛群告別了田野回家了。<span class="source-text">（楊喚《夏夜》）</span>
+                <div style="margin-top:8px;">
+                  詞性：<span class="ans-blank">連接詞</span>
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <!-- 3. 助詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge" style="background:#0d9488;">助詞</span>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">在句中用以表明語氣，或表示詞語間的結構關係。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 表示結構關係（結構助詞）：鳥之曾參。<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「之」相當於白話文的「的」，表示修飾歸屬關係。
-                  </div>
+      <!-- 大題二：成語詞性配對 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 二、成語詞性配對：請參考範例，將符合詞性結構的成語填入（ ）中</span>
+        </div>
+        <div class="quiz-container">
+          <!-- 成語詞庫 -->
+          <div class="word-bank-box">
+            <span style="font-weight:900; color:#0d9488; font-size:18pt;">📦 備選成語庫：</span>
+            <span class="bank-chip">生龍活虎</span>
+            <span class="bank-chip">明察暗訪</span>
+            <span class="bank-chip">去蕪存菁</span>
+            <span class="bank-chip">山明水秀</span>
+            <span class="bank-chip">飲水思源</span>
+            <span class="bank-chip">高談闊論</span>
+            <span class="bank-chip">碧海藍天</span>
+            <span class="bank-chip">心直口快</span>
+            <span class="bank-chip">水落石出</span>
+          </div>
+
+          <!-- 例 -->
+          <div class="quiz-item" style="background:#f8fafc; border-left:6px solid #0284c7;">
+            <div class="quiz-title-row">
+              <span class="quiz-num">【範例】</span>
+              <div>
+                <button class="tts-btn" onclick="speakText('範例：名詞加動詞加名詞加動詞，答案：水落石出')">🔊 朗讀</button>
+                名詞＋動詞＋名詞＋動詞 →（ <span style="color:#0284c7; font-weight:bold;">水落石出</span> ）
+              </div>
+            </div>
+          </div>
+
+          <!-- 1 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">1.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第一題：副詞加動詞加副詞加動詞')">🔊 朗讀</button>
+                副詞＋動詞＋副詞＋動詞
+                <div style="margin-top:8px;">
+                  →（ <span class="ans-blank" style="min-width:140px;">明察暗訪</span> ）、（ <span class="ans-blank" style="min-width:140px;">高談闊論</span> ）
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 表示時態/語氣：太陽又出來了。<span class="source-text">（《田園之秋選》）</span><br>
-                  (例2)你自己決定吧！
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「了」、「吧！」置於句尾，表示動作完成或情況的變化。
-                  </div>
-                </div>
-
-                <div class="sentence-text" style="margin-top:12px;">
-                  表示疑問語氣：<br>
-                  (1)哭有什麼用呢？
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「呢？」置於句尾，表示疑問語氣。
-                  </div>
+          <!-- 2 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">2.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第二題：動詞加名詞加動詞加名詞')">🔊 朗讀</button>
+                動詞＋名詞＋動詞＋名詞
+                <div style="margin-top:8px;">
+                  →（ <span class="ans-blank" style="min-width:140px;">去蕪存菁</span> ）、（ <span class="ans-blank" style="min-width:140px;">飲水思源</span> ）
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
 
-          <!-- 4. 嘆詞 -->
-          <tr>
-            <td class="pos-cell">
-              <span class="pos-badge" style="background:#0d9488;">嘆詞</span>
-              <div class="pos-sub">（感嘆詞）</div>
-            </td>
-            <td class="def-cell">
-              <div class="def-text">表示說話時的情感，或表示呼喚、應答聲音的詞，通常獨立使用。</div>
-            </td>
-            <td class="examples-cell">
-              <!-- 例句 1 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  1. 啊，真好，又是個下雨天。<span class="source-text">（《下雨天，真好！》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「啊」表示驚喜、由衷讚賞的感嘆。
-                  </div>
+          <!-- 3 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">3.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第三題：形容詞加名詞加形容詞加名詞')">🔊 朗讀</button>
+                形容詞＋名詞＋形容詞＋名詞
+                <div style="margin-top:8px;">
+                  →（ <span class="ans-blank" style="min-width:140px;">生龍活虎</span> ）、（ <span class="ans-blank" style="min-width:140px;">碧海藍天</span> ）
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- 例句 2 -->
-              <div class="example-item">
-                <div class="sentence-text">
-                  2. 嗟哉斯徒輩，其心不如禽！<span class="source-text">（《慈烏夜啼》）</span>
-                </div>
-                <div class="analysis-container">
-                  <button type="button" class="analysis-btn" onclick="toggleAnalysis(this)">
-                    <span class="arrow">▶</span>
-                    <span>解析</span>
-                  </button>
-                  <div class="analysis-body">
-                    「嗟哉」為感嘆詞，表示痛心疾首、感傷慨嘆的語氣。
-                  </div>
-                </div>
-
-                <div style="margin-top:12px; font-size:18pt; color:#334155; line-height:1.7;">
-                  <strong>其他舉例：</strong><br>
-                  1.啊！好像棋盤似的。<br>
-                  2.喂！請問是哪一位？<br>
-                  3.唉！真倒楣。<br>
-                  4.哎喲！好痛呵！<br>
-                  5.嗚呼哀哉！
+          <!-- 4 -->
+          <div class="quiz-item" onclick="toggleSingleAnswer(this)">
+            <div class="quiz-title-row">
+              <span class="quiz-num">4.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第四題：名詞加形容詞加名詞加形容詞')">🔊 朗讀</button>
+                名詞＋形容詞＋名詞＋形容詞
+                <div style="margin-top:8px;">
+                  →（ <span class="ans-blank" style="min-width:140px;">山明水秀</span> ）、（ <span class="ans-blank" style="min-width:140px;">心直口快</span> ）
                 </div>
               </div>
-            </td>
-          </tr>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        </tbody>
-      </table>
-    </section>
+      <!-- 大題三：選擇題 -->
+      <section class="unit-section">
+        <div class="unit-heading quiz-heading">
+          <span>🎯 三、選擇題：請選填正確答案</span>
+        </div>
+        <div class="quiz-container">
+          <!-- 選擇 1 -->
+          <div class="quiz-item">
+            <div class="quiz-title-row">
+              <span class="quiz-num">1.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第一題：下列文句引號中的字，何者分別作介詞與動詞使用？')">🔊 朗讀題幹</button>
+                下列文句「 」中的字，何者分別作<strong>介詞</strong>與<strong>動詞</strong>使用？
+                <span style="margin-left:10px;">（ 正確答案：<span class="ans-blank" style="min-width:40px;">B</span> ）</span>
+              </div>
+            </div>
+            <div class="choices-grid">
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(A) 阿奇正為數學題「傷」腦筋，一不留神撞到桌角而受「傷」</span>
+                <span class="source-text" style="margin-left:auto;">[動詞／動詞]</span>
+              </div>
+              <div class="choice-opt correct" onclick="selectChoice(this, true)">
+                <span>(B) 思宇假日喜歡「往」圖書館跑，神「往」在各國小說世界中</span>
+                <span class="source-text" style="margin-left:auto;">[介詞／動詞]</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(C) 郭將軍率兵「平」定戰亂，天下終於太「平」，百姓可恢復過往安居樂業的生活</span>
+                <span class="source-text" style="margin-left:auto;">[動詞／形容詞]</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(D) 病重的母親請人代筆寫「信」，要讓遠在異鄉求學的兒子放心，深「信」家中一切安好</span>
+                <span class="source-text" style="margin-left:auto;">[名詞／動詞]</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 選擇 2 -->
+          <div class="quiz-item">
+            <div class="quiz-title-row">
+              <span class="quiz-num">2.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第二題：閱讀下文，上文引號中的量詞，何者使用最恰當？')">🔊 朗讀題幹</button>
+                閱讀下文，上文「 」中的量詞，何者使用最恰當？
+                <span style="margin-left:10px;">（ 正確答案：<span class="ans-blank" style="min-width:40px;">C</span> ）</span>
+              </div>
+            </div>
+            <div class="reading-passage-box">
+              「近幾年有一『場』令我印象深刻的報導：在臺東長濱海灘發現一『宗』死亡多日、散發一『股』惡臭的屍體，經過DNA比對，研判是未成年藍鯨，最令人痛心的，是牠的頭、頸均被多『枝』網繩纏繞，導致無法開口覓食，活活餓死。」
+            </div>
+            <div class="choices-grid">
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(A) 場</span>
+                <span class="source-text" style="margin-left:auto;">[報導應用「則/篇」]</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(B) 宗</span>
+                <span class="source-text" style="margin-left:auto;">[鯨魚屍體應用「具」]</span>
+              </div>
+              <div class="choice-opt correct" onclick="selectChoice(this, true)">
+                <span>(C) 股</span>
+                <span class="source-text" style="margin-left:auto;">[正確：一股惡臭]</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(D) 枝</span>
+                <span class="source-text" style="margin-left:auto;">[網繩應用「條/道」]</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 選擇 3 -->
+          <div class="quiz-item">
+            <div class="quiz-title-row">
+              <span class="quiz-num">3.</span>
+              <div style="flex-grow:1;">
+                <button class="tts-btn" onclick="speakText('第三題：根據用法說明，判斷甲乙二句中的疾字，何者歸類最適當？甲、好勇疾貧，亂也。乙、春風得意馬蹄疾，一日看盡長安花。')">🔊 朗讀題幹</button>
+                根據左框「疾」的用法說明，判斷甲、乙二句中的「疾」字，何者歸類最適當？
+                <span style="margin-left:10px;">（ 正確答案：<span class="ans-blank" style="min-width:40px;">C</span> ）</span>
+              </div>
+            </div>
+            <div class="reading-passage-box" style="border-left-color:#10b981;">
+              <strong>【「疾」用法說明】</strong><br>
+              ① 名詞，病。如：積勞成疾。<br>
+              ② 形容詞，急速、猛烈。如：疾風驟雨。<br>
+              ③ 動詞，憎恨、厭惡。如：疾惡如仇。<br>
+              <div style="margin-top:6px; color:#0f172a;">
+                甲、好勇疾貧，亂也。<br>
+                乙、春風得意馬蹄疾，一日看盡長安花。
+              </div>
+            </div>
+            <div class="choices-grid">
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(A) 甲屬於 ①，乙屬於 ②</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(B) 甲屬於 ②，乙屬於 ①</span>
+              </div>
+              <div class="choice-opt correct" onclick="selectChoice(this, true)">
+                <span>(C) 甲屬於 ③，乙屬於 ②</span>
+                <span class="source-text" style="margin-left:auto;">[甲為動詞(憎恨)；乙為形容詞(急速)]</span>
+              </div>
+              <div class="choice-opt" onclick="selectChoice(this, false)">
+                <span>(D) 甲屬於 ③，乙屬於 ①</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
   </div>
 
   <!-- JavaScript 控制腳本 -->
   <script>
     // ==========================================
-    // 1. 解析按鈕展開與收合控制
+    // 1. 頁籤切換 (Tabs)
+    // ==========================================
+    let currentTabIndex = 0;
+    function switchTab(index) {
+      currentTabIndex = index;
+      stopSpeech();
+
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+
+      document.querySelectorAll('.tab-content').forEach((content, i) => {
+        content.classList.toggle('active', i === index);
+      });
+
+      // 重新計算畫布與捲動置頂
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setTimeout(adjustCanvasSize, 100);
+    }
+
+    // ==========================================
+    // 2. 學生模式 vs 教師模式 切換
+    // ==========================================
+    let currentAppMode = 'student'; // 預設學生模式
+    let teacherAnswersRevealed = false;
+
+    function setAppMode(mode) {
+      currentAppMode = mode;
+      const btnStu = document.getElementById('btnStudentMode');
+      const btnTea = document.getElementById('btnTeacherMode');
+      const toggleAllAnsBtn = document.getElementById('toggleAllAnsBtn');
+
+      if (mode === 'teacher') {
+        document.body.classList.remove('student-mode');
+        document.body.classList.add('teacher-mode');
+        btnStu.classList.remove('current');
+        btnTea.classList.add('current');
+        toggleAllAnsBtn.style.display = 'inline-flex';
+      } else {
+        document.body.classList.remove('teacher-mode');
+        document.body.classList.add('student-mode');
+        btnStu.classList.add('current');
+        btnTea.classList.remove('current');
+        toggleAllAnsBtn.style.display = 'none';
+        teacherAnswersRevealed = false;
+        // 隱藏所有解答
+        document.querySelectorAll('.quiz-item').forEach(el => el.classList.remove('revealed'));
+        document.body.classList.remove('show-all');
+      }
+    }
+
+    // 教師模式：單題點擊秀/隱答案
+    function toggleSingleAnswer(itemEl) {
+      if (currentAppMode !== 'teacher') return; // 學生模式絕對不能點出答案
+      itemEl.classList.toggle('revealed');
+    }
+
+    // 教師模式：一鍵全開/全隱答案
+    function toggleTeacherAnswers() {
+      if (currentAppMode !== 'teacher') return;
+      teacherAnswersRevealed = !teacherAnswersRevealed;
+      const txt = document.getElementById('toggleAllAnsText');
+      if (teacherAnswersRevealed) {
+        document.body.classList.add('show-all');
+        txt.textContent = '全隱答案';
+      } else {
+        document.body.classList.remove('show-all');
+        txt.textContent = '全開答案';
+      }
+    }
+
+    // 單選題學生點選選項互動
+    function selectChoice(optEl, isCorrect) {
+      const parent = optEl.closest('.choices-grid');
+      parent.querySelectorAll('.choice-opt').forEach(el => el.classList.remove('selected'));
+      optEl.classList.add('selected');
+    }
+
+    // ==========================================
+    // 3. Web Speech API 逐題語音報讀 (離線 TTS)
+    // ==========================================
+    let currentUtterance = null;
+    let activeSpeakingBtn = null;
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) {
+        alert('您的瀏覽器不支援語音朗讀功能。');
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      if (activeSpeakingBtn) {
+        activeSpeakingBtn.classList.remove('speaking');
+        activeSpeakingBtn = null;
+      }
+
+      const evtBtn = event ? event.target.closest('.tts-btn') : null;
+      if (evtBtn) {
+        activeSpeakingBtn = evtBtn;
+        activeSpeakingBtn.classList.add('speaking');
+      }
+
+      const stopBtn = document.getElementById('stopTtsBtn');
+      stopBtn.style.display = 'inline-flex';
+
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.95; // 適合特教聆聽的適中語速
+      u.pitch = 1.0;
+
+      u.onend = function() {
+        if (activeSpeakingBtn) activeSpeakingBtn.classList.remove('speaking');
+        stopBtn.style.display = 'none';
+      };
+      u.onerror = function() {
+        if (activeSpeakingBtn) activeSpeakingBtn.classList.remove('speaking');
+        stopBtn.style.display = 'none';
+      };
+
+      currentUtterance = u;
+      window.speechSynthesis.speak(u);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (activeSpeakingBtn) {
+        activeSpeakingBtn.classList.remove('speaking');
+        activeSpeakingBtn = null;
+      }
+      document.getElementById('stopTtsBtn').style.display = 'none';
+    }
+
+    // ==========================================
+    // 4. 解析按鈕展開與收合控制 (分頁1)
     // ==========================================
     function toggleAnalysis(btn) {
       const container = btn.closest('.analysis-container');
@@ -1208,45 +2134,137 @@
         btn.classList.add('expanded');
         body.classList.add('show');
       }
-      // 展開或收合會改變高度，重新調整畫布尺寸以防拉伸
-      adjustCanvasSize();
-    }
-
-    let allExpanded = false;
-    function toggleAllAnalysis() {
-      const allBtns = document.querySelectorAll('.analysis-btn');
-      const allBodies = document.querySelectorAll('.analysis-body');
-      const toggleText = document.getElementById('toggleAllText');
-
-      allExpanded = !allExpanded;
-
-      allBtns.forEach(btn => {
-        if (allExpanded) {
-          btn.classList.add('expanded');
-        } else {
-          btn.classList.remove('expanded');
-        }
-      });
-
-      allBodies.forEach(body => {
-        if (allExpanded) {
-          body.classList.add('show');
-        } else {
-          body.classList.remove('show');
-        }
-      });
-
-      if (allExpanded) {
-        toggleText.textContent = '收合所有解析';
-      } else {
-        toggleText.textContent = '展開所有解析';
-      }
-
       adjustCanvasSize();
     }
 
     // ==========================================
-    // 2. 螢光筆／畫筆功能 (Canvas)
+    // 5. 反白文字轉紅字標記功能
+    // ==========================================
+    let isAutoRedMode = false;
+    let savedSelectionRange = null;
+    const autoRedBtn = document.getElementById('autoRedBtn');
+    const autoRedText = document.getElementById('autoRedText');
+    const selectionPopup = document.getElementById('selectionPopup');
+
+    function toggleAutoRedMode() {
+      isAutoRedMode = !isAutoRedMode;
+      if (isAutoRedMode) {
+        autoRedBtn.classList.add('danger-active');
+        autoRedText.textContent = '反白自動轉紅字：開';
+      } else {
+        autoRedBtn.classList.remove('danger-active');
+        autoRedText.textContent = '反白自動轉紅字：關';
+      }
+      hideSelectionPopup();
+    }
+
+    function hideSelectionPopup() {
+      selectionPopup.style.display = 'none';
+      savedSelectionRange = null;
+    }
+
+    document.addEventListener('mouseup', handleTextSelection);
+    document.addEventListener('touchend', handleTextSelection);
+
+    function handleTextSelection(e) {
+      if (e.target.closest('.sticky-header-container') || e.target.closest('.selection-popup') || e.target.closest('.tts-btn')) {
+        return;
+      }
+      if (isPenMode) return;
+
+      setTimeout(() => {
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || !sel.rangeCount) {
+          hideSelectionPopup();
+          return;
+        }
+
+        const text = sel.toString().trim();
+        if (text.length === 0) {
+          hideSelectionPopup();
+          return;
+        }
+
+        const range = sel.getRangeAt(0);
+        const commonParent = range.commonAncestorContainer;
+        const wrapper = document.getElementById('contentWrapper');
+        if (!wrapper.contains(commonParent)) {
+          hideSelectionPopup();
+          return;
+        }
+
+        savedSelectionRange = range.cloneRange();
+
+        if (isAutoRedMode) {
+          applyRedToRange(range);
+          sel.removeAllRanges();
+          hideSelectionPopup();
+          return;
+        }
+
+        const rect = range.getBoundingClientRect();
+        if (rect && (rect.width > 0 || rect.height > 0)) {
+          const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+          const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+          selectionPopup.style.left = (rect.left + rect.width / 2 + scrollX) + 'px';
+          selectionPopup.style.top = (rect.top + scrollY) + 'px';
+          selectionPopup.style.display = 'flex';
+        }
+      }, 30);
+    }
+
+    function applyRedToCurrentSelection() {
+      if (savedSelectionRange) {
+        applyRedToRange(savedSelectionRange);
+        window.getSelection().removeAllRanges();
+      }
+      hideSelectionPopup();
+    }
+
+    function applyRedToRange(range) {
+      try {
+        const text = range.toString();
+        if (!text.trim()) return;
+
+        const span = document.createElement('span');
+        span.className = 'text-marked-red';
+        span.title = '🔴 已標記紅字（點擊可還原為黑字）';
+        span.onclick = function(e) {
+          e.stopPropagation();
+          unwrapMarkedText(this);
+        };
+
+        const extracted = range.extractContents();
+        span.appendChild(extracted);
+        range.insertNode(span);
+        adjustCanvasSize();
+      } catch (err) {
+        console.warn('Mark red failed:', err);
+      }
+    }
+
+    function unwrapMarkedText(el) {
+      const parent = el.parentNode;
+      if (!parent) return;
+      while (el.firstChild) {
+        parent.insertBefore(el.firstChild, el);
+      }
+      parent.removeChild(el);
+      adjustCanvasSize();
+    }
+
+    function clearAllMarkedText() {
+      const allMarked = document.querySelectorAll('.text-marked-red');
+      if (allMarked.length === 0) {
+        alert('目前頁面上沒有標記紅字。');
+        return;
+      }
+      allMarked.forEach(el => unwrapMarkedText(el));
+      hideSelectionPopup();
+    }
+
+    // ==========================================
+    // 6. 螢光筆／畫筆功能 (Canvas)
     // ==========================================
     const canvas = document.getElementById('drawingCanvas');
     const ctx = canvas.getContext('2d');
@@ -1257,8 +2275,8 @@
 
     let isPenMode = false;
     let isDrawing = false;
-    let currentColor = 'rgba(250, 204, 21, 0.45)'; // 預設螢光黃 (半透明)
-    let currentSize = 22; // 預設中號筆粗
+    let currentColor = 'rgba(250, 204, 21, 0.45)';
+    let currentSize = 22;
 
     function togglePenMode() {
       isPenMode = !isPenMode;
@@ -1268,6 +2286,7 @@
         penModeBtn.classList.add('active');
         penOptions.classList.add('show');
         penIndicator.classList.add('show');
+        hideSelectionPopup();
         adjustCanvasSize();
       } else {
         penModeBtn.classList.remove('active');
@@ -1292,15 +2311,12 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // 儲存現有畫筆內容並重新設定 Canvas 尺寸
     function adjustCanvasSize() {
-      const rect = wrapper.getBoundingClientRect();
       const newWidth = wrapper.offsetWidth;
       const newHeight = wrapper.offsetHeight;
 
       if (canvas.width === newWidth && canvas.height === newHeight) return;
 
-      // 備份現有筆跡
       const tempCanvas = document.createElement('canvas');
       tempCanvas.width = canvas.width;
       tempCanvas.height = canvas.height;
@@ -1310,15 +2326,12 @@
       canvas.width = newWidth;
       canvas.height = newHeight;
 
-      // 還原筆跡
       ctx.drawImage(tempCanvas, 0, 0);
     }
 
-    // 監聽視窗變化與初始調整
     window.addEventListener('resize', adjustCanvasSize);
     window.addEventListener('load', adjustCanvasSize);
 
-    // 繪圖事件處理 (支援滑鼠與觸控螢幕/電子白板)
     function getCanvasCoords(e) {
       const rect = canvas.getBoundingClientRect();
       let clientX, clientY;
@@ -1363,7 +2376,6 @@
       }
     }
 
-    // 綁定 Pointer / Mouse / Touch 事件
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mousemove', draw);
     window.addEventListener('mouseup', stopDraw);
