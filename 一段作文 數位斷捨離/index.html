@@ -1,0 +1,2453 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📝 一段作文 數位斷捨離 ｜ 適性有聲互動電子書</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent-warm: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --accent-purple: #8b5cf6;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --border-card: #cbd5e1;
+      
+      /* 規範 1: 字級規範強制宣告 */
+      --topbar-font-size: 16pt;
+      --ebook-content-font-size: 18pt;
+      --worksheet-content-font-size: 16pt;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-size: var(--ebook-content-font-size);
+      line-height: 1.75;
+      padding-bottom: 90px;
+      position: relative;
+    }
+
+    /* ================= 規範 1: 上方功能列 (16pt、可收合) ================= */
+    header.top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      border-bottom: 2.5px solid #bae6fd;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+      padding: 10px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: var(--topbar-font-size) !important;
+      transition: all 0.3s ease;
+    }
+
+    .top-bar.collapsed {
+      display: none !important;
+    }
+
+    /* 頂部收合時的展開按鈕浮動膠囊 */
+    #topBarExpandPill {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 16px;
+      z-index: 1001;
+      background: var(--primary);
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      border-radius: 30px;
+      padding: 6px 16px;
+      font-size: 15pt;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+      transition: all 0.2s;
+    }
+    #topBarExpandPill:hover {
+      background: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    .header-left, .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .portal-back-btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15pt;
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1.5px solid #cbd5e1;
+      transition: all 0.2s ease;
+    }
+    .portal-back-btn:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+
+    .site-title {
+      font-size: 18pt;
+      font-weight: 900;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .author-credit {
+      font-size: 13pt;
+      color: #64748b;
+      margin-left: 6px;
+    }
+
+    .tool-btn {
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 14pt;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ffffff;
+      color: #334155;
+      border: 1.5px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .tool-btn:hover { background: #f8fafc; border-color: #94a3b8; }
+    .tool-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary-dark); }
+    .tool-btn.primary:hover { background: var(--primary-dark); }
+    .tool-btn.warm { background: #fef3c7; color: #b45309; border-color: #fde047; }
+    .tool-btn.collapse-btn { background: #f1f5f9; color: #475569; }
+
+    /* ================= 分頁導覽列 (16pt，支援水平捲動) ================= */
+    nav.nav-tabs {
+      background: #ffffff;
+      border-bottom: 2px solid #e2e8f0;
+      padding: 8px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 10px;
+      font-size: var(--topbar-font-size);
+      position: sticky;
+      top: 57px;
+      z-index: 990;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .tab-btn {
+      padding: 8px 15px;
+      font-size: 15pt;
+      font-weight: bold;
+      border-radius: 8px;
+      border: 1.5px solid #e2e8f0;
+      background: #f8fafc;
+      color: #475569;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .tab-btn:hover { background: #f1f5f9; color: #0f172a; }
+    .tab-btn.active {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #7dd3fc;
+      border-bottom: 3.5px solid #0284c7;
+    }
+
+    /* 主容器與分頁卡 */
+    main.main-content {
+      max-width: 1240px;
+      margin: 22px auto;
+      padding: 0 20px;
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.25s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 20pt;
+      font-weight: 900;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-badge {
+      padding: 3px 12px;
+      border-radius: 6px;
+      font-size: 14pt;
+      font-weight: bold;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    /* 題目與內容文字 */
+    .lead-text {
+      font-size: var(--ebook-content-font-size);
+      line-height: 1.85;
+      margin-bottom: 16px;
+      color: #1e293b;
+    }
+    .notice-box {
+      background: #fefce8;
+      border: 2px solid #fef08a;
+      border-left: 6px solid #eab308;
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin: 14px 0;
+      font-size: 16pt;
+      color: #854d0e;
+    }
+
+    /* 語音按鈕 */
+    .speak-btn {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      color: #166534;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 13.5pt;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .speak-btn:hover {
+      background: #dcfce7;
+      transform: scale(1.05);
+    }
+
+    /* 3次唸讀計時打卡器 */
+    .timer-stamp-box {
+      background: #f8fafc;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .timer-display { font-size: 16pt; font-weight: bold; color: #0284c7; font-family: monospace; }
+    .timer-records { display: flex; gap: 8px; font-size: 14pt; color: #475569; }
+    .stamp-pill { background: #e0f2fe; color: #0369a1; padding: 2px 10px; border-radius: 6px; font-weight: bold; }
+
+    /* ================= 規範 2: 畫面右側常置多功能工具列 ================= */
+    .floating-sidebar-toolbar {
+      position: fixed;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 99999;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border: 2px solid #38bdf8;
+      border-radius: 16px;
+      padding: 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 8px 26px rgba(2, 132, 199, 0.22);
+      width: 64px;
+      align-items: center;
+    }
+    .sidebar-tool-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      border: 1.5px solid #bae6fd;
+      background: #f0f9ff;
+      color: #0369a1;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.15s ease;
+    }
+    .sidebar-tool-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+    .sidebar-tool-btn:active { transform: scale(0.95); }
+    .sidebar-tool-btn[title]:hover::before {
+      content: attr(title);
+      position: absolute;
+      right: 56px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 12pt;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* 反白文字變色選單 (紅 / 藍 / 綠) */
+    .color-picker-palette {
+      display: none;
+      position: fixed;
+      right: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100000;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      flex-direction: column;
+      gap: 8px;
+    }
+    .palette-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14pt;
+      font-weight: bold;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .palette-btn.red { background: #ef4444; }
+    .palette-btn.blue { background: #2563eb; }
+    .palette-btn.green { background: #10b981; }
+
+    /* 全螢幕塗鴉畫筆 Canvas */
+    #paintCanvasOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99998;
+      cursor: crosshair;
+    }
+    .paint-controls-bar {
+      display: none;
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99999;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      color: #fff;
+      font-size: 14pt;
+    }
+
+    /* 放大鏡 Modal */
+    .magnifier-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 100001;
+      align-items: center;
+      justify-content: center;
+    }
+    .magnifier-box {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 30px;
+      max-width: 650px;
+      width: 90%;
+      border: 3px solid #38bdf8;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .magnified-text {
+      font-size: 34pt;
+      font-weight: 900;
+      color: #0369a1;
+      line-height: 1.5;
+      margin: 16px 0;
+      padding: 16px;
+      background: #f0f9ff;
+      border-radius: 12px;
+      word-break: break-all;
+    }
+
+    /* ================= 身分認證 (老師 + 01~06 學生) ================= */
+    .identity-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100002;
+    }
+    .identity-modal-box {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 30px 36px;
+      max-width: 480px;
+      width: 92%;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .identity-btn {
+      padding: 12px;
+      font-size: 16pt;
+      font-weight: bold;
+      border-radius: 10px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .identity-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .identity-btn.active { background: #0284c7; color: #fff; border-color: #0284c7; }
+    .teacher-identity-btn {
+      grid-column: span 3;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    /* 老師模式下的解答標註 (學生模式嚴格隱藏) */
+    .teacher-ans-banner {
+      display: none !important;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 8px;
+      font-size: 16pt;
+      border-left: 5px solid #f59e0b;
+    }
+    body.is-teacher .teacher-ans-banner { display: block !important; }
+
+    /* ================= QR Code 視窗 Modal ================= */
+    .qr-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      z-index: 100003;
+    }
+    .qr-modal-box {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 28px;
+      max-width: 580px;
+      width: 92%;
+      border: 2px solid #38bdf8;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin: 20px 0;
+    }
+    @media (max-width: 550px) {
+      .qr-grid { grid-template-columns: 1fr; }
+    }
+    .qr-card {
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .qr-card img {
+      width: 170px;
+      height: 170px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #ffffff;
+      margin-bottom: 10px;
+    }
+    .qr-card h4 { font-size: 15pt; color: #0369a1; margin-bottom: 6px; }
+    .qr-card p { font-size: 12.5pt; color: #64748b; line-height: 1.4; }
+
+    /* ================= 圖表一 SVG 與統計樣式 ================= */
+    .chart-container {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    @media (max-width: 850px) {
+      .chart-container { grid-template-columns: 1fr; }
+    }
+    .chart-box {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .chart-title {
+      font-size: 17pt;
+      font-weight: bold;
+      color: #0369a1;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bar-row {
+      margin-bottom: 14px;
+    }
+    .bar-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: 15pt;
+      font-weight: 600;
+    }
+    .bar-track {
+      background: #e2e8f0;
+      border-radius: 8px;
+      height: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      color: #fff;
+      font-size: 12pt;
+      font-weight: bold;
+      transition: width 1s ease;
+    }
+    .bar-fill.bar-1 { width: 45%; background: linear-gradient(90deg, #38bdf8, #0284c7); }
+    .bar-fill.bar-2 { width: 35%; background: linear-gradient(90deg, #fb923c, #ea580c); }
+    .bar-fill.bar-3 { width: 15%; background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+    .bar-fill.bar-4 { width: 5%; background: linear-gradient(90deg, #94a3b8, #64748b); min-width: 28px; }
+
+    /* 圓餅圖樣式 */
+    .pie-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+    .pie-legend {
+      display: flex;
+      gap: 16px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15pt;
+      font-weight: 600;
+    }
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+    }
+
+    /* ================= 圖表二 天平與關鍵字互動卡片 ================= */
+    .balance-card {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 14px;
+      padding: 22px;
+      margin: 18px 0;
+      text-align: center;
+    }
+    .balance-question {
+      font-size: 20pt;
+      font-weight: 900;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+    .balance-sub {
+      font-size: 16pt;
+      color: #15803d;
+    }
+
+    .keywords-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 22px 0;
+    }
+    @media (max-width: 768px) {
+      .keywords-grid { grid-template-columns: 1fr; }
+    }
+    .keyword-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 18px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .keyword-card:hover {
+      border-color: #0284c7;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.12);
+    }
+    .kw-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      border-bottom: 1.5px solid #f1f5f9;
+      padding-bottom: 8px;
+    }
+    .kw-name {
+      font-size: 19pt;
+      font-weight: 900;
+      color: #0369a1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .kw-def {
+      font-size: 15.5pt;
+      color: #334155;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .kw-clues {
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14pt;
+      color: #64748b;
+    }
+
+    /* 任務作答區塊樣式 */
+    .task-block {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 22px;
+    }
+    .task-q-title {
+      font-size: 17pt;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .ans-input-box {
+      width: 100%;
+      min-height: 75px;
+      font-size: 16pt;
+      font-family: inherit;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.6;
+      resize: vertical;
+      margin: 8px 0;
+      transition: border 0.15s;
+    }
+    .ans-input-box:focus {
+      outline: none;
+      border-color: #0284c7;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .word-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      align-items: center;
+    }
+    .pool-label {
+      font-size: 14pt;
+      font-weight: bold;
+      color: #64748b;
+    }
+    .word-tag {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 14pt;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .word-tag:hover {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #7dd3fc;
+      transform: scale(1.04);
+    }
+
+    /* ================= 寫作鷹架段落卡片樣式 ================= */
+    .para-focus-banner {
+      background: #e0f2fe;
+      border-left: 6px solid #0284c7;
+      padding: 10px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 16pt;
+      font-weight: bold;
+      color: #0369a1;
+      margin-bottom: 18px;
+    }
+
+    .version-switch-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .ver-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid #cbd5e1;
+      background: #f8fafc;
+      font-size: 16pt;
+      font-weight: bold;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      font-family: inherit;
+    }
+    .ver-btn:hover { background: #f1f5f9; }
+    .ver-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+
+    .scaffold-box {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 18px;
+      line-height: 2.2;
+      font-size: var(--ebook-content-font-size);
+    }
+    .scaffold-box.hidden { display: none; }
+
+    /* 詞彙圈選按鈕組 */
+    .choice-group {
+      display: inline-flex;
+      border: 1.5px solid #0284c7;
+      border-radius: 20px;
+      padding: 2px 4px;
+      margin: 0 4px;
+      background: #f0f9ff;
+      vertical-align: middle;
+      gap: 4px;
+    }
+    .choice-opt {
+      padding: 2px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 16pt;
+      font-weight: 500;
+      color: #0369a1;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .choice-opt:hover { background: #bae6fd; }
+    .choice-opt.selected {
+      background: #ef4444 !important;
+      color: #ffffff !important;
+      font-weight: bold !important;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
+    }
+
+    /* 行內填空格 */
+    .inline-blank {
+      border-bottom: 2.5px solid #0284c7;
+      background: #fffbeb;
+      color: #b45309;
+      padding: 2px 8px;
+      min-width: 120px;
+      display: inline-block;
+      font-weight: bold;
+      outline: none;
+      border-radius: 4px;
+      line-height: 1.4;
+      font-family: inherit;
+      font-size: 17pt;
+    }
+    .inline-blank:empty::before {
+      content: attr(placeholder);
+      color: #94a3b8;
+      font-weight: normal;
+    }
+
+    /* ================= 作業合成與預覽樣式 ================= */
+    .full-essay-paper {
+      background: #fff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 36px 42px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      line-height: 2.3;
+      font-size: 18pt;
+      margin: 20px 0;
+      position: relative;
+    }
+    .full-essay-paper h3 {
+      text-align: center;
+      font-size: 24pt;
+      color: #0369a1;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+    }
+    .essay-para {
+      margin-bottom: 20px;
+      text-indent: 2em;
+      color: #1e293b;
+    }
+    .essay-para .hl-choice {
+      color: #dc2626;
+      font-weight: bold;
+      border-bottom: 2px solid #f87171;
+      padding: 0 2px;
+    }
+    .essay-para .hl-blank {
+      color: #b45309;
+      font-weight: bold;
+      border-bottom: 2px dashed #f59e0b;
+      padding: 0 2px;
+    }
+
+    /* 檢查清單 */
+    .checklist-card {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16pt;
+      margin-bottom: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .check-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      accent-color: #16a34a;
+    }
+
+    /* 列印樣式 (符合自製電子書純淨A4規範) */
+    @media print {
+      body {
+        background: #ffffff !important;
+        font-size: 14pt !important;
+        padding: 0 !important;
+      }
+      .top-bar, nav.nav-tabs, .floating-sidebar-toolbar,
+      .paint-controls-bar, #topBarExpandPill, .no-print,
+      .identity-modal-overlay, .qr-modal-overlay,
+      .magnifier-modal-overlay, .version-switch-row,
+      .timer-stamp-box, .speak-btn {
+        display: none !important;
+      }
+      .tab-pane { display: block !important; page-break-after: always; }
+      .card { border: none !important; box-shadow: none !important; padding: 0 !important; }
+      .full-essay-paper { border: 1px solid #000 !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= 頂部收合時的展開按鈕浮動膠囊 ================= -->
+  <button id="topBarExpandPill" onclick="toggleTopBar()">🔽 展開功能列</button>
+
+  <!-- ================= 規範 1: 上方功能列 (16pt、可收合) ================= -->
+  <header class="top-bar" id="topBar">
+    <div class="header-left">
+      <a href="https://jun101262000.github.io/learning-TW/" class="portal-back-btn" title="返回115數位學習網頁總首頁">🏠 回首頁</a>
+      <h1 class="site-title">
+        <span>📝 一段作文 數位斷捨離</span>
+        <span class="sec-badge">國文 ｜ 115上B3</span>
+      </h1>
+      <span class="author-credit">研發：Jun的晨光慢步 ｜ 授權：CC BY-NC-SA 4.0</span>
+    </div>
+
+    <div class="header-right">
+      <button class="tool-btn warm" id="identityBtn" onclick="openIdentityModal()">👤 身分：未選擇</button>
+      <button class="tool-btn primary" onclick="openQrModal()">📱 學習單 QR Code</button>
+      <button class="tool-btn" onclick="stopAllSpeech()" title="停止所有語音朗讀">⏹️ 停止朗讀</button>
+      <button class="tool-btn collapse-btn" onclick="toggleTopBar()" title="收合上方功能列以擴大閱讀空間">🔼 收合功能列</button>
+    </div>
+  </header>
+
+  <!-- ================= 分頁導覽列 (16pt) ================= -->
+  <nav class="nav-tabs" id="navTabs">
+    <button class="tab-btn active" onclick="switchTab('tab-guide', this)">📑 作文引導說明</button>
+    <button class="tab-btn" onclick="switchTab('tab-chart1', this)">📊 圖表一</button>
+    <button class="tab-btn" onclick="switchTab('tab-chart2', this)">⚖️ 圖表二</button>
+    <button class="tab-btn" onclick="switchTab('tab-title', this)">🏷️ 標題</button>
+    <button class="tab-btn" onclick="switchTab('tab-para1', this)">🌱 第一段（起）</button>
+    <button class="tab-btn" onclick="switchTab('tab-para2', this)">🌊 第二段（承）</button>
+    <button class="tab-btn" onclick="switchTab('tab-para3', this)">⚡ 第三段（轉）</button>
+    <button class="tab-btn" onclick="switchTab('tab-para4', this)">🎯 第四段（合）</button>
+    <button class="tab-btn" onclick="switchTab('tab-homework', this)">📋 作業</button>
+  </nav>
+
+  <!-- ================= 主內容區 ================= -->
+  <main class="main-content">
+
+    <!-- ----------------- 分頁一：作文引導說明 ----------------- -->
+    <section class="tab-pane active" id="tab-guide">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📑 作文題目與引導說明</span>
+            <button class="speak-btn" onclick="speakText(getGuideText())">🔊 報讀完整引導說明</button>
+          </div>
+          <span class="sec-badge">115上B3 一段作文</span>
+        </div>
+
+        <div class="notice-box">
+          📢 <strong>請先閱讀以下資訊，並依據以下題意要求完成一篇文章。</strong>
+        </div>
+
+        <!-- 原始題目圖檔預覽與放大檢視 -->
+        <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:18px; margin-bottom:20px; text-align:center;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <span style="font-weight:bold; color:#0369a1; font-size:16pt;">📸 原始出題圖表引導單檢視</span>
+            <button class="tool-btn" onclick="viewPromptImageModal()">🔍 點擊放大查看清晰出題圖檔</button>
+          </div>
+          <img src="115上B3 一段作文題目.jpg" alt="115上B3 一段作文題目" style="max-width:100%; max-height:480px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.1); cursor:pointer;" onclick="viewPromptImageModal()" onerror="this.style.display='none';">
+        </div>
+
+        <!-- 逐字完整排版之引導說明 -->
+        <div class="task-block" style="background:#ffffff; border-left:6px solid #0284c7;">
+          <h3 style="color:#0369a1; font-size:19pt; margin-bottom:14px;">📝 觀察圖一與圖二，並依下列說明完成寫作：</h3>
+          
+          <div class="lead-text">
+            <strong>(一) 圖一：</strong>當代青少年的數位生活比例以社群瀏覽為大宗，而超過一小時未查看手機而出現「FOMO」現象者占 68%。
+            <button class="speak-btn" onclick="speakText('圖一：當代青少年的數位生活比例以社群瀏覽為大宗，而超過一小時未查看手機而出現FOMO現象者占68%。')">🔊 報讀</button>
+          </div>
+
+          <div class="lead-text">
+            <strong>(二) 參考「圖二」的六個關鍵詞</strong>，並連結「圖一」的數據進行說明與詮釋，最後依據你的生活經驗與情境，結合你的日常觀察與見聞，寫下你的看法、經歷與反思。
+            <button class="speak-btn" onclick="speakText('參考圖二的六個關鍵詞，並連結圖一的數據進行說明與詮釋，最後依據你的生活經驗與情境，結合你的日常觀察與見聞，寫下你的看法、經歷與反思。')">🔊 報讀</button>
+          </div>
+
+          <!-- 寫作三大注意事項 -->
+          <div style="background:#fee2e2; border:2px solid #fca5a5; border-radius:10px; padding:16px 20px; margin-top:16px;">
+            <h4 style="color:#dc2626; font-size:17pt; margin-bottom:8px;">⚠️ 寫作三大規範守則：</h4>
+            <ul style="list-style:none; line-height:2.0; font-size:16.5pt; color:#991b1b; padding-left:4px;">
+              <li>🚫 <strong>※ 不必訂題</strong>（若想自訂題目，請保留於草稿參考，正式謄寫時依規定免寫題目）</li>
+              <li>🚫 <strong>※ 不可在文中洩漏私人身分</strong>（不可書寫真實姓名、學校名稱、座號或特定個人隱私）</li>
+              <li>🚫 <strong>※ 不可使用詩歌體</strong>（請依起、承、轉、合撰寫記敘兼抒情與論述之四段散文式結構）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁二：圖表一 ----------------- -->
+    <section class="tab-pane" id="tab-chart1">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📊 圖表一：當代青少年的數位生活與心理狀態</span>
+            <button class="speak-btn" onclick="speakText('圖一：當代青少年的數位生活與心理狀態。主要數位行為時間分配長條圖與離線焦慮感調查圓餅圖。')">🔊 報讀圖表</button>
+          </div>
+          <span class="sec-badge">任務一：數據解讀</span>
+        </div>
+
+        <p class="lead-text">
+          在開始寫作之前，請先仔細觀察引導說明上的圖表資訊，並回答以下問題，幫助你找尋寫作靈感。
+        </p>
+
+        <!-- 互動視覺化圖表容器 -->
+        <div class="chart-container">
+          <!-- 長條圖 -->
+          <div class="chart-box">
+            <div class="chart-title">
+              <span>📱 主要數位行為時間分配 (平均每日)</span>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-header">
+                <span>1. 社群瀏覽</span>
+                <span style="color:#0284c7;">45%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-1">45%</div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-header">
+                <span>2. 短影音 (TikTok / Reels / Shorts)</span>
+                <span style="color:#ea580c;">35%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-2">35%</div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-header">
+                <span>3. 通訊軟體 (LINE / 訊息)</span>
+                <span style="color:#7c3aed;">15%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-3">15%</div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-header">
+                <span>4. 其他娛樂 (遊戲 / 追劇)</span>
+                <span style="color:#64748b;">5%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill bar-4">5%</div>
+              </div>
+            </div>
+
+            <div style="font-size:13pt; color:#64748b; margin-top:8px; text-align:right;">
+              比例刻度：0%　20%　40%　60%　80%　100%
+            </div>
+          </div>
+
+          <!-- 圓餅圖 -->
+          <div class="chart-box">
+            <div class="chart-title">
+              <span>📴 離線焦慮感調查 (超過1小時未查看手機)</span>
+            </div>
+
+            <div class="pie-wrap">
+              <!-- SVG 圓餅圖 -->
+              <svg width="190" height="190" viewBox="0 0 100 100" style="transform:rotate(-90deg); border-radius:50%;">
+                <!-- 感到自在 32% (灰色/淺綠) -->
+                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#cbd5e1" stroke-width="40" stroke-dasharray="251.2" stroke-dashoffset="0"></circle>
+                <!-- 感到焦慮 FOMO 68% (深藍/紅色) -->
+                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#0284c7" stroke-width="40" stroke-dasharray="251.2" stroke-dashoffset="80.38"></circle>
+              </svg>
+
+              <div class="pie-legend">
+                <div class="legend-item">
+                  <span class="legend-color" style="background:#0284c7;"></span>
+                  <span>感到焦慮 (FOMO)：<strong>68%</strong></span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color" style="background:#cbd5e1;"></span>
+                  <span>感到自在：<strong>32%</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 任務一：題目作答與思考 -->
+        <h3 style="color:#0369a1; font-size:18pt; margin:24px 0 14px 0;">📍 任務一：解讀「圖一」的數據訊息</h3>
+
+        <!-- 第 1 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            1. 從長條圖中，你發現當代青少年每天花最多時間在哪兩種數位活動上？
+            <button class="speak-btn" onclick="speakText('從長條圖中，你發現當代青少年每天花最多時間在哪兩種數位活動上？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c1_1" placeholder="請在此輸入你的觀察與答案..." oninput="saveInput('ans_c1_1', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_1', '社群瀏覽')">社群瀏覽</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_1', '短影音')">短影音</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_1', '通訊軟體')">通訊軟體</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_1', '其他娛樂')">其他娛樂</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：花最多時間在「<strong>社群瀏覽（45%）</strong>」與「<strong>短影音（35%）</strong>」上，合計占了八成的數位時間。
+          </div>
+        </div>
+
+        <!-- 第 2 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            2. 你覺得這個數據反映了現在國中生什麼樣的生活現象？
+            <button class="speak-btn" onclick="speakText('你覺得這個數據反映了現在國中生什麼樣的生活現象？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c1_2" placeholder="請在此輸入你的想法..." oninput="saveInput('ans_c1_2', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_2', '資訊焦慮')">資訊焦慮</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_2', '高度依賴')">高度依賴</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_2', '沉迷網路')">沉迷網路</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_2', '缺乏真實互動')">缺乏真實互動</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_2', '虛擬社交')">虛擬社交</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：反映了國中生高度依賴網路與虛擬社交，習慣快速且大量的短影音刺激，缺乏真實生活中的面對面互動與深度閱讀。
+          </div>
+        </div>
+
+        <!-- 第 3 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            3. 根據圓餅圖，當「超過1小時未查看手機」時，有多少比例的人會感到焦慮（FOMO）？
+            <button class="speak-btn" onclick="speakText('根據圓餅圖，當超過1小時未查看手機時，有多少比例的人會感到焦慮FOMO？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c1_3" placeholder="請在此輸入數值或答案..." oninput="saveInput('ans_c1_3', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_3', '68%')">68%</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_3', '六成八')">六成八</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_3', '超過半數')">超過半數</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：高達 <strong>68%（約六成八、近七成）</strong> 的青少年會產生離線焦慮感。
+          </div>
+        </div>
+
+        <!-- 第 4 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            4. 你認為為什麼只是離開手機一小時，就會讓這麼多人感到不安？
+            <button class="speak-btn" onclick="speakText('你認為為什麼只是離開手機一小時，就會讓這麼多人感到不安？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c1_4" placeholder="請在此寫下原因..." oninput="saveInput('ans_c1_4', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_4', '害怕錯過訊息')">害怕錯過訊息</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_4', '同儕壓力')">同儕壓力</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_4', '無聊')">無聊</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_4', '習慣被制約')">習慣被制約</span>
+            <span class="word-tag" onclick="appendWord('ans_c1_4', '失去安全感')">失去安全感</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：因為習慣隨時接收最新推播，害怕錯過同學的話題被孤立，大腦習慣了手機刺激，一旦安靜下來便會感到無聊與失去安全感。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁三：圖表二 ----------------- -->
+    <section class="tab-pane" id="tab-chart2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>⚖️ 圖表二：思考與寫作引導</span>
+            <button class="speak-btn" onclick="speakText('圖二：思考與寫作引導。當我們嘗試數位斷捨離時，會發生什麼事？心中的天平如何平衡？')">🔊 報讀引導</button>
+          </div>
+          <span class="sec-badge">任務二＆三：天平與關鍵字</span>
+        </div>
+
+        <!-- 核心思考天平卡片 -->
+        <div class="balance-card">
+          <div class="balance-question">
+            ⚖️ 當我們嘗試「數位斷捨離」時，會發生什麼事？心中的天平如何平衡？
+          </div>
+          <p class="balance-sub">
+            左盤是「放下手機時多出的真實時間與自由」，右盤是「暫時抽離網路帶來的失落與不安」。我們該如何找回心中的平衡？
+          </p>
+        </div>
+
+        <h3 style="color:#0369a1; font-size:18pt; margin:20px 0 12px 0;">📍 任務二：思考「圖二」的核心問題</h3>
+
+        <!-- 任務二 第 1 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            1. 當我們嘗試「數位斷捨離」（例如一整天不用手機）時，生活中會多出哪些時間或發生什麼事？
+            <button class="speak-btn" onclick="speakText('當我們嘗試數位斷捨離，例如一整天不用手機時，生活中會多出哪些時間或發生什麼事？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c2_1" placeholder="請描述生活中會多出的時間或情景..." oninput="saveInput('ans_c2_1', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '陪伴家人')">陪伴家人</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '專心閱讀')">專心閱讀</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '出外運動')">出外運動</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '感到無聊')">感到無聊</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '手足無措')">手足無措</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_1', '終於能靜下心來')">終於能靜下心來</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：剛開始可能會感到手足無措與無聊，但漸漸會發現多出了許多空檔可以陪伴家人、出外運動、專注閱讀，腦袋也能真正靜下來休息。
+          </div>
+        </div>
+
+        <!-- 任務二 第 2 題 -->
+        <div class="task-block">
+          <div class="task-q-title">
+            2. 面對沒有手機的失落感，你覺得心中的天平可以如何平衡？（你會用什麼具體行動來轉移注意力？）
+            <button class="speak-btn" onclick="speakText('面對沒有手機的失落感，你覺得心中的天平可以如何平衡？你會用什麼具體行動來轉移注意力？')">🔊 報讀</button>
+          </div>
+          <textarea class="ans-input-box" id="ans_c2_2" placeholder="請寫出你的具體平衡行動..." oninput="saveInput('ans_c2_2', this.value)"></textarea>
+          <div class="word-pool">
+            <span class="pool-label">💡 填答參考詞語（點擊填入）：</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_2', '培養實體興趣')">培養實體興趣</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_2', '與朋友面對面聊天')">與朋友面對面聊天</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_2', '制定使用時間表')">制定使用時間表</span>
+            <span class="word-tag" onclick="appendWord('ans_c2_2', '擁抱大自然')">擁抱大自然</span>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師參考答案：透過培養不插電的實體興趣（畫畫、彈琴、打球）、和朋友相約實體出遊面對面聊天，以及走出戶外接觸大自然來填補失落感。
+          </div>
+        </div>
+
+        <!-- 任務三：解鎖六個關鍵字 -->
+        <h3 style="color:#0369a1; font-size:18pt; margin:28px 0 14px 0;">📍 任務三：解鎖「圖二」的六個關鍵字</h3>
+        <p class="lead-text">
+          請用你自己的話，或是結合生活中的例子，簡單解釋這 6 個詞語在「放下手機」的情境中，代表什麼意思？
+        </p>
+
+        <div class="keywords-grid">
+          <!-- 1. FOMO -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">🧠 FOMO (社群恐慌)</span>
+              <button class="speak-btn" onclick="speakText('FOMO，社群恐慌症。指害怕錯過社交互動、流行話題或重要訊息的集體焦慮心理。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>指一種害怕錯失社交互動、流行話題或重要訊息的集體焦慮心理，常導致過度依賴手機。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>在沒有手機時，具體會有什麼感覺？<br>
+              <textarea class="ans-input-box" id="ans_kw_fomo" style="min-height:55px;" placeholder="寫下你的感覺..." oninput="saveInput('ans_kw_fomo', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_fomo', '擔心被遺忘')">擔心被遺忘</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_fomo', '害怕跟不上話題')">害怕跟不上話題</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_fomo', '焦慮不安')">焦慮不安</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_fomo', '患得患失')">患得患失</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 留白 -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">📖 留白</span>
+              <button class="speak-btn" onclick="speakText('留白。在塞滿數位資訊的生活中，讓腦袋休息、給自己獨處的時間。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>不在生活中塞滿推播與影片，保留一段純淨、無外界干擾的獨處與沈澱時光。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>在塞滿資訊的生活中，「留白」代表什麼？<br>
+              <textarea class="ans-input-box" id="ans_kw_blank" style="min-height:55px;" placeholder="寫下你的看法..." oninput="saveInput('ans_kw_blank', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_blank', '讓腦袋休息')">讓腦袋休息</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_blank', '獨處的時間')">獨處的時間</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_blank', '暫停接收訊息')">暫停接收訊息</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_blank', '放空')">放空</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 真實 -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">🌳 真實</span>
+              <button class="speak-btn" onclick="speakText('真實。比起網路世界，面對面的交談與親身體驗更有溫度。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>走出螢幕裡的濾鏡與點讚，親身觸摸大自然、感受朋友微笑的真實溫度與實體生活。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>比起網路，什麼體驗才是「真實」的？<br>
+              <textarea class="ans-input-box" id="ans_kw_real" style="min-height:55px;" placeholder="寫下你的體驗..." oninput="saveInput('ans_kw_real', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_real', '面對面交談')">面對面交談</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_real', '真實的溫度')">真實的溫度</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_real', '腳踏實地的生活')">腳踏實地的生活</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_real', '戶外體驗')">戶外體驗</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. 高效 -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">📈 高效</span>
+              <button class="speak-btn" onclick="speakText('高效。放下手機後，專注力大幅提升，做事更有效率。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>擺脫手機通知帶來的分心碎片化，讓大腦維持高度專注，提高讀書與做事效率。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>放下手機後，對生活效率有何影響？<br>
+              <textarea class="ans-input-box" id="ans_kw_eff" style="min-height:55px;" placeholder="寫下你的改變..." oninput="saveInput('ans_kw_eff', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_eff', '專注力提升')">專注力提升</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_eff', '做事更有效率')">做事更有效率</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_eff', '不容易分心')">不容易分心</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_eff', '節省時間')">節省時間</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. 失落 -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">🚶 失落</span>
+              <button class="speak-btn" onclick="speakText('失落。剛開始放下手機時，習慣被打斷帶來的空虛與不適感。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>剛開始進行斷捨離時，因為習慣被打破、失去即時刺激而產生的空虛與不適感。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>剛開始斷捨離時，為什麼會感到「失落」？<br>
+              <textarea class="ans-input-box" id="ans_kw_lost" style="min-height:55px;" placeholder="寫下失落的原因..." oninput="saveInput('ans_kw_lost', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_lost', '失去網路關注')">失去網路關注</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_lost', '習慣被打斷')">習慣被打斷</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_lost', '好像少了什麼')">好像少了什麼</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_lost', '抽離的不適感')">抽離的不適感</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. 自主 -->
+          <div class="keyword-card">
+            <div class="kw-header">
+              <span class="kw-name">🕹️ 自主</span>
+              <button class="speak-btn" onclick="speakText('自主。擺脫演算法與推播控制，重新做自己時間與生活的主人。')">🔊</button>
+            </div>
+            <div class="kw-def">
+              <strong>定義：</strong>不再被演算法牽著鼻子走，拿回生活與時間的主導權，由自己決定當下要做什麼。
+            </div>
+            <div class="kw-clues">
+              <strong>情境思考：</strong>擺脫手機控制後，找回「自主」是什麼感覺？<br>
+              <textarea class="ans-input-box" id="ans_kw_auto" style="min-height:55px;" placeholder="寫下自主的體會..." oninput="saveInput('ans_kw_auto', this.value)"></textarea>
+              <div class="word-pool" style="margin-top:4px;">
+                <span class="word-tag" onclick="appendWord('ans_kw_auto', '成為時間的主人')">成為時間的主人</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_auto', '拿回控制權')">拿回控制權</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_auto', '不再被推播綁架')">不再被推播綁架</span>
+                <span class="word-tag" onclick="appendWord('ans_kw_auto', '自由自在')">自由自在</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁四：標題 ----------------- -->
+    <section class="tab-pane" id="tab-title">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🏷️ 任務四：動筆前的最後確認 ＆ 標題規劃</span>
+            <button class="speak-btn" onclick="speakText('動筆前的最後確認。根據引導說明要求，這篇文章需要自訂題目嗎？')">🔊 報讀</button>
+          </div>
+          <span class="sec-badge">寫作規範檢核</span>
+        </div>
+
+        <div class="task-block">
+          <div class="task-q-title">
+            📍 任務四問題：根據引導說明的要求，這篇文章需要自訂題目嗎？
+          </div>
+          <div style="display:flex; gap:16px; margin:14px 0; flex-wrap:wrap;">
+            <button class="tool-btn" id="opt_title_rule_1" onclick="chooseTitleRule('不必訂題', this)">🚫 不必訂題 (題目引導已規定)</button>
+            <button class="tool-btn" id="opt_title_rule_2" onclick="chooseTitleRule('需要訂題', this)">✏️ 需要訂題</button>
+          </div>
+          <div class="teacher-ans-banner">
+            🔑 老師解析：題目引導說明最後特別註明「<strong>※ 不必訂題</strong>」，因此在會考或正式段考稿紙中，第一行第一格直接空兩格開始寫第一段即可，不需書寫題目。
+          </div>
+        </div>
+
+        <!-- 自擬題目練習框 (草稿專用) -->
+        <div class="task-block" style="background:#f0f9ff; border-color:#7dd3fc;">
+          <h3 style="color:#0369a1; font-size:18pt; margin-bottom:12px;">💡 課堂草稿自擬題目練習（選填）：</h3>
+          <p class="lead-text">
+            雖然正式作答不必訂題，但平時練習自擬題目有助於聚焦全篇文章的主旨。請為你的文章擬一個響亮的題目：
+          </p>
+          <div style="display:flex; align-items:center; gap:12px; margin:14px 0;">
+            <strong style="font-size:18pt; color:#0f172a; white-space:nowrap;">作文題目：</strong>
+            <input type="text" id="customEssayTitle" class="ans-input-box" style="margin:0; min-height:48px;" placeholder="例如：數位斷捨離的留白日常、奪回生活主導權..." value="當我們嘗試數位斷捨離" oninput="saveInput('customEssayTitle', this.value); updateFullEssay();">
+          </div>
+          <div class="word-pool">
+            <span class="pool-label">點擊參考題目：</span>
+            <span class="word-tag" onclick="setTitle('當我們嘗試「數位斷捨離」')">當我們嘗試「數位斷捨離」</span>
+            <span class="word-tag" onclick="setTitle('放下手機的一天')">放下手機的一天</span>
+            <span class="word-tag" onclick="setTitle('留白，找回真實的生活')">留白，找回真實的生活</span>
+            <span class="word-tag" onclick="setTitle('擺脫 FOMO，做時間的主人')">擺脫 FOMO，做時間的主人</span>
+          </div>
+        </div>
+
+        <!-- 四段式寫作地圖總覽 -->
+        <div style="background:#ffffff; border:2px solid #e2e8f0; border-radius:12px; padding:22px; margin-top:20px;">
+          <h3 style="color:#0369a1; font-size:18pt; margin-bottom:14px;">🗺️ 四段式寫作骨架全貌總覽</h3>
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
+            <div style="background:#f0f9ff; border:1.5px solid #bae6fd; border-radius:8px; padding:14px; text-align:center;">
+              <div style="font-size:18pt; font-weight:bold; color:#0369a1; margin-bottom:6px;">第一段（起）</div>
+              <div style="font-size:14pt; color:#475569;">觀察圖表數據<br>引出 FOMO 焦慮</div>
+            </div>
+            <div style="background:#fefce8; border:1.5px solid #fef08a; border-radius:8px; padding:14px; text-align:center;">
+              <div style="font-size:18pt; font-weight:bold; color:#b45309; margin-bottom:6px;">第二段（承）</div>
+              <div style="font-size:14pt; color:#475569;">分享個人經歷<br>滑手機的光陰流逝</div>
+            </div>
+            <div style="background:#fef2f2; border:1.5px solid #fecaca; border-radius:8px; padding:14px; text-align:center;">
+              <div style="font-size:18pt; font-weight:bold; color:#dc2626; margin-bottom:6px;">第三段（轉）</div>
+              <div style="font-size:14pt; color:#475569;">內心矛盾轉折<br>不能滑手機的焦躁</div>
+            </div>
+            <div style="background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:8px; padding:14px; text-align:center;">
+              <div style="font-size:18pt; font-weight:bold; color:#16a34a; margin-bottom:6px;">第四段（合）</div>
+              <div style="font-size:14pt; color:#475569;">總結具體行動<br>留白並奪回自主權</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁五：第一段 ----------------- -->
+    <section class="tab-pane" id="tab-para1">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🌱 第一段（起）：觀察圖表，點出「FOMO」現象</span>
+          </div>
+          <button class="speak-btn" onclick="speakCurrentParagraph(1)">🔊 朗讀第一段草稿</button>
+        </div>
+
+        <div class="para-focus-banner">
+          🎯 寫作重點：客觀描述圖表數據，帶出大家過度依賴手機的現況。
+        </div>
+
+        <!-- 3 次唸讀計時碼錶 -->
+        <div class="timer-stamp-box">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>⏱️ 課文唸讀打卡器：</span>
+            <span class="timer-display" id="timer_display_1">00:00.0</span>
+            <button class="tool-btn" id="timer_btn_1" onclick="toggleTimer(1)">▶️ 開始計時</button>
+            <button class="tool-btn" onclick="stampTimer(1)">📌 記錄次數</button>
+          </div>
+          <div class="timer-records" id="timer_records_1">
+            <span class="stamp-pill">第1次: --</span>
+            <span class="stamp-pill">第2次: --</span>
+            <span class="stamp-pill">第3次: --</span>
+          </div>
+        </div>
+
+        <!-- 版本切換按鈕 -->
+        <div class="version-switch-row" style="margin-top:20px;">
+          <button class="ver-btn active" id="btn_ver_p1_base" onclick="switchVersion(1, 'base')">⬜ 基礎版（引導填空與詞彙二選一）</button>
+          <button class="ver-btn" id="btn_ver_p1_adv" onclick="switchVersion(1, 'adv')">🟦 進階版（深層文句與修辭深化）</button>
+        </div>
+
+        <!-- 基礎版鷹架 -->
+        <div class="scaffold-box" id="scaffold_p1_base">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 在這個（
+          <span class="choice-group" data-id="p1_b1">
+            <span class="choice-opt" onclick="pickChoice('p1_b1', '資訊爆炸', this)">資訊爆炸</span> /
+            <span class="choice-opt" onclick="pickChoice('p1_b1', '科技發達', this)">科技發達</span>
+          </span>
+          ）的時代，手機已經成為生活中（
+          <span class="choice-group" data-id="p1_b2">
+            <span class="choice-opt" onclick="pickChoice('p1_b2', '不可或缺', this)">不可或缺</span> /
+            <span class="choice-opt" onclick="pickChoice('p1_b2', '息息相關', this)">息息相關</span>
+          </span>
+          ）的一部分。根據圖表調查，現代青少年的生活充滿了數位活動，其中最多人花時間在
+          <span class="inline-blank" contenteditable="true" id="p1_blank_act" placeholder="社群瀏覽與短影音" oninput="saveInput('p1_blank_act', this.innerText); updateFullEssay();">社群瀏覽與短影音</span>
+          上。<br>
+          更值得注意的是，當離開手機超過一小時，有高達
+          <span class="inline-blank" contenteditable="true" id="p1_blank_pct" placeholder="68" oninput="saveInput('p1_blank_pct', this.innerText); updateFullEssay();">68</span>
+          %的人會感到焦慮。這種害怕錯過訊息的（
+          <span class="choice-group" data-id="p1_b3">
+            <span class="choice-opt" onclick="pickChoice('p1_b3', '集體現象', this)">集體現象</span> /
+            <span class="choice-opt" onclick="pickChoice('p1_b3', '普遍情況', this)">普遍情況</span>
+          </span>
+          ），就是圖表中所說的「FOMO」。
+        </div>
+
+        <!-- 進階版鷹架 -->
+        <div class="scaffold-box hidden" id="scaffold_p1_adv">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 身處於資訊爆炸的數位時代，手機宛如青少年的另一個器官。觀察當代青少年的數位生活數據可以發現，
+          <span class="inline-blank" contenteditable="true" id="p1_adv_act1" placeholder="社群瀏覽" oninput="saveInput('p1_adv_act1', this.innerText); updateFullEssay();">社群瀏覽</span>
+          與
+          <span class="inline-blank" contenteditable="true" id="p1_adv_act2" placeholder="短影音" oninput="saveInput('p1_adv_act2', this.innerText); updateFullEssay();">短影音</span>
+          佔據了我們絕大部分的空閒時間。然而，令人擔憂的是，高達六成八的受訪者在斷網一小時後，會產生強烈的（
+          <span class="choice-group" data-id="p1_adv1">
+            <span class="choice-opt" onclick="pickChoice('p1_adv1', '焦慮感', this)">焦慮感</span> /
+            <span class="choice-opt" onclick="pickChoice('p1_adv1', '不安感', this)">不安感</span>
+          </span>
+          ）。這種被稱為「FOMO」（社群恐慌症）的集體焦慮現象，正（
+          <span class="choice-group" data-id="p1_adv2">
+            <span class="choice-opt" onclick="pickChoice('p1_adv2', '潛移默化地', this)">潛移默化地</span> /
+            <span class="choice-opt" onclick="pickChoice('p1_adv2', '不知不覺地', this)">不知不覺地</span>
+          </span>
+          ）侵蝕著我們對生活的主導權。
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁六：第二段 ----------------- -->
+    <section class="tab-pane" id="tab-para2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🌊 第二段（承）：分享經驗，我的數位生活</span>
+          </div>
+          <button class="speak-btn" onclick="speakCurrentParagraph(2)">🔊 朗讀第二段草稿</button>
+        </div>
+
+        <div class="para-focus-banner" style="background:#fefce8; border-color:#eab308; color:#854d0e;">
+          🎯 寫作重點：寫出自己平時滑手機的習慣，以及時間不知不覺流逝的感受。
+        </div>
+
+        <!-- 3 次唸讀計時碼錶 -->
+        <div class="timer-stamp-box">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>⏱️ 課文唸讀打卡器：</span>
+            <span class="timer-display" id="timer_display_2">00:00.0</span>
+            <button class="tool-btn" id="timer_btn_2" onclick="toggleTimer(2)">▶️ 開始計時</button>
+            <button class="tool-btn" onclick="stampTimer(2)">📌 記錄次數</button>
+          </div>
+          <div class="timer-records" id="timer_records_2">
+            <span class="stamp-pill">第1次: --</span>
+            <span class="stamp-pill">第2次: --</span>
+            <span class="stamp-pill">第3次: --</span>
+          </div>
+        </div>
+
+        <!-- 版本切換按鈕 -->
+        <div class="version-switch-row" style="margin-top:20px;">
+          <button class="ver-btn active" id="btn_ver_p2_base" onclick="switchVersion(2, 'base')">⬜ 基礎版（填入具體行為與感受）</button>
+          <button class="ver-btn" id="btn_ver_p2_adv" onclick="switchVersion(2, 'adv')">🟦 進階版（演算法與光陰反思）</button>
+        </div>
+
+        <!-- 基礎版鷹架 -->
+        <div class="scaffold-box" id="scaffold_p2_base">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 回想我自己使用手機的習慣，我最常在上面
+          <span class="inline-blank" contenteditable="true" id="p2_blank_act" placeholder="看搞笑短影音、和同學傳訊息聊天" oninput="saveInput('p2_blank_act', this.innerText); updateFullEssay();">看搞笑短影音、和同學傳訊息聊天</span>。
+          每次只要一有空檔，我就會（
+          <span class="choice-group" data-id="p2_b1">
+            <span class="choice-opt" onclick="pickChoice('p2_b1', '不自覺地', this)">不自覺地</span> /
+            <span class="choice-opt" onclick="pickChoice('p2_b1', '不由自主地', this)">不由自主地</span>
+          </span>
+          ）拿起手機。螢幕裡那些（
+          <span class="choice-group" data-id="p2_b2">
+            <span class="choice-opt" onclick="pickChoice('p2_b2', '五光十色', this)">五光十色</span> /
+            <span class="choice-opt" onclick="pickChoice('p2_b2', '有趣搞笑', this)">有趣搞笑</span>
+          </span>
+          ）的內容實在太吸引人了，常常讓我（
+          <span class="choice-group" data-id="p2_b3">
+            <span class="choice-opt" onclick="pickChoice('p2_b3', '流連忘返', this)">流連忘返</span> /
+            <span class="choice-opt" onclick="pickChoice('p2_b3', '愛不釋手', this)">愛不釋手</span>
+          </span>
+          ）。結果，時間（
+          <span class="choice-group" data-id="p2_b4">
+            <span class="choice-opt" onclick="pickChoice('p2_b4', '不知不覺', this)">不知不覺</span> /
+            <span class="choice-opt" onclick="pickChoice('p2_b4', '悄悄地', this)">悄悄地</span>
+          </span>
+          ）就過了兩三個小時，直到
+          <span class="inline-blank" contenteditable="true" id="p2_blank_stop" placeholder="眼睛痠痛無比、被爸媽大聲責備" oninput="saveInput('p2_blank_stop', this.innerText); updateFullEssay();">眼睛痠痛無比、被爸媽大聲責備</span>
+          才放下手機。
+        </div>
+
+        <!-- 進階版鷹架 -->
+        <div class="scaffold-box hidden" id="scaffold_p2_adv">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 捫心自問，我自己也是這群高度依賴手機的青少年之一。平時，我習慣透過手機來打發零碎的時間。螢幕裡的世界五光十色，演算法總是能精準推送我感興趣的內容，讓我（
+          <span class="choice-group" data-id="p2_adv1">
+            <span class="choice-opt" onclick="pickChoice('p2_adv1', '沉溺其中', this)">沉溺其中</span> /
+            <span class="choice-opt" onclick="pickChoice('p2_adv1', '欲罷不能', this)">欲罷不能</span>
+          </span>
+          ）。手指在螢幕上輕輕一滑，幾個小時的光陰便悄悄流逝，回過神來，留下的往往是
+          <span class="inline-blank" contenteditable="true" id="p2_adv_regret" placeholder="熬夜後的疲憊與消磨時光後的懊悔" oninput="saveInput('p2_adv_regret', this.innerText); updateFullEssay();">熬夜後的疲憊與消磨時光後的懊悔</span>。
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁七：第三段 ----------------- -->
+    <section class="tab-pane" id="tab-para3">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>⚡ 第三段（轉）：內心轉折，沒有手機時的焦慮</span>
+          </div>
+          <button class="speak-btn" onclick="speakCurrentParagraph(3)">🔊 朗讀第三段草稿</button>
+        </div>
+
+        <div class="para-focus-banner" style="background:#fef2f2; border-color:#ef4444; color:#991b1b;">
+          🎯 寫作重點：生動描寫「不能滑手機時」的內心小劇場，對應 FOMO 的定義。
+        </div>
+
+        <!-- 3 次唸讀計時碼錶 -->
+        <div class="timer-stamp-box">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>⏱️ 課文唸讀打卡器：</span>
+            <span class="timer-display" id="timer_display_3">00:00.0</span>
+            <button class="tool-btn" id="timer_btn_3" onclick="toggleTimer(3)">▶️ 開始計時</button>
+            <button class="tool-btn" onclick="stampTimer(3)">📌 記錄次數</button>
+          </div>
+          <div class="timer-records" id="timer_records_3">
+            <span class="stamp-pill">第1次: --</span>
+            <span class="stamp-pill">第2次: --</span>
+            <span class="stamp-pill">第3次: --</span>
+          </div>
+        </div>
+
+        <!-- 版本切換按鈕 -->
+        <div class="version-switch-row" style="margin-top:20px;">
+          <button class="ver-btn active" id="btn_ver_p3_base" onclick="switchVersion(3, 'base')">⬜ 基礎版（不能滑手機時的情緒與感受）</button>
+          <button class="ver-btn" id="btn_ver_p3_adv" onclick="switchVersion(3, 'adv')">🟦 進階版（社群孤立恐懼與制約深度剖析）</button>
+        </div>
+
+        <!-- 基礎版鷹架 -->
+        <div class="scaffold-box" id="scaffold_p3_base">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 但是，當我因為
+          <span class="inline-blank" contenteditable="true" id="p3_blank_reason" placeholder="準備段考手機被沒收" oninput="saveInput('p3_blank_reason', this.innerText); updateFullEssay();">準備段考手機被沒收</span>
+          而不能滑手機的時候，我的心裡會覺得非常（
+          <span class="choice-group" data-id="p3_b1">
+            <span class="choice-opt" onclick="pickChoice('p3_b1', '焦躁不安', this)">焦躁不安</span> /
+            <span class="choice-opt" onclick="pickChoice('p3_b1', '心煩意亂', this)">心煩意亂</span>
+          </span>
+          ）。我會一直忍不住去想：朋友群組是不是在聊什麼有趣的事？我害怕自己因為沒看到訊息，隔天去學校會跟不上大家的話題。這種（
+          <span class="choice-group" data-id="p3_b2">
+            <span class="choice-opt" onclick="pickChoice('p3_b2', '患得患失', this)">患得患失</span> /
+            <span class="choice-opt" onclick="pickChoice('p3_b2', '胡思亂想', this)">胡思亂想</span>
+          </span>
+          ）的心情，真的讓我很不好受，原來這就是被手機（
+          <span class="choice-group" data-id="p3_b3">
+            <span class="choice-opt" onclick="pickChoice('p3_b3', '控制', this)">控制</span> /
+            <span class="choice-opt" onclick="pickChoice('p3_b3', '制約', this)">制約</span>
+          </span>
+          ）的感覺。
+        </div>
+
+        <!-- 進階版鷹架 -->
+        <div class="scaffold-box hidden" id="scaffold_p3_adv">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 然而，當我被迫放下手機時，一股（
+          <span class="choice-group" data-id="p3_adv1">
+            <span class="choice-opt" onclick="pickChoice('p3_adv1', '坐立難安', this)">坐立難安</span> /
+            <span class="choice-opt" onclick="pickChoice('p3_adv1', '無所適從', this)">無所適從</span>
+          </span>
+          ）的感覺就會難以抑制地湧上心頭。每當想像著朋友們正在網路上熱烈討論某個話題，我便會感到一種莫名的「失落」與焦慮。我害怕自己被朋友圈遺忘，害怕跟不上最新的流行資訊。這種（
+          <span class="choice-group" data-id="p3_adv2">
+            <span class="choice-opt" onclick="pickChoice('p3_adv2', '與世隔絕', this)">與世隔絕</span> /
+            <span class="choice-opt" onclick="pickChoice('p3_adv2', '害怕錯過', this)">害怕錯過</span>
+          </span>
+          ）的情緒，正是典型的「社群恐慌症」(FOMO)，它讓我意識到自己已經陷入了被動制約的泥沼。
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁八：第四段 ----------------- -->
+    <section class="tab-pane" id="tab-para4">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🎯 第四段（合）：總結反思，奪回生活主導權</span>
+          </div>
+          <button class="speak-btn" onclick="speakCurrentParagraph(4)">🔊 朗讀第四段草稿</button>
+        </div>
+
+        <div class="para-focus-banner" style="background:#f0fdf4; border-color:#16a34a; color:#14532d;">
+          🎯 寫作重點：提出具體的改變行動，並結合圖二的關鍵字（如：留白、自主）寫出對未來的期許。
+        </div>
+
+        <!-- 3 次唸讀計時碼錶 -->
+        <div class="timer-stamp-box">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <span>⏱️ 課文唸讀打卡器：</span>
+            <span class="timer-display" id="timer_display_4">00:00.0</span>
+            <button class="tool-btn" id="timer_btn_4" onclick="toggleTimer(4)">▶️ 開始計時</button>
+            <button class="tool-btn" onclick="stampTimer(4)">📌 記錄次數</button>
+          </div>
+          <div class="timer-records" id="timer_records_4">
+            <span class="stamp-pill">第1次: --</span>
+            <span class="stamp-pill">第2次: --</span>
+            <span class="stamp-pill">第3次: --</span>
+          </div>
+        </div>
+
+        <!-- 版本切換按鈕 -->
+        <div class="version-switch-row" style="margin-top:20px;">
+          <button class="ver-btn active" id="btn_ver_p4_base" onclick="switchVersion(4, 'base')">⬜ 基礎版（具體替代行動與找回平衡）</button>
+          <button class="ver-btn" id="btn_ver_p4_adv" onclick="switchVersion(4, 'adv')">🟦 進階版（留白、高效與自主生活）</button>
+        </div>
+
+        <!-- 基礎版鷹架 -->
+        <div class="scaffold-box" id="scaffold_p4_base">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 經過這次的反思，我意識到不能再這樣下去了。以後當我放下手機時，我可以試著去
+          <span class="inline-blank" contenteditable="true" id="p4_blank_action" placeholder="去球場打球流汗、專心看一本小說、和家人散步" oninput="saveInput('p4_blank_action', this.innerText); updateFullEssay();">去球場打球流汗、專心看一本小說、和家人散步</span>，
+          開始我的（
+          <span class="choice-group" data-id="p4_b1">
+            <span class="choice-opt" onclick="pickChoice('p4_b1', '數位斷捨離', this)">數位斷捨離</span> /
+            <span class="choice-opt" onclick="pickChoice('p4_b1', '減法生活', this)">減法生活</span>
+          </span>
+          ）。雖然一開始可能會很不習慣，但我相信只要慢慢練習，一定能減少對手機的依賴。希望未來的我，能（
+          <span class="choice-group" data-id="p4_b2">
+            <span class="choice-opt" onclick="pickChoice('p4_b2', '奪回主導權', this)">奪回主導權</span> /
+            <span class="choice-opt" onclick="pickChoice('p4_b2', '找回平衡', this)">找回平衡</span>
+          </span>
+          ），讓每一天過得更（
+          <span class="choice-group" data-id="p4_b3">
+            <span class="choice-opt" onclick="pickChoice('p4_b3', '充實', this)">充實</span> /
+            <span class="choice-opt" onclick="pickChoice('p4_b3', '有意義', this)">有意義</span>
+          </span>
+          ）。
+        </div>
+
+        <!-- 進階版鷹架 -->
+        <div class="scaffold-box hidden" id="scaffold_p4_adv">
+          <span style="color:#64748b; font-weight:bold;">□□</span> 為了不讓自己繼續被 FOMO 綁架，我期許未來能更妥善地管控螢幕時間，練習在生活中適度地「留白」。當手機螢幕暗下，我會試著專注於眼前的課業，或是與家人進行（
+          <span class="choice-group" data-id="p4_adv1">
+            <span class="choice-opt" onclick="pickChoice('p4_adv1', '真實交流', this)">真實交流</span> /
+            <span class="choice-opt" onclick="pickChoice('p4_adv1', '面對面的互動', this)">面對面的互動</span>
+          </span>
+          ）。我相信，放下虛擬世界的包袱，不僅能提升學習的「高效」，更能讓我找回心靈的平靜。期待透過這些（
+          <span class="choice-group" data-id="p4_adv2">
+            <span class="choice-opt" onclick="pickChoice('p4_adv2', '循序漸進', this)">循序漸進</span> /
+            <span class="choice-opt" onclick="pickChoice('p4_adv2', '一點一滴', this)">一點一滴</span>
+          </span>
+          ）的改變，我能重新奪回生活的「自主」權，擁抱更真實且美好的現實世界。
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------- 分頁九：作業 ----------------- -->
+    <section class="tab-pane" id="tab-homework">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📋 作業與全文組合草稿</span>
+            <div style="display:flex; gap:8px;">
+              <button class="tool-btn primary" onclick="speakFullEssay()">🔊 朗讀全篇作文</button>
+              <button class="tool-btn" onclick="copyFullEssay()">📋 複製全文</button>
+              <button class="tool-btn warm" onclick="window.print()">🖨️ 列印作文草稿</button>
+            </div>
+          </div>
+          <span class="sec-badge">寫作產出完成</span>
+        </div>
+
+        <!-- 檢查檢核事項 -->
+        <div class="checklist-card">
+          <h3 style="color:#166534; font-size:18pt; margin-bottom:12px;">✅ 寫作前自我檢核清單：</h3>
+          <label class="check-item">
+            <input type="checkbox" id="chk1" onchange="saveCheck('chk1', this.checked)">
+            <span>1. <strong>請檢查，是否已圈選出自己想寫的詞語。</strong>（前面各段選項是否皆有點選圈記）</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="chk2" onchange="saveCheck('chk2', this.checked)">
+            <span>2. <strong>請用「螢光筆」框出、組合出自己想寫的各段。</strong>（利用右側螢光筆標出心儀句子）</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="chk3" onchange="saveCheck('chk3', this.checked)">
+            <span>3. <strong>試著念過一次，感覺看看這樣順不順。</strong>（點擊朗讀聆聽語音通順度）</span>
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="chk4" onchange="saveCheck('chk4', this.checked)">
+            <span>4. <strong>作業：把用「螢光筆」框出、組合出的 1~4 段，整齊抄進作文紙中。</strong></span>
+          </label>
+        </div>
+
+        <!-- 自動動態組合之完整作文紙 -->
+        <div class="full-essay-paper" id="fullEssayPaper">
+          <h3 id="displayEssayTitle">當我們嘗試「數位斷捨離」</h3>
+          <div class="essay-para" id="essay_p1_text">第一段加載中...</div>
+          <div class="essay-para" id="essay_p2_text">第二段加載中...</div>
+          <div class="essay-para" id="essay_p3_text">第三段加載中...</div>
+          <div class="essay-para" id="essay_p4_text">第四段加載中...</div>
+        </div>
+
+        <!-- QR Code 展示與學習單放置指引 -->
+        <div class="task-block" style="background:#f8fafc; border:2px dashed #38bdf8; margin-top:28px;">
+          <h3 style="color:#0369a1; font-size:18pt; margin-bottom:12px;">📱 學生實體學習單 QR Code 專區</h3>
+          <p class="lead-text">
+            教師可直接下載以下 QR Code 圖片，複製插入學生的 Word 或紙本學習單中，方便學生以平板/手機相機掃碼進入有聲電子書自主學習！
+          </p>
+
+          <div class="qr-grid">
+            <div class="qr-card">
+              <img src="qrcode_learning_tw.png" alt="115數位學習網頁 QR Code" onerror="this.src='qrcode.png'">
+              <h4>🏠 115數位學習網頁總首頁</h4>
+              <p>https://jun101262000.github.io/learning-TW/</p>
+              <a href="qrcode_learning_tw.png" download="115數位學習網頁_QRCode.png" class="tool-btn" style="margin-top:8px; font-size:13pt;">📥 下載首頁 QR 圖檔</a>
+            </div>
+
+            <div class="qr-card">
+              <img src="qrcode_digital_detox.png" alt="本書數位斷捨離 QR Code" onerror="this.src='qrcode.png'">
+              <h4>📖 本書：一段作文 數位斷捨離</h4>
+              <p>jun101262000.github.io/.../一段作文 數位斷捨離/</p>
+              <a href="qrcode_digital_detox.png" download="數位斷捨離電子書_QRCode.png" class="tool-btn primary" style="margin-top:8px; font-size:13pt;">📥 下載本書 QR 圖檔</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= 規範 2: 畫面右側常置多功能輔助工具列 ================= -->
+  <aside class="floating-sidebar-toolbar no-print">
+    <button class="sidebar-tool-btn" onclick="readSelectedText()" title="🔊 報讀選取文字">🔊</button>
+    <button class="sidebar-tool-btn" onclick="togglePaintOverlay()" title="✏️ 畫筆塗鴉">✏️</button>
+    <button class="sidebar-tool-btn" onclick="highlightSelectedText()" title="🖍️ 螢光筆圈記">🖍️</button>
+    <button class="sidebar-tool-btn" onclick="openMagnifierModal()" title="🔍 放大鏡檢視">🔍</button>
+    <button class="sidebar-tool-btn" onclick="toggleColorPalette()" title="🎨 反白變色">🎨</button>
+    <button class="sidebar-tool-btn" onclick="clearAllMarksAndDrawings()" title="🧹 清除標記畫跡">🧹</button>
+  </aside>
+
+  <!-- 反白文字顏色切換盤 -->
+  <div class="color-picker-palette" id="colorPalette">
+    <button class="palette-btn red" onclick="applyColorToSelection('#ef4444')">🔴 變為紅字</button>
+    <button class="palette-btn blue" onclick="applyColorToSelection('#2563eb')">🔵 變為藍字</button>
+    <button class="palette-btn green" onclick="applyColorToSelection('#10b981')">🟢 變為綠字</button>
+  </div>
+
+  <!-- 全螢幕塗鴉畫布 Canvas -->
+  <canvas id="paintCanvasOverlay"></canvas>
+  <div class="paint-controls-bar" id="paintControlsBar">
+    <span>✏️ 塗鴉畫筆中</span>
+    <button class="tool-btn" style="color:#000;" onclick="setDrawColor('#ef4444')">🔴 紅筆</button>
+    <button class="tool-btn" style="color:#000;" onclick="setDrawColor('#2563eb')">🔵 藍筆</button>
+    <button class="tool-btn" style="color:#000;" onclick="setDrawColor('#eab308')">🟡 螢光黃</button>
+    <button class="tool-btn" style="color:#000;" onclick="clearCanvas()">🧹 清除全頁</button>
+    <button class="tool-btn primary" onclick="closePaintOverlay()">✕ 關閉畫筆</button>
+  </div>
+
+  <!-- 放大鏡 Modal -->
+  <div class="magnifier-modal-overlay" id="magnifierModal" onclick="closeMagnifierModal()">
+    <div class="magnifier-box" onclick="event.stopPropagation()">
+      <h3 style="color:#0369a1; font-size:22pt; margin-bottom:12px;">🔍 放大鏡認讀檢視</h3>
+      <div class="magnified-text" id="magnifiedTextContent">（請先反白文字）</div>
+      <button class="tool-btn primary" onclick="speakText(document.getElementById('magnifiedTextContent').innerText)">🔊 朗讀此段</button>
+      <button class="tool-btn" onclick="closeMagnifierModal()">關閉視窗</button>
+    </div>
+  </div>
+
+  <!-- 原題目圖檔放大 Modal -->
+  <div class="magnifier-modal-overlay" id="promptImgModal" onclick="closePromptImgModal()">
+    <div class="magnifier-box" style="max-width:880px;" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="color:#0369a1; font-size:20pt;">📸 115上B3 一段作文題目與引導清晰大圖</h3>
+        <button class="tool-btn" onclick="closePromptImgModal()">✕ 關閉</button>
+      </div>
+      <img src="115上B3 一段作文題目.jpg" alt="115上B3 一段作文題目" style="width:100%; border-radius:10px; max-height:80vh; object-fit:contain;">
+    </div>
+  </div>
+
+  <!-- 身分選擇 Modal (老師 + 01~06 學生，絕無「老師看答案學生不能」字樣) -->
+  <div class="identity-modal-overlay" id="identityModal" style="display:none;">
+    <div class="identity-modal-box">
+      <h3 style="color:#0369a1; font-size:22pt; margin-bottom:8px;">👤 請選擇作答身分</h3>
+      <p style="font-size:15pt; color:#64748b; margin-bottom:16px;">選擇後將自動同步課堂學習記錄</p>
+      
+      <div class="identity-grid">
+        <button class="identity-btn" onclick="setIdentity('01')">01 號</button>
+        <button class="identity-btn" onclick="setIdentity('02')">02 號</button>
+        <button class="identity-btn" onclick="setIdentity('03')">03 號</button>
+        <button class="identity-btn" onclick="setIdentity('04')">04 號</button>
+        <button class="identity-btn" onclick="setIdentity('05')">05 號</button>
+        <button class="identity-btn" onclick="setIdentity('06')">06 號</button>
+        <button class="identity-btn teacher-identity-btn" onclick="setIdentity('test.')">👨‍🏫 教學展示模式 (老師)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code 視窗 Modal -->
+  <div class="qr-modal-overlay" id="qrModal" onclick="closeQrModal()">
+    <div class="qr-modal-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="color:#0369a1; font-size:20pt;">📱 學習單 QR Code 領取</h3>
+        <button class="tool-btn" onclick="closeQrModal()">✕ 關閉</button>
+      </div>
+      <p style="font-size:14pt; color:#64748b;">可右鍵「複製圖片」或直接下載放入 Word 學習單</p>
+
+      <div class="qr-grid">
+        <div class="qr-card">
+          <img src="qrcode_learning_tw.png" alt="115數位學習網頁 QR Code" onerror="this.src='qrcode.png'">
+          <h4>🏠 115數位學習網頁</h4>
+          <a href="qrcode_learning_tw.png" download="115數位學習網頁_QRCode.png" class="tool-btn" style="font-size:13pt;">📥 下載圖檔</a>
+        </div>
+        <div class="qr-card">
+          <img src="qrcode_digital_detox.png" alt="本書數位斷捨離 QR Code" onerror="this.src='qrcode.png'">
+          <h4>📖 數位斷捨離電子書</h4>
+          <a href="qrcode_digital_detox.png" download="數位斷捨離電子書_QRCode.png" class="tool-btn primary" style="font-size:13pt;">📥 下載圖檔</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 系統邏輯 JavaScript ================= -->
+  <script>
+    // 儲存狀態
+    let currentIdentity = localStorage.getItem('essay_identity') || '';
+    let selectedVersion = { 1: 'base', 2: 'base', 3: 'base', 4: 'base' };
+    let selectedChoices = JSON.parse(localStorage.getItem('essay_choices') || '{}');
+    let timerState = {
+      1: { interval: null, startTime: 0, elapsed: 0, count: 0 },
+      2: { interval: null, startTime: 0, elapsed: 0, count: 0 },
+      3: { interval: null, startTime: 0, elapsed: 0, count: 0 },
+      4: { interval: null, startTime: 0, elapsed: 0, count: 0 }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // 1. 初始化身分
+      if (currentIdentity) {
+        applyIdentity(currentIdentity);
+      } else {
+        document.getElementById('identityModal').style.display = 'flex';
+      }
+
+      // 2. 恢復已選選項
+      for (const [key, val] of Object.entries(selectedChoices)) {
+        const group = document.querySelector(`.choice-group[data-id="${key}"]`);
+        if (group) {
+          group.querySelectorAll('.choice-opt').forEach(opt => {
+            if (opt.innerText.trim() === val) opt.classList.add('selected');
+          });
+        }
+      }
+
+      // 3. 恢復輸入框文字
+      document.querySelectorAll('textarea, input[type="text"]').forEach(el => {
+        const saved = localStorage.getItem('input_' + el.id);
+        if (saved !== null) el.value = saved;
+      });
+
+      // 4. 恢復行內填空
+      document.querySelectorAll('.inline-blank').forEach(el => {
+        const saved = localStorage.getItem('input_' + el.id);
+        if (saved !== null) el.innerText = saved;
+      });
+
+      // 5. 恢復勾選狀態
+      ['chk1', 'chk2', 'chk3', 'chk4'].forEach(id => {
+        const chk = document.getElementById(id);
+        if (chk && localStorage.getItem('check_' + id) === 'true') {
+          chk.checked = true;
+        }
+      });
+
+      // 6. 更新全文草稿
+      updateFullEssay();
+
+      // 7. 初始化畫布
+      initCanvas();
+    });
+
+    // ================= 分頁切換 =================
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (tabId === 'tab-homework') updateFullEssay();
+    }
+
+    // ================= 上方功能列收合 =================
+    function toggleTopBar() {
+      const bar = document.getElementById('topBar');
+      const pill = document.getElementById('topBarExpandPill');
+      const tabs = document.getElementById('navTabs');
+      if (bar.classList.contains('collapsed')) {
+        bar.classList.remove('collapsed');
+        pill.style.display = 'none';
+        tabs.style.top = '57px';
+      } else {
+        bar.classList.add('collapsed');
+        pill.style.display = 'block';
+        tabs.style.top = '0px';
+      }
+    }
+
+    // ================= 身分切換邏輯 =================
+    function openIdentityModal() {
+      document.getElementById('identityModal').style.display = 'flex';
+    }
+    function setIdentity(seat) {
+      currentIdentity = seat;
+      localStorage.setItem('essay_identity', seat);
+      applyIdentity(seat);
+      document.getElementById('identityModal').style.display = 'none';
+    }
+    function applyIdentity(seat) {
+      const btn = document.getElementById('identityBtn');
+      if (seat === 'test.') {
+        btn.innerText = '👨‍🏫 身分：教學模式 (老師)';
+        document.body.classList.add('is-teacher');
+      } else {
+        btn.innerText = `👤 身分：座號 ${seat}`;
+        document.body.classList.remove('is-teacher');
+      }
+    }
+
+    // ================= QR Code 視窗 =================
+    function openQrModal() { document.getElementById('qrModal').style.display = 'flex'; }
+    function closeQrModal() { document.getElementById('qrModal').style.display = 'none'; }
+    function viewPromptImageModal() { document.getElementById('promptImgModal').style.display = 'flex'; }
+    function closePromptImgModal() { document.getElementById('promptImgModal').style.display = 'none'; }
+
+    // ================= 詞語二選一圈選 =================
+    function pickChoice(groupId, val, el) {
+      const parent = el.closest('.choice-group');
+      parent.querySelectorAll('.choice-opt').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedChoices[groupId] = val;
+      localStorage.setItem('essay_choices', JSON.stringify(selectedChoices));
+      updateFullEssay();
+      speakText(val);
+    }
+
+    // ================= 版本切換 (基礎 / 進階) =================
+    function switchVersion(paraNum, ver) {
+      selectedVersion[paraNum] = ver;
+      const baseBtn = document.getElementById(`btn_ver_p${paraNum}_base`);
+      const advBtn = document.getElementById(`btn_ver_p${paraNum}_adv`);
+      const baseBox = document.getElementById(`scaffold_p${paraNum}_base`);
+      const advBox = document.getElementById(`scaffold_p${paraNum}_adv`);
+
+      if (ver === 'base') {
+        baseBtn.classList.add('active');
+        advBtn.classList.remove('active');
+        baseBox.classList.remove('hidden');
+        advBox.classList.add('hidden');
+      } else {
+        advBtn.classList.add('active');
+        baseBtn.classList.remove('active');
+        advBox.classList.remove('hidden');
+        baseBox.classList.add('hidden');
+      }
+      updateFullEssay();
+    }
+
+    // ================= 輸入即時儲存 =================
+    function saveInput(id, val) {
+      localStorage.setItem('input_' + id, val);
+    }
+    function saveCheck(id, checked) {
+      localStorage.setItem('check_' + id, checked);
+    }
+    function appendWord(targetId, word) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      if (el.value) {
+        if (!el.value.endsWith('、') && !el.value.endsWith('，')) el.value += '、';
+        el.value += word;
+      } else {
+        el.value = word;
+      }
+      saveInput(targetId, el.value);
+      speakText(word);
+    }
+    function setTitle(title) {
+      const input = document.getElementById('customEssayTitle');
+      input.value = title;
+      saveInput('customEssayTitle', title);
+      updateFullEssay();
+      speakText(title);
+    }
+    function chooseTitleRule(choice, btn) {
+      btn.parentElement.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('primary'));
+      btn.classList.add('primary');
+      speakText(choice);
+    }
+
+    // ================= 3次唸讀碼錶打卡 =================
+    function toggleTimer(pNum) {
+      const btn = document.getElementById(`timer_btn_${pNum}`);
+      const disp = document.getElementById(`timer_display_${pNum}`);
+      const st = timerState[pNum];
+
+      if (st.interval) {
+        // 暫停
+        clearInterval(st.interval);
+        st.interval = null;
+        btn.innerText = '▶️ 繼續計時';
+      } else {
+        // 開始
+        st.startTime = Date.now() - st.elapsed;
+        st.interval = setInterval(() => {
+          st.elapsed = Date.now() - st.startTime;
+          const totalSec = st.elapsed / 1000;
+          const mins = Math.floor(totalSec / 60);
+          const secs = (totalSec % 60).toFixed(1);
+          disp.innerText = `${String(mins).padStart(2, '0')}:${secs.padStart(4, '0')}`;
+        }, 100);
+        btn.innerText = '⏸️ 暫停計時';
+      }
+    }
+    function stampTimer(pNum) {
+      const st = timerState[pNum];
+      if (st.elapsed === 0) return;
+      st.count++;
+      const slotIdx = Math.min(st.count, 3);
+      const totalSec = (st.elapsed / 1000).toFixed(1);
+      const recordBox = document.getElementById(`timer_records_${pNum}`);
+      const pills = recordBox.querySelectorAll('.stamp-pill');
+      if (pills[slotIdx - 1]) {
+        pills[slotIdx - 1].innerText = `第${slotIdx}次: ${totalSec}s`;
+        pills[slotIdx - 1].style.background = '#86efac';
+        pills[slotIdx - 1].style.color = '#14532d';
+      }
+      // 重置當前碼錶
+      if (st.interval) clearInterval(st.interval);
+      st.interval = null;
+      st.elapsed = 0;
+      document.getElementById(`timer_display_${pNum}`).innerText = '00:00.0';
+      document.getElementById(`timer_btn_${pNum}`).innerText = '▶️ 開始計時';
+      speakText(`第${slotIdx}次唸讀完成，耗時${totalSec}秒！`);
+    }
+
+    // ================= 動態組合全文草稿 =================
+    function updateFullEssay() {
+      // 標題
+      const title = document.getElementById('customEssayTitle')?.value || '當我們嘗試「數位斷捨離」';
+      const titleEl = document.getElementById('displayEssayTitle');
+      if (titleEl) titleEl.innerText = title;
+
+      // 第一段
+      let p1 = '';
+      if (selectedVersion[1] === 'base') {
+        const c1 = selectedChoices['p1_b1'] || '資訊爆炸';
+        const c2 = selectedChoices['p1_b2'] || '不可或缺';
+        const act = document.getElementById('p1_blank_act')?.innerText || '社群瀏覽與短影音';
+        const pct = document.getElementById('p1_blank_pct')?.innerText || '68';
+        const c3 = selectedChoices['p1_b3'] || '集體現象';
+        p1 = `在這個<span class="hl-choice">${c1}</span>的時代，手機已經成為生活中<span class="hl-choice">${c2}</span>的一部分。根據圖表調查，現代青少年的生活充滿了數位活動，其中最多人花時間在<span class="hl-blank">${act}</span>上。更值得注意的是，當離開手機超過一小時，有高達<span class="hl-blank">${pct}</span>%的人會感到焦慮。這種害怕錯過訊息的<span class="hl-choice">${c3}</span>，就是圖表中所說的「FOMO」。`;
+      } else {
+        const act1 = document.getElementById('p1_adv_act1')?.innerText || '社群瀏覽';
+        const act2 = document.getElementById('p1_adv_act2')?.innerText || '短影音';
+        const c1 = selectedChoices['p1_adv1'] || '焦慮感';
+        const c2 = selectedChoices['p1_adv2'] || '潛移默化地';
+        p1 = `身處於資訊爆炸的數位時代，手機宛如青少年的另一個器官。觀察當代青少年的數位生活數據可以發現，<span class="hl-blank">${act1}</span>與<span class="hl-blank">${act2}</span>佔據了我們絕大部分的空閒時間。然而，令人擔憂的是，高達六成八的受訪者在斷網一小時後，會產生強烈的<span class="hl-choice">${c1}</span>。這種被稱為「FOMO」（社群恐慌症）的集體焦慮現象，正<span class="hl-choice">${c2}</span>侵蝕著我們對生活的主導權。`;
+      }
+      const elP1 = document.getElementById('essay_p1_text');
+      if (elP1) elP1.innerHTML = p1;
+
+      // 第二段
+      let p2 = '';
+      if (selectedVersion[2] === 'base') {
+        const act = document.getElementById('p2_blank_act')?.innerText || '看搞笑短影音、和同學傳訊息';
+        const c1 = selectedChoices['p2_b1'] || '不自覺地';
+        const c2 = selectedChoices['p2_b2'] || '五光十色';
+        const c3 = selectedChoices['p2_b3'] || '流連忘返';
+        const c4 = selectedChoices['p2_b4'] || '不知不覺';
+        const stop = document.getElementById('p2_blank_stop')?.innerText || '眼睛痠痛、被爸媽責備';
+        p2 = `回想我自己使用手機的習慣，我最常在上面<span class="hl-blank">${act}</span>。每次只要一有空檔，我就會<span class="hl-choice">${c1}</span>拿起手機。螢幕裡那些<span class="hl-choice">${c2}</span>的內容實在太吸引人了，常常讓我<span class="hl-choice">${c3}</span>。結果，時間<span class="hl-choice">${c4}</span>就過了兩三個小時，直到<span class="hl-blank">${stop}</span>才放下手機。`;
+      } else {
+        const c1 = selectedChoices['p2_adv1'] || '沉溺其中';
+        const regret = document.getElementById('p2_adv_regret')?.innerText || '熬夜後的疲憊與消磨時光後的懊悔';
+        p2 = `捫心自問，我自己也是這群高度依賴手機的青少年之一。平時，我習慣透過手機來打發零碎的時間。螢幕裡的世界五光十色，演算法總是能精準推送我感興趣的內容，讓我<span class="hl-choice">${c1}</span>。手指在螢幕上輕輕一滑，幾個小時的光陰便悄悄流逝，回過神來，留下的往往是<span class="hl-blank">${regret}</span>。`;
+      }
+      const elP2 = document.getElementById('essay_p2_text');
+      if (elP2) elP2.innerHTML = p2;
+
+      // 第三段
+      let p3 = '';
+      if (selectedVersion[3] === 'base') {
+        const reason = document.getElementById('p3_blank_reason')?.innerText || '準備段考被沒收手機';
+        const c1 = selectedChoices['p3_b1'] || '焦躁不安';
+        const c2 = selectedChoices['p3_b2'] || '患得患失';
+        const c3 = selectedChoices['p3_b3'] || '制約';
+        p3 = `但是，當我因為<span class="hl-blank">${reason}</span>而不能滑手機的時候，我的心裡會覺得非常<span class="hl-choice">${c1}</span>。我會一直忍不住去想：朋友群組是不是在聊什麼有趣的事？我害怕自己因為沒看到訊息，隔天去學校會跟不上大家的話題。這種<span class="hl-choice">${c2}</span>的心情，真的讓我很不好受，原來這就是被手機<span class="hl-choice">${c3}</span>的感覺。`;
+      } else {
+        const c1 = selectedChoices['p3_adv1'] || '坐立難安';
+        const c2 = selectedChoices['p3_adv2'] || '害怕錯過';
+        p3 = `然而，當我被迫放下手機時，一股<span class="hl-choice">${c1}</span>的感覺就會難以抑制地湧上心頭。每當想像著朋友們正在網路上熱烈討論某個話題，我便會感到一種莫名的「失落」與焦慮。我害怕自己被朋友圈遺忘，害怕跟不上最新的流行資訊。這種<span class="hl-choice">${c2}</span>的情緒，正是典型的「社群恐慌症」(FOMO)，它讓我意識到自己已經陷入了被動制約的泥沼。`;
+      }
+      const elP3 = document.getElementById('essay_p3_text');
+      if (elP3) elP3.innerHTML = p3;
+
+      // 第四段
+      let p4 = '';
+      if (selectedVersion[4] === 'base') {
+        const action = document.getElementById('p4_blank_action')?.innerText || '去球場打球流汗、專心看小說';
+        const c1 = selectedChoices['p4_b1'] || '數位斷捨離';
+        const c2 = selectedChoices['p4_b2'] || '找回平衡';
+        const c3 = selectedChoices['p4_b3'] || '充實';
+        p4 = `經過這次的反思，我意識到不能再這樣下去了。以後當我放下手機時，我可以試著去<span class="hl-blank">${action}</span>，開始我的<span class="hl-choice">${c1}</span>。雖然一開始可能會很不習慣，但我相信只要慢慢練習，一定能減少對手機的依賴。希望未來的我，能<span class="hl-choice">${c2}</span>，讓每一天過得更<span class="hl-choice">${c3}</span>。`;
+      } else {
+        const c1 = selectedChoices['p4_adv1'] || '真實交流';
+        const c2 = selectedChoices['p4_adv2'] || '循序漸進';
+        p4 = `為了不讓自己繼續被 FOMO 綁架，我期許未來能更妥善地管控螢幕時間，練習在生活中適度地「留白」。當手機螢幕暗下，我會試著專注於眼前的課業，或是與家人進行<span class="hl-choice">${c1}</span>。我相信，放下虛擬世界的包袱，不僅能提升學習的「高效」，更能讓我找回心靈的平靜。期待透過這些<span class="hl-choice">${c2}</span>的改變，我能重新奪回生活的「自主」權，擁抱更真實且美好的現實世界。`;
+      }
+      const elP4 = document.getElementById('essay_p4_text');
+      if (elP4) elP4.innerHTML = p4;
+    }
+
+    // ================= 語音朗讀 Web Speech API =================
+    function speakText(text) {
+      if (!text) return;
+      if (!('speechSynthesis' in window)) {
+        alert('您的瀏覽器不支援語音朗讀功能');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.85; // 規範標準：0.85x 適性語速
+      window.speechSynthesis.speak(u);
+    }
+    function stopAllSpeech() {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+    function getGuideText() {
+      return '請先閱讀以下資訊，並依據以下題意要求完成一篇文章。圖一：當代青少年的數位生活比例以社群瀏覽為大宗，而超過一小時未查看手機而出現FOMO現象者占68%。參考圖二的六個關鍵詞，並連結圖一的數據進行說明與詮釋，最後依據你的生活經驗與情境，結合你的日常觀察與見聞，寫下你的看法、經歷與反思。注意規範：不必訂題、不可在文中洩漏私人身分、不可使用詩歌體。';
+    }
+    function speakCurrentParagraph(pNum) {
+      updateFullEssay();
+      const el = document.getElementById(`essay_p${pNum}_text`);
+      if (el) speakText(el.innerText);
+    }
+    function speakFullEssay() {
+      updateFullEssay();
+      const t = document.getElementById('displayEssayTitle')?.innerText || '';
+      const p1 = document.getElementById('essay_p1_text')?.innerText || '';
+      const p2 = document.getElementById('essay_p2_text')?.innerText || '';
+      const p3 = document.getElementById('essay_p3_text')?.innerText || '';
+      const p4 = document.getElementById('essay_p4_text')?.innerText || '';
+      speakText(`${t}。${p1}。${p2}。${p3}。${p4}`);
+    }
+    function copyFullEssay() {
+      updateFullEssay();
+      const t = document.getElementById('displayEssayTitle')?.innerText || '';
+      const p1 = document.getElementById('essay_p1_text')?.innerText || '';
+      const p2 = document.getElementById('essay_p2_text')?.innerText || '';
+      const p3 = document.getElementById('essay_p3_text')?.innerText || '';
+      const p4 = document.getElementById('essay_p4_text')?.innerText || '';
+      const full = `${t}\n\n　　${p1}\n　　${p2}\n　　${p3}\n　　${p4}`;
+      navigator.clipboard.writeText(full).then(() => {
+        alert('📋 全篇作文已成功複製到剪貼簿！');
+      }).catch(() => {
+        alert('請手動選取複製全文');
+      });
+    }
+
+    // ================= 規範 2: 右側常置工具列五大功能 =================
+    // 1. 報讀選取文字
+    function readSelectedText() {
+      const sel = window.getSelection().toString().trim();
+      if (sel) {
+        speakText(sel);
+      } else {
+        speakText('請先在畫面上反白選取您想聆聽的文字段落！');
+      }
+    }
+
+    // 2. 螢光筆圈記
+    function highlightSelectedText() {
+      const sel = window.getSelection();
+      if (!sel.rangeCount || sel.isCollapsed) {
+        alert('請先反白選取想以螢光筆畫記的文字！');
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      const mark = document.createElement('mark');
+      mark.style.backgroundColor = 'rgba(254, 240, 138, 0.7)';
+      mark.style.padding = '0 2px';
+      mark.style.borderRadius = '3px';
+      mark.className = 'user-highlight-mark';
+      try {
+        range.surroundContents(mark);
+      } catch (e) {
+        alert('跨區塊選取時無法直接套用螢光筆，請在同一段落內選取文字！');
+      }
+      sel.removeAllRanges();
+    }
+
+    // 3. 放大鏡
+    function openMagnifierModal() {
+      const sel = window.getSelection().toString().trim();
+      const box = document.getElementById('magnifiedTextContent');
+      if (sel) {
+        box.innerText = sel;
+      } else {
+        box.innerText = '（尚未反白文字，請反白任何字詞後點擊放大鏡）';
+      }
+      document.getElementById('magnifierModal').style.display = 'flex';
+    }
+    function closeMagnifierModal() {
+      document.getElementById('magnifierModal').style.display = 'none';
+    }
+
+    // 4. 反白變色
+    function toggleColorPalette() {
+      const p = document.getElementById('colorPalette');
+      p.style.display = (p.style.display === 'flex') ? 'none' : 'flex';
+    }
+    function applyColorToSelection(color) {
+      document.getElementById('colorPalette').style.display = 'none';
+      const sel = window.getSelection();
+      if (!sel.rangeCount || sel.isCollapsed) {
+        alert('請先反白選取文字！');
+        return;
+      }
+      const range = sel.getRangeAt(0);
+      const span = document.createElement('span');
+      span.style.color = color;
+      span.style.fontWeight = 'bold';
+      span.className = 'user-colored-text';
+      try {
+        range.surroundContents(span);
+      } catch (e) {
+        alert('請在同一段落文字內選取！');
+      }
+      sel.removeAllRanges();
+    }
+
+    // 5. 塗鴉畫布 Canvas
+    let canvas, ctx, isDrawing = false, drawColor = '#ef4444';
+    function initCanvas() {
+      canvas = document.getElementById('paintCanvasOverlay');
+      ctx = canvas.getContext('2d');
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      canvas.addEventListener('mousedown', startDraw);
+      canvas.addEventListener('mousemove', drawLine);
+      canvas.addEventListener('mouseup', endDraw);
+      canvas.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        startDraw({ clientX: t.clientX, clientY: t.clientY });
+        e.preventDefault();
+      });
+      canvas.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        drawLine({ clientX: t.clientX, clientY: t.clientY });
+        e.preventDefault();
+      });
+      canvas.addEventListener('touchend', endDraw);
+    }
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    function togglePaintOverlay() {
+      canvas.style.display = 'block';
+      document.getElementById('paintControlsBar').style.display = 'flex';
+    }
+    function closePaintOverlay() {
+      canvas.style.display = 'none';
+      document.getElementById('paintControlsBar').style.display = 'none';
+    }
+    function setDrawColor(c) { drawColor = c; }
+    function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    function startDraw(e) {
+      isDrawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.clientX, e.clientY);
+      ctx.strokeStyle = drawColor;
+      ctx.lineWidth = (drawColor === '#eab308') ? 14 : 4;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      if (drawColor === '#eab308') ctx.globalAlpha = 0.45;
+      else ctx.globalAlpha = 0.9;
+    }
+    function drawLine(e) {
+      if (!isDrawing) return;
+      ctx.lineTo(e.clientX, e.clientY);
+      ctx.stroke();
+    }
+    function endDraw() { isDrawing = false; }
+
+    // 6. 清除所有標記與畫跡
+    function clearAllMarksAndDrawings() {
+      clearCanvas();
+      document.querySelectorAll('.user-highlight-mark').forEach(m => {
+        const parent = m.parentNode;
+        while (m.firstChild) parent.insertBefore(m.firstChild, m);
+        parent.removeChild(m);
+      });
+      document.querySelectorAll('.user-colored-text').forEach(m => {
+        const parent = m.parentNode;
+        while (m.firstChild) parent.insertBefore(m.firstChild, m);
+        parent.removeChild(m);
+      });
+      alert('🧹 已清除畫跡與螢光筆/變色標記！');
+    }
+  </script>
+</body>
+</html>
