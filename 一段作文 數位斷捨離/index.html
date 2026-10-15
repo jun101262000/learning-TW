@@ -146,6 +146,7 @@
     .tool-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary-dark); }
     .tool-btn.primary:hover { background: var(--primary-dark); }
     .tool-btn.warm { background: #fef3c7; color: #b45309; border-color: #fde047; }
+    .tool-btn.green { background: #dcfce7; color: #166534; border-color: #86efac; }
     .tool-btn.collapse-btn { background: #f1f5f9; color: #475569; }
 
     /* ================= 分頁導覽列 (16pt，支援水平捲動) ================= */
@@ -433,6 +434,129 @@
       background: #f0f9ff;
       border-radius: 12px;
       word-break: break-all;
+    }
+
+    /* ================= 規範: 2欄3列黑板風格聯絡簿 Modal ================= */
+    .blackboard-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      z-index: 100005;
+    }
+    .blackboard-frame {
+      background: #451a03; /* 深木紋框 */
+      border: 12px solid #78350f;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 10px rgba(0,0,0,0.8);
+      max-width: 820px;
+      width: 94%;
+      padding: 16px;
+    }
+    .blackboard-surface {
+      background: #1e3a29; /* 深綠黑板底色 */
+      border: 2px solid #14532d;
+      border-radius: 8px;
+      padding: 24px;
+      color: #f8fafc;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
+    }
+    .blackboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      border-bottom: 2px dashed rgba(255,255,255,0.25);
+      padding-bottom: 12px;
+    }
+    .blackboard-title {
+      font-size: 24pt;
+      font-weight: bold;
+      color: #fef08a; /* 黃粉筆字 */
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .blackboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px 0;
+    }
+    .blackboard-table th, .blackboard-table td {
+      border: 2px solid rgba(255,255,255,0.3);
+      padding: 14px 16px;
+      vertical-align: top;
+    }
+    .blackboard-table th {
+      width: 22%;
+      background: rgba(255,255,255,0.08);
+      color: #93c5fd; /* 藍粉筆字 */
+      font-size: 19pt;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .bb-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 18pt;
+      font-family: inherit;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+    .bb-input::placeholder {
+      color: rgba(255,255,255,0.4);
+    }
+    .bb-date-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .bb-date-text {
+      font-size: 20pt;
+      font-weight: bold;
+      color: #fef08a;
+      letter-spacing: 1px;
+    }
+
+    /* ================= 規範: 每頁頁尾一鍵到頁面頂端 ================= */
+    .page-footer-nav {
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1.5px dashed #cbd5e1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .back-to-top-btn {
+      background: #f1f5f9;
+      color: #0369a1;
+      border: 2px solid #7dd3fc;
+      border-radius: 30px;
+      padding: 8px 24px;
+      font-size: 16pt;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .back-to-top-btn:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
     }
 
     /* ================= 身分認證 (老師 + 01~06 學生) ================= */
@@ -814,7 +938,7 @@
       border-radius: 12px;
       padding: 24px;
       margin-bottom: 18px;
-      line-height: 2.2;
+      line-height: 2.3;
       font-size: var(--ebook-content-font-size);
     }
     .scaffold-box.hidden { display: none; }
@@ -848,25 +972,56 @@
       box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3);
     }
 
-    /* 行內填空格 */
-    .inline-blank {
+    /* 規範: 各段無選項的空格（預設空白、點選秀答案、可自由打字刪改） */
+    .blank-slot-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      vertical-align: middle;
+      margin: 0 4px;
+    }
+    .interactive-blank {
+      border: none;
       border-bottom: 2.5px solid #0284c7;
       background: #fffbeb;
       color: #b45309;
-      padding: 2px 8px;
-      min-width: 120px;
+      padding: 2px 10px;
+      min-width: 130px;
       display: inline-block;
       font-weight: bold;
       outline: none;
-      border-radius: 4px;
+      border-radius: 4px 4px 0 0;
       line-height: 1.4;
       font-family: inherit;
       font-size: 17pt;
+      cursor: text;
+      transition: all 0.2s ease;
     }
-    .inline-blank:empty::before {
-      content: attr(placeholder);
+    .interactive-blank:focus {
+      background: #fef3c7;
+      border-bottom-color: #ea580c;
+      box-shadow: 0 2px 6px rgba(234, 88, 12, 0.2);
+    }
+    .interactive-blank:empty::before {
+      content: attr(data-placeholder);
       color: #94a3b8;
       font-weight: normal;
+    }
+    .blank-hint-btn {
+      background: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      color: #0369a1;
+      border-radius: 6px;
+      padding: 1px 7px;
+      font-size: 11pt;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .blank-hint-btn:hover {
+      background: #0284c7;
+      color: #fff;
     }
 
     /* ================= 作業合成與預覽樣式 ================= */
@@ -940,8 +1095,9 @@
       .top-bar, nav.nav-tabs, .floating-sidebar-toolbar,
       .paint-controls-bar, #topBarExpandPill, .no-print,
       .identity-modal-overlay, .qr-modal-overlay,
-      .magnifier-modal-overlay, .version-switch-row,
-      .timer-stamp-box, .speak-btn {
+      .magnifier-modal-overlay, .blackboard-modal-overlay,
+      .version-switch-row, .timer-stamp-box, .speak-btn,
+      .page-footer-nav, .blank-hint-btn {
         display: none !important;
       }
       .tab-pane { display: block !important; page-break-after: always; }
@@ -968,6 +1124,7 @@
 
     <div class="header-right">
       <button class="tool-btn warm" id="identityBtn" onclick="openIdentityModal()">👤 身分：未選擇</button>
+      <button class="tool-btn green" onclick="openContactBookModal()">📋 班級聯絡簿</button>
       <button class="tool-btn primary" onclick="openQrModal()">📱 學習單 QR Code</button>
       <button class="tool-btn" onclick="stopAllSpeech()" title="停止所有語音朗讀">⏹️ 停止朗讀</button>
       <button class="tool-btn collapse-btn" onclick="toggleTopBar()" title="收合上方功能列以擴大閱讀空間">🔼 收合功能列</button>
@@ -1005,13 +1162,13 @@
           📢 <strong>請先閱讀以下資訊，並依據以下題意要求完成一篇文章。</strong>
         </div>
 
-        <!-- 原始題目圖檔預覽與放大檢視 -->
+        <!-- 原始出題圖檔檢視（已更新為純圖表版） -->
         <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:18px; margin-bottom:20px; text-align:center;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-            <span style="font-weight:bold; color:#0369a1; font-size:16pt;">📸 原始出題圖表引導單檢視</span>
+            <span style="font-weight:bold; color:#0369a1; font-size:16pt;">📸 原始出題圖表引導單檢視（純圖表版）</span>
             <button class="tool-btn" onclick="viewPromptImageModal()">🔍 點擊放大查看清晰出題圖檔</button>
           </div>
-          <img src="115上B3 一段作文題目.jpg" alt="115上B3 一段作文題目" style="max-width:100%; max-height:480px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.1); cursor:pointer;" onclick="viewPromptImageModal()" onerror="this.style.display='none';">
+          <img src="115上B3 一段作文題目 純圖表.jpg" alt="115上B3 一段作文題目 純圖表" style="max-width:100%; max-height:480px; border-radius:8px; box-shadow:0 4px 14px rgba(0,0,0,0.1); cursor:pointer;" onclick="viewPromptImageModal()" onerror="this.src='115上B3 一段作文題目.jpg';">
         </div>
 
         <!-- 逐字完整排版之引導說明 -->
@@ -1037,6 +1194,11 @@
               <li>🚫 <strong>※ 不可使用詩歌體</strong>（請依起、承、轉、合撰寫記敘兼抒情與論述之四段散文式結構）</li>
             </ul>
           </div>
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1118,9 +1280,7 @@
             <div class="pie-wrap">
               <!-- SVG 圓餅圖 -->
               <svg width="190" height="190" viewBox="0 0 100 100" style="transform:rotate(-90deg); border-radius:50%;">
-                <!-- 感到自在 32% (灰色/淺綠) -->
                 <circle cx="50" cy="50" r="40" fill="transparent" stroke="#cbd5e1" stroke-width="40" stroke-dasharray="251.2" stroke-dashoffset="0"></circle>
-                <!-- 感到焦慮 FOMO 68% (深藍/紅色) -->
                 <circle cx="50" cy="50" r="40" fill="transparent" stroke="#0284c7" stroke-width="40" stroke-dasharray="251.2" stroke-dashoffset="80.38"></circle>
               </svg>
 
@@ -1216,6 +1376,11 @@
           <div class="teacher-ans-banner">
             🔑 老師參考答案：因為習慣隨時接收最新推播，害怕錯過同學的話題被孤立，大腦習慣了手機刺激，一旦安靜下來便會感到無聊與失去安全感。
           </div>
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1416,6 +1581,11 @@
             </div>
           </div>
         </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
+        </div>
       </div>
     </section>
 
@@ -1484,6 +1654,11 @@
             </div>
           </div>
         </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
+        </div>
       </div>
     </section>
 
@@ -1535,10 +1710,16 @@
             <span class="choice-opt" onclick="pickChoice('p1_b2', '息息相關', this)">息息相關</span>
           </span>
           ）的一部分。根據圖表調查，現代青少年的生活充滿了數位活動，其中最多人花時間在
-          <span class="inline-blank" contenteditable="true" id="p1_blank_act" placeholder="社群瀏覽與短影音" oninput="saveInput('p1_blank_act', this.innerText); updateFullEssay();">社群瀏覽與短影音</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p1_blank_act" data-placeholder="點此打字..." oninput="handleBlankInput('p1_blank_act')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p1_blank_act', '社群瀏覽與短影音')">💡 秀答案</button>
+          </span>
           上。<br>
           更值得注意的是，當離開手機超過一小時，有高達
-          <span class="inline-blank" contenteditable="true" id="p1_blank_pct" placeholder="68" oninput="saveInput('p1_blank_pct', this.innerText); updateFullEssay();">68</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p1_blank_pct" data-placeholder="數值..." oninput="handleBlankInput('p1_blank_pct')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p1_blank_pct', '68')">💡 秀答案</button>
+          </span>
           %的人會感到焦慮。這種害怕錯過訊息的（
           <span class="choice-group" data-id="p1_b3">
             <span class="choice-opt" onclick="pickChoice('p1_b3', '集體現象', this)">集體現象</span> /
@@ -1550,9 +1731,15 @@
         <!-- 進階版鷹架 -->
         <div class="scaffold-box hidden" id="scaffold_p1_adv">
           <span style="color:#64748b; font-weight:bold;">□□</span> 身處於資訊爆炸的數位時代，手機宛如青少年的另一個器官。觀察當代青少年的數位生活數據可以發現，
-          <span class="inline-blank" contenteditable="true" id="p1_adv_act1" placeholder="社群瀏覽" oninput="saveInput('p1_adv_act1', this.innerText); updateFullEssay();">社群瀏覽</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p1_adv_act1" data-placeholder="活動一..." oninput="handleBlankInput('p1_adv_act1')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p1_adv_act1', '社群瀏覽')">💡 秀答案</button>
+          </span>
           與
-          <span class="inline-blank" contenteditable="true" id="p1_adv_act2" placeholder="短影音" oninput="saveInput('p1_adv_act2', this.innerText); updateFullEssay();">短影音</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p1_adv_act2" data-placeholder="活動二..." oninput="handleBlankInput('p1_adv_act2')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p1_adv_act2', '短影音')">💡 秀答案</button>
+          </span>
           佔據了我們絕大部分的空閒時間。然而，令人擔憂的是，高達六成八的受訪者在斷網一小時後，會產生強烈的（
           <span class="choice-group" data-id="p1_adv1">
             <span class="choice-opt" onclick="pickChoice('p1_adv1', '焦慮感', this)">焦慮感</span> /
@@ -1564,6 +1751,11 @@
             <span class="choice-opt" onclick="pickChoice('p1_adv2', '不知不覺地', this)">不知不覺地</span>
           </span>
           ）侵蝕著我們對生活的主導權。
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1606,7 +1798,10 @@
         <!-- 基礎版鷹架 -->
         <div class="scaffold-box" id="scaffold_p2_base">
           <span style="color:#64748b; font-weight:bold;">□□</span> 回想我自己使用手機的習慣，我最常在上面
-          <span class="inline-blank" contenteditable="true" id="p2_blank_act" placeholder="看搞笑短影音、和同學傳訊息聊天" oninput="saveInput('p2_blank_act', this.innerText); updateFullEssay();">看搞笑短影音、和同學傳訊息聊天</span>。
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p2_blank_act" data-placeholder="寫出具體行為..." oninput="handleBlankInput('p2_blank_act')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p2_blank_act', '看搞笑短影音、和同學傳訊息聊天')">💡 秀答案</button>
+          </span>。
           每次只要一有空檔，我就會（
           <span class="choice-group" data-id="p2_b1">
             <span class="choice-opt" onclick="pickChoice('p2_b1', '不自覺地', this)">不自覺地</span> /
@@ -1628,7 +1823,10 @@
             <span class="choice-opt" onclick="pickChoice('p2_b4', '悄悄地', this)">悄悄地</span>
           </span>
           ）就過了兩三個小時，直到
-          <span class="inline-blank" contenteditable="true" id="p2_blank_stop" placeholder="眼睛痠痛無比、被爸媽大聲責備" oninput="saveInput('p2_blank_stop', this.innerText); updateFullEssay();">眼睛痠痛無比、被爸媽大聲責備</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p2_blank_stop" data-placeholder="放下手機的契機..." oninput="handleBlankInput('p2_blank_stop')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p2_blank_stop', '眼睛痠痛無比、被爸媽大聲責備')">💡 秀答案</button>
+          </span>
           才放下手機。
         </div>
 
@@ -1640,7 +1838,15 @@
             <span class="choice-opt" onclick="pickChoice('p2_adv1', '欲罷不能', this)">欲罷不能</span>
           </span>
           ）。手指在螢幕上輕輕一滑，幾個小時的光陰便悄悄流逝，回過神來，留下的往往是
-          <span class="inline-blank" contenteditable="true" id="p2_adv_regret" placeholder="熬夜後的疲憊與消磨時光後的懊悔" oninput="saveInput('p2_adv_regret', this.innerText); updateFullEssay();">熬夜後的疲憊與消磨時光後的懊悔</span>。
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p2_adv_regret" data-placeholder="內心感受..." oninput="handleBlankInput('p2_adv_regret')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p2_adv_regret', '熬夜後的疲憊與消磨時光後的懊悔')">💡 秀答案</button>
+          </span>。
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1683,7 +1889,10 @@
         <!-- 基礎版鷹架 -->
         <div class="scaffold-box" id="scaffold_p3_base">
           <span style="color:#64748b; font-weight:bold;">□□</span> 但是，當我因為
-          <span class="inline-blank" contenteditable="true" id="p3_blank_reason" placeholder="準備段考手機被沒收" oninput="saveInput('p3_blank_reason', this.innerText); updateFullEssay();">準備段考手機被沒收</span>
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p3_blank_reason" data-placeholder="寫出原因..." oninput="handleBlankInput('p3_blank_reason')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p3_blank_reason', '準備段考被沒收手機')">💡 秀答案</button>
+          </span>
           而不能滑手機的時候，我的心裡會覺得非常（
           <span class="choice-group" data-id="p3_b1">
             <span class="choice-opt" onclick="pickChoice('p3_b1', '焦躁不安', this)">焦躁不安</span> /
@@ -1715,6 +1924,11 @@
             <span class="choice-opt" onclick="pickChoice('p3_adv2', '害怕錯過', this)">害怕錯過</span>
           </span>
           ）的情緒，正是典型的「社群恐慌症」(FOMO)，它讓我意識到自己已經陷入了被動制約的泥沼。
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1757,7 +1971,10 @@
         <!-- 基礎版鷹架 -->
         <div class="scaffold-box" id="scaffold_p4_base">
           <span style="color:#64748b; font-weight:bold;">□□</span> 經過這次的反思，我意識到不能再這樣下去了。以後當我放下手機時，我可以試著去
-          <span class="inline-blank" contenteditable="true" id="p4_blank_action" placeholder="去球場打球流汗、專心看一本小說、和家人散步" oninput="saveInput('p4_blank_action', this.innerText); updateFullEssay();">去球場打球流汗、專心看一本小說、和家人散步</span>，
+          <span class="blank-slot-container">
+            <span class="interactive-blank" contenteditable="true" id="p4_blank_action" data-placeholder="具體替代行動..." oninput="handleBlankInput('p4_blank_action')"></span>
+            <button class="blank-hint-btn" onclick="revealBlankAnswer('p4_blank_action', '去球場打球流汗、專心看一本小說、和家人散步')">💡 秀答案</button>
+          </span>，
           開始我的（
           <span class="choice-group" data-id="p4_b1">
             <span class="choice-opt" onclick="pickChoice('p4_b1', '數位斷捨離', this)">數位斷捨離</span> /
@@ -1789,6 +2006,11 @@
             <span class="choice-opt" onclick="pickChoice('p4_adv2', '一點一滴', this)">一點一滴</span>
           </span>
           ）的改變，我能重新奪回生活的「自主」權，擁抱更真實且美好的現實世界。
+        </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
       </div>
     </section>
@@ -1861,6 +2083,11 @@
             </div>
           </div>
         </div>
+
+        <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
+        <div class="page-footer-nav no-print">
+          <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
+        </div>
       </div>
     </section>
 
@@ -1868,12 +2095,14 @@
 
   <!-- ================= 規範 2: 畫面右側常置多功能輔助工具列 ================= -->
   <aside class="floating-sidebar-toolbar no-print">
+    <button class="sidebar-tool-btn" onclick="openContactBookModal()" title="📋 班級聯絡簿">📋</button>
     <button class="sidebar-tool-btn" onclick="readSelectedText()" title="🔊 報讀選取文字">🔊</button>
     <button class="sidebar-tool-btn" onclick="togglePaintOverlay()" title="✏️ 畫筆塗鴉">✏️</button>
     <button class="sidebar-tool-btn" onclick="highlightSelectedText()" title="🖍️ 螢光筆圈記">🖍️</button>
     <button class="sidebar-tool-btn" onclick="openMagnifierModal()" title="🔍 放大鏡檢視">🔍</button>
     <button class="sidebar-tool-btn" onclick="toggleColorPalette()" title="🎨 反白變色">🎨</button>
     <button class="sidebar-tool-btn" onclick="clearAllMarksAndDrawings()" title="🧹 清除標記畫跡">🧹</button>
+    <button class="sidebar-tool-btn" onclick="scrollToPageTop()" title="🔝 回到頂端">🔝</button>
   </aside>
 
   <!-- 反白文字顏色切換盤 -->
@@ -1906,12 +2135,66 @@
 
   <!-- 原題目圖檔放大 Modal -->
   <div class="magnifier-modal-overlay" id="promptImgModal" onclick="closePromptImgModal()">
-    <div class="magnifier-box" style="max-width:880px;" onclick="event.stopPropagation()">
+    <div class="magnifier-box" style="max-width:920px;" onclick="event.stopPropagation()">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="color:#0369a1; font-size:20pt;">📸 115上B3 一段作文題目與引導清晰大圖</h3>
+        <h3 style="color:#0369a1; font-size:20pt;">📸 115上B3 一段作文題目 純圖表 清晰大圖</h3>
         <button class="tool-btn" onclick="closePromptImgModal()">✕ 關閉</button>
       </div>
-      <img src="115上B3 一段作文題目.jpg" alt="115上B3 一段作文題目" style="width:100%; border-radius:10px; max-height:80vh; object-fit:contain;">
+      <img src="115上B3 一段作文題目 純圖表.jpg" alt="115上B3 一段作文題目 純圖表" style="width:100%; border-radius:10px; max-height:80vh; object-fit:contain;" onerror="this.src='115上B3 一段作文題目.jpg';">
+    </div>
+  </div>
+
+  <!-- ================= 規範: 2欄3列黑板風格聯絡簿 Modal ================= -->
+  <div class="blackboard-modal-overlay" id="contactBookModal" onclick="closeContactBookModal()">
+    <div class="blackboard-frame" onclick="event.stopPropagation()">
+      <div class="blackboard-surface">
+        <div class="blackboard-header">
+          <div class="blackboard-title">
+            <span>📋 課堂黑板聯絡簿</span>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="tool-btn" style="background:#fef08a; color:#854d0e; font-size:13pt;" onclick="resetContactBookForNewDay()">🔄 換新日期</button>
+            <button class="tool-btn primary" style="font-size:13pt;" onclick="saveContactBookManual()">💾 儲存</button>
+            <button class="tool-btn" style="background:#334155; color:#fff; font-size:13pt;" onclick="closeContactBookModal()">✕ 關閉</button>
+          </div>
+        </div>
+
+        <!-- 2欄 3列 黑板表格 -->
+        <table class="blackboard-table">
+          <tbody>
+            <!-- 第 1 列：日期 -->
+            <tr>
+              <th>📅 日　期</th>
+              <td>
+                <div class="bb-date-box">
+                  <input type="text" class="bb-input bb-date-text" id="bbDateInput" oninput="saveContactBookAuto()" placeholder="115年10月16日(五)">
+                  <button class="tool-btn" style="font-size:12pt; padding:3px 10px; background:rgba(255,255,255,0.15); color:#fef08a; border:1px solid rgba(255,255,255,0.4);" onclick="applyTodayROCDate()">🗓️ 帶入今日</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- 第 2 列：上課 -->
+            <tr>
+              <th>📖 上　課</th>
+              <td>
+                <textarea class="bb-input" id="bbLessonInput" rows="3" placeholder="請在此打字輸入今日上課進度、重點提示..." oninput="saveContactBookAuto()"></textarea>
+              </td>
+            </tr>
+
+            <!-- 第 3 列：作業 -->
+            <tr>
+              <th>✍️ 作　業</th>
+              <td>
+                <textarea class="bb-input" id="bbHomeworkInput" rows="3" placeholder="請在此打字輸入今日聯絡簿作業（例如：完成第一段至第四段作文抄寫）..." oninput="saveContactBookAuto()"></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="font-size:13pt; color:rgba(255,255,255,0.7); text-align:right;">
+          💡 提示：輸入內容會自動儲存於瀏覽器，跨頁面或重新整理皆會保留，直到換日期才會重整。
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1994,10 +2277,14 @@
         if (saved !== null) el.value = saved;
       });
 
-      // 4. 恢復行內填空
-      document.querySelectorAll('.inline-blank').forEach(el => {
-        const saved = localStorage.getItem('input_' + el.id);
-        if (saved !== null) el.innerText = saved;
+      // 4. 恢復無選項的互動填空 (預設為空白，若有使用者先前輸入則載入)
+      document.querySelectorAll('.interactive-blank').forEach(el => {
+        const saved = localStorage.getItem('blank_' + el.id);
+        if (saved !== null && saved !== '') {
+          el.innerText = saved;
+        } else {
+          el.innerText = ''; // 規範：預設留空
+        }
       });
 
       // 5. 恢復勾選狀態
@@ -2008,12 +2295,20 @@
         }
       });
 
-      // 6. 更新全文草稿
+      // 6. 初始化黑板聯絡簿
+      initContactBook();
+
+      // 7. 更新全文草稿
       updateFullEssay();
 
-      // 7. 初始化畫布
+      // 8. 初始化畫布
       initCanvas();
     });
+
+    // ================= 規範: 一鍵回到頁面頂端 =================
+    function scrollToPageTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     // ================= 分頁切換 =================
     function switchTab(tabId, btn) {
@@ -2063,11 +2358,102 @@
       }
     }
 
-    // ================= QR Code 視窗 =================
+    // ================= QR Code 與圖片視窗 =================
     function openQrModal() { document.getElementById('qrModal').style.display = 'flex'; }
     function closeQrModal() { document.getElementById('qrModal').style.display = 'none'; }
     function viewPromptImageModal() { document.getElementById('promptImgModal').style.display = 'flex'; }
     function closePromptImgModal() { document.getElementById('promptImgModal').style.display = 'none'; }
+
+    // ================= 規範: 2欄3列黑板聯絡簿邏輯 =================
+    function getTodayROCDateString() {
+      const d = new Date();
+      const rocYear = d.getFullYear() - 1911;
+      const month = d.getMonth() + 1;
+      const date = d.getDate();
+      const days = ['日', '一', '二', '三', '四', '五', '六'];
+      const dayName = days[d.getDay()];
+      return `${rocYear}年${month}月${date}日(${dayName})`;
+    }
+
+    function initContactBook() {
+      const todayStr = getTodayROCDateString();
+      const savedDate = localStorage.getItem('bb_date');
+      const dateInput = document.getElementById('bbDateInput');
+      const lessonInput = document.getElementById('bbLessonInput');
+      const homeworkInput = document.getElementById('bbHomeworkInput');
+
+      if (!savedDate) {
+        // 第一次使用
+        dateInput.value = todayStr;
+        localStorage.setItem('bb_date', todayStr);
+      } else if (savedDate !== todayStr) {
+        // 換日期：自動帶入新日期，並允許使用者保留或更新
+        dateInput.value = todayStr;
+        localStorage.setItem('bb_date', todayStr);
+        // 若日期變更，清空前日或保留
+        lessonInput.value = localStorage.getItem('bb_lesson') || '';
+        homeworkInput.value = localStorage.getItem('bb_homework') || '';
+      } else {
+        // 當日延續
+        dateInput.value = savedDate;
+        lessonInput.value = localStorage.getItem('bb_lesson') || '';
+        homeworkInput.value = localStorage.getItem('bb_homework') || '';
+      }
+    }
+
+    function openContactBookModal() {
+      document.getElementById('contactBookModal').style.display = 'flex';
+    }
+    function closeContactBookModal() {
+      document.getElementById('contactBookModal').style.display = 'none';
+    }
+    function applyTodayROCDate() {
+      const todayStr = getTodayROCDateString();
+      document.getElementById('bbDateInput').value = todayStr;
+      saveContactBookAuto();
+      speakText('已帶入今日民國日期：' + todayStr);
+    }
+    function saveContactBookAuto() {
+      const d = document.getElementById('bbDateInput').value;
+      const l = document.getElementById('bbLessonInput').value;
+      const h = document.getElementById('bbHomeworkInput').value;
+      localStorage.setItem('bb_date', d);
+      localStorage.setItem('bb_lesson', l);
+      localStorage.setItem('bb_homework', h);
+    }
+    function saveContactBookManual() {
+      saveContactBookAuto();
+      alert('💾 聯絡簿內容已成功儲存！');
+    }
+    function resetContactBookForNewDay() {
+      if (confirm('確定要換新日期並清空上課與作業內容嗎？')) {
+        applyTodayROCDate();
+        document.getElementById('bbLessonInput').value = '';
+        document.getElementById('bbHomeworkInput').value = '';
+        saveContactBookAuto();
+        alert('🔄 已開闢新的一天聯絡簿！');
+      }
+    }
+
+    // ================= 規範: 無詞語選項空格（預設空白、點選秀答案、可手動刪改） =================
+    function handleBlankInput(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.innerText.trim();
+      localStorage.setItem('blank_' + id, text);
+      updateFullEssay();
+    }
+
+    function revealBlankAnswer(id, ansText) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.innerText = ansText;
+      localStorage.setItem('blank_' + id, ansText);
+      updateFullEssay();
+      speakText(ansText);
+      // 聚焦並允許立即編輯
+      el.focus();
+    }
 
     // ================= 詞語二選一圈選 =================
     function pickChoice(groupId, val, el) {
@@ -2141,12 +2527,10 @@
       const st = timerState[pNum];
 
       if (st.interval) {
-        // 暫停
         clearInterval(st.interval);
         st.interval = null;
         btn.innerText = '▶️ 繼續計時';
       } else {
-        // 開始
         st.startTime = Date.now() - st.elapsed;
         st.interval = setInterval(() => {
           st.elapsed = Date.now() - st.startTime;
@@ -2171,7 +2555,6 @@
         pills[slotIdx - 1].style.background = '#86efac';
         pills[slotIdx - 1].style.color = '#14532d';
       }
-      // 重置當前碼錶
       if (st.interval) clearInterval(st.interval);
       st.interval = null;
       st.elapsed = 0;
@@ -2181,6 +2564,11 @@
     }
 
     // ================= 動態組合全文草稿 =================
+    function getBlankVal(id, defaultHint) {
+      const t = document.getElementById(id)?.innerText?.trim();
+      return t ? `<span class="hl-blank">${t}</span>` : `<span class="hl-blank" style="color:#94a3b8; border-bottom:1px dashed #cbd5e1;">[${defaultHint}]</span>`;
+    }
+
     function updateFullEssay() {
       // 標題
       const title = document.getElementById('customEssayTitle')?.value || '當我們嘗試「數位斷捨離」';
@@ -2190,18 +2578,18 @@
       // 第一段
       let p1 = '';
       if (selectedVersion[1] === 'base') {
-        const c1 = selectedChoices['p1_b1'] || '資訊爆炸';
-        const c2 = selectedChoices['p1_b2'] || '不可或缺';
-        const act = document.getElementById('p1_blank_act')?.innerText || '社群瀏覽與短影音';
-        const pct = document.getElementById('p1_blank_pct')?.innerText || '68';
-        const c3 = selectedChoices['p1_b3'] || '集體現象';
-        p1 = `在這個<span class="hl-choice">${c1}</span>的時代，手機已經成為生活中<span class="hl-choice">${c2}</span>的一部分。根據圖表調查，現代青少年的生活充滿了數位活動，其中最多人花時間在<span class="hl-blank">${act}</span>上。更值得注意的是，當離開手機超過一小時，有高達<span class="hl-blank">${pct}</span>%的人會感到焦慮。這種害怕錯過訊息的<span class="hl-choice">${c3}</span>，就是圖表中所說的「FOMO」。`;
+        const c1 = selectedChoices['p1_b1'] ? `<span class="hl-choice">${selectedChoices['p1_b1']}</span>` : '資訊爆炸';
+        const c2 = selectedChoices['p1_b2'] ? `<span class="hl-choice">${selectedChoices['p1_b2']}</span>` : '不可或缺';
+        const act = getBlankVal('p1_blank_act', '數位活動');
+        const pct = getBlankVal('p1_blank_pct', '比例');
+        const c3 = selectedChoices['p1_b3'] ? `<span class="hl-choice">${selectedChoices['p1_b3']}</span>` : '集體現象';
+        p1 = `在這個${c1}的時代，手機已經成為生活中${c2}的一部分。根據圖表調查，現代青少年的生活充滿了數位活動，其中最多人花時間在${act}上。更值得注意的是，當離開手機超過一小時，有高達${pct}%的人會感到焦慮。這種害怕錯過訊息的${c3}，就是圖表中所說的「FOMO」。`;
       } else {
-        const act1 = document.getElementById('p1_adv_act1')?.innerText || '社群瀏覽';
-        const act2 = document.getElementById('p1_adv_act2')?.innerText || '短影音';
-        const c1 = selectedChoices['p1_adv1'] || '焦慮感';
-        const c2 = selectedChoices['p1_adv2'] || '潛移默化地';
-        p1 = `身處於資訊爆炸的數位時代，手機宛如青少年的另一個器官。觀察當代青少年的數位生活數據可以發現，<span class="hl-blank">${act1}</span>與<span class="hl-blank">${act2}</span>佔據了我們絕大部分的空閒時間。然而，令人擔憂的是，高達六成八的受訪者在斷網一小時後，會產生強烈的<span class="hl-choice">${c1}</span>。這種被稱為「FOMO」（社群恐慌症）的集體焦慮現象，正<span class="hl-choice">${c2}</span>侵蝕著我們對生活的主導權。`;
+        const act1 = getBlankVal('p1_adv_act1', '活動一');
+        const act2 = getBlankVal('p1_adv_act2', '活動二');
+        const c1 = selectedChoices['p1_adv1'] ? `<span class="hl-choice">${selectedChoices['p1_adv1']}</span>` : '焦慮感';
+        const c2 = selectedChoices['p1_adv2'] ? `<span class="hl-choice">${selectedChoices['p1_adv2']}</span>` : '潛移默化地';
+        p1 = `身處於資訊爆炸的數位時代，手機宛如青少年的另一個器官。觀察當代青少年的數位生活數據可以發現，${act1}與${act2}佔據了我們絕大部分的空閒時間。然而，令人擔憂的是，高達六成八的受訪者在斷網一小時後，會產生強烈的${c1}。這種被稱為「FOMO」（社群恐慌症）的集體焦慮現象，正${c2}侵蝕著我們對生活的主導權。`;
       }
       const elP1 = document.getElementById('essay_p1_text');
       if (elP1) elP1.innerHTML = p1;
@@ -2209,17 +2597,17 @@
       // 第二段
       let p2 = '';
       if (selectedVersion[2] === 'base') {
-        const act = document.getElementById('p2_blank_act')?.innerText || '看搞笑短影音、和同學傳訊息';
-        const c1 = selectedChoices['p2_b1'] || '不自覺地';
-        const c2 = selectedChoices['p2_b2'] || '五光十色';
-        const c3 = selectedChoices['p2_b3'] || '流連忘返';
-        const c4 = selectedChoices['p2_b4'] || '不知不覺';
-        const stop = document.getElementById('p2_blank_stop')?.innerText || '眼睛痠痛、被爸媽責備';
-        p2 = `回想我自己使用手機的習慣，我最常在上面<span class="hl-blank">${act}</span>。每次只要一有空檔，我就會<span class="hl-choice">${c1}</span>拿起手機。螢幕裡那些<span class="hl-choice">${c2}</span>的內容實在太吸引人了，常常讓我<span class="hl-choice">${c3}</span>。結果，時間<span class="hl-choice">${c4}</span>就過了兩三個小時，直到<span class="hl-blank">${stop}</span>才放下手機。`;
+        const act = getBlankVal('p2_blank_act', '具體使用行為');
+        const c1 = selectedChoices['p2_b1'] ? `<span class="hl-choice">${selectedChoices['p2_b1']}</span>` : '不自覺地';
+        const c2 = selectedChoices['p2_b2'] ? `<span class="hl-choice">${selectedChoices['p2_b2']}</span>` : '五光十色';
+        const c3 = selectedChoices['p2_b3'] ? `<span class="hl-choice">${selectedChoices['p2_b3']}</span>` : '流連忘返';
+        const c4 = selectedChoices['p2_b4'] ? `<span class="hl-choice">${selectedChoices['p2_b4']}</span>` : '不知不覺';
+        const stop = getBlankVal('p2_blank_stop', '放下手機契機');
+        p2 = `回想我自己使用手機的習慣，我最常在上面${act}。每次只要一有空檔，我就會${c1}拿起手機。螢幕裡那些${c2}的內容實在太吸引人了，常常讓我${c3}。結果，時間${c4}就過了兩三個小時，直到${stop}才放下手機。`;
       } else {
-        const c1 = selectedChoices['p2_adv1'] || '沉溺其中';
-        const regret = document.getElementById('p2_adv_regret')?.innerText || '熬夜後的疲憊與消磨時光後的懊悔';
-        p2 = `捫心自問，我自己也是這群高度依賴手機的青少年之一。平時，我習慣透過手機來打發零碎的時間。螢幕裡的世界五光十色，演算法總是能精準推送我感興趣的內容，讓我<span class="hl-choice">${c1}</span>。手指在螢幕上輕輕一滑，幾個小時的光陰便悄悄流逝，回過神來，留下的往往是<span class="hl-blank">${regret}</span>。`;
+        const c1 = selectedChoices['p2_adv1'] ? `<span class="hl-choice">${selectedChoices['p2_adv1']}</span>` : '沉溺其中';
+        const regret = getBlankVal('p2_adv_regret', '內心感受');
+        p2 = `捫心自問，我自己也是這群高度依賴手機的青少年之一。平時，我習慣透過手機來打發零碎的時間。螢幕裡的世界五光十色，演算法總是能精準推送我感興趣的內容，讓我${c1}。手指在螢幕上輕輕一滑，幾個小時的光陰便悄悄流逝，回過神來，留下的往往是${regret}。`;
       }
       const elP2 = document.getElementById('essay_p2_text');
       if (elP2) elP2.innerHTML = p2;
@@ -2227,15 +2615,15 @@
       // 第三段
       let p3 = '';
       if (selectedVersion[3] === 'base') {
-        const reason = document.getElementById('p3_blank_reason')?.innerText || '準備段考被沒收手機';
-        const c1 = selectedChoices['p3_b1'] || '焦躁不安';
-        const c2 = selectedChoices['p3_b2'] || '患得患失';
-        const c3 = selectedChoices['p3_b3'] || '制約';
-        p3 = `但是，當我因為<span class="hl-blank">${reason}</span>而不能滑手機的時候，我的心裡會覺得非常<span class="hl-choice">${c1}</span>。我會一直忍不住去想：朋友群組是不是在聊什麼有趣的事？我害怕自己因為沒看到訊息，隔天去學校會跟不上大家的話題。這種<span class="hl-choice">${c2}</span>的心情，真的讓我很不好受，原來這就是被手機<span class="hl-choice">${c3}</span>的感覺。`;
+        const reason = getBlankVal('p3_blank_reason', '不能滑手機的原因');
+        const c1 = selectedChoices['p3_b1'] ? `<span class="hl-choice">${selectedChoices['p3_b1']}</span>` : '焦躁不安';
+        const c2 = selectedChoices['p3_b2'] ? `<span class="hl-choice">${selectedChoices['p3_b2']}</span>` : '患得患失';
+        const c3 = selectedChoices['p3_b3'] ? `<span class="hl-choice">${selectedChoices['p3_b3']}</span>` : '制約';
+        p3 = `但是，當我因為${reason}而不能滑手機的時候，我的心裡會覺得非常${c1}。我會一直忍不住去想：朋友群組是不是在聊什麼有趣的事？我害怕自己因為沒看到訊息，隔天去學校會跟不上大家的話題。這種${c2}的心情，真的讓我很不好受，原來這就是被手機${c3}的感覺。`;
       } else {
-        const c1 = selectedChoices['p3_adv1'] || '坐立難安';
-        const c2 = selectedChoices['p3_adv2'] || '害怕錯過';
-        p3 = `然而，當我被迫放下手機時，一股<span class="hl-choice">${c1}</span>的感覺就會難以抑制地湧上心頭。每當想像著朋友們正在網路上熱烈討論某個話題，我便會感到一種莫名的「失落」與焦慮。我害怕自己被朋友圈遺忘，害怕跟不上最新的流行資訊。這種<span class="hl-choice">${c2}</span>的情緒，正是典型的「社群恐慌症」(FOMO)，它讓我意識到自己已經陷入了被動制約的泥沼。`;
+        const c1 = selectedChoices['p3_adv1'] ? `<span class="hl-choice">${selectedChoices['p3_adv1']}</span>` : '坐立難安';
+        const c2 = selectedChoices['p3_adv2'] ? `<span class="hl-choice">${selectedChoices['p3_adv2']}</span>` : '害怕錯過';
+        p3 = `然而，當我被迫放下手機時，一股${c1}的感覺就會難以抑制地湧上心頭。每當想像著朋友們正在網路上熱烈討論某個話題，我便會感到一種莫名的「失落」與焦慮。我害怕自己被朋友圈遺忘，害怕跟不上最新的流行資訊。這種${c2}的情緒，正是典型的「社群恐慌症」(FOMO)，它讓我意識到自己已經陷入了被動制約的泥沼。`;
       }
       const elP3 = document.getElementById('essay_p3_text');
       if (elP3) elP3.innerHTML = p3;
@@ -2243,15 +2631,15 @@
       // 第四段
       let p4 = '';
       if (selectedVersion[4] === 'base') {
-        const action = document.getElementById('p4_blank_action')?.innerText || '去球場打球流汗、專心看小說';
-        const c1 = selectedChoices['p4_b1'] || '數位斷捨離';
-        const c2 = selectedChoices['p4_b2'] || '找回平衡';
-        const c3 = selectedChoices['p4_b3'] || '充實';
-        p4 = `經過這次的反思，我意識到不能再這樣下去了。以後當我放下手機時，我可以試著去<span class="hl-blank">${action}</span>，開始我的<span class="hl-choice">${c1}</span>。雖然一開始可能會很不習慣，但我相信只要慢慢練習，一定能減少對手機的依賴。希望未來的我，能<span class="hl-choice">${c2}</span>，讓每一天過得更<span class="hl-choice">${c3}</span>。`;
+        const action = getBlankVal('p4_blank_action', '替代行動');
+        const c1 = selectedChoices['p4_b1'] ? `<span class="hl-choice">${selectedChoices['p4_b1']}</span>` : '數位斷捨離';
+        const c2 = selectedChoices['p4_b2'] ? `<span class="hl-choice">${selectedChoices['p4_b2']}</span>` : '找回平衡';
+        const c3 = selectedChoices['p4_b3'] ? `<span class="hl-choice">${selectedChoices['p4_b3']}</span>` : '充實';
+        p4 = `經過這次的反思，我意識到不能再這樣下去了。以後當我放下手機時，我可以試著去${action}，開始我的${c1}。雖然一開始可能會很不習慣，但我相信只要慢慢練習，一定能減少對手機的依賴。希望未來的我，能${c2}，讓每一天過得更${c3}。`;
       } else {
-        const c1 = selectedChoices['p4_adv1'] || '真實交流';
-        const c2 = selectedChoices['p4_adv2'] || '循序漸進';
-        p4 = `為了不讓自己繼續被 FOMO 綁架，我期許未來能更妥善地管控螢幕時間，練習在生活中適度地「留白」。當手機螢幕暗下，我會試著專注於眼前的課業，或是與家人進行<span class="hl-choice">${c1}</span>。我相信，放下虛擬世界的包袱，不僅能提升學習的「高效」，更能讓我找回心靈的平靜。期待透過這些<span class="hl-choice">${c2}</span>的改變，我能重新奪回生活的「自主」權，擁抱更真實且美好的現實世界。`;
+        const c1 = selectedChoices['p4_adv1'] ? `<span class="hl-choice">${selectedChoices['p4_adv1']}</span>` : '真實交流';
+        const c2 = selectedChoices['p4_adv2'] ? `<span class="hl-choice">${selectedChoices['p4_adv2']}</span>` : '循序漸進';
+        p4 = `為了不讓自己繼續被 FOMO 綁架，我期許未來能更妥善地管控螢幕時間，練習在生活中適度地「留白」。當手機螢幕暗下，我會試著專注於眼前的課業，或是與家人進行${c1}。我相信，放下虛擬世界的包袱，不僅能提升學習的「高效」，更能讓我找回心靈的平靜。期待透過這些${c2}的改變，我能重新奪回生活的「自主」權，擁抱更真實且美好的現實世界。`;
       }
       const elP4 = document.getElementById('essay_p4_text');
       if (elP4) elP4.innerHTML = p4;
