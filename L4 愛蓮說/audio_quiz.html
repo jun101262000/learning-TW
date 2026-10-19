@@ -503,6 +503,7 @@
 
   <script>
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbzwl3JxERkgNwFLArnZu_qaGTPQipovewZgzeBbJ4Tpntb18vn512eWM5qqvdMqSbE1bQ/exec";
+    const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycby21tP2-07N7x51r3m732R3n5I8b_2n_g-H3G3N1rR0_yP6tX1d7L-p-rU3s_B9v-0-/exec";
     let activeWebhookUrl = localStorage.getItem('l4_webhook_url') || DEFAULT_GAS_URL;
     let currentUserSeat = localStorage.getItem('l4_user_seat') || '01';
     let isTeacher = (currentUserSeat === 'test.');
@@ -514,75 +515,129 @@
 
     const letters = ['A', 'B', 'C', 'D'];
     const QUIZ_DATA = [
+      // === 第一大題：基礎文意與字詞理解（5 題） ===
       {
         id: "q1",
-        q: "1. 課文中「出淤泥而不染」一句，主要在象徵君子的哪一種美好品德？",
-        opts: ["胸懷坦蕩，不結黨營私", "潔身自愛，不同流合汙", "溫文儒雅，待人謙沖和藹", "剛毅果決，臨危不亂"],
+        section: "第一大題：基礎文意與寫作手法測驗（第 1～5 題）",
+        q: "1. 課文中「出淤泥而不染，濯清漣而不妖」主要象徵君子的哪一種美好品德？",
+        opts: [
+          "才華洋溢，能言善道且擅長社交",
+          "潔身自愛、不同流合汙，且莊重不媚俗",
+          "生性節儉，不追求物質享受",
+          "剛毅果決，面對強權臨危不亂"
+        ],
         ans: 1,
-        hint: "「淤泥」比喻混濁惡劣世俗，「不染」象徵潔身自好、不同流合汙。"
+        hint: "「淤泥」比喻混濁惡劣的環境，「不染」象徵潔身自愛不同流合汙；「不妖」象徵端莊不妖媚討好世俗。"
       },
       {
         id: "q2",
-        q: "2. 周敦頤在〈愛蓮說〉中以三種花卉象徵三種人格典型，下列配對何者完全正確？",
-        opts: ["菊─富貴者；牡丹─隱逸者；蓮─君子", "菊─隱逸者；牡丹─君子；蓮─富貴者", "菊─隱逸者；牡丹─富貴者；蓮─君子", "菊─君子；牡丹─隱逸者；蓮─富貴者"],
+        q: "2. 周敦頤在〈愛蓮說〉中以三種花象徵三種人格典型，下列配對何者完全正確？",
+        opts: [
+          "菊─富貴者；牡丹─隱逸者；蓮─君子",
+          "菊─隱逸者；牡丹─君子；蓮─富貴者",
+          "菊─隱逸者；牡丹─富貴者；蓮─君子",
+          "菊─君子；牡丹─隱逸者；蓮─富貴者"
+        ],
         ans: 2,
-        hint: "菊象徵隱逸者，牡丹象徵富貴者，蓮象徵君子。"
+        hint: "文中明言：「菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。」"
       },
       {
         id: "q3",
-        q: "3. 「中通外直，不蔓不枝」描摹蓮花外觀梗幹特徵，其借喻之意涵為何？",
-        opts: ["君子才華洋溢，能言善道", "君子生性節儉，知足常樂", "君子內心通達正直，不攀附權貴逢迎黨羽", "君子好學深思，博古通今"],
-        ans: 2,
-        hint: "中通比喻通達豁達，外直比喻正直不阿，不蔓不枝比喻不結黨營私。"
+        q: "3. 「中通外直，不蔓不枝」描摹蓮花花梗中空外直、不生枝蔓，其象徵的君子品格為何？",
+        opts: [
+          "內心通達豁達、行為正直無私，且不攀附權貴結黨營私",
+          "說話直率毫不留情面，喜歡獨來獨往",
+          "博古通今，能迅速吸收各種新知識",
+          "體格強健，做事效率極高"
+        ],
+        ans: 0,
+        hint: "「中通」比喻內心通達明理，「外直」比喻行為方正，「不蔓不枝」比喻不攀附權貴、不結黨營私。"
       },
       {
         id: "q4",
-        q: "4. 文末「牡丹之愛，宜乎眾矣！」作者運用感嘆語氣，背後深層的寫作意圖是什麼？",
-        opts: ["熱情讚揚大唐盛世人民生活富裕繁華", "鼓勵大家多到洛陽觀賞雍容華貴的牡丹", "委婉諷刺世人大多追求名利富貴，缺乏高尚操守", "抱怨牡丹花價格過於昂貴導致百姓負擔沉重"],
+        q: "4. 下列關於課文字音與字義的說明，何者完全正確？",
+        opts: [
+          "「噫」！（音ㄧ，嘆詞，同「醫」）",
+          "陶後「鮮」有聞（音ㄒㄧㄢ，新鮮）",
+          "可愛者甚「蕃」（音ㄈㄢˊ，眾多）",
+          "不可「褻」玩焉（音ㄓˊ，親近）"
+        ],
         ans: 2,
-        hint: "看似陳述事實，實則委婉批評世俗多爭名逐利。"
+        hint: "A「噫」音同「意」（ㄧˋ）；B「鮮」讀ㄒㄧㄢˇ（少）；D「褻」讀ㄒㄧㄝˋ（輕慢戲弄）；C「蕃」讀ㄈㄢˊ（眾多）正確。"
       },
       {
         id: "q5",
-        q: "5. 下列文句中的「鮮」字，何者的字音與「陶後鮮有聞」的「鮮」字相同？",
-        opts: ["鮮花盛開，滿園芬芳", "這家餐廳的「海鮮」非常美味", "這種罕見的情形在歷史上「鮮為人知」", "他的繪畫色彩特別「鮮明」生動"],
-        ans: 2,
-        hint: "陶後鮮有聞讀 ㄒㄧㄢˇ（少），「鮮為人知」亦讀 ㄒㄧㄢˇ。"
+        q: "5. 文末「噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！」主要透過何種寫作手法抒發感嘆？",
+        opts: [
+          "以菊花（正襯）與牡丹（反襯）映襯蓮花，委婉諷刺世人多追逐富貴名利，感嘆知音難覓",
+          "以誇飾手法讚美唐代洛陽牡丹花海的壯觀景象",
+          "以層遞手法說明種植蓮花的經濟價值高於菊花與牡丹",
+          "用激烈痛罵的語氣指責陶淵明逃避現實社會"
+        ],
+        ans: 0,
+        hint: "作者以菊正襯、牡丹反襯，委婉感嘆世人多貪慕富貴，而能堅守道德理想的君子極少。"
       },
+      // === 第二大題：素養導向情境題（5 題） ===
       {
         id: "q6",
-        q: "6. 關於本文寫作手法的分析，下列敘述何者錯誤？",
-        opts: ["本文全文僅 119 字，是一篇精簡有力的詠物言志「說」體散文", "以陶淵明獨愛菊作為正面陪襯，突顯蓮花積極入世而不染污泥的可貴", "以世人盛愛牡丹作為反襯，批判流俗崇尚富貴的名利心態", "作者嚴厲用言詞痛罵世人，語氣尖銳激烈毫不留情面"],
-        ans: 3,
-        hint: "作者筆調委婉含蓄、微言大義（光風霽月），並非尖銳痛罵。"
+        section: "第二大題：核心素養與生活情境題（第 6～10 題，共 5 題）",
+        q: "6. 【素養題‧校園同儕情境】班上最近流行在群組裡嘲笑某位同學的穿著，許多人為了合群也跟著附和起鬨。若小君想實踐〈愛蓮說〉中「出淤泥而不染」的君子精神，下列哪種做法最恰當？",
+        opts: [
+          "跟著大家一起留言嘲笑，才不會被排擠",
+          "堅守善意與尊重，不參與霸凌起鬨，私下關心該名同學",
+          "為了保持清高，直接退出所有班級群組並拒絕上學",
+          "把群組對話截圖傳給外校朋友一起看熱鬧"
+        ],
+        ans: 1,
+        hint: "「出淤泥而不染」代表身處不良風氣中仍能堅守道德原則、不同流合汙，同時積極行善而非消極逃避。"
       },
       {
         id: "q7",
-        q: "7. 「可遠觀而不可褻玩焉」一句所展現出的君子形象是：",
-        opts: ["孤芳自賞，高傲得不理睬他人", "端莊方正、人格高尚，令人肅然起敬而不敢輕慢", "防衛心極重，不願意與同儕親近互動", "體弱多病，需要眾人細心呵護照顧"],
-        ans: 1,
-        hint: "描繪君子的人格崇高純潔，讓人敬佩尊重，不敢以輕浮態度戲弄。"
+        q: "7. 【素養題‧社群媒體思辨】現代網路世界常有網紅為了博取流量與抖內（贊助），不惜製造假新聞或誇張低俗的表演。若用〈愛蓮說〉的觀點剖析，這種「為求名利而刻意討好迎合大眾」的行為，最違反蓮花的哪一項特質？",
+        opts: [
+          "濯清漣而不妖（端莊自持，不妖媚逢迎世俗）",
+          "水陸草木之花，可愛者甚蕃（萬物繁多）",
+          "晉陶淵明獨愛菊（隱居山林）",
+          "可遠觀而不可褻玩焉（保持社交距離）"
+        ],
+        ans: 0,
+        hint: "「濯清漣而不妖」象徵君子端莊純潔，不以妖媚巧言去討好世俗、博取名利。"
       },
       {
         id: "q8",
-        q: "8. 下列關於「菊」與「蓮」在作者心目中境界高低的比較，何者最為貼切？",
-        opts: ["菊與蓮完全相同，都是逃避現實的隱居者", "菊花消極避世遠離人群，而蓮花處於混濁世俗卻能堅守高潔節操，更顯難能可貴", "菊花比蓮花更為高貴，因為陶淵明名氣比周敦頤大", "菊花是追逐功名之人，蓮花則是純真孩童"],
+        q: "8. 【素養題‧跨文本對讀】《論語》提到：「君子周而不比，小人比而不周。」（君子公正團結而不勾結營私，小人勾結營私而不公正）。這句話所強調的品德，與〈愛蓮說〉中描寫蓮花的哪個句子最相呼應？",
+        opts: [
+          "香遠益清",
+          "中通外直，不蔓不枝",
+          "亭亭淨植",
+          "可愛者甚蕃"
+        ],
         ans: 1,
-        hint: "菊花象徵消極避世，蓮花象徵處濁世而不染的高尚君子。"
+        hint: "「不蔓不枝」比喻君子獨立自主、正直坦蕩，不拉幫結派、不結黨營私，正與「周而不比」相呼應。"
       },
       {
         id: "q9",
-        q: "9. 下列成語填空，何者用字完全正確？",
-        opts: ["經過老師的提拔，他終於獲得升遷，真是「拔濯人才」", "歹徒在公共場所做出不雅舉動，簡直是「褻讀神明」", "面對山洪暴發的危險，他毫不留意，顯得「漫不經心」", "他年過四十卻已落髮嚴重，真可謂「童山擢擢」"],
+        q: "9. 【素養題‧圖表邏輯判讀】老師在黑板上畫出〈愛蓮說〉三種花的人格光譜表：【甲花：消極避世、獨善其身】、【乙花：身處濁世、潔身自好】、【丙花：追逐名利、隨波逐流】。請問甲、乙、丙依序對應哪三種花？",
+        opts: [
+          "甲：牡丹 ／ 乙：蓮花 ／ 丙：菊花",
+          "甲：蓮花 ／ 乙：菊花 ／ 丙：牡丹",
+          "甲：菊花 ／ 乙：蓮花 ／ 丙：牡丹",
+          "甲：菊花 ／ 乙：牡丹 ／ 丙：蓮花"
+        ],
         ans: 2,
-        hint: "A拔擢；B褻瀆；D童山濯濯；C漫不經心完全正確。"
+        hint: "菊花象徵隱逸者（消極避世）；蓮花象徵君子（處濁世而潔身自好）；牡丹象徵富貴者（追逐名利）。"
       },
       {
         id: "q10",
-        q: "10. 生活情境題：小君在學校身處競爭與同儕攀比的環境中，下列哪一種處事態度最符合周敦頤的「愛蓮」精神？",
-        opts: ["盲目跟風購買昂貴名牌文具以博取關注", "索性拒絕上學，整天躲在家中不出門以示清高", "專注充實自我品格與學識，不隨波逐流，誠懇正直待人", "逢迎討好班上有權勢的同學，拉攏關係獲取利益"],
-        ans: 2,
-        hint: "愛蓮精神即是出淤泥而不染，在世俗中保有健全自我、堅持正道。"
+        q: "10. 【素養題‧現代公民實踐】所謂「香遠益清」，是指蓮花的香氣越傳越遠、越顯清雅，象徵君子「美德遠播，自然感化他人」。下列哪一位現代人物的事蹟最符合「香遠益清」的境界？",
+        opts: [
+          "砸下重金買下全版報紙廣告，高調宣揚自己捐了一百元",
+          "台東菜販陳樹菊女士長年默默省吃儉用捐助偏鄉學童與醫療，善行最終感動國際社會",
+          "在網路上購買大量假帳號按讚，營造高人氣假象",
+          "深居深山從不與人往來，也不關心社會公益"
+        ],
+        ans: 1,
+        hint: "真正的君子不靠浮誇宣傳，而是憑藉踏實深厚的美德自然影響社會，正如蓮花「香遠益清」。"
       }
     ];
 
@@ -634,12 +689,12 @@
     function speakText(text) {
       if (!('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
+      const pronounceable = String(text).replace(/噫/g, '意');
+      const u = new SpeechSynthesisUtterance(pronounceable);
       u.lang = 'zh-TW'; u.rate = 0.85;
       window.speechSynthesis.speak(u);
     }
 
-    const letters = ['A', 'B', 'C', 'D'];
     const hintedQuestions = new Set();
     let currentSelectedLevel = '自主完成';
     let currentLevelDetail = '';
@@ -697,10 +752,17 @@
       const container = document.getElementById('audioQuizContainer');
       let html = '';
       QUIZ_DATA.forEach((q, idx) => {
+        if (q.section) {
+          html += `
+            <div style="background:linear-gradient(90deg, #0284c7, #0369a1); color:#ffffff; padding:10px 18px; border-radius:10px; font-weight:900; font-size:16.5pt; margin:18px 0 12px 0;">
+              📌 ${q.section}
+            </div>
+          `;
+        }
         let optHtml = '';
         q.opts.forEach((opt, oIdx) => {
           optHtml += `
-            <div class="opt-item" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOption('${q.id}', ${oIdx}, this)">
+            <div class="opt-item ${oIdx === q.ans ? 'is-correct' : ''}" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOption('${q.id}', ${oIdx}, this)">
               <span>(${letters[oIdx]}) ${opt}</span>
               <button class="tool-btn" onclick="event.stopPropagation(); speakText('選項${letters[oIdx]}：${opt}')" style="padding:2px 8px; font-size:12pt;">🔊</button>
             </div>
@@ -842,7 +904,7 @@
         attemptCount: `第 ${attemptCount} 次`,
         completionMode: fullCompletionMode,
         userAnswers: userAnswers,
-        moduleTitle: '第4課 愛蓮說 有聲練習卷'
+        moduleTitle: '第4課 愛蓮說 有聲練習卷(5+5素養題)'
       };
 
       // 預選特教輔助層級
@@ -862,33 +924,64 @@
       if (!lastCalculatedResult) return;
       if (scoreSubmitted) return;
 
-      const payload = {
-        seat: lastCalculatedResult.seat,
+      const nowIso = new Date().toISOString();
+      const seatStr = (lastCalculatedResult.seat === 'test.') ? '老師測試' : lastCalculatedResult.seat;
+      const ansDetailStr = Object.entries(lastCalculatedResult.userAnswers || {})
+        .map(([k, v]) => `${k}:${letters[v] !== undefined ? letters[v] : v}`)
+        .join('; ');
+
+      const legacyPayload = {
+        timestamp: nowIso,
+        seat: seatStr,
+        studentSeat: seatStr,
         attemptCount: lastCalculatedResult.attemptCount,
         score: lastCalculatedResult.score,
         totalQuestions: lastCalculatedResult.totalQuestions,
         correctCount: lastCalculatedResult.correctCount,
-        accuracy: lastCalculatedResult.accuracy,
+        accuracy: lastCalculatedResult.accuracy + '%',
+        durationSeconds: lastCalculatedResult.durationSeconds,
         completionMode: lastCalculatedResult.completionMode,
         moduleTitle: lastCalculatedResult.moduleTitle,
-        userAnswers: lastCalculatedResult.userAnswers,
+        answerDetails: ansDetailStr,
+        userAnswers: lastCalculatedResult.userAnswers
+      };
+
+      const centralPayload = {
+        action: 'recordQuizScore',
+        lesson: '115上 第4課 愛蓮說',
+        moduleTitle: lastCalculatedResult.moduleTitle,
+        seat: seatStr,
+        score: lastCalculatedResult.score,
+        accuracy: lastCalculatedResult.accuracy,
+        correctCount: lastCalculatedResult.correctCount,
+        totalQuestions: lastCalculatedResult.totalQuestions,
         durationSeconds: lastCalculatedResult.durationSeconds,
-        timestamp: new Date().toISOString()
+        attemptCount: lastCalculatedResult.attemptCount,
+        completionMode: lastCalculatedResult.completionMode,
+        answerDetails: ansDetailStr,
+        timestamp: nowIso
       };
 
       fetch(activeWebhookUrl, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }).catch(err => console.log('Sync err:', err));
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(legacyPayload)
+      }).catch(err => console.log('Legacy Sync err:', err));
+
+      fetch(MANAGEMENT_API_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(centralPayload)
+      }).catch(err => console.log('Central Sync err:', err));
 
       scoreSubmitted = true;
       attemptCount++;
       localStorage.setItem('l4_attempt_count', attemptCount);
 
       const badge = document.getElementById('submitSuccessBadge');
-      document.getElementById('badgeSeat').innerText = (lastCalculatedResult.seat === 'test.') ? '老師測試' : lastCalculatedResult.seat;
+      document.getElementById('badgeSeat').innerText = seatStr;
       document.getElementById('badgeAcc').innerText = lastCalculatedResult.accuracy + '% ｜ ' + lastCalculatedResult.completionMode;
       if (badge) badge.style.display = 'block';
     }
