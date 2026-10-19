@@ -277,6 +277,102 @@
       margin-top: 10px;
     }
 
+    /* 一圖配合對應句子（15句圖文對照排列） */
+    .sentence-pair-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 14px 0;
+    }
+    .sentence-pair-row {
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 20px;
+      align-items: center;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 16px 20px;
+      transition: all 0.2s ease;
+    }
+    .sentence-pair-row:hover {
+      border-color: #38bdf8;
+      background: #f0f9ff;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.1);
+    }
+    @media (max-width: 780px) {
+      .sentence-pair-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sentence-img-box {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid #bae6fd;
+      border-radius: 12px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      cursor: zoom-in;
+    }
+    .sentence-img-box img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .sentence-img-caption {
+      font-size: 13pt;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 4px 10px;
+      font-weight: bold;
+    }
+    .sentence-text-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sentence-classical-box {
+      background: #ffffff;
+      border: 2px solid #7dd3fc;
+      border-left: 6px solid #0284c7;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      cursor: pointer;
+    }
+    .sentence-classical-text {
+      font-size: 21pt;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.6;
+      letter-spacing: 1px;
+    }
+    .sentence-vernacular-box {
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-left: 6px solid #16a34a;
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      cursor: pointer;
+    }
+    .sentence-vernacular-text {
+      font-size: 18pt;
+      font-weight: bold;
+      color: #14532d;
+      line-height: 1.6;
+    }
+
     /* 3次唸讀計時打卡器 */
     .timer-stamp-box {
       background: #f8fafc;
@@ -1625,17 +1721,89 @@
           </div>
         </div>
 
-        <!-- 段落 1 -->
+        <!-- 段落 1（對應圖 01～03） -->
         <div class="para-card" id="paraCard1">
           <div class="para-header">
-            <span class="para-badge">【第 1 段】總提眾花</span>
-            <button class="tool-btn" onclick="speakText('水陸草木之花，可愛者甚蕃。晉陶淵明獨愛菊，自李唐來，世人盛愛牡丹。')">🔊 朗讀本段</button>
+            <span class="para-badge">【第 1 段】總提眾花（第 1～3 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('水陸草木之花，可愛者甚蕃。晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹。')">🔊 朗讀本段全文</button>
           </div>
-          <div class="para-text">
-            水陸草木之花，可愛者甚蕃。晉陶淵明獨愛菊，自李唐來，世人盛愛牡丹。
+
+          <div class="sentence-pair-list">
+            <!-- 句 1 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s01.jpg', '第 1 句：水陸草木之花，可愛者甚蕃。｜水中、陸上各種草木的花，可愛的很多。')">
+                <img src="assets/images/s01.jpg" alt="1.水中、陸上各種草木的花，可愛的很多">
+                <div class="sentence-img-caption">🖼️ 圖 1（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('水陸草木之花，可愛者甚蕃。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 1 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">水陸草木之花，可愛者甚蕃。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('水陸草木之花，可愛者甚蕃。')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('水中、陸上各種草木的花，可愛的很多。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">水中、陸上各種草木的花，可愛的很多。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('水中、陸上各種草木的花，可愛的很多。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 2 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s02.jpg', '第 2 句：晉陶淵明獨愛菊；｜東晉的陶淵明特別喜愛菊花。')">
+                <img src="assets/images/s02.jpg" alt="2.東晉的陶淵明特別喜愛菊花">
+                <div class="sentence-img-caption">🖼️ 圖 2（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('晉陶淵明獨愛菊；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 2 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">晉陶淵明獨愛菊；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('晉陶淵明獨愛菊')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('東晉的陶淵明特別喜愛菊花。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">東晉的陶淵明特別喜愛菊花；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('東晉的陶淵明特別喜愛菊花。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 3 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s03.jpg', '第 3 句：自李唐來，世人盛愛牡丹；｜自從唐朝以後，大家都喜愛牡丹。')">
+                <img src="assets/images/s03.jpg" alt="3.自從唐朝以後 大家都喜愛牡丹">
+                <div class="sentence-img-caption">🖼️ 圖 3（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('自李唐來，世人盛愛牡丹；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 3 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">自李唐來，世人盛愛牡丹；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('自李唐來，世人盛愛牡丹')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('自從唐朝以後，大家都喜愛牡丹。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">自從唐朝以後，大家都喜愛牡丹；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('自從唐朝以後，大家都喜愛牡丹。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="para-summary">
-            💡 <strong>段意說明：</strong>天地下各種草木的花非常多，晉代陶淵明偏愛菊花，唐代以來的世人則極為喜愛象徵富貴的牡丹花。
+            💡 <strong>第 1 段段意說明：</strong>天地間各種草木的花非常多，晉代陶淵明偏愛菊花（正面陪襯），唐代以來的世人則極為喜愛象徵富貴的牡丹花（反面映襯）。
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -1651,17 +1819,161 @@
           </div>
         </div>
 
-        <!-- 段落 2 -->
+        <!-- 段落 2（對應圖 04～09） -->
         <div class="para-card" id="paraCard2">
           <div class="para-header">
-            <span class="para-badge">【第 2 段】蓮花特質</span>
-            <button class="tool-btn" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖；中通外直，不蔓不枝；香遠益清，亭亭淨植，可遠觀而不可褻玩焉。')">🔊 朗讀本段</button>
+            <span class="para-badge">【第 2 段】蓮花特質（第 4～9 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖，中通外直，不蔓不枝，香遠益清，亭亭淨植，可遠觀而不可褻玩焉。')">🔊 朗讀本段全文</button>
           </div>
-          <div class="para-text">
-            予獨愛蓮之出淤泥而不染，濯清漣而不妖；中通外直，不蔓不枝；香遠益清，亭亭淨植，可遠觀而不可褻玩焉。
+
+          <div class="sentence-pair-list">
+            <!-- 句 4 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s04.jpg', '第 4 句：予獨愛蓮之出淤泥而不染，｜我偏愛蓮花從爛泥裡長出卻不受汙染。')">
+                <img src="assets/images/s04.jpg" alt="4.我偏愛蓮花從爛泥裡長出卻不受汙染">
+                <div class="sentence-img-caption">🖼️ 圖 4（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('予獨愛蓮之出淤泥而不染，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 4 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">予獨愛蓮之出淤泥而不染，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('予獨愛蓮之出淤泥而不染')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('我偏愛蓮花從爛泥裡長出卻不受汙染，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">我偏愛蓮花從爛泥裡長出卻不受汙染，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('我偏愛蓮花從爛泥裡長出卻不受汙染')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 5 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s05.jpg', '第 5 句：濯清漣而不妖，｜生長在清水中卻不妖媚。')">
+                <img src="assets/images/s05.jpg" alt="5.生長在清水中卻不妖媚">
+                <div class="sentence-img-caption">🖼️ 圖 5（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('濯清漣而不妖，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 5 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">濯清漣而不妖，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('濯清漣而不妖')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('生長在清水中卻不妖媚，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">生長在清水中卻不妖媚，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('生長在清水中卻不妖媚')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 6 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s06.jpg', '第 6 句：中通外直，｜花梗中空，外表挺直。')">
+                <img src="assets/images/s06.jpg" alt="6.花梗中空，外表挺直">
+                <div class="sentence-img-caption">🖼️ 圖 6（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('中通外直，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 6 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">中通外直，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('中通外直')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('花梗中空，外表挺直，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">花梗中空，外表挺直，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('花梗中空，外表挺直')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 7 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s07.jpg', '第 7 句：不蔓不枝，｜不蔓延細莖，也不旁生枝條。')">
+                <img src="assets/images/s07.jpg" alt="7.不蔓不枝">
+                <div class="sentence-img-caption">🖼️ 圖 7（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('不蔓不枝，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 7 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">不蔓不枝，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('不蔓不枝')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('不蔓延細莖，也不旁生枝條，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">不蔓延細莖，也不旁生枝條，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('不蔓延細莖，也不旁生枝條')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 8 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s08.jpg', '第 8 句：香遠益清，亭亭淨植，｜蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著。')">
+                <img src="assets/images/s08.jpg" alt="8.蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著">
+                <div class="sentence-img-caption">🖼️ 圖 8（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('香遠益清，亭亭淨植，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 8 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">香遠益清，亭亭淨植，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('香遠益清，亭亭淨植')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著，')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著，</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 9 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s09.jpg', '第 9 句：可遠觀而不可褻玩焉。｜蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。')">
+                <img src="assets/images/s09.jpg" alt="9.蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。">
+                <div class="sentence-img-caption">🖼️ 圖 9（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('可遠觀而不可褻玩焉。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 9 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">可遠觀而不可褻玩焉。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('可遠觀而不可褻玩焉')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="para-summary">
-            💡 <strong>段意說明：</strong>作者唯獨喜愛蓮花：生長在爛泥中卻潔淨不染、在清水裡洗滌卻端莊不妖媚；花梗中空正直、不攀附藤蔓也不生旁枝；香氣清雅遠播、亭亭玉立，令人敬重而不可輕慢褻玩。
+            💡 <strong>第 2 段段意說明：</strong>作者具體描繪蓮花在「生長環境（出淤泥而不染、濯清漣而不妖）」、「花梗（中通外直、不蔓不枝）」、「香氣（香遠益清）」與「整體觀賞感受（亭亭淨植、可遠觀而不可褻玩焉）」四大面向的特質，藉以象徵君子的高潔美德。
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -1677,17 +1989,89 @@
           </div>
         </div>
 
-        <!-- 段落 3 -->
+        <!-- 段落 3（對應圖 10～12） -->
         <div class="para-card" id="paraCard3">
           <div class="para-header">
-            <span class="para-badge">【第 3 段】比花喻人</span>
-            <button class="tool-btn" onclick="speakText('予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。')">🔊 朗讀本段</button>
+            <span class="para-badge">【第 3 段】比花喻人（第 10～12 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。')">🔊 朗讀本段全文</button>
           </div>
-          <div class="para-text">
-            予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。
+
+          <div class="sentence-pair-list">
+            <!-- 句 10 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s10.jpg', '第 10 句：予謂：菊，花之隱逸者也；｜我認為：菊花是花中的隱士。')">
+                <img src="assets/images/s10.jpg" alt="10.我認為：菊花是花中的隱士">
+                <div class="sentence-img-caption">🖼️ 圖 10（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('予謂：菊，花之隱逸者也；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 10 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">予謂：菊，花之隱逸者也；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('予謂：菊，花之隱逸者也')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('我認為：菊花是花中的隱士；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">我認為：菊花是花中的隱士；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('我認為：菊花是花中的隱士')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 11 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s11.jpg', '第 11 句：牡丹，花之富貴者也；｜牡丹是花中的富貴之人。')">
+                <img src="assets/images/s11.jpg" alt="11.牡丹是花中的富貴之人">
+                <div class="sentence-img-caption">🖼️ 圖 11（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('牡丹，花之富貴者也；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 11 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">牡丹，花之富貴者也；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('牡丹，花之富貴者也')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('牡丹是花中的富貴之人；')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">牡丹是花中的富貴之人；</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('牡丹是花中的富貴之人')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 12 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s12.jpg', '第 12 句：蓮，花之君子者也。｜蓮花是花中的君子。')">
+                <img src="assets/images/s12.jpg" alt="12.蓮花是花中的君子。">
+                <div class="sentence-img-caption">🖼️ 圖 12（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('蓮，花之君子者也。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 12 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">蓮，花之君子者也。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('蓮，花之君子者也。')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('蓮花是花中的君子。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">蓮花是花中的君子。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('蓮花是花中的君子。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="para-summary">
-            💡 <strong>段意說明：</strong>將三種花擬人化比喻：菊花是避世隱者，牡丹是追逐名利的富貴之人，蓮花則是品格崇高的君子。
+            💡 <strong>第 3 段段意說明：</strong>將三種花擬人化比喻：菊花是避世的隱士，牡丹是追逐名利的富貴之人，蓮花則是品格崇高的君子（全文主軸）。
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -1703,17 +2087,89 @@
           </div>
         </div>
 
-        <!-- 段落 4 -->
+        <!-- 段落 4（對應圖 13～15） -->
         <div class="para-card" id="paraCard4">
           <div class="para-header">
-            <span class="para-badge">【第 4 段】慨嘆世態</span>
-            <button class="tool-btn" onclick="speakText('噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！')">🔊 朗讀本段</button>
+            <span class="para-badge">【第 4 段】慨嘆世態（第 13～15 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！')">🔊 朗讀本段全文</button>
           </div>
-          <div class="para-text">
-            噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！
+
+          <div class="sentence-pair-list">
+            <!-- 句 13 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s13.jpg', '第 13 句：噫！菊之愛，陶後鮮有聞。｜唉！喜愛菊花的人，陶淵明以後很少聽說過。')">
+                <img src="assets/images/s13.jpg" alt="13.唉！喜愛菊花的人，陶淵明以後很少聽說過。">
+                <div class="sentence-img-caption">🖼️ 圖 13（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('噫！菊之愛，陶後鮮有聞。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 13 句 ‧ 課文原文（點擊朗讀，「噫」音同「意」ㄧˋ）：</span>
+                    <div class="sentence-classical-text">噫！菊之愛，陶後鮮有聞。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('噫！菊之愛，陶後鮮有聞。')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('唉！喜愛菊花的人，陶淵明以後很少聽說過。')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">唉！喜愛菊花的人，陶淵明以後很少聽說過。</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('唉！喜愛菊花的人，陶淵明以後很少聽說過。')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 14 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s14.jpg', '第 14 句：蓮之愛，同予者何人？｜喜愛蓮花的人，像我一樣的還有誰呢？')">
+                <img src="assets/images/s14.jpg" alt="14.蓮之愛 同予者何人">
+                <div class="sentence-img-caption">🖼️ 圖 14（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('蓮之愛，同予者何人？')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 14 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">蓮之愛，同予者何人？</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('蓮之愛，同予者何人？')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('喜愛蓮花的人，像我一樣的還有誰呢？')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">喜愛蓮花的人，像我一樣的還有誰呢？（暗示世上有理想道德的人極少）</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('喜愛蓮花的人，像我一樣的還有誰呢？')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 句 15 -->
+            <div class="sentence-pair-row">
+              <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s15.jpg', '第 15 句：牡丹之愛，宜乎眾矣！｜喜愛牡丹的人，應當很多了！')">
+                <img src="assets/images/s15.jpg" alt="15.喜愛牡丹的人，應當很多了">
+                <div class="sentence-img-caption">🖼️ 圖 15（點擊放大）</div>
+              </div>
+              <div class="sentence-text-col">
+                <div class="sentence-classical-box" onclick="speakText('牡丹之愛，宜乎眾矣！')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#0284c7; display:block;">📖 第 15 句 ‧ 課文原文（點擊朗讀）：</span>
+                    <div class="sentence-classical-text">牡丹之愛，宜乎眾矣！</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('牡丹之愛，宜乎眾矣！')">🔊 原文</button>
+                </div>
+                <div class="sentence-vernacular-box" onclick="speakText('喜愛牡丹的人，應當很多了！')">
+                  <div>
+                    <span style="font-size:13pt; font-weight:bold; color:#15803d; display:block;">🌱 白話語譯（點擊朗讀）：</span>
+                    <div class="sentence-vernacular-text">喜愛牡丹的人，應當很多了！</div>
+                  </div>
+                  <button type="button" class="tool-btn" onclick="event.stopPropagation(); speakText('喜愛牡丹的人，應當很多了！')">🔊 語譯</button>
+                </div>
+              </div>
+            </div>
           </div>
+
           <div class="para-summary">
-            💡 <strong>段意說明：</strong>作者發出感嘆（噫，音同「意」ㄧˋ）：喜愛菊花的隱士，自陶淵明後很少聽說；和我一樣喜愛蓮花的君子，又在哪裡呢？至於追逐富貴名利愛牡丹的人，理所當然是很多了！
+            💡 <strong>第 4 段段意說明：</strong>作者發出感嘆（噫，音同「意」ㄧˋ）：喜愛菊花的隱士，自陶淵明後很少聽說；和我一樣喜愛蓮花的君子，又在哪裡呢？至於追逐富貴名利愛牡丹的人，理所當然是很多了！
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
@@ -4524,13 +4980,43 @@
               <div style="font-weight:900; color:#166534; margin-bottom:4px;">📜 課文原句：</div>
               <div style="color:#1e293b; font-size:1.05rem;">${item.quote}</div>
             </div>
-            <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; padding:14px 18px;">
-              <div style="font-weight:900; color:#9a3412; margin-bottom:4px;">🌱 生活造句：</div>
-              <div style="color:#1e293b; font-size:1.05rem;">${item.example}</div>
+            <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; padding:14px 18px; display:flex; flex-direction:column; gap:10px;">
+              <div>
+                <div style="font-weight:900; color:#9a3412; margin-bottom:4px;">🌱 生活造句與情境圖：</div>
+                <div style="color:#1e293b; font-size:1.05rem;">${item.example}</div>
+              </div>
+              <img src="assets/images/w1_ex_${item.id}.jpg" alt="${item.word}例句圖"
+                   onclick="openSentenceLightbox('assets/images/w1_ex_${item.id}.jpg', '【${item.word}】生活例句情境圖：${item.example}')"
+                   style="max-width:100%; max-height:160px; object-fit:contain; border-radius:10px; border:1.5px solid #fed7aa; background:#fff; cursor:zoom-in; align-self:center;"
+                   onerror="this.style.display='none';">
             </div>
           </div>
         </div>
       `;
+    }
+
+    function openSentenceLightbox(imgSrc, captionText) {
+      let modal = document.getElementById('sentenceImgLightbox');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'sentenceImgLightbox';
+        modal.style.cssText = 'position:fixed; inset:0; background:rgba(15,23,42,0.82); backdrop-filter:blur(4px); z-index:100005; display:flex; align-items:center; justify-content:center; padding:20px;';
+        modal.onclick = () => { modal.style.display = 'none'; };
+        modal.innerHTML = `
+          <div style="background:#ffffff; border:3px solid #38bdf8; border-radius:18px; padding:20px; max-width:900px; width:95%; text-align:center; box-shadow:0 16px 40px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
+            <img id="lightboxImgEl" src="" alt="" style="max-width:100%; max-height:70vh; border-radius:12px; object-fit:contain; border:1.5px solid #cbd5e1;">
+            <div id="lightboxCapEl" style="font-size:18pt; font-weight:900; color:#0369a1; margin:14px 0 10px 0; line-height:1.5;"></div>
+            <div style="display:flex; justify-content:center; gap:12px;">
+              <button type="button" class="tool-btn" onclick="speakText(document.getElementById('lightboxCapEl').innerText)">🔊 朗讀圖說與句子</button>
+              <button type="button" class="tool-btn primary" onclick="document.getElementById('sentenceImgLightbox').style.display='none'">✖ 關閉放大預覽</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      document.getElementById('lightboxImgEl').src = imgSrc;
+      document.getElementById('lightboxCapEl').innerText = captionText || '';
+      modal.style.display = 'flex';
     }
 
     // 詞語二單卡渲染與切換

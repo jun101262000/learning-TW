@@ -1,12 +1,6 @@
 ﻿$srcDir = "C:\Users\user\Documents\115國文電子書\L4 愛蓮說"
-$deployDir = Join-Path $srcDir "deploy_web"
 
-# 1. 本地根目錄檔案同步
-Copy-Item (Join-Path $deployDir "index.html") (Join-Path $srcDir "index.html") -Force
-Copy-Item (Join-Path $deployDir "audio_quiz.html") (Join-Path $srcDir "audio_quiz.html") -Force
-Copy-Item (Join-Path $deployDir "classroom_worksheet.html") (Join-Path $srcDir "classroom_worksheet.html") -Force
-
-# 2. Google 雲端硬碟目錄同步
+# Google 雲端硬碟目錄同步（直接由精簡後的本地根目錄同步，不再重複建立 deploy_web 雙份檔案）
 $gdriveBase = "G:\我的雲端硬碟\新港特教 君\課程與教學\教材庫\國文\115上 第4課 愛蓮說"
 $targetEbook = Join-Path $gdriveBase "電子書"
 $targetAudio = Join-Path $gdriveBase "有聲卷"
@@ -16,23 +10,21 @@ if (-not (Test-Path $targetEbook)) { New-Item -ItemType Directory -Path $targetE
 if (-not (Test-Path $targetAudio)) { New-Item -ItemType Directory -Path $targetAudio -Force | Out-Null }
 if (-not (Test-Path $targetWorksheet)) { New-Item -ItemType Directory -Path $targetWorksheet -Force | Out-Null }
 
-# 複製電子書（含所有靜態資源與 HTML）
-Copy-Item (Join-Path $deployDir "*") $targetEbook -Recurse -Force
+# 1. 複製電子書（index.html、audio_quiz.html、classroom_worksheet.html 與精簡後的 assets/images）
+Copy-Item (Join-Path $srcDir "index.html") $targetEbook -Force
+Copy-Item (Join-Path $srcDir "audio_quiz.html") $targetEbook -Force
+Copy-Item (Join-Path $srcDir "classroom_worksheet.html") $targetEbook -Force
 
-# 複製有聲卷（含 HTML 與 assets）
-Copy-Item (Join-Path $deployDir "audio_quiz.html") $targetAudio -Force
-$assetsDir = Join-Path $deployDir "assets"
-if (Test-Path $assetsDir) {
-    Copy-Item $assetsDir $targetAudio -Recurse -Force
-}
+$targetEbookAssets = Join-Path $targetEbook "assets"
+if (Test-Path $targetEbookAssets) { Remove-Item $targetEbookAssets -Recurse -Force }
+Copy-Item (Join-Path $srcDir "assets") $targetEbook -Recurse -Force
 
-# 複製課堂學習單
-Copy-Item (Join-Path $deployDir "classroom_worksheet.html") $targetWorksheet -Force
+# 2. 複製有聲卷（純文字語音題目，無須重複複製課文圖片）
+$targetAudioAssets = Join-Path $targetAudio "assets"
+if (Test-Path $targetAudioAssets) { Remove-Item $targetAudioAssets -Recurse -Force }
+Copy-Item (Join-Path $srcDir "audio_quiz.html") $targetAudio -Force
 
-# 複製 Google Apps Script 接收端腳本至雲端硬碟
-$gasFile = Join-Path $srcDir "L4愛蓮說評量成果_GoogleAppsScript.js"
-if (Test-Path $gasFile) {
-    Copy-Item $gasFile $gdriveBase -Force
-}
+# 3. 複製課堂學習單
+Copy-Item (Join-Path $srcDir "classroom_worksheet.html") $targetWorksheet -Force
 
-Write-Output "SUCCESS: L4 愛蓮說 all files synchronized successfully to local and Google Drive!"
+Write-Output "SUCCESS: L4 愛蓮說 slimmed files synchronized to Google Drive!"
