@@ -167,8 +167,8 @@
     }
     .p63-opt-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px 16px;
+      grid-template-columns: 1fr;
+      gap: 10px;
       margin-top: 10px;
     }
     @media (max-width: 680px) {
@@ -520,7 +520,13 @@
         <button class="identity-btn" onclick="selectSeat('04', this)">04 號</button>
         <button class="identity-btn" onclick="selectSeat('05', this)">05 號</button>
         <button class="identity-btn" onclick="selectSeat('06', this)">06 號</button>
-        <button class="identity-btn teacher-identity-btn" onclick="selectSeat('test.', this)">👨‍🏫 老師模式</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectTeacherMode('class', this)">👨‍🏫 教師：上課模式（免密碼，送出後才顯示答案）</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectTeacherMode('check', this)" style="background:#fef3c7; color:#92400e; border-color:#f59e0b;">🔑 教師：檢查答案模式（需第一層密碼）</button>
+      </div>
+      <div id="teacherCheckPinBox" style="display:none; background:#fffbeb; border:2px solid #f59e0b; border-radius:12px; padding:14px; margin-bottom:14px; text-align:center;">
+        <div style="font-weight:bold; color:#92400e; margin-bottom:8px; font-size:15pt;">🔒 請輸入第一層教師密碼：</div>
+        <input type="password" id="teacherCheckPinInput" placeholder="輸入第一層密碼..." style="padding:8px 14px; font-size:16pt; border-radius:8px; border:2px solid #cbd5e1; width:200px; text-align:center;" onkeydown="if(event.key==='Enter') confirmIdentityModal()">
+        <div id="teacherCheckPinMsg" style="color:#dc2626; font-size:14pt; font-weight:bold; margin-top:6px;"></div>
       </div>
       <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:16pt;" onclick="confirmIdentityModal()">
         🚀 確認座號，進入學習單！
@@ -609,7 +615,7 @@
         <p>4. 不「蔓」不枝：<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　　）</span><span class="blank-ans">ㄇㄢˋ</span></span></p>
         <p>5. 亭亭淨「<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　）</span><span class="blank-ans">植</span></span>」（ㄓˊ）</p>
         <p>6. 不可「<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　）</span><span class="blank-ans">褻</span></span>」（ㄒㄧㄝˋ）玩焉</p>
-        <p>7. 「噫」！（音同意）：<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　　）</span><span class="blank-ans">ㄧˋ</span></span></p>
+        <p>7. 「噫」！：<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　　）</span><span class="blank-ans">ㄧˋ</span></span></p>
         <p>8. 陶後「鮮」有聞：<span class="blank-slot" onclick="revealSlot(this)"><span class="blank-holder">（　　）</span><span class="blank-ans">ㄒㄧㄢˇ</span></span></p>
       </div>
     </section>
@@ -682,10 +688,13 @@
 
   <script>
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbzwl3JxERkgNwFLArnZu_qaGTPQipovewZgzeBbJ4Tpntb18vn512eWM5qqvdMqSbE1bQ/exec";
-    const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycby21tP2-07N7x51r3m732R3n5I8b_2n_g-H3G3N1rR0_yP6tX1d7L-p-rU3s_B9v-0-/exec";
+    const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycbz55BvjA24C7uR5VN1oRvMGO9NvciNGBGIyrobwjHXhslDlZEMDCAnubqiNNvoBFWUemw/exec";
     let activeWebhookUrl = localStorage.getItem('l4_webhook_url') || DEFAULT_GAS_URL;
     let currentUserSeat = localStorage.getItem('l4_user_seat') || '01';
     let isTeacher = (currentUserSeat === 'test.');
+    let isTeacherCheckMode = (sessionStorage.getItem('l4_teacher_check_mode') === 'true' && currentUserSeat === 'test.');
+    let pendingTeacherModeType = null;
+    let wsGraded = false;
     let attemptCount = parseInt(localStorage.getItem('l4_attempt_count') || '1');
     let allRevealed = false;
     let wsStartTime = Date.now();
@@ -948,14 +957,58 @@
       }
     }
 
-    function openIdentityModal() { document.getElementById('identityModal').style.display = 'flex'; }
+    function openIdentityModal() {
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      if (pinBox) pinBox.style.display = (pendingTeacherModeType === 'check') ? 'block' : 'none';
+      document.getElementById('identityModal').style.display = 'flex';
+    }
     function closeIdentityModal() { document.getElementById('identityModal').style.display = 'none'; }
     function selectSeat(seat, btn) {
       currentUserSeat = seat;
+      pendingTeacherModeType = null;
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      if (pinBox) pinBox.style.display = 'none';
       document.querySelectorAll('.identity-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
     }
-    function confirmIdentityModal() {
+    function selectTeacherMode(modeType, btn) {
+      currentUserSeat = 'test.';
+      pendingTeacherModeType = modeType;
+      document.querySelectorAll('.identity-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      const pinMsg = document.getElementById('teacherCheckPinMsg');
+      if (pinMsg) pinMsg.innerText = '';
+      if (pinBox) pinBox.style.display = (modeType === 'check') ? 'block' : 'none';
+      if (modeType === 'check') setTimeout(() => document.getElementById('teacherCheckPinInput')?.focus(), 50);
+    }
+    async function confirmIdentityModal() {
+      if (currentUserSeat === 'test.' && pendingTeacherModeType === 'check') {
+        const pinInput = document.getElementById('teacherCheckPinInput');
+        const pinMsg = document.getElementById('teacherCheckPinMsg');
+        const pin = pinInput ? pinInput.value.trim() : '';
+        if (!pin) { if (pinMsg) pinMsg.innerText = '⚠️ 請先輸入第一層教師密碼！'; return; }
+        if (pinMsg) { pinMsg.style.color = '#0284c7'; pinMsg.innerText = '⏳ 正在驗證第一層教師密碼...'; }
+        try {
+          const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel1', password: pin }) });
+          const res = await resp.json();
+          if (res && res.status === 'success' && res.verified) {
+            isTeacherCheckMode = true;
+            sessionStorage.setItem('l4_teacher_check_mode', 'true');
+            if (pinInput) pinInput.value = '';
+            if (pinMsg) pinMsg.innerText = '';
+          } else {
+            if (pinMsg) { pinMsg.style.color = '#dc2626'; pinMsg.innerText = '❌ 第一層密碼錯誤，無法進入檢查答案模式！'; }
+            return;
+          }
+        } catch (err) {
+          if (pinMsg) { pinMsg.style.color = '#dc2626'; pinMsg.innerText = '❌ 驗證連線失敗，請檢查網路連線'; }
+          return;
+        }
+      } else {
+        isTeacherCheckMode = false;
+        sessionStorage.removeItem('l4_teacher_check_mode');
+      }
       localStorage.setItem('l4_user_seat', currentUserSeat);
       isTeacher = (currentUserSeat === 'test.');
       initIdentityDisplay();
@@ -963,15 +1016,36 @@
     }
     function initIdentityDisplay() {
       isTeacher = (currentUserSeat === 'test.');
-      document.body.classList.toggle('is-teacher', isTeacher);
+      if (!isTeacher) isTeacherCheckMode = false;
+      // 「is-teacher」class 僅在教師檢查答案模式（通過第一層密碼）時加上，直接顯示所有紅字解答
+      document.body.classList.toggle('is-teacher', isTeacher && isTeacherCheckMode);
+      const btnReveal = document.getElementById('btnRevealAll');
+      if (btnReveal) btnReveal.style.display = (isTeacher && isTeacherCheckMode) ? '' : 'none';
+      if (!(isTeacher && isTeacherCheckMode) && !wsGraded && allRevealed) {
+        allRevealed = false;
+        document.body.classList.remove('all-revealed');
+        document.querySelectorAll('.blank-slot').forEach(el => el.classList.remove('revealed'));
+      }
       const label = document.getElementById('btnCurIdentity');
-      if (label) label.innerText = isTeacher ? '👨‍🏫 老師模式 [切換]' : `👤 座號：${currentUserSeat}號 [切換]`;
+      if (label) {
+        label.innerText = isTeacher
+          ? (isTeacherCheckMode ? '🔑 教師：檢查答案模式 [切換]' : '👨‍🏫 教師：上課模式 [切換]')
+          : `👤 座號：${currentUserSeat}號 [切換]`;
+      }
       const disp = document.getElementById('dispSeatNumber');
-      if (disp) disp.innerText = isTeacher ? '教師版' : currentUserSeat;
+      if (disp) disp.innerText = isTeacher ? (isTeacherCheckMode ? '教師版' : '測試') : currentUserSeat;
     }
 
-    function revealSlot(el) { el.classList.toggle('revealed'); }
+    // 單格翻牌：僅限教師檢查答案模式或已送出檢核後
+    function revealSlot(el) {
+      if (!isTeacherCheckMode && !wsGraded) return;
+      el.classList.toggle('revealed');
+    }
     function toggleRevealAll() {
+      if (!isTeacherCheckMode) {
+        alert('🔒 「一鍵揭曉解答」僅限教師檢查答案模式使用（需輸入第一層密碼）。');
+        return;
+      }
       allRevealed = !allRevealed;
       document.body.classList.toggle('all-revealed', allRevealed);
       document.querySelectorAll('.blank-slot').forEach(el => {
@@ -993,10 +1067,15 @@
           missing.push(`蓮品與人品第 ${idx + 1} 格（${r.quote}）`);
         }
       });
-      if (missing.length > 0) {
+      if (missing.length > 0 && !isTeacherCheckMode) {
         alert('⚠️ 還有題目尚未作答完成：\n' + missing.join('、') + '\n請完成後再點擊檢核！');
         return;
       }
+
+      // 送出檢核後才顯示紅字解答
+      wsGraded = true;
+      allRevealed = true;
+      document.body.classList.add('all-revealed');
 
       let correctCount = 0;
       const total = WS_P63_QUESTIONS.length + WS_LOTUS_ROWS.length; // 12
@@ -1129,7 +1208,13 @@
       wsLotusAnswers = {};
       activeWsLotusId = 'p64_r1';
       wsStartTime = Date.now();
+      wsGraded = false;
+      allRevealed = false;
+      document.body.classList.remove('all-revealed');
+      const btnReveal = document.getElementById('btnRevealAll');
+      if (btnReveal) btnReveal.innerText = '👁️ 一鍵揭曉紅字解答';
       renderWorksheetContent();
+      document.querySelectorAll('.blank-slot').forEach(el => el.classList.remove('revealed'));
       document.getElementById('wsResultPanel').style.display = 'none';
       document.getElementById('wsSubmitBadge').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1146,12 +1231,25 @@
     }
 
     function initSpeech() { if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => {}; }
-    function speakText(t) {
-      if (!('speechSynthesis' in window)) return;
+    function speakText(t, onEndCallback) {
+      if (!('speechSynthesis' in window) || !t) {
+        if (typeof onEndCallback === 'function') onEndCallback();
+        return;
+      }
       window.speechSynthesis.cancel();
-      const pronounceable = String(t).replace(/噫/g, '意');
+      const pronounceable = String(t)
+        .replace(/（\s*）|\(\s*\)|（　　）|（　）/g, '空格')
+        .replace(/蕃/g, '繁')
+        .replace(/阿諛/g, '婀諛')
+        .replace(/聲名遠播/g, '聲名遠擘')
+        .replace(/播/g, '擘')
+        .replace(/噫/g, '意');
       const u = new SpeechSynthesisUtterance(pronounceable);
       u.lang = 'zh-TW'; u.rate = 0.85;
+      if (typeof onEndCallback === 'function') {
+        u.onend = () => { onEndCallback(); };
+        u.onerror = () => { onEndCallback(); };
+      }
       window.speechSynthesis.speak(u);
     }
 

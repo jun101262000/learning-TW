@@ -154,7 +154,7 @@
     }
     .opt-container {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 10px;
     }
     @media (max-width: 650px) {
@@ -175,10 +175,12 @@
     .opt-item:hover { background: #f1f5f9; border-color: #94a3b8; }
     .opt-item.selected { background: #e0f2fe; border-color: #0284c7; color: #0369a1; font-weight: bold; }
 
-    /* 老師解答模式標籤 */
+    /* 老師解答模式標籤（僅在教師檢查答案模式或送出檢核後顯示） */
     .teacher-sol-banner { display: none !important; margin-top: 10px; padding: 10px 14px; background: #fef3c7; color: #92400e; border-radius: 8px; font-size: 15pt; border-left: 4px solid #f59e0b; }
-    body.is-teacher .teacher-sol-banner { display: block !important; }
-    body.is-teacher .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+    body.is-teacher-check .teacher-sol-banner,
+    .is-graded-section .teacher-sol-banner { display: block !important; }
+    body.is-teacher-check .opt-item.is-correct,
+    .is-graded-section .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
 
     /* ================= 規範 2: 畫面右側常置工具列 ================= */
     .floating-sidebar-toolbar {
@@ -389,7 +391,7 @@
     </div>
   </div>
 
-  <!-- 身分確認 Modal (老師 + 01~06 學生) -->
+  <!-- 身分確認 Modal (老師上課模式/檢查答案模式 + 01~06 學生) -->
   <div class="identity-modal-overlay" id="identityModal">
     <div class="identity-modal-box">
       <div style="font-size:38px;">👋</div>
@@ -401,9 +403,17 @@
         <button class="identity-btn" onclick="selectSeat('04', this)">04 號</button>
         <button class="identity-btn" onclick="selectSeat('05', this)">05 號</button>
         <button class="identity-btn" onclick="selectSeat('06', this)">06 號</button>
-        <button class="identity-btn teacher-identity-btn" onclick="selectSeat('test.', this)">👨‍🏫 老師模式</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectTeacherMode('class', this)">👨‍🏫 教師：上課模式（免密碼，送出後才顯示答案）</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectTeacherMode('check', this)" style="background:#fef3c7; color:#92400e; border-color:#f59e0b;">🔑 教師：檢查答案模式（需輸入第一層密碼，直接顯示答案）</button>
       </div>
-      <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:16pt;" onclick="confirmIdentityModal()">
+      <div id="teacherCheckPinBox" style="display:none; background:#fffbeb; border:2px solid #f59e0b; border-radius:12px; padding:14px; margin-bottom:14px; text-align:center;">
+        <div style="font-weight:bold; color:#92400e; margin-bottom:8px; font-size:15pt;">🔒 請輸入第一層教師密碼以開啟「檢查答案模式」：</div>
+        <div style="display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap;">
+          <input type="password" id="teacherCheckPinInput" placeholder="輸入第一層密碼..." style="padding:8px 14px; font-size:16pt; border-radius:8px; border:2px solid #cbd5e1; width:200px; text-align:center;" onkeydown="if(event.key==='Enter') confirmIdentityModal()">
+        </div>
+        <div id="teacherCheckPinMsg" style="color:#dc2626; font-size:14pt; font-weight:bold; margin-top:6px;"></div>
+      </div>
+      <button class="tool-btn primary" id="btnConfirmIdentity" style="width:100%; justify-content:center; padding:12px; font-size:16pt;" onclick="confirmIdentityModal()">
         🚀 確認座號，開始測驗！
       </button>
     </div>
@@ -503,10 +513,12 @@
 
   <script>
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbzwl3JxERkgNwFLArnZu_qaGTPQipovewZgzeBbJ4Tpntb18vn512eWM5qqvdMqSbE1bQ/exec";
-    const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycby21tP2-07N7x51r3m732R3n5I8b_2n_g-H3G3N1rR0_yP6tX1d7L-p-rU3s_B9v-0-/exec";
+    const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycbz55BvjA24C7uR5VN1oRvMGO9NvciNGBGIyrobwjHXhslDlZEMDCAnubqiNNvoBFWUemw/exec";
     let activeWebhookUrl = localStorage.getItem('l4_webhook_url') || DEFAULT_GAS_URL;
     let currentUserSeat = localStorage.getItem('l4_user_seat') || '01';
     let isTeacher = (currentUserSeat === 'test.');
+    let isTeacherCheckMode = (sessionStorage.getItem('l4_teacher_check_mode') === 'true' && currentUserSeat === 'test.');
+    let pendingTeacherModeType = null;
     let attemptCount = parseInt(localStorage.getItem('l4_attempt_count') || '1');
     let quizStartTime = Date.now();
     let userAnswers = {};
@@ -514,6 +526,7 @@
     let lastCalculatedResult = null;
 
     const letters = ['A', 'B', 'C', 'D'];
+    // 10 題答案均衡隨機分布：B(1), C(2), A(0), D(3), D(3), A(0), C(2), B(1), D(3), C(2) -> A:2, B:2, C:3, D:3
     const QUIZ_DATA = [
       // === 第一大題：基礎文意與字詞理解（5 題） ===
       {
@@ -559,22 +572,22 @@
         opts: [
           "「噫」！（音ㄧ，嘆詞，同「醫」）",
           "陶後「鮮」有聞（音ㄒㄧㄢ，新鮮）",
-          "可愛者甚「蕃」（音ㄈㄢˊ，眾多）",
-          "不可「褻」玩焉（音ㄓˊ，親近）"
+          "不可「褻」玩焉（音ㄓˊ，親近）",
+          "可愛者甚「蕃」（音ㄈㄢˊ，眾多）"
         ],
-        ans: 2,
-        hint: "A「噫」音同「意」（ㄧˋ）；B「鮮」讀ㄒㄧㄢˇ（少）；D「褻」讀ㄒㄧㄝˋ（輕慢戲弄）；C「蕃」讀ㄈㄢˊ（眾多）正確。"
+        ans: 3,
+        hint: "A「噫」音同「意」（ㄧˋ）；B「鮮」讀ㄒㄧㄢˇ（少）；C「褻」讀ㄒㄧㄝˋ（輕慢戲弄）；D「蕃」讀ㄈㄢˊ（眾多）正確。"
       },
       {
         id: "q5",
         q: "5. 文末「噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！」主要透過何種寫作手法抒發感嘆？",
         opts: [
-          "以菊花（正襯）與牡丹（反襯）映襯蓮花，委婉諷刺世人多追逐富貴名利，感嘆知音難覓",
           "以誇飾手法讚美唐代洛陽牡丹花海的壯觀景象",
           "以層遞手法說明種植蓮花的經濟價值高於菊花與牡丹",
-          "用激烈痛罵的語氣指責陶淵明逃避現實社會"
+          "用激烈痛罵的語氣指責陶淵明逃避現實社會",
+          "以菊花（正襯）與牡丹（反襯）映襯蓮花，委婉諷刺世人多追逐富貴名利，感嘆知音難覓"
         ],
-        ans: 0,
+        ans: 3,
         hint: "作者以菊正襯、牡丹反襯，委婉感嘆世人多貪慕富貴，而能堅守道德理想的君子極少。"
       },
       // === 第二大題：素養導向情境題（5 題） ===
@@ -583,24 +596,24 @@
         section: "第二大題：核心素養與生活情境題（第 6～10 題，共 5 題）",
         q: "6. 【素養題‧校園同儕情境】班上最近流行在群組裡嘲笑某位同學的穿著，許多人為了合群也跟著附和起鬨。若小君想實踐〈愛蓮說〉中「出淤泥而不染」的君子精神，下列哪種做法最恰當？",
         opts: [
-          "跟著大家一起留言嘲笑，才不會被排擠",
           "堅守善意與尊重，不參與霸凌起鬨，私下關心該名同學",
+          "跟著大家一起留言嘲笑，才不會被排擠",
           "為了保持清高，直接退出所有班級群組並拒絕上學",
           "把群組對話截圖傳給外校朋友一起看熱鬧"
         ],
-        ans: 1,
+        ans: 0,
         hint: "「出淤泥而不染」代表身處不良風氣中仍能堅守道德原則、不同流合汙，同時積極行善而非消極逃避。"
       },
       {
         id: "q7",
         q: "7. 【素養題‧社群媒體思辨】現代網路世界常有網紅為了博取流量與抖內（贊助），不惜製造假新聞或誇張低俗的表演。若用〈愛蓮說〉的觀點剖析，這種「為求名利而刻意討好迎合大眾」的行為，最違反蓮花的哪一項特質？",
         opts: [
-          "濯清漣而不妖（端莊自持，不妖媚逢迎世俗）",
           "水陸草木之花，可愛者甚蕃（萬物繁多）",
           "晉陶淵明獨愛菊（隱居山林）",
+          "濯清漣而不妖（端莊自持，不妖媚逢迎世俗）",
           "可遠觀而不可褻玩焉（保持社交距離）"
         ],
-        ans: 0,
+        ans: 2,
         hint: "「濯清漣而不妖」象徵君子端莊純潔，不以妖媚巧言去討好世俗、博取名利。"
       },
       {
@@ -621,10 +634,10 @@
         opts: [
           "甲：牡丹 ／ 乙：蓮花 ／ 丙：菊花",
           "甲：蓮花 ／ 乙：菊花 ／ 丙：牡丹",
-          "甲：菊花 ／ 乙：蓮花 ／ 丙：牡丹",
-          "甲：菊花 ／ 乙：牡丹 ／ 丙：蓮花"
+          "甲：菊花 ／ 乙：牡丹 ／ 丙：蓮花",
+          "甲：菊花 ／ 乙：蓮花 ／ 丙：牡丹"
         ],
-        ans: 2,
+        ans: 3,
         hint: "菊花象徵隱逸者（消極避世）；蓮花象徵君子（處濁世而潔身自好）；牡丹象徵富貴者（追逐名利）。"
       },
       {
@@ -632,11 +645,11 @@
         q: "10. 【素養題‧現代公民實踐】所謂「香遠益清」，是指蓮花的香氣越傳越遠、越顯清雅，象徵君子「美德遠播，自然感化他人」。下列哪一位現代人物的事蹟最符合「香遠益清」的境界？",
         opts: [
           "砸下重金買下全版報紙廣告，高調宣揚自己捐了一百元",
-          "台東菜販陳樹菊女士長年默默省吃儉用捐助偏鄉學童與醫療，善行最終感動國際社會",
           "在網路上購買大量假帳號按讚，營造高人氣假象",
+          "台東菜販陳樹菊女士長年默默省吃儉用捐助偏鄉學童與醫療，善行最終感動國際社會",
           "深居深山從不與人往來，也不關心社會公益"
         ],
-        ans: 1,
+        ans: 2,
         hint: "真正的君子不靠浮誇宣傳，而是憑藉踏實深厚的美德自然影響社會，正如蓮花「香遠益清」。"
       }
     ];
@@ -662,36 +675,113 @@
       }
     }
 
-    function openIdentityModal() { document.getElementById('identityModal').style.display = 'flex'; }
+    function openIdentityModal() {
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      if (pinBox) pinBox.style.display = (pendingTeacherModeType === 'check') ? 'block' : 'none';
+      document.getElementById('identityModal').style.display = 'flex';
+    }
     function closeIdentityModal() { document.getElementById('identityModal').style.display = 'none'; }
     function selectSeat(seat, btn) {
       currentUserSeat = seat;
+      pendingTeacherModeType = null;
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      if (pinBox) pinBox.style.display = 'none';
       document.querySelectorAll('.identity-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
     }
-    function confirmIdentityModal() {
+    function selectTeacherMode(modeType, btn) {
+      currentUserSeat = 'test.';
+      pendingTeacherModeType = modeType;
+      document.querySelectorAll('.identity-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      const pinMsg = document.getElementById('teacherCheckPinMsg');
+      if (pinMsg) pinMsg.innerText = '';
+      if (modeType === 'check') {
+        if (pinBox) pinBox.style.display = 'block';
+        setTimeout(() => document.getElementById('teacherCheckPinInput')?.focus(), 50);
+      } else {
+        if (pinBox) pinBox.style.display = 'none';
+      }
+    }
+    async function confirmIdentityModal() {
+      if (currentUserSeat === 'test.' && pendingTeacherModeType === 'check') {
+        const pinInput = document.getElementById('teacherCheckPinInput');
+        const pinMsg = document.getElementById('teacherCheckPinMsg');
+        const btnConfirm = document.getElementById('btnConfirmIdentity');
+        const pin = pinInput ? pinInput.value.trim() : '';
+        if (!pin) {
+          if (pinMsg) pinMsg.innerText = '⚠️ 請先輸入第一層教師密碼！';
+          return;
+        }
+        if (pinMsg) { pinMsg.style.color = '#0284c7'; pinMsg.innerText = '⏳ 正在驗證第一層教師密碼...'; }
+        if (btnConfirm) btnConfirm.disabled = true;
+        try {
+          const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel1', password: pin }) });
+          const res = await resp.json();
+          if (btnConfirm) btnConfirm.disabled = false;
+          if (res && res.status === 'success' && res.verified) {
+            isTeacherCheckMode = true;
+            sessionStorage.setItem('l4_teacher_check_mode', 'true');
+            if (pinInput) pinInput.value = '';
+            if (pinMsg) pinMsg.innerText = '';
+          } else {
+            if (pinMsg) { pinMsg.style.color = '#dc2626'; pinMsg.innerText = '❌ 第一層密碼錯誤，無法進入檢查答案模式！'; }
+            return;
+          }
+        } catch (err) {
+          if (btnConfirm) btnConfirm.disabled = false;
+          if (pinMsg) { pinMsg.style.color = '#dc2626'; pinMsg.innerText = '❌ 驗證連線失敗，請檢查網路連線'; }
+          return;
+        }
+      } else {
+        isTeacherCheckMode = false;
+        sessionStorage.removeItem('l4_teacher_check_mode');
+      }
       localStorage.setItem('l4_user_seat', currentUserSeat);
       isTeacher = (currentUserSeat === 'test.');
       initIdentityDisplay();
       closeIdentityModal();
-      speakText('已確認為' + (isTeacher ? '老師模式' : currentUserSeat + '號') + '，請開始作答！');
+      const modeName = isTeacher
+        ? (isTeacherCheckMode ? '教師檢查答案模式' : '教師上課模式')
+        : (currentUserSeat + '號');
+      speakText('已確認為' + modeName + '，請開始作答！');
     }
     function initIdentityDisplay() {
       isTeacher = (currentUserSeat === 'test.');
+      if (!isTeacher) isTeacherCheckMode = false;
       document.body.classList.toggle('is-teacher', isTeacher);
+      document.body.classList.toggle('is-teacher-check', isTeacher && isTeacherCheckMode);
       const label = document.getElementById('btnCurIdentity');
-      if (label) label.innerText = isTeacher ? '👨‍🏫 老師模式 [切換]' : `👤 座號：${currentUserSeat}號 [切換]`;
+      if (label) {
+        label.innerText = isTeacher
+          ? (isTeacherCheckMode ? '🔑 教師：檢查答案模式 [切換]' : '👨‍🏫 教師：上課模式 [切換]')
+          : `👤 座號：${currentUserSeat}號 [切換]`;
+      }
       const disp = document.getElementById('dispSeatNumber');
       if (disp) disp.innerText = isTeacher ? '測試' : currentUserSeat;
     }
 
     function initSpeech() { if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => {}; }
-    function speakText(text) {
-      if (!('speechSynthesis' in window)) return;
+    function speakText(text, onEndCallback) {
+      if (!('speechSynthesis' in window) || !text) {
+        if (typeof onEndCallback === 'function') onEndCallback();
+        return;
+      }
       window.speechSynthesis.cancel();
-      const pronounceable = String(text).replace(/噫/g, '意');
+      const pronounceable = String(text)
+        .replace(/（\s*）|\(\s*\)|（　　）|（　）/g, '空格')
+        .replace(/蕃/g, '繁')
+        .replace(/阿諛/g, '婀諛')
+        .replace(/聲名遠播/g, '聲名遠擘')
+        .replace(/播/g, '擘')
+        .replace(/噫/g, '意');
       const u = new SpeechSynthesisUtterance(pronounceable);
       u.lang = 'zh-TW'; u.rate = 0.85;
+      if (typeof onEndCallback === 'function') {
+        u.onend = () => { onEndCallback(); };
+        u.onerror = () => { onEndCallback(); };
+      }
       window.speechSynthesis.speak(u);
     }
 
@@ -806,10 +896,12 @@
       QUIZ_DATA.forEach((q, idx) => {
         if (userAnswers[q.id] === undefined) unanswered.push(idx + 1);
       });
-      if (unanswered.length > 0) {
+      if (unanswered.length > 0 && !isTeacherCheckMode) {
         alert(`⚠️ 還有題目尚未作答完成：第 ${unanswered.join('、')} 題\n請完成所有題目後再點擊檢核！`);
         return;
       }
+
+      document.getElementById('audioQuizContainer')?.classList.add('is-graded-section');
 
       let correctCount = 0;
       const reviewDetails = [];
@@ -990,6 +1082,7 @@
       sendRecordToGoogleSheet();
       userAnswers = {};
       hintedQuestions.clear();
+      document.getElementById('audioQuizContainer')?.classList.remove('is-graded-section');
       document.querySelectorAll('.quiz-hint-card').forEach(c => c.style.display = 'none');
       document.querySelectorAll('.q-item .tool-btn').forEach(b => {
         if (b.innerText === '💡 隱藏提示') {

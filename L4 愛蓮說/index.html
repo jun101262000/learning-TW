@@ -583,10 +583,18 @@
       border-color: #bfdbfe;
     }
 
-    /* 老師模式下的解答標註 (學生模式隱藏) */
-    .teacher-ans-banner { display: none !important; margin-top: 10px; padding: 10px 16px; background: #fef3c7; color: #92400e; border-radius: 8px; font-size: 16pt; border-left: 5px solid #f59e0b; }
-    body.is-teacher .teacher-ans-banner { display: block !important; }
-    body.is-teacher .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+    /* 答案顯示原則：僅「教師檢查答案模式(已驗證第一層密碼)」或「該單元已送出檢核後(.is-graded-section)」才顯示答案；上課模式與學生模式作答中一律隱藏 */
+    .teacher-ans-banner,
+    .teacher-answer-tag { display: none !important; }
+    .teacher-ans-banner { margin-top: 10px; padding: 10px 16px; background: #fef3c7; color: #92400e; border-radius: 8px; font-size: 16pt; border-left: 5px solid #f59e0b; }
+    body.is-teacher-check .teacher-ans-banner,
+    body.is-teacher-check .teacher-answer-tag,
+    .is-graded-section .teacher-ans-banner,
+    .is-graded-section .teacher-answer-tag { display: block !important; }
+    body.is-teacher-check .opt-item.is-correct,
+    .is-graded-section .opt-item.is-correct { border: 2.5px solid #10b981 !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+    body.is-teacher-check .quiz-opt-btn.is-correct-opt,
+    .is-graded-section .quiz-opt-btn.is-correct-opt { border: 2.5px solid #16a34a !important; background: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
 
     /* ================= 規範 6, 7, 8: 評量區與結果畫面 ================= */
     .quiz-card {
@@ -604,7 +612,7 @@
     }
     .quiz-opt-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 12px;
     }
     @media (max-width: 680px) {
@@ -1084,6 +1092,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
     .unit-opt-btn {
+      width: 100%;
       background: #ffffff;
       color: #1e293b;
       border: 2px solid #cbd5e1;
@@ -1119,9 +1128,10 @@
       border-color: #dc2626 !important;
       color: #991b1b !important;
     }
-    body.is-teacher .unit-opt-btn[data-correct="true"] {
+    body.is-teacher-check .unit-opt-btn[data-correct="true"] {
       border: 2.5px solid #10b981 !important;
       background: #ecfdf5 !important;
+      color: #065f46 !important;
     }
     /* 課文影片RWD容器 */
     .video-wrapper {
@@ -1176,55 +1186,83 @@
       border-color: #b45309 !important;
       box-shadow: 0 3px 10px rgba(217, 119, 6, 0.3);
     }
-    /* 大千注音小鍵盤樣式 */
+    /* 大千注音小鍵盤樣式（比照標準電腦鍵盤排列） */
     .zhuyin-keypad-grid {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      background: #e2e8f0;
-      padding: 12px;
-      border-radius: 14px;
-      border: 2px solid #cbd5e1;
-      max-width: 720px;
+      gap: 8px;
+      background: #dbeafe;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 2px solid #93c5fd;
+      max-width: 820px;
       margin: 12px auto 0 auto;
+      box-shadow: inset 0 2px 6px rgba(30, 64, 175, 0.08);
     }
     .zhuyin-key-row {
       display: flex;
       justify-content: center;
       gap: 6px;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+    }
+    @media (max-width: 720px) {
+      .zhuyin-key-row { flex-wrap: wrap; }
     }
     .zy-key-btn {
-      min-width: 48px;
-      height: 48px;
-      padding: 4px 10px;
-      font-size: 18pt;
+      position: relative;
+      min-width: 58px;
+      height: 56px;
+      padding: 6px 10px 4px 10px;
+      font-size: 19pt;
       font-weight: 900;
-      border-radius: 8px;
-      border: 1.5px solid #94a3b8;
+      border-radius: 10px;
+      border: 2px solid #94a3b8;
       background: #ffffff;
       color: #0f172a;
       cursor: pointer;
-      box-shadow: 0 2px 0 #94a3b8;
+      box-shadow: 0 3px 0 #64748b;
       transition: all 0.1s;
       font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
-    .zy-key-btn:active {
-      transform: translateY(2px);
+    .zy-key-btn .key-sub,
+    .zy-key-btn .zy-sub {
+      position: absolute;
+      top: 3px;
+      left: 6px;
+      font-size: 9.5pt;
+      font-weight: 800;
+      color: #64748b;
+      line-height: 1;
+      font-family: monospace;
+    }
+    .zy-key-btn.action { padding-top: 14px; }
+    .zy-key-btn .zy-main { line-height: 1; }
+    .zy-key-btn:hover {
+      background: #f0f9ff;
+      border-color: #0284c7;
+    }
+    .zy-key-btn:active, .zy-key-btn.key-pressed {
+      transform: translateY(3px);
       box-shadow: none;
+      background: #bae6fd;
     }
     .zy-key-btn.tone {
       background: #fef3c7;
       color: #b45309;
       border-color: #f59e0b;
+      box-shadow: 0 3px 0 #d97706;
     }
     .zy-key-btn.action {
       background: #e0f2fe;
       color: #0369a1;
       border-color: #38bdf8;
       font-size: 15pt;
+      padding: 6px 14px;
     }
-    /* 田字格手寫畫布容器 */
+    /* 田字格手寫畫布容器與高顯眼游標 */
     .hw-canvas-wrap {
       position: relative;
       width: 240px;
@@ -1235,6 +1273,23 @@
       overflow: hidden;
       touch-action: none;
       box-shadow: 0 4px 12px rgba(220, 38, 38, 0.12);
+    }
+    .hw-canvas-wrap canvas,
+    #paintCanvasOverlay {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='5' fill='%23ef4444' stroke='%23ffffff' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='12' fill='none' stroke='%23dc2626' stroke-width='2.5' stroke-dasharray='4 3'/%3E%3Cline x1='16' y1='0' x2='16' y2='8' stroke='%23dc2626' stroke-width='2.5'/%3E%3Cline x1='16' y1='24' x2='16' y2='32' stroke='%23dc2626' stroke-width='2.5'/%3E%3Cline x1='0' y1='16' x2='8' y2='16' stroke='%23dc2626' stroke-width='2.5'/%3E%3Cline x1='24' y1='16' x2='32' y2='16' stroke='%23dc2626' stroke-width='2.5'/%3E%3C/svg%3E") 16 16, crosshair !important;
+    }
+    .hw-cursor-dot {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.85);
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 0 0 2px #dc2626, 0 2px 6px rgba(0,0,0,0.35);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      display: none;
     }
     .hw-canvas-wrap::before {
       content: "";
@@ -1268,6 +1323,8 @@
       line-height: 1;
     }
   </style>
+  <!-- 核心資料庫外部化：課文注釋資料庫，老師可直接開啟編輯增刪 -->
+  <script src="assets/lesson_notes_data.js"></script>
 </head>
 <body>
 
@@ -1651,16 +1708,23 @@
       <p style="font-size:14pt; color:#64748b; margin-bottom:14px;">請點選您的作答座號以記錄學習歷程：</p>
       
       <div class="identity-grid">
-        <button class="identity-btn active" onclick="selectSeat('01', this)">01 號</button>
-        <button class="identity-btn" onclick="selectSeat('02', this)">02 號</button>
-        <button class="identity-btn" onclick="selectSeat('03', this)">03 號</button>
-        <button class="identity-btn" onclick="selectSeat('04', this)">04 號</button>
-        <button class="identity-btn" onclick="selectSeat('05', this)">05 號</button>
-        <button class="identity-btn" onclick="selectSeat('06', this)">06 號</button>
-        <button class="identity-btn teacher-identity-btn" onclick="selectSeat('test.', this)">👨‍🏫 老師模式</button>
+        <button class="identity-btn active" onclick="selectSeat('01', this, 'student')">01 號</button>
+        <button class="identity-btn" onclick="selectSeat('02', this, 'student')">02 號</button>
+        <button class="identity-btn" onclick="selectSeat('03', this, 'student')">03 號</button>
+        <button class="identity-btn" onclick="selectSeat('04', this, 'student')">04 號</button>
+        <button class="identity-btn" onclick="selectSeat('05', this, 'student')">05 號</button>
+        <button class="identity-btn" onclick="selectSeat('06', this, 'student')">06 號</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectSeat('test.', this, 'class')" style="font-size:14.5pt;">👨‍🏫 教師：上課模式（免密碼・送出後才顯示答案）</button>
+        <button class="identity-btn teacher-identity-btn" onclick="selectSeat('test.', this, 'check')" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:14.5pt;">🔑 教師：檢查答案模式（需第一層密碼・直接顯示答案）</button>
       </div>
 
-      <button class="tool-btn primary" style="width:100%; justify-content:center; padding:12px; font-size:16pt;" onclick="confirmIdentityModal()">
+      <div id="teacherCheckPinBox" style="display:none; background:#fffbeb; border:2px solid #f59e0b; border-radius:12px; padding:12px 14px; margin-bottom:14px; text-align:left;">
+        <label style="font-size:14pt; font-weight:900; color:#92400e; display:block; margin-bottom:6px;">🔒 請輸入第一層教師管理密碼以啟用「檢查答案模式」：</label>
+        <input type="password" id="identityTeacherPinInput" placeholder="請輸入第一層密碼" style="width:100%; padding:10px 12px; font-size:15pt; border:2px solid #fcd34d; border-radius:8px;" onkeydown="if(event.key==='Enter') confirmIdentityModal()">
+        <div id="identityTeacherPinMsg" style="font-size:13pt; color:#dc2626; font-weight:bold; margin-top:6px;"></div>
+      </div>
+
+      <button class="tool-btn primary" id="btnConfirmIdentity" style="width:100%; justify-content:center; padding:12px; font-size:16pt;" onclick="confirmIdentityModal()">
         🚀 確認身分，開始學習！
       </button>
     </div>
@@ -1721,11 +1785,11 @@
           </div>
         </div>
 
-        <!-- 段落 1（對應圖 01～03） -->
+        <!-- 段落 1（對應第 1～9 句 ‧ 圖 01～09） -->
         <div class="para-card" id="paraCard1">
           <div class="para-header">
-            <span class="para-badge">【第 1 段】總提眾花（第 1～3 句 ‧ 圖文對照）</span>
-            <button class="tool-btn" onclick="speakText('水陸草木之花，可愛者甚蕃。晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹。')">🔊 朗讀本段全文</button>
+            <span class="para-badge">【第 1 段】蓮花特質與象徵（第 1～9 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('水陸草木之花，可愛者甚蕃。晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染，濯清漣而不妖，中通外直，不蔓不枝，香遠益清，亭亭淨植，可遠觀而不可褻玩焉。')">🔊 朗讀第1段全文</button>
           </div>
 
           <div class="sentence-pair-list">
@@ -1800,33 +1864,7 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="para-summary">
-            💡 <strong>第 1 段段意說明：</strong>天地間各種草木的花非常多，晉代陶淵明偏愛菊花（正面陪襯），唐代以來的世人則極為喜愛象徵富貴的牡丹花（反面映襯）。
-          </div>
-          <div class="timer-stamp-box">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span>⏱️ 3次唸讀碼錶：</span>
-              <span class="timer-display" id="timerDisp1">00:00.0</span>
-              <button class="tool-btn primary" id="timerBtn1" onclick="toggleParaTimer(1)">開始朗讀</button>
-            </div>
-            <div class="timer-records" id="timerRecords1">
-              <span class="stamp-pill">第1次: --</span>
-              <span class="stamp-pill">第2次: --</span>
-              <span class="stamp-pill">第3次: --</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 段落 2（對應圖 04～09） -->
-        <div class="para-card" id="paraCard2">
-          <div class="para-header">
-            <span class="para-badge">【第 2 段】蓮花特質（第 4～9 句 ‧ 圖文對照）</span>
-            <button class="tool-btn" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖，中通外直，不蔓不枝，香遠益清，亭亭淨植，可遠觀而不可褻玩焉。')">🔊 朗讀本段全文</button>
-          </div>
-
-          <div class="sentence-pair-list">
             <!-- 句 4 -->
             <div class="sentence-pair-row">
               <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s04.jpg', '第 4 句：予獨愛蓮之出淤泥而不染，｜我偏愛蓮花從爛泥裡長出卻不受汙染。')">
@@ -1973,15 +2011,15 @@
           </div>
 
           <div class="para-summary">
-            💡 <strong>第 2 段段意說明：</strong>作者具體描繪蓮花在「生長環境（出淤泥而不染、濯清漣而不妖）」、「花梗（中通外直、不蔓不枝）」、「香氣（香遠益清）」與「整體觀賞感受（亭亭淨植、可遠觀而不可褻玩焉）」四大面向的特質，藉以象徵君子的高潔美德。
+            💡 <strong>第 1 段段意說明：</strong>由陶淵明愛菊（隱逸）、世人盛愛牡丹（富貴）引出作者獨愛蓮花。並從「生長環境（出淤泥而不染、濯清漣而不妖）」、「花梗（中通外直、不蔓不枝）」、「香氣（香遠益清）」與「整體姿態風範（亭亭淨植、可遠觀而不可褻玩焉）」四大面向具體描繪蓮花，象徵君子潔身自愛、剛正不阿的高潔情操。
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
               <span>⏱️ 3次唸讀碼錶：</span>
-              <span class="timer-display" id="timerDisp2">00:00.0</span>
-              <button class="tool-btn primary" id="timerBtn2" onclick="toggleParaTimer(2)">開始朗讀</button>
+              <span class="timer-display" id="timerDisp1">00:00.0</span>
+              <button class="tool-btn primary" id="timerBtn1" onclick="toggleParaTimer(1)">開始朗讀</button>
             </div>
-            <div class="timer-records" id="timerRecords2">
+            <div class="timer-records" id="timerRecords1">
               <span class="stamp-pill">第1次: --</span>
               <span class="stamp-pill">第2次: --</span>
               <span class="stamp-pill">第3次: --</span>
@@ -1989,11 +2027,11 @@
           </div>
         </div>
 
-        <!-- 段落 3（對應圖 10～12） -->
-        <div class="para-card" id="paraCard3">
+        <!-- 段落 2（對應第 10～15 句 ‧ 圖 10～15） -->
+        <div class="para-card" id="paraCard2">
           <div class="para-header">
-            <span class="para-badge">【第 3 段】比花喻人（第 10～12 句 ‧ 圖文對照）</span>
-            <button class="tool-btn" onclick="speakText('予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。')">🔊 朗讀本段全文</button>
+            <span class="para-badge">【第 2 段】借花喻人與慨嘆世態（第 10～15 句 ‧ 圖文對照）</span>
+            <button class="tool-btn" onclick="speakText('予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！')">🔊 朗讀第2段全文</button>
           </div>
 
           <div class="sentence-pair-list">
@@ -2068,33 +2106,7 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="para-summary">
-            💡 <strong>第 3 段段意說明：</strong>將三種花擬人化比喻：菊花是避世的隱士，牡丹是追逐名利的富貴之人，蓮花則是品格崇高的君子（全文主軸）。
-          </div>
-          <div class="timer-stamp-box">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span>⏱️ 3次唸讀碼錶：</span>
-              <span class="timer-display" id="timerDisp3">00:00.0</span>
-              <button class="tool-btn primary" id="timerBtn3" onclick="toggleParaTimer(3)">開始朗讀</button>
-            </div>
-            <div class="timer-records" id="timerRecords3">
-              <span class="stamp-pill">第1次: --</span>
-              <span class="stamp-pill">第2次: --</span>
-              <span class="stamp-pill">第3次: --</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 段落 4（對應圖 13～15） -->
-        <div class="para-card" id="paraCard4">
-          <div class="para-header">
-            <span class="para-badge">【第 4 段】慨嘆世態（第 13～15 句 ‧ 圖文對照）</span>
-            <button class="tool-btn" onclick="speakText('噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！')">🔊 朗讀本段全文</button>
-          </div>
-
-          <div class="sentence-pair-list">
             <!-- 句 13 -->
             <div class="sentence-pair-row">
               <div class="sentence-img-box" onclick="openSentenceLightbox('assets/images/s13.jpg', '第 13 句：噫！菊之愛，陶後鮮有聞。｜唉！喜愛菊花的人，陶淵明以後很少聽說過。')">
@@ -2169,15 +2181,15 @@
           </div>
 
           <div class="para-summary">
-            💡 <strong>第 4 段段意說明：</strong>作者發出感嘆（噫，音同「意」ㄧˋ）：喜愛菊花的隱士，自陶淵明後很少聽說；和我一樣喜愛蓮花的君子，又在哪裡呢？至於追逐富貴名利愛牡丹的人，理所當然是很多了！
+            💡 <strong>第 2 段段意說明：</strong>將三種花擬人化象徵三種處世態度：菊花是避世隱逸者，牡丹是追名逐利的富貴者，蓮花則是德才兼備的君子。作者最後發出慨嘆（噫）：慨嘆陶淵明後隱士難尋，同道君子更是稀少，而隨波逐流追求富貴的人卻極多；鮮明寄託自己不慕名利、潔身自好的君子情懷。
           </div>
           <div class="timer-stamp-box">
             <div style="display:flex; align-items:center; gap:10px;">
               <span>⏱️ 3次唸讀碼錶：</span>
-              <span class="timer-display" id="timerDisp4">00:00.0</span>
-              <button class="tool-btn primary" id="timerBtn4" onclick="toggleParaTimer(4)">開始朗讀</button>
+              <span class="timer-display" id="timerDisp2">00:00.0</span>
+              <button class="tool-btn primary" id="timerBtn2" onclick="toggleParaTimer(2)">開始朗讀</button>
             </div>
-            <div class="timer-records" id="timerRecords4">
+            <div class="timer-records" id="timerRecords2">
               <span class="stamp-pill">第1次: --</span>
               <span class="stamp-pill">第2次: --</span>
               <span class="stamp-pill">第3次: --</span>
@@ -2454,13 +2466,46 @@
         <div id="notes-focus-container"></div>
       </div>
 
-      <!-- 解釋 小試身手練習區 (15則注釋全部考過一次) -->
+      <!-- 解釋 小試身手練習區 (雙題型：題型一 單選題 ＋ 題型二 10 題抽籤配合題) -->
       <div class="card" id="notes-quiz-section" style="border-top:4px solid #f59e0b;">
         <div class="card-header" style="flex-wrap:wrap; gap:10px;">
-          <div class="card-title">🎯 解釋 ‧ 課文注釋全測評量（15 則注釋全考・共 15 題）</div>
-          <span class="sec-badge" style="background:#fef3c7; color:#b45309;">互動練習區</span>
+          <div class="card-title">🎯 解釋 ‧ 詞與解釋配對評量（兩大題型）</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="tool-btn primary" id="btnNotesType1" onclick="switchNotesQuizType('choice')" style="font-size:14pt;">題型一：單選題 (15題)</button>
+            <button type="button" class="tool-btn" id="btnNotesType2" onclick="switchNotesQuizType('match')" style="font-size:14pt; background:#f8fafc; color:#1e293b;">題型二：詞與解釋配合題 (隨機10則)</button>
+          </div>
         </div>
-        <div id="notes-unit-quiz-mount"></div>
+
+        <div id="notes-choice-container">
+          <div id="notes-unit-quiz-mount"></div>
+        </div>
+
+        <div id="notes-match-container" style="display:none; padding:12px 0;">
+          <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:14px; padding:16px 20px; margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <span style="font-size:17pt; font-weight:900; color:#1e40af;">🧩 題型二：詞與解釋配對題（下方從 15 則注釋隨機抽選 10 則）</span>
+              <button type="button" class="tool-btn" onclick="initNotesMatchQuiz()" style="background:#ffffff; color:#0284c7; border:1.5px solid #0284c7; font-size:14pt;">🎲 重新抽題 10 則</button>
+            </div>
+            <p style="font-size:15pt; color:#334155; margin:6px 0 0 0;">請先在下方「詞語庫」點選詞語，再點擊對應解釋的「放入此處」；或直接在下拉選單選取！</p>
+          </div>
+
+          <!-- 詞語庫按鈕群 -->
+          <div style="background:#ffffff; border:2px solid #cbd5e1; border-radius:14px; padding:16px; margin-bottom:18px;">
+            <div style="font-size:15pt; font-weight:bold; color:#475569; margin-bottom:10px;">📦 候選詞語庫（點擊選中後填入下方解釋）：</div>
+            <div id="notesMatchWordBank" style="display:flex; flex-wrap:wrap; gap:10px;"></div>
+          </div>
+
+          <!-- 10 則隨機抽出的解釋配對清單 -->
+          <div id="notesMatchList" style="display:flex; flex-direction:column; gap:14px;"></div>
+
+          <div style="text-align:center; margin-top:24px;">
+            <button type="button" class="tool-btn primary" onclick="submitNotesMatchQuiz()" style="font-size:18pt; padding:12px 36px;">
+              📊 完成配對，檢核成果！
+            </button>
+          </div>
+          <div id="notesMatchResult" style="display:none; margin-top:18px; padding:18px; border-radius:14px; text-align:center; font-size:18pt; font-weight:900;"></div>
+        </div>
+
         <div class="page-footer-nav no-print">
           <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
         </div>
@@ -3394,11 +3439,15 @@
 
       </div><!-- end sim-learning-area -->
 
-      <!-- ==================== 下方評量區：相似字 4 題卡片式小試身手 ==================== -->
+      <!-- ==================== 下方評量區：相似字 3 大題型闖關 ==================== -->
       <div class="card" id="sim-quiz-area" style="border-top:4px solid #7c3aed;">
         <div class="card-header" style="flex-wrap:wrap; gap:10px;">
-          <div class="card-title">🎯 相似字 ‧ 小試身手卡片式自主評量（一次一題・送出結算・共 4 題）</div>
-          <span class="sec-badge" style="background:#f5f3ff; color:#6d28d9;">習作四大組實戰</span>
+          <div class="card-title">🎯 相似字 ‧ 形音義自主評量（3 大題型全方位測驗）</div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="sim-sub-quiz-nav">
+            <button type="button" class="tool-btn sub-quiz-tab-btn active" id="btnSimSub1" onclick="switchSimSubQuiz('sim_choice', this)">題型一：詞語填空單選 (4題)</button>
+            <button type="button" class="tool-btn sub-quiz-tab-btn" id="btnSimSub2" onclick="switchSimSubQuiz('sim_write', this)">題型二：手寫填空 (4題)</button>
+            <button type="button" class="tool-btn sub-quiz-tab-btn" id="btnSimSub3" onclick="switchSimSubQuiz('sim_zhuyin', this)">題型三：看詞填注音 (4題)</button>
+          </div>
         </div>
         <div id="sim-unit-quiz-mount"></div>
         <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
@@ -3444,28 +3493,27 @@
     <!-- 【Tab 8】課文順序 -->
     <section class="tab-pane" id="tab-seq">
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">⏳ 8. 課文順序 ‧ 愛蓮說論證結構脈絡</div>
-          <span class="sec-badge">學習區</span>
+        <div class="card-header" style="flex-wrap:wrap; gap:10px;">
+          <div class="card-title">⏳ 8. 課文圖文順序排列 ‧ 脈絡組裝實戰</div>
+          <span class="sec-badge">互動排序區</span>
         </div>
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div style="background:#f8fafc; border-left:5px solid #0284c7; padding:14px 18px; border-radius:0 10px 10px 0;">
-            <strong style="color:#0369a1;">第一步：總起概說</strong>
-            <p style="font-size:16pt; color:#334155; margin-top:4px;">「水陸草木之花，可愛者甚蕃。」以眾多花卉引出每個人各有所好的世態背景。</p>
+        <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:14px; padding:16px 20px; margin-bottom:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <span style="font-size:17pt; font-weight:900; color:#1e40af;">🧩 依照〈愛蓮說〉課文脈絡，將下列 6 組「課文情境圖＋句子」排成正確順序：</span>
+            <button type="button" class="tool-btn" onclick="initLessonSeqQuiz()" style="background:#ffffff; color:#0284c7; border:1.5px solid #0284c7; font-size:14pt;">🎲 打亂重新排列</button>
           </div>
-          <div style="background:#f8fafc; border-left:5px solid #10b981; padding:14px 18px; border-radius:0 10px 10px 0;">
-            <strong style="color:#16a34a;">第二步：烘托對比</strong>
-            <p style="font-size:16pt; color:#334155; margin-top:4px;">「晉陶淵明獨愛菊，自李唐來世人盛愛牡丹。」以菊為正襯、牡丹為反襯，烘托作者自己「獨愛蓮」。</p>
-          </div>
-          <div style="background:#f8fafc; border-left:5px solid #ec4899; padding:14px 18px; border-radius:0 10px 10px 0;">
-            <strong style="color:#be185d;">第三步：描摹蓮德</strong>
-            <p style="font-size:16pt; color:#334155; margin-top:4px;">「出淤泥而不染...可遠觀而不可褻玩焉。」透過蓮花的生長環境、外觀、氣味與姿態，象徵君子的純潔、正直、通達與崇高。</p>
-          </div>
-          <div style="background:#f8fafc; border-left:5px solid #f59e0b; padding:14px 18px; border-radius:0 10px 10px 0;">
-            <strong style="color:#b45309;">第四步：言志慨嘆</strong>
-            <p style="font-size:16pt; color:#334155; margin-top:4px;">「菊之愛陶後鮮有聞，蓮之愛同予者何人？牡丹之愛宜乎眾矣！」感嘆守德君子罕見，流俗逐利者眾多，寄寓深刻人生期許。</p>
-          </div>
+          <p style="font-size:15pt; color:#475569; margin:6px 0 0 0;">💡 每組圖片與對應句子為一體，點擊卡片旁的「⬆ 上移」或「⬇ 下移」按鈕即可調整順序！</p>
         </div>
+
+        <div id="lessonSeqCardList" style="display:flex; flex-direction:column; gap:14px;"></div>
+
+        <div style="text-align:center; margin-top:24px;">
+          <button type="button" class="tool-btn primary" onclick="submitLessonSeqQuiz()" style="font-size:18pt; padding:12px 36px;">
+            📊 完成排序，檢核成果！
+          </button>
+        </div>
+        <div id="lessonSeqResult" style="display:none; margin-top:18px; padding:18px; border-radius:14px; text-align:center; font-size:18pt; font-weight:900;"></div>
+
         <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
         <div class="page-footer-nav no-print">
           <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
@@ -3476,17 +3524,28 @@
     <!-- 【Tab 9】綜合評量 (評量區：全做完才檢核，三大按鈕自動送出) -->
     <section class="tab-pane" id="tab-quiz">
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">🎯 9. 綜合評量 ‧ 會考素養有聲測驗</div>
-          <span class="sec-badge assess">評量區</span>
+        <div class="card-header" style="flex-wrap:wrap; gap:10px;">
+          <div class="card-title">🎯 9. 綜合評量 ‧ 適性診斷評量測驗</div>
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <span class="sec-badge assess">評量區</span>
+            <button type="button" class="tool-btn" onclick="generateComprehensiveQuiz(true)" style="background:#ffffff; color:#0284c7; border:2px solid #0284c7; font-size:15pt; font-weight:bold;">
+              🎲 重新抽題出題
+            </button>
+          </div>
         </div>
         
-        <p style="font-size:16pt; color:#64748b; margin-bottom:18px;">
-          請依序作答下列 10 題測驗，<strong>完成所有題目後點擊下方「檢核作答成果」</strong>即可核算成績：
-        </p>
+        <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:14px; padding:14px 20px; margin-bottom:18px;">
+          <div style="font-size:16pt; color:#1e40af; font-weight:bold;">
+            📌 作答學生座號：<span id="compQuizSeatBadge" style="color:#dc2626; font-size:18pt; font-weight:900;">01</span> 號 ｜ 
+            <span id="compQuizProfileDesc" style="color:#0369a1;">個別化適性出題模式</span>
+          </div>
+          <p style="font-size:14pt; color:#475569; margin:4px 0 0 0;">
+            💡 系統已依照特教座號自動配題（3號學生評量詞語一，其他學生評量詞語二，全班均考解釋與相似字），並嚴格檢查無重複題目，完成所有作答後點擊下方「檢核成果」！
+          </p>
+        </div>
 
         <div id="quizContainer">
-          <!-- 10 題題目由 JS 自動渲染，確保選項 ABCD 平均分佈 -->
+          <!-- 題目由 JS 適性抽題動態渲染 -->
         </div>
 
         <!-- 提交檢核按鈕 (全部做完才解鎖/觸發) -->
@@ -3574,7 +3633,9 @@
     const DEFAULT_GAS_URL = "https://script.google.com/macros/s/AKfycbzwl3JxERkgNwFLArnZu_qaGTPQipovewZgzeBbJ4Tpntb18vn512eWM5qqvdMqSbE1bQ/exec";
     let activeWebhookUrl = localStorage.getItem('l4_webhook_url') || DEFAULT_GAS_URL;
     let currentUserSeat = localStorage.getItem('l4_user_seat') || '01';
+    let currentTeacherSubMode = 'class'; // 'student' | 'class' (上課模式免密碼) | 'check' (檢查答案模式需第一層密碼)
     let isTeacher = (currentUserSeat === 'test.');
+    let isTeacherCheckMode = false; // 僅在通過第一層密碼驗證後為 true
     let attemptCount = parseInt(localStorage.getItem('l4_attempt_count') || '1');
     let quizStartTime = Date.now();
     let userAnswers = {};
@@ -3582,6 +3643,7 @@
     let lastCalculatedResult = null;
 
     // 10 題完整題庫：第一大題 課文理解與深究 (5題) ＋ 第二大題 文學素養與生活情境延伸探究 (5題素養題)
+    // 答案分布已平衡隨機化：B, C, A, D, D, A, C, B, D, C (A:2, B:2, C:3, D:3，無規律排列)
     const QUIZ_DATA = [
       {
         id: "q1",
@@ -3601,15 +3663,15 @@
       {
         id: "q3",
         q: "3. 「中通外直，不蔓不枝」描摹蓮花外觀梗幹特徵，其借喻之意涵為何？",
-        opts: ["君子才華洋溢，能言善道", "君子生性節儉，知足常樂", "君子內心通達正直，不攀附權貴逢迎黨羽", "君子好學深思，博古通今"],
-        ans: 2, // C
+        opts: ["君子內心通達正直，不攀附權貴逢迎黨羽", "君子才華洋溢，能言善道", "君子生性節儉，知足常樂", "君子好學深思，博古通今"],
+        ans: 0, // A
         hint: "「中通」比喻胸懷豁達，「外直」比喻行為方正不阿，「不蔓不枝」比喻不結黨營私。"
       },
       {
         id: "q4",
         q: "4. 文末「噫！菊之愛，陶後鮮有聞」中，「噫」與「鮮」兩字在本課的正確讀音與字義為何？",
-        opts: ["噫（ㄧ，歡呼）；鮮（ㄒㄧㄢ，新鮮）", "噫（ㄧˋ，音同意，嘆詞「唉」）；鮮（ㄒㄧㄢˇ，三聲，少）", "噫（ㄞ，哀傷）；鮮（ㄒㄧㄢˋ，獻給）", "噫（ㄧˊ，疑問）；鮮（ㄒㄧㄢˇ，美味）"],
-        ans: 1, // B
+        opts: ["噫（ㄧ，歡呼）；鮮（ㄒㄧㄢ，新鮮）", "噫（ㄞ，哀傷）；鮮（ㄒㄧㄢˋ，獻給）", "噫（ㄧˊ，疑問）；鮮（ㄒㄧㄢˇ，美味）", "噫（ㄧˋ，音同意，嘆詞「唉」）；鮮（ㄒㄧㄢˇ，三聲，少）"],
+        ans: 3, // D
         hint: "「噫」讀作四聲 ㄧˋ（音同「意」），是文言嘆詞「唉」；「鮮」讀作三聲 ㄒㄧㄢˇ，意思是「少」。"
       },
       {
@@ -3623,29 +3685,29 @@
         id: "q6",
         sectionTitle: "🌟 第二大題：文學素養與生活情境延伸探究（第 6～10 題，共 5 題素養題）",
         q: "6. 【素養題‧職場廉潔情境】陳法官審理案件時，面對權貴人士私下送禮關說，他堅決退回禮品並依法公正判決，絕不與貪腐勢力同流合汙。請問陳法官的表現最符合〈愛蓮說〉中的哪一句話？",
-        opts: ["可愛者甚蕃", "出淤泥而不染，濯清漣而不妖", "自李唐來，世人盛愛牡丹", "菊之愛，陶後鮮有聞"],
-        ans: 1, // B
+        opts: ["出淤泥而不染，濯清漣而不妖", "可愛者甚蕃", "自李唐來，世人盛愛牡丹", "菊之愛，陶後鮮有聞"],
+        ans: 0, // A
         hint: "身處誘惑或混濁環境中依然保持清廉正直、不討好權貴，正是「出淤泥而不染，濯清漣而不妖」的體現。"
       },
       {
         id: "q7",
         q: "7. 【素養題‧社群媒體思辨】現代網路上常有人為了衝高點閱率而誇大炫富、刻意逢迎討好觀眾；反觀有些創作者堅持分享真實有價值的知識，不靠譁眾取寵博取眼球。若以〈愛蓮說〉的花卉作比喻，這兩種現象分別對應何者？",
-        opts: ["前者如「菊之隱逸」；後者如「牡丹之富貴」", "前者如「世人盛愛牡丹、妖豔媚俗」；後者如「蓮之濯清漣而不妖、香遠益清」", "兩者皆屬於「陶淵明獨愛菊」的避世態度", "兩者皆屬於「不蔓不枝」的君子風範"],
-        ans: 1, // B
+        opts: ["前者如「菊之隱逸」；後者如「牡丹之富貴」", "兩者皆屬於「陶淵明獨愛菊」的避世態度", "前者如「世人盛愛牡丹、妖豔媚俗」；後者如「蓮之濯清漣而不妖、香遠益清」", "兩者皆屬於「不蔓不枝」的君子風範"],
+        ans: 2, // C
         hint: "炫富媚俗如同追逐牡丹之富貴；堅持真實內涵、不靠討好博取關注且口碑遠播，則如蓮花「濯清漣而不妖、香遠益清」。"
       },
       {
         id: "q8",
         q: "8. 【素養題‧人際互動界線】班長小雅待人親切有禮，但面對同學要求她幫忙作弊或開不尊重人的低俗玩笑時，她總能端莊堅定地拒絕，久而久之大家都對她心生敬重而不敢隨便戲弄。小雅展現的風範最貼近下列哪一句課文？",
-        opts: ["亭亭淨植，可遠觀而不可褻玩焉", "水陸草木之花，可愛者甚蕃", "牡丹之愛，宜乎眾矣", "予謂菊，花之隱逸者也"],
-        ans: 0, // A
+        opts: ["水陸草木之花，可愛者甚蕃", "亭亭淨植，可遠觀而不可褻玩焉", "牡丹之愛，宜乎眾矣", "予謂菊，花之隱逸者也"],
+        ans: 1, // B
         hint: "「亭亭淨植，可遠觀而不可褻玩焉」形容君子人格高尚端莊，令人肅然起敬而不敢輕慢戲弄。"
       },
       {
         id: "q9",
         q: "9. 【素養題‧跨文本價值比較】陶淵明因「不為五斗米折腰」而辭官歸隱田園（愛菊）；周敦頤則選擇留在官場為百姓平反冤獄，同時保持兩袖清風（愛蓮）。根據課文脈絡，周敦頤對這兩種人生態度的看法為何？",
-        opts: ["認為陶淵明愛菊是貪慕富貴，完全不值得尊重", "肯定菊花不慕名利的清高，但更推崇蓮花「積極入世服務人群，卻能堅守高潔節操」的君子之道", "認為做官一定會變壞，所有人都應該躲進深山隱居", "認為追求牡丹般的榮華富貴才是最理想的人生"],
-        ans: 1, // B
+        opts: ["認為陶淵明愛菊是貪慕富貴，完全不值得尊重", "認為做官一定會變壞，所有人都應該躲進深山隱居", "認為追求牡丹般的榮華富貴才是最理想的人生", "肯定菊花不慕名利的清高，但更推崇蓮花「積極入世服務人群，卻能堅守高潔節操」的君子之道"],
+        ans: 3, // D
         hint: "周敦頤以菊花為正襯，肯定隱士清高，但更讚賞蓮花身處濁世卻能潔身自好、濟世利民的君子精神。"
       },
       {
@@ -3657,11 +3719,204 @@
       }
     ];
 
+    // ==============================================================================
+    // 第 15 點：綜合評量全新架構與個別化出題引擎 (隨機抽題、不重複、3號詞一/其餘詞二、重新出題)
+    // ==============================================================================
+    let ACTIVE_ASSESSMENT_QUESTIONS = [];
+
+    function generateComprehensiveQuiz(isUserTriggered = false) {
+      userAnswers = {};
+      const seat = String(currentUserSeat || '01');
+      const isSeat03 = (seat === '03');
+
+      // 更新畫面座號顯示
+      const seatBadge = document.getElementById('compQuizSeatBadge');
+      const profileDesc = document.getElementById('compQuizProfileDesc');
+      if (seatBadge) seatBadge.innerText = (seat === 'test.') ? '教師測試' : seat;
+      if (profileDesc) {
+        profileDesc.innerText = isSeat03
+          ? '🎯 03 號特教個別化模式：涵蓋【詞語一 看圖寫詞】＋【解釋單選】＋【相似字辨析】'
+          : `🎯 ${seat} 號常態適性模式：涵蓋【詞語二 注音與國字】＋【解釋單選】＋【相似字辨析】＋【蓮品與人品】`;
+      }
+
+      const qList = [];
+
+      // 1. 詞語題型配題
+      if (isSeat03) {
+        // 3號學生：詞語一 看圖寫詞（隨機抽 2 題）
+        const shuffledW1 = [...WORDS1_DATA].sort(() => Math.random() - 0.5);
+        shuffledW1.slice(0, 2).forEach((item, idx) => {
+          qList.push({
+            id: `comp_w1_${item.id}`,
+            sectionTitle: idx === 0 ? '🌸 第一部分：詞語一 ‧ 看圖寫出生字詞' : null,
+            type: 'choice',
+            q: `【看圖選詞】根據圖片與釋義「${item.quizMeaning}」，請選出正確的生字詞：`,
+            opts: buildCompW1Options(item),
+            ans: 0,
+            hint: `提示：讀音為 ${item.zhuyin}，課文原句為「${item.quote}」`
+          });
+        });
+      } else {
+        // 3號以外學生：詞語二（注音題 1 題 ＋ 國字題 1 題，兩題絕不重複考同一個詞語）
+        const shuffledW2 = [...WORDS2_DATA].sort(() => Math.random() - 0.5);
+        const itemForZhuyin = shuffledW2[0];
+        const itemForChar = shuffledW2[1];
+
+        qList.push({
+          id: `comp_w2_zy_${itemForZhuyin.id}`,
+          sectionTitle: '⌨️ 第一部分：詞語二 ‧ 目標字注音辨析',
+          type: 'choice',
+          q: `【詞語二注音】在詞語「${itemForZhuyin.word}」中，目標字【${itemForZhuyin.targetChar}】的正確注音是什麼？`,
+          opts: buildZhuyinDistractors(itemForZhuyin.targetZhuyin),
+          ans: 0,
+          hint: `${itemForZhuyin.noteTag}（${itemForZhuyin.mnemonicHint}）`
+        });
+
+        qList.push({
+          id: `comp_w2_char_${itemForChar.id}`,
+          sectionTitle: null,
+          type: 'choice',
+          q: `【詞語二國字】題目詞語讀音為「${itemForChar.zhuyin}」，請問目標字【${itemForChar.targetZhuyin}】的正確國字是哪一個？`,
+          opts: buildCharDistractors(itemForChar.targetChar),
+          ans: 0,
+          hint: `結構提示：${itemForChar.structureHint}（${itemForChar.mnemonicHint}）`
+        });
+      }
+
+      // 2. 解釋單選題（全班皆考，隨機抽 3 題）
+      const shuffledNotes = [...NOTES_DATA].sort(() => Math.random() - 0.5);
+      shuffledNotes.slice(0, 3).forEach((nItem, idx) => {
+        const { opts, ansIdx } = buildNotesCompOptions(nItem);
+        qList.push({
+          id: `comp_note_${nItem.id}`,
+          sectionTitle: idx === 0 ? '💡 第二部分：課文重要解釋單選' : null,
+          type: 'choice',
+          q: `【課文注釋】在課文「${nItem.quote}」中，關於【${nItem.term}】的解釋何者正確？`,
+          opts,
+          ans: ansIdx,
+          hint: `標準釋義：${nItem.formalDef}`
+        });
+      });
+
+      // 3. 相似字辨析題（全班皆考，1題注音 ＋ 1題國字選填，兩題所選的組別不重複）
+      const simGroupNums = [1, 2, 3, 4].sort(() => Math.random() - 0.5);
+      const gForZhuyin = simGroupNums[0];
+      const gForChar = simGroupNums[1];
+
+      // 相似字看詞寫注音
+      const simZyBank = {
+        1: { word: '出淤泥而不染', char: '淤', correct: 'ㄩ', dist: ['ㄩˊ', 'ㄩˇ', 'ㄩˋ'] },
+        2: { word: '不可褻玩焉', char: '褻', correct: 'ㄒㄧㄝˋ', dist: ['ㄒㄧㄝ', 'ㄒㄧㄝˊ', 'ㄒㄧㄝˇ'] },
+        3: { word: '濯清漣而不妖', char: '濯', correct: 'ㄓㄨㄛˊ', dist: ['ㄓㄨㄛ', 'ㄓㄨㄛˇ', 'ㄓㄨㄛˋ'] },
+        4: { word: '不蔓不枝', char: '蔓', correct: 'ㄇㄢˋ', dist: ['ㄇㄢ', 'ㄇㄢˊ', 'ㄇㄢˇ'] }
+      }[gForZhuyin];
+
+      const simZyOpts = [simZyBank.correct, ...simZyBank.dist].sort(() => Math.random() - 0.5);
+      qList.push({
+        id: `comp_sim_zy_${gForZhuyin}`,
+        sectionTitle: '🔤 第三部分：相似字形音義深度辨析',
+        type: 'choice',
+        q: `【相似字讀音】在詞句「${simZyBank.word}」中，劃線字【${simZyBank.char}】的正確注音是什麼？`,
+        opts: simZyOpts,
+        ans: simZyOpts.indexOf(simZyBank.correct),
+        hint: `提示：【${simZyBank.char}】的標準讀音是 ${simZyBank.correct}`
+      });
+
+      // 相似字詞語國字填空
+      const simCharBank = {
+        1: { stem: '蓮花出（　）泥而不染', correct: '淤', dist: ['瘀', '迂', '於'] },
+        2: { stem: '可遠觀而不可（　）玩焉', correct: '褻', dist: ['褒', '執', '熱'] },
+        3: { stem: '（　）清漣而不妖', correct: '濯', dist: ['擢', '躍', '耀'] },
+        4: { stem: '不（　）不枝', correct: '蔓', dist: ['漫', '謾', '曼'] }
+      }[gForChar];
+
+      const simCharOpts = [simCharBank.correct, ...simCharBank.dist].sort(() => Math.random() - 0.5);
+      qList.push({
+        id: `comp_sim_char_${gForChar}`,
+        sectionTitle: null,
+        type: 'choice',
+        q: `【相似字字形】請選出缺空處正確的國字：「${simCharBank.stem}」：`,
+        opts: simCharOpts,
+        ans: simCharOpts.indexOf(simCharBank.correct),
+        hint: `提示：正確字形為「${simCharBank.correct}」`
+      });
+
+      // 4. 蓮品與人品象徵探究題（隨機抽 2 題，對應第 4 點需求）
+      const shuffledLotus = [...P64_TABLE_ROWS].sort(() => Math.random() - 0.5);
+      shuffledLotus.slice(0, 2).forEach((lItem, idx) => {
+        const { opts, ansIdx } = buildLotusCompOptions(lItem);
+        qList.push({
+          id: `comp_lotus_${lItem.id}`,
+          sectionTitle: idx === 0 ? '🪷 第四部分：蓮品與君子品德象徵' : null,
+          type: 'choice',
+          q: `【蓮品與人品】課文中以蓮花「${lItem.quote}」的特質，主要在象徵君子的哪一種美德？`,
+          opts,
+          ans: ansIdx,
+          hint: `象徵說明：${lItem.explain}`
+        });
+      });
+
+      ACTIVE_ASSESSMENT_QUESTIONS = qList;
+      renderQuizItems();
+      if (isUserTriggered) {
+        alert('🎲 已為您重新隨機產生全新評量題目！');
+      }
+    }
+
+    function buildCompW1Options(targetItem) {
+      const dist = WORDS1_DATA.filter(w => w.id !== targetItem.id).sort(() => Math.random() - 0.5);
+      const raw = [targetItem.word, dist[0].word, dist[1].word, dist[2].word];
+      return raw.sort(() => Math.random() - 0.5);
+    }
+
+    function buildZhuyinDistractors(correctZhuyin) {
+      const tones = ['ˊ', 'ˇ', 'ˋ', ''];
+      const raw = [correctZhuyin];
+      tones.forEach(t => {
+        const mod = correctZhuyin.slice(0, -1) + t;
+        if (mod !== correctZhuyin && raw.length < 4 && !raw.includes(mod)) raw.push(mod);
+      });
+      while (raw.length < 4) raw.push(correctZhuyin + '˙');
+      return raw.sort(() => Math.random() - 0.5);
+    }
+
+    function buildCharDistractors(correctChar) {
+      const pool = ['染', '濯', '直', '枝', '清', '植', '鮮', '蕃', '獨', '盛'].filter(c => c !== correctChar);
+      pool.sort(() => Math.random() - 0.5);
+      const raw = [correctChar, pool[0], pool[1], pool[2]];
+      return raw.sort(() => Math.random() - 0.5);
+    }
+
+    function buildNotesCompOptions(targetNote) {
+      const otherNotes = NOTES_DATA.filter(n => n.id !== targetNote.id).sort(() => Math.random() - 0.5);
+      const raw = [
+        targetNote.formalDef,
+        otherNotes[0].formalDef,
+        otherNotes[1].formalDef,
+        otherNotes[2].formalDef
+      ];
+      // 隨機洗牌選項
+      const shuffled = raw.sort(() => Math.random() - 0.5);
+      return { opts: shuffled, ansIdx: shuffled.indexOf(targetNote.formalDef) };
+    }
+
+    function buildLotusCompOptions(targetLotus) {
+      const otherLotus = P64_TABLE_ROWS.filter(l => l.id !== targetLotus.id).sort(() => Math.random() - 0.5);
+      const raw = [
+        targetLotus.ans,
+        otherLotus[0].ans,
+        otherLotus[1].ans,
+        otherLotus[2].ans
+      ];
+      const shuffled = raw.sort(() => Math.random() - 0.5);
+      return { opts: shuffled, ansIdx: shuffled.indexOf(targetLotus.ans) };
+    }
+
     // 初始化載入
     window.addEventListener('DOMContentLoaded', () => {
       initIdentityDisplay();
       initSingleCardLearningAndQuizzes();
-      renderQuizItems();
+      generateComprehensiveQuiz();
       initSpeech();
       initPaintCanvas();
       initContactBook();
@@ -3695,31 +3950,95 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 規範 4 & 9: 身分管理
+    // 規範 4 & 9: 身分管理（區分學生模式、教師上課模式免密碼、教師檢查答案模式需第一層密碼）
     function openIdentityModal() {
       document.getElementById('identityModal').style.display = 'flex';
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      if (pinBox) pinBox.style.display = (currentUserSeat === 'test.' && currentTeacherSubMode === 'check') ? 'block' : 'none';
     }
     function closeIdentityModal() {
       document.getElementById('identityModal').style.display = 'none';
     }
-    function selectSeat(seat, btn) {
+    function selectSeat(seat, btn, subMode = 'student') {
       currentUserSeat = seat;
+      currentTeacherSubMode = (seat === 'test.') ? (subMode || 'class') : 'student';
       document.querySelectorAll('.identity-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
+      const pinBox = document.getElementById('teacherCheckPinBox');
+      const pinMsg = document.getElementById('identityTeacherPinMsg');
+      if (pinMsg) pinMsg.innerText = '';
+      if (pinBox) {
+        pinBox.style.display = (seat === 'test.' && currentTeacherSubMode === 'check') ? 'block' : 'none';
+        if (seat === 'test.' && currentTeacherSubMode === 'check') {
+          setTimeout(() => document.getElementById('identityTeacherPinInput')?.focus(), 50);
+        }
+      }
     }
-    function confirmIdentityModal() {
+    async function confirmIdentityModal() {
+      const btn = document.getElementById('btnConfirmIdentity');
+      const pinMsg = document.getElementById('identityTeacherPinMsg');
+      if (currentUserSeat === 'test.' && currentTeacherSubMode === 'check') {
+        const pinInp = document.getElementById('identityTeacherPinInput');
+        const pin = pinInp ? pinInp.value.trim() : '';
+        if (!teacherL1Verified) {
+          if (!pin) {
+            if (pinMsg) pinMsg.innerText = '⚠️ 請輸入第一層密碼才能進入「檢查答案模式」！';
+            return;
+          }
+          if (btn) { btn.disabled = true; btn.innerText = '⏳ 正在驗證第一層密碼...'; }
+          if (pinMsg) pinMsg.innerText = '驗證密碼中...';
+          try {
+            const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel1', password: pin }) });
+            const res = await resp.json();
+            if (res.status === 'success' && res.verified) {
+              teacherL1Verified = true;
+              cachedTeacherL1Pin = pin;
+              if (pinMsg) pinMsg.innerText = '';
+            } else {
+              if (pinMsg) pinMsg.innerText = '❌ 第一層密碼錯誤，請重新輸入！';
+              if (btn) { btn.disabled = false; btn.innerText = '🚀 確認身分，開始學習！'; }
+              return;
+            }
+          } catch (err) {
+            if (pinMsg) pinMsg.innerText = '❌ 無法連線驗證密碼，請確認網路連線！';
+            if (btn) { btn.disabled = false; btn.innerText = '🚀 確認身分，開始學習！'; }
+            return;
+          }
+          if (btn) { btn.disabled = false; btn.innerText = '🚀 確認身分，開始學習！'; }
+        }
+        isTeacher = true;
+        isTeacherCheckMode = true;
+      } else if (currentUserSeat === 'test.') {
+        // 教師上課模式（免密碼，比照學生要送出答案才能看到答案）
+        isTeacher = true;
+        isTeacherCheckMode = false;
+      } else {
+        isTeacher = false;
+        isTeacherCheckMode = false;
+      }
       localStorage.setItem('l4_user_seat', currentUserSeat);
-      isTeacher = (currentUserSeat === 'test.');
       initIdentityDisplay();
+      // 重新渲染各單元評量區以套用最新答案顯示狀態
+      Object.keys(unitQuizStates).forEach(k => renderUnitQuiz(k));
+      generateComprehensiveQuiz();
       closeIdentityModal();
-      speakText('已設定為' + (isTeacher ? '老師模式' : currentUserSeat + '號學生') + '，開始學習！');
+      const modeLabel = isTeacherCheckMode ? '教師檢查答案模式' : (isTeacher ? '教師上課模式' : (currentUserSeat + '號學生'));
+      speakText('已設定為' + modeLabel + '，開始學習！');
     }
     function initIdentityDisplay() {
       isTeacher = (currentUserSeat === 'test.');
+      if (!isTeacher) isTeacherCheckMode = false;
       document.body.classList.toggle('is-teacher', isTeacher);
+      document.body.classList.toggle('is-teacher-check', isTeacherCheckMode);
       const labelBtn = document.getElementById('btnCurIdentity');
       if (labelBtn) {
-        labelBtn.innerText = isTeacher ? '👨‍🏫 老師模式 [切換]' : `👤 當前座號：${currentUserSeat}號 [切換]`;
+        if (isTeacherCheckMode) {
+          labelBtn.innerText = '🔑 教師：檢查答案模式 [切換]';
+        } else if (isTeacher) {
+          labelBtn.innerText = '👨‍🏫 教師：上課模式 [切換]';
+        } else {
+          labelBtn.innerText = `👤 當前座號：${currentUserSeat}號 [切換]`;
+        }
       }
     }
 
@@ -3748,14 +4067,27 @@
         window.speechSynthesis.onvoiceschanged = () => {};
       }
     }
-    function speakText(text) {
-      if (!('speechSynthesis' in window) || !text) return;
+    function speakText(text, onEndCallback) {
+      if (!('speechSynthesis' in window) || !text) {
+        if (typeof onEndCallback === 'function') onEndCallback();
+        return;
+      }
       window.speechSynthesis.cancel();
-      // 將文言嘆詞「噫」替換為同音字「意」（四聲 ㄧˋ），確保語音引擎正確發四聲
-      const normalizedText = String(text).replace(/噫/g, '意');
+      // 特教讀音精準轉換與括號轉念「空格」
+      let normalizedText = String(text)
+        .replace(/（\s*）|\(\s*\)|（　　）|（　）/g, '空格')
+        .replace(/蕃/g, '繁')
+        .replace(/阿諛/g, '婀諛')
+        .replace(/聲名遠播/g, '聲名遠擘')
+        .replace(/播/g, '擘')
+        .replace(/噫/g, '意');
       const u = new SpeechSynthesisUtterance(normalizedText);
       u.lang = 'zh-TW';
       u.rate = 0.85;
+      if (typeof onEndCallback === 'function') {
+        u.onend = () => { onEndCallback(); };
+        u.onerror = () => { onEndCallback(); };
+      }
       window.speechSynthesis.speak(u);
     }
 
@@ -4023,8 +4355,13 @@
 
     function renderQuizItems() {
       const container = document.getElementById('quizContainer');
+      if (!container) return;
+      const qSource = (ACTIVE_ASSESSMENT_QUESTIONS && ACTIVE_ASSESSMENT_QUESTIONS.length > 0)
+        ? ACTIVE_ASSESSMENT_QUESTIONS
+        : QUIZ_DATA;
+
       let html = '';
-      QUIZ_DATA.forEach((q, idx) => {
+      qSource.forEach((q, idx) => {
         if (q.sectionTitle) {
           html += `
             <div style="background:linear-gradient(90deg, #0284c7, #0369a1); color:#ffffff; padding:12px 20px; border-radius:12px; font-size:18pt; font-weight:900; margin:${idx === 0 ? '0' : '28px'} 0 16px 0; box-shadow:0 4px 12px rgba(2,132,199,0.2);">
@@ -4035,7 +4372,7 @@
         let optHtml = '';
         q.opts.forEach((opt, oIdx) => {
           optHtml += `
-            <div class="opt-item" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOption('${q.id}', ${oIdx}, this)">
+            <div class="opt-item ${oIdx === q.ans ? 'is-correct' : ''}" data-qid="${q.id}" data-val="${oIdx}" onclick="chooseOption('${q.id}', ${oIdx}, this)">
               <span>(${letters[oIdx]}) ${opt}</span>
               <button class="tool-btn" onclick="event.stopPropagation(); speakText('選項${letters[oIdx]}：${opt}')" style="padding:2px 8px; font-size:12pt;">🔊</button>
             </div>
@@ -4050,7 +4387,7 @@
                 <button class="tool-btn" onclick="speakText('${q.q}')" style="padding:3px 10px; font-size:13pt;">🔊 朗讀題幹</button>
               </div>
             </div>
-            <!-- 方案 B: 題目專屬思路導引卡片 (點擊就地展開) -->
+            <!-- 題目專屬思路導引卡片 -->
             <div class="quiz-hint-card" id="quizHint-${q.id}" style="display:none; background:#fefce8; border:1.5px dashed #facc15; border-radius:8px; padding:10px 14px; margin-bottom:12px; font-size:15pt; color:#854d0e;">
               💡 <strong>解題導引：</strong>${q.hint}
             </div>
@@ -4076,25 +4413,32 @@
 
     // 規範 6: 評量區全做完才檢核
     function submitAssessment() {
+      const qSource = (ACTIVE_ASSESSMENT_QUESTIONS && ACTIVE_ASSESSMENT_QUESTIONS.length > 0)
+        ? ACTIVE_ASSESSMENT_QUESTIONS
+        : QUIZ_DATA;
+
       // 檢查是否所有題目都作答
       const unanswered = [];
-      QUIZ_DATA.forEach((q, idx) => {
+      qSource.forEach((q, idx) => {
         if (userAnswers[q.id] === undefined) {
           unanswered.push(idx + 1);
         }
       });
 
-      if (unanswered.length > 0 && currentUserSeat !== 'test.') {
+      if (unanswered.length > 0 && !isTeacherCheckMode) {
         alert(`⚠️ 您還有題目尚未作答完畢：第 ${unanswered.join('、')} 題\n請完成所有題目後再點擊檢核！`);
         return;
       }
+
+      const quizContainerEl = document.getElementById('quizContainer');
+      if (quizContainerEl) quizContainerEl.classList.add('is-graded-section');
 
       // 核算成績
       let correctCount = 0;
       const reviewDetails = [];
       const wrongIndices = [];
 
-      QUIZ_DATA.forEach((q, idx) => {
+      qSource.forEach((q, idx) => {
         const userChoice = userAnswers[q.id];
         const isRight = (userChoice === q.ans);
         if (isRight) {
@@ -4112,7 +4456,7 @@
         });
       });
 
-      const total = QUIZ_DATA.length;
+      const total = qSource.length;
       const accuracy = Math.round((correctCount / total) * 100);
       const score = accuracy; // 滿分 100
       const durationSeconds = Math.max(1, Math.round((Date.now() - quizStartTime) / 1000));
@@ -4295,6 +4639,8 @@
       });
       scoreSubmitted = false;
       quizStartTime = Date.now();
+      const quizContainerEl = document.getElementById('quizContainer');
+      if (quizContainerEl) quizContainerEl.classList.remove('is-graded-section');
       document.querySelectorAll('.opt-item').forEach(b => b.classList.remove('selected'));
       document.getElementById('resultPanelBox').style.display = 'none';
       const badge = document.getElementById('submitSuccessBadge');
@@ -4362,16 +4708,20 @@
         word: '愛',
         zhuyin: 'ㄞˋ',
         img: 'assets/images/w1_1.jpg',
+        quoteImg: 'assets/images/w1_quote_1.jpg',
+        exImg: 'assets/images/w1_ex_1.jpg',
         chars: [{ c: '愛', m: 'ㄞ', t: 'ˋ' }],
         distractors: ['受', '友', '心'],
         radical: '心部（13 畫）',
         structure: '上中下結構（爫 ＋ 冖 ＋ 心 ＋ 夊）',
         mnemonic: '手爪（爫）捧著一顆真心（心），一步一步（夊）把關懷送給對方，就是「愛」！',
+        shortMeaning: '心裡喜歡、疼惜、欣賞。',
+        quizMeaning: '打從心底非常喜歡、疼惜、欣賞某個人或事物。',
         meaning: '喜歡、喜愛、疼惜。在課文〈愛蓮說〉中指打從心底欣賞、喜愛某種事物。',
         quote: '晉陶淵明獨「愛」菊；自李唐來，世人盛「愛」牡丹；予獨「愛」蓮之出淤泥而不染。',
         quoteBlank: '予獨（　　）蓮之出淤泥而不染。',
         example: '我們要愛護大自然，也愛惜身邊每一個關心我們的人。',
-        exampleBlank: '我們要（　　）護大自然，也珍惜身邊關心我們的人。',
+        exampleBlank: '我們要（　　）護大自然，也珍惜身邊每一個關心我們的人。',
         tts: '愛，ㄞˋ，喜歡、喜愛。課文原句：予獨愛蓮之出淤泥而不染。生活例句：我們要愛護大自然。'
       },
       {
@@ -4379,14 +4729,18 @@
         word: '蓮花',
         zhuyin: 'ㄌㄧㄢˊ ㄏㄨㄚ',
         img: 'assets/images/w1_2.jpg',
+        quoteImg: 'assets/images/w1_quote_2.jpg',
+        exImg: 'assets/images/w1_ex_2.jpg',
         chars: [{ c: '蓮', m: 'ㄌㄧㄢ', t: 'ˊ' }, { c: '花', m: 'ㄏㄨㄚ', t: '' }],
         distractors: ['連', '草', '荷'],
         radical: '艸部（蓮 15 畫 ／ 花 8 畫）',
         structure: '上下結構（艸字頭，代表草本植物）',
         mnemonic: '草（艹）字頭下面「連」著一朵朵水上開的「化」身美花，就是夏日盛開的「蓮花」（又稱荷花、芙蕖、水芙蓉）！',
+        shortMeaning: '生長在池塘泥水中的植物，夏日盛開粉紅或白花，課文中象徵品德高潔的「君子」。',
+        quizMeaning: '生長在池塘淺水中的多年生草本植物，葉大而圓，夏天綻放粉紅或白色瓣片，在課文中象徵品德高潔的「君子」。',
         meaning: '多年水生草本植物，生在淺水淤泥中，葉大而圓，夏天開粉紅或白色大花，在課文中象徵品德高潔的「君子」。',
         quote: '予獨愛「蓮」之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。',
-        quoteBlank: '予獨愛（　　）之出淤泥而不染，象徵花之君子者也。',
+        quoteBlank: '予獨愛（　　）之出淤泥而不染，象徵品格高潔的君子。',
         example: '夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。',
         exampleBlank: '夏天到了，池塘裡的（　　）一朵朵盛開，散發出淡淡的清香。',
         tts: '蓮花，ㄌㄧㄢˊ、ㄏㄨㄚ。生在池塘水中的植物，又叫荷花，在課文中象徵品德高潔的君子。生活例句：夏天到了，池塘裡的蓮花一朵朵盛開。'
@@ -4396,14 +4750,18 @@
         word: '說',
         zhuyin: 'ㄕㄨㄛ',
         img: 'assets/images/w1_3.jpg',
+        quoteImg: 'assets/images/w1_quote_3.jpg',
+        exImg: 'assets/images/w1_ex_3.jpg',
         chars: [{ c: '說', m: 'ㄕㄨㄛ', t: '' }],
         distractors: ['話', '語', '悅'],
         radical: '言部（14 畫）',
         structure: '左右結構（左「言」＋ 右「兌」）',
         mnemonic: '用言語（言）把心裡喜悅（兌）或想表達的道理講出來，就是「說」！放在篇名〈愛蓮說〉中，是一種說明道理的文體。',
+        shortMeaning: '用話語講述表達；放在篇名中代表「闡述道理」的文體。',
+        quizMeaning: '① 用話語講述、表達想法。② 一種古代文體，用來闡述自己對事物的感想或道理。',
         meaning: '① 用話語表達、講述。② 一種古代文體（如〈愛蓮說〉），用來說明自己對事物的感想或道理。',
         quote: '題目〈愛蓮「說」〉：周敦頤寫這篇文章，用來「說明」自己為什麼特別喜愛蓮花的道理。',
-        quoteBlank: '課文篇名〈愛蓮（　　）〉，代表說明喜愛蓮花道理的文章。',
+        quoteBlank: '課文篇名〈愛蓮（　　）〉，代表闡述喜愛蓮花道理的文章。',
         example: '老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。',
         exampleBlank: '老師在課堂上（　　）了一個關於周敦頤欣賞蓮花的故事。',
         tts: '說，ㄕㄨㄛ。用話語表達，放在篇名愛蓮說當中，代表說明道理的文章。生活例句：老師在課堂上說了一個故事。'
@@ -4413,11 +4771,15 @@
         word: '淤泥',
         zhuyin: 'ㄩ ㄋㄧˊ',
         img: 'assets/images/w1_4.jpg',
+        quoteImg: 'assets/images/w1_quote_4.jpg',
+        exImg: 'assets/images/w1_ex_4.jpg',
         chars: [{ c: '淤', m: 'ㄩ', t: '' }, { c: '泥', m: 'ㄋㄧ', t: 'ˊ' }],
         distractors: ['瘀', '土', '沙'],
         radical: '水部（淤 11 畫 ／ 泥 8 畫）',
         structure: '左右結構（兩字左邊皆為「氵」三點水）',
         mnemonic: '兩個字左邊都有三點水（氵）！水底沉積於（於）池塘裡的泥巴（尼），就是濕濕黑黑的「淤泥」。',
+        shortMeaning: '水底積存的黑色爛泥，課文中比喻「汙濁不好的環境」。',
+        quizMeaning: '水底積存的黑色濕軟沉積物。在課文中比喻「汙濁、不好的環境」。',
         meaning: '水底積存的爛泥。在課文中比喻「汙濁、不好的環境」。',
         quote: '予獨愛蓮之出「淤泥」而不染。（我唯獨喜愛蓮花從水底爛泥中生長出來，卻不會被汙染。）',
         quoteBlank: '予獨愛蓮之出（　　）而不染。',
@@ -4430,14 +4792,18 @@
         word: '洗濯',
         zhuyin: 'ㄒㄧˇ ㄓㄨㄛˊ',
         img: 'assets/images/w1_5.jpg',
+        quoteImg: 'assets/images/w1_quote_5.jpg',
+        exImg: 'assets/images/w1_ex_5.jpg',
         chars: [{ c: '洗', m: 'ㄒㄧ', t: 'ˇ' }, { c: '濯', m: 'ㄓㄨㄛ', t: 'ˊ' }],
         distractors: ['擢', '躍', '澡'],
         radical: '水部（洗 9 畫 ／ 濯 17 畫）',
         structure: '左右結構（兩字左邊皆為「氵」三點水）',
         mnemonic: '「洗」與「濯」都有三點水（氵），羽毛（羽）的鳥（隹）在清水中沖洗乾淨，合起來就是「洗滌、清洗」！',
+        shortMeaning: '用清水沖刷、洗滌乾淨。',
+        quizMeaning: '用清水沖刷、去除髒汙使之潔淨。課文中指在清澈的水波中潔淨。',
         meaning: '洗滌、沖洗乾淨。課文中「濯清漣」就是指在清澈的水波中洗滌。',
         quote: '「濯」清漣而不妖。（蓮花在清澈的水波中洗濯過後，卻不會顯得妖豔媚俗。）',
-        quoteBlank: '蓮花在清澈的水波中（　　）過後，卻不會顯得妖豔媚俗（濯清漣而不妖）。',
+        quoteBlank: '蓮花在清澈的水波中（　　）過後，卻不會顯得妖豔媚俗。',
         example: '午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。',
         exampleBlank: '午後的一場陣雨，把庭院裡的樹葉（　　）得一塵不染。',
         tts: '洗濯，ㄒㄧˇ、ㄓㄨㄛˊ。洗滌、沖洗乾淨。課文原句：濯清漣而不妖。生活例句：午後的一場陣雨，把樹葉洗濯得一塵不染。'
@@ -4447,14 +4813,18 @@
         word: '菊花',
         zhuyin: 'ㄐㄩˊ ㄏㄨㄚ',
         img: 'assets/images/w1_6.jpg',
+        quoteImg: 'assets/images/w1_quote_6.jpg',
+        exImg: 'assets/images/w1_ex_6.jpg',
         chars: [{ c: '菊', m: 'ㄐㄩ', t: 'ˊ' }, { c: '花', m: 'ㄏㄨㄚ', t: '' }],
         distractors: ['米', '草', '葉'],
         radical: '艸部（菊 12 畫 ／ 花 8 畫）',
         structure: '上下結構（艸字頭，代表草本植物）',
         mnemonic: '草（艹）字頭下面包（勹）著一粒粒像「米」一樣聚在一起的花瓣，就是在秋天開放的「菊花」！',
+        shortMeaning: '秋天開放、耐寒傲霜的植物，課文中象徵不慕名利的「隱士」。',
+        quizMeaning: '在秋天盛開、耐寒傲霜的草本植物。晉朝陶淵明最喜愛它，課文中用來象徵不慕名利的「隱逸者（隱士）」。',
         meaning: '在秋天開放的草本植物，耐寒傲霜。晉朝陶淵明最愛菊花，課文中用來象徵不慕名利的「隱逸者（隱士）」。',
         quote: '晉陶淵明獨愛「菊」……予謂：菊，花之隱逸者也。',
-        quoteBlank: '晉陶淵明獨愛（　　），作者認為它是「花之隱逸者也」。',
+        quoteBlank: '晉陶淵明獨愛（　　），作者認為它象徵不慕名利的「隱逸者」。',
         example: '秋天到了，公園裡金黃色的菊花盛開，非常美麗。',
         exampleBlank: '秋天到了，公園裡金黃色的（　　）盛開，非常美麗。',
         tts: '菊花，ㄐㄩˊ、ㄏㄨㄚ。秋天開放的花，陶淵明最愛菊花，課文中象徵不慕名利的隱士。生活例句：秋天到了，公園裡金黃色的菊花盛開。'
@@ -4464,11 +4834,15 @@
         word: '牡丹',
         zhuyin: 'ㄇㄨˇ ㄉㄢ',
         img: 'assets/images/w1_7.jpg',
+        quoteImg: 'assets/images/w1_quote_7.jpg',
+        exImg: 'assets/images/w1_ex_7.jpg',
         chars: [{ c: '牡', m: 'ㄇㄨ', t: 'ˇ' }, { c: '丹', m: 'ㄉㄢ', t: '' }],
         distractors: ['杜', '肚', '舟'],
         radical: '牛部（牡 7 畫）＋ 丶部（丹 4 畫）',
         structure: '牡：左右結構（牜＋土）／ 丹：獨體結構',
         mnemonic: '「牡」左邊是牛（牜）、右邊是土（千萬別寫成木部的杜）；「丹」代表紅通通的顏色，合起來就是富貴華麗的「牡丹」！',
+        shortMeaning: '花朵碩大華麗的植物，課文中象徵追求榮華富貴的「富貴者」。',
+        quizMeaning: '花朵碩大、色彩濃豔華麗的觀賞植物。唐朝以來的世人非常喜愛它，課文中用來象徵追求榮華富貴的「富貴者」。',
         meaning: '花朵碩大、色彩華麗的觀賞植物。唐朝以來的世人非常喜愛牡丹，課文中用來象徵追求榮華富貴的「富貴者」。',
         quote: '自李唐來，世人盛愛「牡丹」……牡丹，花之富貴者也。',
         quoteBlank: '自李唐來，世人盛愛（　　），作者認為它是「花之富貴者也」。',
@@ -4721,7 +5095,8 @@
       }
     ];
 
-    const NOTES_DATA = [
+    // 課文注釋資料庫（優先採用外部檔案 assets/lesson_notes_data.js，老師可直接編輯該檔）
+    const NOTES_DATA = (typeof LESSON_NOTES_DATABASE !== 'undefined') ? LESSON_NOTES_DATABASE : [
       {
         id: 1,
         term: '蕃',
@@ -4892,15 +5267,17 @@
       `).join('');
     }
 
-    function renderWordImagePlaceholder(imgPath, wordLabel) {
+    function renderWordImagePlaceholder(imgPath, wordLabel, captionText, isQuizImg = false) {
+      const safeCap = (captionText || (isQuizImg ? '看圖作答' : `【${wordLabel}】詞語圖片`)).replace(/'/g, "\\'");
       return `
-        <div style="width:220px; min-height:165px; border:2.5px dashed #93c5fd; border-radius:16px; background:#f8fafc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; text-align:center; overflow:hidden; flex-shrink:0;">
-          <img src="${imgPath}" alt="${wordLabel}" style="max-width:100%; max-height:145px; border-radius:10px; object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div onclick="openSentenceLightbox('${imgPath}', '${safeCap}', ${isQuizImg ? 'true' : 'false'})" title="點擊放大檢視圖片" style="width:220px; min-height:175px; border:2.5px solid #93c5fd; border-radius:16px; background:#f8fafc; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; text-align:center; overflow:hidden; flex-shrink:0; cursor:zoom-in; box-shadow:0 3px 10px rgba(2,132,199,0.08);">
+          <img src="${imgPath}" alt="${isQuizImg ? '題目情境圖' : wordLabel}" style="max-width:100%; max-height:140px; border-radius:10px; object-fit:contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div style="display:none; flex-direction:column; align-items:center; justify-content:center; color:#64748b; padding:12px;">
             <span style="font-size:2.2rem; margin-bottom:4px;">🖼️</span>
-            <span style="font-size:14pt; font-weight:bold; color:#0369a1;">【${wordLabel}】圖檔預留區</span>
+            <span style="font-size:14pt; font-weight:bold; color:#0369a1;">${isQuizImg ? '題目圖片預留區' : `【${wordLabel}】圖檔預留區`}</span>
             <span style="font-size:11pt; color:#94a3b8; margin-top:2px;">${imgPath}</span>
           </div>
+          <span style="font-size:11.5pt; font-weight:800; color:#0284c7; margin-top:6px;">🖼️ 點擊放大圖片</span>
         </div>
       `;
     }
@@ -4926,6 +5303,22 @@
       renderW1FocusCard();
     }
 
+    // 詞語一學習卡：三層式簡潔版面（第4、10點）
+    // 第一層：大字詞語＋注音＋圖片＋一句解釋（與評量 quizMeaning 一致，不含目標字）
+    // 第二層：課文原句／生活例句頁籤，一次只看一句，目標字紅字
+    // 第三層：📖 詳細說明（完整詞義、部首結構、口訣）收合
+    let curW1SentTab = 'quote';
+    let w1DetailOpen = false;
+
+    function switchW1SentTab(tab) {
+      curW1SentTab = tab;
+      renderW1FocusCard();
+    }
+
+    function toggleW1Detail(el) {
+      w1DetailOpen = !!el.open;
+    }
+
     function renderW1FocusCard() {
       const container = document.getElementById('w1-focus-container');
       const prog = document.getElementById('w1-focus-progress');
@@ -4934,89 +5327,339 @@
       if (prog) prog.style.width = `${((curW1Idx + 1) / WORDS1_DATA.length) * 100}%`;
       renderW1ChipBar();
 
+      const isQuote = (curW1SentTab === 'quote');
+      const sentText = isQuote ? item.quote : item.example;
+      const sentImg = isQuote ? item.quoteImg : item.exImg;
+      const sentColor = isQuote
+        ? { bg: '#f0fdf4', border: '#86efac', title: '#166534', label: '📜 課文原句' }
+        : { bg: '#fff7ed', border: '#fdba74', title: '#9a3412', label: '🌱 生活例句' };
+      const plainSent = sentText.replace(/「|」/g, '');
+      const shortExplain = item.quizMeaning || item.shortMeaning || item.meaning;
+      const wordTts = `${item.word}。${shortExplain}`;
+
       container.innerHTML = `
-        <div style="background:#ffffff; border:3px solid #93c5fd; border-radius:20px; padding:26px; box-shadow:0 8px 24px rgba(30,64,175,0.08);">
+        <div style="background:#ffffff; border:3px solid #93c5fd; border-radius:20px; padding:24px; box-shadow:0 8px 24px rgba(30,64,175,0.08);">
           <!-- 單卡頂部切換列 -->
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px; background:#eff6ff; padding:10px 16px; border-radius:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px; background:#eff6ff; padding:10px 16px; border-radius:12px;">
             <button type="button" class="tool-btn" onclick="showW1FocusCard(-1)">◀ 上一組詞語</button>
-            <span style="font-size:16pt; font-weight:900; color:#1d4ed8;">第 ${curW1Idx + 1} / ${WORDS1_DATA.length} 組：${item.word}</span>
+            <span style="font-size:16pt; font-weight:900; color:#1d4ed8;">第 ${curW1Idx + 1} / ${WORDS1_DATA.length} 組</span>
             <button type="button" class="tool-btn" onclick="showW1FocusCard(1)">下一組詞語 ▶</button>
           </div>
 
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; border-bottom:2px dashed #dbeafe; padding-bottom:18px; margin-bottom:20px;">
-            <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
-              ${renderWordImagePlaceholder(item.img, item.word)}
-              <div>
-                <span style="background:#1d4ed8; color:#ffffff; padding:5px 14px; border-radius:999px; font-weight:900; font-size:1rem; display:inline-block; margin-bottom:10px;">核心詞語 ${item.id} / ${WORDS1_DATA.length}</span>
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                  ${renderTianZiRow(item.chars)}
-                </div>
+          <!-- 第一層：大字＋注音＋圖片＋一句解釋 -->
+          <div style="display:flex; align-items:center; justify-content:center; gap:26px; flex-wrap:wrap; margin-bottom:18px;">
+            ${renderWordImagePlaceholder(item.img, item.word, `【${item.word}】詞語圖片`)}
+            <div style="display:flex; flex-direction:column; align-items:flex-start; gap:14px; min-width:260px;">
+              <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                ${renderTianZiRow(item.chars)}
+              </div>
+              <div style="font-size:20pt; font-weight:900; color:#0f172a; line-height:1.5; background:#fefce8; border-left:6px solid #eab308; padding:10px 16px; border-radius:10px; max-width:460px;">
+                ${shortExplain}
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <button type="button" class="audio-play-btn" onclick="speakText('${wordTts.replace(/'/g, "\\'")}')">🔊 詞語朗讀</button>
+                ${renderReadCheckGroup('w1_' + item.id)}
               </div>
             </div>
-            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-              <button type="button" class="audio-play-btn" onclick="speakText('${item.tts.replace(/'/g, "\\'")}')">🔊 詞語朗讀</button>
-              ${renderReadCheckGroup('w1_' + item.id)}
+          </div>
+
+          <!-- 第二層：課文原句／生活例句頁籤（一次只看一句） -->
+          <div style="display:flex; gap:10px; margin-bottom:0; flex-wrap:wrap;">
+            <button type="button" class="sub-quiz-tab-btn ${isQuote ? 'active' : ''}" onclick="switchW1SentTab('quote')">📜 課文原句</button>
+            <button type="button" class="sub-quiz-tab-btn ${!isQuote ? 'active' : ''}" onclick="switchW1SentTab('ex')">🌱 生活例句</button>
+          </div>
+          <div style="background:${sentColor.bg}; border:2px solid ${sentColor.border}; border-radius:0 14px 14px 14px; padding:16px 20px; margin-top:-2px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <img src="${sentImg}" alt="${sentColor.label}圖"
+                 onclick="openSentenceLightbox('${sentImg}', '${sentColor.label}')"
+                 title="點擊放大圖片"
+                 style="width:220px; max-height:170px; object-fit:contain; border-radius:10px; border:1.5px solid ${sentColor.border}; background:#fff; cursor:zoom-in;"
+                 onerror="this.style.display='none';">
+            <div style="flex:1; min-width:240px;">
+              <div style="font-size:20pt; line-height:1.7; color:#1e293b; font-weight:bold;">${highlightTargetWordRed(sentText, item)}</div>
+              <button type="button" class="tool-btn" style="margin-top:10px; padding:4px 12px; font-size:13pt;" onclick="speakText('${plainSent.replace(/'/g, "\\'")}')">🔊 讀句子</button>
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; margin-bottom:18px;">
-            <div style="background:#eff6ff; border-left:5px solid #2563eb; padding:14px 18px; border-radius:12px;">
-              <div style="font-weight:900; color:#1e40af; margin-bottom:4px;">🧩 部首與結構</div>
-              <div style="color:#1e293b; font-size:1.05rem;"><strong>部首：</strong>${item.radical}<br><strong>結構：</strong>${item.structure}</div>
+          <!-- 第三層：詳細說明（收合） -->
+          <details ${w1DetailOpen ? 'open' : ''} ontoggle="toggleW1Detail(this)" style="margin-top:16px; background:#f8fafc; border:2px solid #e2e8f0; border-radius:14px; padding:12px 18px;">
+            <summary style="cursor:pointer; font-weight:900; color:#334155; font-size:16pt;">📖 詳細說明（完整詞義、部首結構、記憶口訣）</summary>
+            <div style="margin-top:12px; display:grid; gap:10px; font-size:1.05rem; line-height:1.7; color:#1e293b;">
+              <div><strong style="color:#0f172a;">📘 完整詞義：</strong>${item.meaning}</div>
+              <div><strong style="color:#1e40af;">🧩 部首：</strong>${item.radical}　<strong style="color:#1e40af;">結構：</strong>${item.structure}</div>
+              <div><strong style="color:#854d0e;">💡 記憶口訣：</strong>${item.mnemonic}</div>
             </div>
-            <div style="background:#fefce8; border-left:5px solid #eab308; padding:14px 18px; border-radius:12px;">
-              <div style="font-weight:900; color:#854d0e; margin-bottom:4px;">💡 部件記憶口訣</div>
-              <div style="color:#1e293b; font-size:1.05rem;">${item.mnemonic}</div>
-            </div>
-          </div>
-
-          <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:14px; padding:18px; margin-bottom:14px;">
-            <div style="font-weight:900; color:#0f172a; font-size:1.1rem; margin-bottom:6px;">📘 詞語解釋：</div>
-            <div style="color:#1e293b; font-size:1.1rem; line-height:1.75;">${item.meaning}</div>
-          </div>
-
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
-            <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:14px 18px;">
-              <div style="font-weight:900; color:#166534; margin-bottom:4px;">📜 課文原句：</div>
-              <div style="color:#1e293b; font-size:1.05rem;">${item.quote}</div>
-            </div>
-            <div style="background:#fff7ed; border:1px solid #fed7aa; border-radius:12px; padding:14px 18px; display:flex; flex-direction:column; gap:10px;">
-              <div>
-                <div style="font-weight:900; color:#9a3412; margin-bottom:4px;">🌱 生活造句與情境圖：</div>
-                <div style="color:#1e293b; font-size:1.05rem;">${item.example}</div>
-              </div>
-              <img src="assets/images/w1_ex_${item.id}.jpg" alt="${item.word}例句圖"
-                   onclick="openSentenceLightbox('assets/images/w1_ex_${item.id}.jpg', '【${item.word}】生活例句情境圖：${item.example}')"
-                   style="max-width:100%; max-height:160px; object-fit:contain; border-radius:10px; border:1.5px solid #fed7aa; background:#fff; cursor:zoom-in; align-self:center;"
-                   onerror="this.style.display='none';">
-            </div>
-          </div>
+          </details>
         </div>
       `;
     }
 
-    function openSentenceLightbox(imgSrc, captionText) {
+    // 課文 15 句圖說清單（供點圖放大左右切換）
+    const LESSON_LIGHTBOX_ITEMS = [
+      { img: 'assets/images/s01.jpg', cap: '第 1 句：水陸草木之花，可愛者甚蕃。｜水中、陸上各種草木的花，可愛的很多。' },
+      { img: 'assets/images/s02.jpg', cap: '第 2 句：晉陶淵明獨愛菊；｜東晉的陶淵明特別喜愛菊花。' },
+      { img: 'assets/images/s03.jpg', cap: '第 3 句：自李唐來，世人盛愛牡丹；｜自從唐朝以後，大家都喜愛牡丹。' },
+      { img: 'assets/images/s04.jpg', cap: '第 4 句：予獨愛蓮之出淤泥而不染，｜我偏愛蓮花從爛泥裡長出卻不受汙染。' },
+      { img: 'assets/images/s05.jpg', cap: '第 5 句：濯清漣而不妖，｜生長在清水中卻不妖媚。' },
+      { img: 'assets/images/s06.jpg', cap: '第 6 句：中通外直，｜花梗中空，外表挺直。' },
+      { img: 'assets/images/s07.jpg', cap: '第 7 句：不蔓不枝，｜不蔓延細莖，也不旁生枝條。' },
+      { img: 'assets/images/s08.jpg', cap: '第 8 句：香遠益清，亭亭淨植，｜蓮花的香氣愈在遠處愈覺得清雅，高挺、潔淨地直立著。' },
+      { img: 'assets/images/s09.jpg', cap: '第 9 句：可遠觀而不可褻玩焉。｜蓮花只可以從遠處觀賞，卻不可以以輕慢的態度接近玩弄。' },
+      { img: 'assets/images/s10.jpg', cap: '第 10 句：予謂：菊，花之隱逸者也；｜我認為：菊花是花中的隱士。' },
+      { img: 'assets/images/s11.jpg', cap: '第 11 句：牡丹，花之富貴者也；｜牡丹是花中的富貴之人。' },
+      { img: 'assets/images/s12.jpg', cap: '第 12 句：蓮，花之君子者也。｜蓮花是花中的君子。' },
+      { img: 'assets/images/s13.jpg', cap: '第 13 句：噫！菊之愛，陶後鮮有聞。｜唉！喜愛菊花的人，陶淵明以後很少聽說過。' },
+      { img: 'assets/images/s14.jpg', cap: '第 14 句：蓮之愛，同予者何人？｜喜愛蓮花的人，像我一樣的還有誰呢？' },
+      { img: 'assets/images/s15.jpg', cap: '第 15 句：牡丹之愛，宜乎眾矣！｜喜愛牡丹的人，應當很多了！' }
+    ];
+
+    let curLightboxState = {
+      mode: 'single', // 'lesson' | 'w1' | 'single'
+      lessonIdx: 0,
+      w1Idx: 0,
+      w1SubType: 'word', // 'word' | 'quote' | 'ex'
+      ttsText: ''
+    };
+
+    function highlightTargetWordRed(sentence, item) {
+      if (!sentence || !item) return sentence || '';
+      // 先移除包裹目標詞的「」引號，再將目標詞與單字標為醒目紅字
+      let clean = sentence.replace(/「([^」]+)」/g, '$1');
+      const targets = [item.word];
+      if (item.word === '蓮花') targets.push('蓮');
+      if (item.word === '洗濯') targets.push('濯');
+      if (item.word === '菊花') targets.push('菊');
+      // 依長度由長到短替換，避免重疊包裹
+      targets.sort((a, b) => b.length - a.length);
+      // 使用暫時標記避免二次替換
+      targets.forEach((t, idx) => {
+        clean = clean.split(t).join(`__RED_START_${idx}__${t}__RED_END__`);
+      });
+      targets.forEach((_, idx) => {
+        clean = clean
+          .split(`__RED_START_${idx}__`)
+          .join('<span style="color:#dc2626; font-weight:900; padding:0 2px;">')
+          .split('__RED_END__')
+          .join('</span>');
+      });
+      return clean;
+    }
+
+    function renderLargeLightboxWord(chars) {
+      return chars.map(ch => `
+        <div style="display:inline-flex; align-items:center; gap:14px; background:#f8fafc; border:3px solid #93c5fd; border-radius:20px; padding:18px 24px; box-shadow:0 6px 16px rgba(30,64,175,0.1);">
+          <div class="tian-zi-box" style="width:128px; height:128px; font-size:5rem; border-width:3px;">
+            <span class="char">${ch.c}</span>
+          </div>
+          <div style="display:flex; flex-direction:row; align-items:center;">
+            <span class="zy-col" style="font-size:1.85rem; font-weight:900; color:#1e40af; line-height:1.15;">
+              <span class="zy-main">${ch.m}</span>
+              ${ch.t === '˙' ? '<span class="zy-dot">˙</span>' : `<span class="zy-tone">${ch.t}</span>`}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function ensureSentenceLightboxModal() {
       let modal = document.getElementById('sentenceImgLightbox');
       if (!modal) {
         modal = document.createElement('div');
         modal.id = 'sentenceImgLightbox';
-        modal.style.cssText = 'position:fixed; inset:0; background:rgba(15,23,42,0.82); backdrop-filter:blur(4px); z-index:100005; display:flex; align-items:center; justify-content:center; padding:20px;';
+        modal.style.cssText = 'position:fixed; inset:0; background:rgba(15,23,42,0.85); backdrop-filter:blur(5px); z-index:100005; display:none; align-items:center; justify-content:center; padding:16px;';
         modal.onclick = () => { modal.style.display = 'none'; };
         modal.innerHTML = `
-          <div style="background:#ffffff; border:3px solid #38bdf8; border-radius:18px; padding:20px; max-width:900px; width:95%; text-align:center; box-shadow:0 16px 40px rgba(0,0,0,0.4);" onclick="event.stopPropagation()">
-            <img id="lightboxImgEl" src="" alt="" style="max-width:100%; max-height:70vh; border-radius:12px; object-fit:contain; border:1.5px solid #cbd5e1;">
-            <div id="lightboxCapEl" style="font-size:18pt; font-weight:900; color:#0369a1; margin:14px 0 10px 0; line-height:1.5;"></div>
-            <div style="display:flex; justify-content:center; gap:12px;">
-              <button type="button" class="tool-btn" onclick="speakText(document.getElementById('lightboxCapEl').innerText)">🔊 朗讀圖說與句子</button>
-              <button type="button" class="tool-btn primary" onclick="document.getElementById('sentenceImgLightbox').style.display='none'">✖ 關閉放大預覽</button>
+          <div style="background:#ffffff; border:3px solid #38bdf8; border-radius:22px; padding:18px 22px; max-width:980px; width:96%; max-height:92vh; display:flex; flex-direction:column; box-shadow:0 20px 50px rgba(0,0,0,0.45); position:relative;" onclick="event.stopPropagation()">
+            <!-- 頂部導覽與類型切換列 -->
+            <div id="lightboxTopNav" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid #e2e8f0; flex-shrink:0;"></div>
+            <!-- 中央主體顯示區（含左右大切換鈕，支援滾動與完整等比縮放） -->
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex:1; min-height:0; overflow-y:auto; padding:6px 2px;">
+              <button type="button" id="lightboxPrevBtn" class="tool-btn" onclick="stepLightbox(-1)" style="padding:12px 14px; font-size:18pt; border-radius:14px; background:#eff6ff; color:#1d4ed8; border:2px solid #93c5fd; flex-shrink:0;" title="上一張 (鍵盤 ◀)">◀</button>
+              <div id="lightboxBodyContent" style="flex:1; min-width:0; display:flex; flex-direction:column; align-items:center; justify-content:center;"></div>
+              <button type="button" id="lightboxNextBtn" class="tool-btn" onclick="stepLightbox(1)" style="padding:12px 14px; font-size:18pt; border-radius:14px; background:#eff6ff; color:#1d4ed8; border:2px solid #93c5fd; flex-shrink:0;" title="下一張 (鍵盤 ▶)">▶</button>
+            </div>
+            <!-- 底部操作列 -->
+            <div style="display:flex; justify-content:center; align-items:center; gap:12px; flex-wrap:wrap; margin-top:12px; padding-top:10px; border-top:2px solid #f1f5f9; flex-shrink:0;">
+              <button type="button" id="lightboxPrevBtnBottom" class="tool-btn" onclick="stepLightbox(-1)" style="font-size:14pt; padding:6px 16px;">◀ 上一張</button>
+              <button type="button" class="tool-btn" onclick="speakText(curLightboxState.ttsText)" style="background:#fef3c7; color:#92400e; border-color:#f59e0b; font-size:15pt; padding:8px 20px;">🔊 語音報讀</button>
+              <button type="button" id="lightboxNextBtnBottom" class="tool-btn" onclick="stepLightbox(1)" style="font-size:14pt; padding:6px 16px;">下一張 ▶</button>
+              <button type="button" class="tool-btn primary" onclick="document.getElementById('sentenceImgLightbox').style.display='none'" style="font-size:14pt; padding:6px 20px;">✖ 關閉預覽</button>
             </div>
           </div>
         `;
         document.body.appendChild(modal);
+
+        // 支援鍵盤左右方向鍵切換圖片、Esc 關閉
+        window.addEventListener('keydown', (e) => {
+          if (modal.style.display !== 'flex') return;
+          if (e.key === 'ArrowLeft') { e.preventDefault(); stepLightbox(-1); }
+          else if (e.key === 'ArrowRight') { e.preventDefault(); stepLightbox(1); }
+          else if (e.key === 'Escape') { e.preventDefault(); modal.style.display = 'none'; }
+        });
       }
-      document.getElementById('lightboxImgEl').src = imgSrc;
-      document.getElementById('lightboxCapEl').innerText = captionText || '';
+      return modal;
+    }
+
+    function openSentenceLightbox(imgSrc, captionText, isQuizImg = false) {
+      const modal = ensureSentenceLightboxModal();
+      const sMatch = String(imgSrc).match(/s(0[1-9]|1[0-5])\.jpg$/i);
+      const w1WordMatch = String(imgSrc).match(/w1_([1-7])\.jpg$/i);
+      const w1QuoteMatch = String(imgSrc).match(/w1_quote_([1-7])\.jpg$/i);
+      const w1ExMatch = String(imgSrc).match(/w1_ex_([1-7])\.jpg$/i);
+
+      if (!isQuizImg && sMatch) {
+        curLightboxState.mode = 'lesson';
+        curLightboxState.lessonIdx = parseInt(sMatch[1], 10) - 1;
+      } else if (!isQuizImg && (w1WordMatch || w1QuoteMatch || w1ExMatch)) {
+        curLightboxState.mode = 'w1';
+        if (w1WordMatch) {
+          curLightboxState.w1Idx = parseInt(w1WordMatch[1], 10) - 1;
+          curLightboxState.w1SubType = 'word';
+        } else if (w1QuoteMatch) {
+          curLightboxState.w1Idx = parseInt(w1QuoteMatch[1], 10) - 1;
+          curLightboxState.w1SubType = 'quote';
+        } else if (w1ExMatch) {
+          curLightboxState.w1Idx = parseInt(w1ExMatch[1], 10) - 1;
+          curLightboxState.w1SubType = 'ex';
+        }
+      } else {
+        curLightboxState.mode = 'single';
+        curLightboxState.singleImg = imgSrc;
+        curLightboxState.singleCap = captionText || '';
+      }
+
+      renderLightboxContent();
       modal.style.display = 'flex';
+    }
+
+    function switchLightboxW1SubType(subType) {
+      curLightboxState.w1SubType = subType;
+      renderLightboxContent();
+    }
+
+    function stepLightboxW1Word(delta) {
+      curLightboxState.w1Idx = (curLightboxState.w1Idx + delta + WORDS1_DATA.length) % WORDS1_DATA.length;
+      curW1Idx = curLightboxState.w1Idx;
+      renderW1FocusCard();
+      renderLightboxContent();
+    }
+
+    function stepLightbox(delta) {
+      if (curLightboxState.mode === 'lesson') {
+        const len = LESSON_LIGHTBOX_ITEMS.length;
+        curLightboxState.lessonIdx = (curLightboxState.lessonIdx + delta + len) % len;
+        renderLightboxContent();
+      } else if (curLightboxState.mode === 'w1') {
+        // 同一頁中的「詞語圖片 ⇄ 課文原句 ⇄ 生活例句」及跨詞語無縫左右切換
+        const subOrder = ['word', 'quote', 'ex'];
+        let sIdx = subOrder.indexOf(curLightboxState.w1SubType);
+        sIdx += delta;
+        if (sIdx < 0) {
+          sIdx = subOrder.length - 1;
+          curLightboxState.w1Idx = (curLightboxState.w1Idx - 1 + WORDS1_DATA.length) % WORDS1_DATA.length;
+          curW1Idx = curLightboxState.w1Idx;
+          renderW1FocusCard();
+        } else if (sIdx >= subOrder.length) {
+          sIdx = 0;
+          curLightboxState.w1Idx = (curLightboxState.w1Idx + 1) % WORDS1_DATA.length;
+          curW1Idx = curLightboxState.w1Idx;
+          renderW1FocusCard();
+        }
+        curLightboxState.w1SubType = subOrder[sIdx];
+        renderLightboxContent();
+      }
+    }
+
+    function renderLightboxContent() {
+      const topNav = document.getElementById('lightboxTopNav');
+      const bodyEl = document.getElementById('lightboxBodyContent');
+      const prevBtn = document.getElementById('lightboxPrevBtn');
+      const nextBtn = document.getElementById('lightboxNextBtn');
+      const prevBtnB = document.getElementById('lightboxPrevBtnBottom');
+      const nextBtnB = document.getElementById('lightboxNextBtnBottom');
+      if (!bodyEl) return;
+
+      const showNav = (curLightboxState.mode === 'lesson' || curLightboxState.mode === 'w1');
+      if (prevBtn) prevBtn.style.display = showNav ? 'inline-flex' : 'none';
+      if (nextBtn) nextBtn.style.display = showNav ? 'inline-flex' : 'none';
+      if (prevBtnB) prevBtnB.style.display = showNav ? 'inline-flex' : 'none';
+      if (nextBtnB) nextBtnB.style.display = showNav ? 'inline-flex' : 'none';
+
+      if (curLightboxState.mode === 'lesson') {
+        const entry = LESSON_LIGHTBOX_ITEMS[curLightboxState.lessonIdx];
+        curLightboxState.ttsText = entry.cap;
+        topNav.style.display = 'flex';
+        topNav.innerHTML = `
+          <span style="background:#0284c7; color:#fff; padding:4px 14px; border-radius:999px; font-weight:900; font-size:15pt;">
+            📖 課文圖文放大檢視（第 ${curLightboxState.lessonIdx + 1} / ${LESSON_LIGHTBOX_ITEMS.length} 句）
+          </span>
+          <span style="font-size:13.5pt; color:#64748b; font-weight:bold;">💡 可點擊左右按鈕或鍵盤 ◀ ▶ 切換上一張、下一張</span>
+        `;
+        bodyEl.innerHTML = `
+          <img src="${entry.img}" alt="" style="max-width:100%; max-height:62vh; border-radius:14px; object-fit:contain; border:2px solid #cbd5e1;">
+          <div style="font-size:19pt; font-weight:900; color:#0369a1; margin-top:14px; line-height:1.55;">${entry.cap}</div>
+        `;
+      } else if (curLightboxState.mode === 'w1') {
+        const item = WORDS1_DATA[curLightboxState.w1Idx];
+        const sub = curLightboxState.w1SubType;
+        topNav.style.display = 'flex';
+        topNav.innerHTML = `
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="tool-btn" onclick="stepLightboxW1Word(-1)" style="padding:4px 12px; font-size:13.5pt;">◀ 上一詞</button>
+            <span style="background:#1d4ed8; color:#fff; padding:4px 14px; border-radius:999px; font-weight:900; font-size:15pt;">
+              詞語 ${item.id} / ${WORDS1_DATA.length}：【${item.word}】
+            </span>
+            <button type="button" class="tool-btn" onclick="stepLightboxW1Word(1)" style="padding:4px 12px; font-size:13.5pt;">下一詞 ▶</button>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="tool-btn ${sub === 'word' ? 'primary' : ''}" onclick="switchLightboxW1SubType('word')" style="font-size:14pt;">🖼️ 1. 詞語圖片</button>
+            <button type="button" class="tool-btn ${sub === 'quote' ? 'primary' : ''}" onclick="switchLightboxW1SubType('quote')" style="font-size:14pt;">📜 2. 課文原句</button>
+            <button type="button" class="tool-btn ${sub === 'ex' ? 'primary' : ''}" onclick="switchLightboxW1SubType('ex')" style="font-size:14pt;">🌱 3. 生活例句</button>
+          </div>
+        `;
+
+        if (sub === 'word') {
+          // 規範第 6 點：點圖放大時呈現大字的生字詞在圖旁邊，下面只要簡短說明字詞義就好
+          curLightboxState.ttsText = `${item.word}，${item.shortMeaning}`;
+          bodyEl.innerHTML = `
+            <div style="display:flex; align-items:center; justify-content:center; gap:28px; flex-wrap:wrap; padding:10px 6px;">
+              <img src="${item.img}" alt="${item.word}" style="max-width:420px; width:100%; max-height:52vh; border-radius:16px; object-fit:contain; border:2.5px solid #93c5fd; background:#f8fafc;">
+              <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+                ${renderLargeLightboxWord(item.chars)}
+              </div>
+            </div>
+            <div style="margin-top:16px; background:#eff6ff; border:2px solid #bfdbfe; border-radius:14px; padding:14px 20px; font-size:20pt; font-weight:900; color:#1e3a8a; line-height:1.5;">
+              ${item.shortMeaning}
+            </div>
+          `;
+        } else if (sub === 'quote') {
+          // 規範第 7 點：例句的點圖放大時，呈現圖和句子就好，且其中目標字詞要紅字顯示
+          const cleanPlainQuote = item.quote.replace(/「([^」]+)」/g, '$1');
+          curLightboxState.ttsText = cleanPlainQuote;
+          bodyEl.innerHTML = `
+            <img src="${item.quoteImg}" alt="${item.word}課文原句" style="max-width:100%; max-height:46vh; border-radius:16px; object-fit:contain; border:2.5px solid #86efac; background:#ffffff;">
+            <div style="margin-top:12px; background:#f0fdf4; border:2px solid #86efac; border-radius:14px; padding:12px 18px; font-size:19pt; font-weight:800; color:#0f172a; line-height:1.5;">
+              ${highlightTargetWordRed(item.quote, item)}
+            </div>
+          `;
+        } else {
+          // 生活例句：呈現圖和句子就好，且其中目標字詞要紅字顯示
+          curLightboxState.ttsText = item.example;
+          bodyEl.innerHTML = `
+            <img src="${item.exImg}" alt="${item.word}生活例句" style="max-width:100%; max-height:46vh; border-radius:16px; object-fit:contain; border:2.5px solid #fed7aa; background:#ffffff;">
+            <div style="margin-top:12px; background:#fff7ed; border:2px solid #fed7aa; border-radius:14px; padding:12px 18px; font-size:19pt; font-weight:800; color:#0f172a; line-height:1.5;">
+              ${highlightTargetWordRed(item.example, item)}
+            </div>
+          `;
+        }
+      } else {
+        // 單張圖片放大模式（如評量區看圖作答）
+        curLightboxState.ttsText = curLightboxState.singleCap || '題目情境圖';
+        topNav.style.display = 'none';
+        bodyEl.innerHTML = `
+          <img src="${curLightboxState.singleImg}" alt="" style="max-width:100%; max-height:65vh; border-radius:14px; object-fit:contain; border:2px solid #cbd5e1;">
+          ${curLightboxState.singleCap ? `<div style="font-size:18pt; font-weight:900; color:#0369a1; margin-top:14px; line-height:1.5;">${curLightboxState.singleCap}</div>` : ''}
+        `;
+      }
     }
 
     // 詞語二單卡渲染與切換
@@ -5180,42 +5823,65 @@
     }
 
     // ================= 建構完整題庫：詞語一(6大題型×7詞)、詞語二(3大題型×15詞)、解釋(15題)、相似字(4題) =================
-    function buildW1FourOptions(correctIdx) {
+    const W1_ANS_PERMS = [
+      [2, 0, 3, 1, 2, 0, 3], // w1_match: A:2, B:1, C:2, D:2
+      [1, 3, 0, 2, 1, 3, 0], // w1_listen: A:2, B:2, C:1, D:2
+      [3, 1, 2, 0, 3, 2, 1], // w1_textfill: A:1, B:2, C:2, D:2
+      [0, 2, 1, 3, 0, 1, 2]  // w1_lifefill: A:2, B:2, C:2, D:1
+    ];
+    const W2_ANS_PERM = [1, 3, 0, 2, 3, 1, 2, 0, 1, 3, 2, 0, 3, 1, 2]; // 15題: A:3, B:4, C:4, D:4
+
+    function buildW1FourOptions(correctIdx, permTableIdx = 0) {
       const otherIndices = WORDS1_DATA.map((_, i) => i).filter(i => i !== correctIdx);
-      // 固定可重現的干擾項挑選
-      const pick1 = otherIndices[(correctIdx * 2) % otherIndices.length];
-      const pick2 = otherIndices[(correctIdx * 2 + 2) % otherIndices.length];
-      const pick3 = otherIndices[(correctIdx * 2 + 4) % otherIndices.length];
-      const raw = [correctIdx, pick1, pick2, pick3];
-      // 旋轉使正解均勻分布在 A/B/C/D
-      const shift = correctIdx % 4;
-      const rotated = [0, 1, 2, 3].map(i => raw[(i - shift + 4) % 4]);
-      const ans = rotated.indexOf(correctIdx);
-      const options = rotated.map((wIdx, oIdx) => {
+      const pick1 = otherIndices[(correctIdx * 2 + permTableIdx) % otherIndices.length];
+      const pick2 = otherIndices[(correctIdx * 2 + permTableIdx + 2) % otherIndices.length];
+      const pick3 = otherIndices[(correctIdx * 2 + permTableIdx + 4) % otherIndices.length];
+      const distractors = [pick1, pick2, pick3];
+      const targetAns = (W1_ANS_PERMS[permTableIdx] || W1_ANS_PERMS[0])[correctIdx % 7];
+      const arranged = [];
+      let dPtr = 0;
+      for (let i = 0; i < 4; i++) {
+        if (i === targetAns) arranged.push(correctIdx);
+        else arranged.push(distractors[dPtr++]);
+      }
+      const options = arranged.map((wIdx, oIdx) => {
         const w = WORDS1_DATA[wIdx];
         return `${['A', 'B', 'C', 'D'][oIdx]}. ${w.word}（${w.zhuyin}）`;
       });
-      return { options, ans };
+      return { options, ans: targetAns };
     }
 
     function buildW2FourOptions(correctIdx) {
       const otherIndices = WORDS2_DATA.map((_, i) => i).filter(i => i !== correctIdx);
-      const pick1 = otherIndices[(correctIdx * 3) % otherIndices.length];
-      const pick2 = otherIndices[(correctIdx * 3 + 4) % otherIndices.length];
-      const pick3 = otherIndices[(correctIdx * 3 + 8) % otherIndices.length];
-      const raw = [correctIdx, pick1, pick2, pick3];
-      const shift = correctIdx % 4;
-      const rotated = [0, 1, 2, 3].map(i => raw[(i - shift + 4) % 4]);
-      const ans = rotated.indexOf(correctIdx);
-      const options = rotated.map((wIdx, oIdx) => {
+      const pick1 = otherIndices[(correctIdx * 3 + 1) % otherIndices.length];
+      const pick2 = otherIndices[(correctIdx * 3 + 5) % otherIndices.length];
+      const pick3 = otherIndices[(correctIdx * 3 + 9) % otherIndices.length];
+      const distractors = [pick1, pick2, pick3];
+      const targetAns = W2_ANS_PERM[correctIdx % W2_ANS_PERM.length];
+      const arranged = [];
+      let dPtr = 0;
+      for (let i = 0; i < 4; i++) {
+        if (i === targetAns) arranged.push(correctIdx);
+        else arranged.push(distractors[dPtr++]);
+      }
+      const options = arranged.map((wIdx, oIdx) => {
         const w = WORDS2_DATA[wIdx];
         return `${['A', 'B', 'C', 'D'][oIdx]}. ${w.word}（${w.zhuyin}）`;
       });
-      return { options, ans };
+      return { options, ans: targetAns };
+    }
+
+    function buildW2PromptWithZhuyin(item) {
+      return item.chars.map((cObj, cIdx) => {
+        if (cIdx === item.targetIdx) {
+          return `「<span style="color:#dc2626; font-weight:900;">${item.targetZhuyin}</span>」`;
+        }
+        return cObj.c;
+      }).join('');
     }
 
     const UNIT_QUIZ_BANKS = {
-      // ---------------- 詞語一：6 大題型（每題型皆完整測驗 7 個詞語） ----------------
+      // ---------------- 詞語一：6 大題型（每題型皆完整測驗 7 個詞語，嚴格不洩漏目標字） ----------------
       w1_match: {
         title: '詞語一 ‧ 1️⃣ 圖詞配對（共 7 題）',
         category: '詞語一評量',
@@ -5223,17 +5889,17 @@
         nextSubKey: 'w1_listen',
         nextTab: 'tab-words2',
         questions: WORDS1_DATA.map((item, idx) => {
-          const { options, ans } = buildW1FourOptions(idx);
+          const { options, ans } = buildW1FourOptions(idx, 0);
           return {
             type: 'choice_img',
             img: item.img,
-            wordLabel: item.word,
-            q: `請觀察上方【詞語圖卡與線索】，選出對應的正確詞語：`,
-            clue: `📘 詞義線索：${item.meaning}`,
-            audioText: item.meaning,
+            wordLabel: '看圖選詞',
+            q: `請根據下方圖片與解釋，選出對應的正確詞語：`,
+            clue: item.quizMeaning,
+            audioText: item.quizMeaning,
             options,
             ans,
-            hint: item.mnemonic
+            hint: `注音提示：${item.zhuyin}`
           };
         })
       },
@@ -5244,14 +5910,17 @@
         nextSubKey: 'w1_puzzle',
         nextTab: 'tab-words2',
         questions: WORDS1_DATA.map((item, idx) => {
-          const { options, ans } = buildW1FourOptions(idx);
+          const { options, ans } = buildW1FourOptions(idx, 1);
           return {
             type: 'choice_audio',
-            q: `請點擊下方「🔊 播放題目語音」，仔細聽讀音後選出正確的詞語：`,
-            audioText: `${item.word}。提示：${item.meaning}`,
+            q: `請分別點擊下方「🔊 詞語發音」或「🔊 解釋說明」，聽完語音後即可開始選出正確詞語：`,
+            clue: '',
+            audioWordText: item.word,
+            audioDefText: item.quizMeaning,
+            audioText: `${item.word}。詞義：${item.quizMeaning}`,
             options,
             ans,
-            hint: `注音提示：${item.zhuyin}（${item.mnemonic}）`
+            hint: `注音提示：${item.zhuyin}`
           };
         })
       },
@@ -5263,17 +5932,18 @@
         nextTab: 'tab-words2',
         questions: WORDS1_DATA.map((item, idx) => {
           const targetChars = item.chars.map(c => c.c);
-          const pool = [...targetChars, ...item.distractors];
+          const rawPool = [...targetChars, ...item.distractors];
+          const pool = rawPool.map((_, pIdx) => rawPool[(pIdx + idx + 1) % rawPool.length]);
           return {
             type: 'puzzle',
-            q: `請根據詞義與讀音「${item.zhuyin}」，依序點擊下方國字積木拼出正確詞語：`,
-            clue: `📘 詞義：${item.meaning}`,
-            audioText: `${item.word}，${item.meaning}`,
+            q: `請根據讀音「${item.zhuyin}」與下方解釋，依序點擊國字積木拼出正確詞語：`,
+            clue: item.quizMeaning,
+            audioText: `${item.word}。${item.quizMeaning}`,
             targetWord: item.word,
             targetChars,
             pool,
             ans: item.word,
-            hint: item.mnemonic
+            hint: `部首與結構提示：${item.radical}（${item.structure}）`
           };
         })
       },
@@ -5284,14 +5954,17 @@
         nextSubKey: 'w1_lifefill',
         nextTab: 'tab-words2',
         questions: WORDS1_DATA.map((item, idx) => {
-          const { options, ans } = buildW1FourOptions(idx);
+          const { options, ans } = buildW1FourOptions(idx, 2);
           return {
-            type: 'choice',
+            type: 'choice_fill',
+            img: item.quoteImg,
+            wordLabel: '課文原句情境圖',
             q: `【課文原句填空】${item.quoteBlank}`,
-            audioText: item.quote,
+            clue: item.quizMeaning,
+            audioText: `課文原句填空：${item.quoteBlank}`,
             options,
             ans,
-            hint: `課文原句：${item.quote}`
+            hint: `注音提示：${item.zhuyin}`
           };
         })
       },
@@ -5302,14 +5975,17 @@
         nextSubKey: 'w1_write_1',
         nextTab: 'tab-words2',
         questions: WORDS1_DATA.map((item, idx) => {
-          const { options, ans } = buildW1FourOptions(idx);
+          const { options, ans } = buildW1FourOptions(idx, 3);
           return {
-            type: 'choice',
+            type: 'choice_fill',
+            img: item.exImg,
+            wordLabel: '生活例句情境圖',
             q: `【生活情境填空】${item.exampleBlank}`,
-            audioText: item.example,
+            clue: item.quizMeaning,
+            audioText: `生活情境填空：${item.exampleBlank}`,
             options,
             ans,
-            hint: `生活造句：${item.example}`
+            hint: `注音提示：${item.zhuyin}`
           };
         })
       },
@@ -5324,10 +6000,10 @@
           type: 'handwriting_w1',
           stage: 1,
           item,
-          q: `【第一階段：看圖詞抄寫】請對照示範字「${item.word}（${item.zhuyin}）」，在田字格手寫板上工整抄寫並點擊「👁️ 核對正解」：`,
-          audioText: item.tts,
+          q: `【第一階段：看圖詞抄寫】請對照示範字「${item.word}（${item.zhuyin}）」，在田字格手寫板上工整描寫，並點擊「👁️ 核對正解」：`,
+          audioText: `${item.word}。${item.quizMeaning}`,
           ans: 1,
-          hint: item.mnemonic
+          hint: `${item.radical}｜${item.structure}`
         }))
       },
       w1_write_2: {
@@ -5341,10 +6017,10 @@
           type: 'handwriting_w1',
           stage: 2,
           item,
-          q: `【第二階段：看圖選字寫】請從候選字卡認出「${item.zhuyin}」的正確國字，在手寫板寫出後點擊「👁️ 核對正解」：`,
-          audioText: item.tts,
+          q: `【第二階段：看圖選字寫】請根據讀音「${item.zhuyin}」與解釋，從候選字卡找出正確國字寫在手寫板，完成後點擊「👁️ 核對正解」：`,
+          audioText: `${item.word}。${item.quizMeaning}`,
           ans: 1,
-          hint: item.mnemonic
+          hint: `${item.radical}｜${item.structure}`
         }))
       },
       w1_write_3: {
@@ -5358,10 +6034,10 @@
           type: 'handwriting_w1',
           stage: 3,
           item,
-          q: `【第三階段：看圖自主寫】只看注音「${item.zhuyin}」與詞義提示，挑戰默寫出國字（可善用4層鷹架提示），完成後點擊「👁️ 核對正解」：`,
-          audioText: item.tts,
+          q: `【第三階段：看圖自主寫】只看注音「${item.zhuyin}」與解釋，挑戰默寫出國字（可善用寫字輔助鷹架），完成後點擊「👁️ 核對正解」：`,
+          audioText: `${item.word}。${item.quizMeaning}`,
           ans: 1,
-          hint: item.mnemonic
+          hint: `${item.radical}｜${item.structure}`
         }))
       },
 
@@ -5376,17 +6052,19 @@
           const { options, ans } = buildW2FourOptions(idx);
           return {
             type: 'choice_audio',
-            q: `請點擊「🔊 播放題目語音」，聽讀音與釋義後選出正確的重點詞語：`,
-            clue: `📘 釋義提示：${item.meaning}`,
-            audioText: `${item.word}。${item.meaning}`,
+            q: `請分別點擊下方「🔊 詞語發音」或「🔊 解釋說明」，聽完語音後即可開始選出正確詞語：`,
+            clue: '',
+            audioWordText: item.word,
+            audioDefText: item.meaning,
+            audioText: `${item.word}。詞義：${item.meaning}`,
             options,
             ans,
-            hint: `${item.noteTag}｜課文出處：${item.quote}`
+            hint: `注音提示：${item.zhuyin}`
           };
         })
       },
       w2_zhuyin: {
-        title: '詞語二 ‧ ⌨️ 測驗二：注音手動輸入（共 15 題）',
+        title: '詞語二 ‧ ⌨️ 測驗二：注音輸入（共 15 題｜學生自主作答・無語音報讀）',
         category: '詞語二評量',
         mountId: 'w2-unit-quiz-mount',
         nextSubKey: 'w2_write',
@@ -5394,15 +6072,15 @@
         questions: WORDS2_DATA.map((item) => ({
           type: 'zhuyin_input',
           item,
-          q: `請用下方「注音小鍵盤」拼出紅框字【${item.targetChar}】的正確注音，完成後點擊「✔️ 確認輸入」：`,
-          audioText: `${item.word}，請問「${item.targetChar}」的注音是什麼？`,
+          q: `請看紅框字【${item.targetChar}】，用鍵盤或下方注音按鈕輸入正確注音，完成後點擊「✔️ 確認輸入」：`,
+          audioText: ``,
           targetZhuyin: item.targetZhuyin,
           ans: item.targetZhuyin,
           hint: `${item.noteTag}（${item.mnemonicHint}）`
         }))
       },
       w2_write: {
-        title: '詞語二 ‧ ✍️ 測驗三：看注音寫國字（共 15 題）',
+        title: '詞語二 ‧ ✍️ 測驗三：看注音寫國字（共 15 題｜學生自主作答・無語音報讀）',
         category: '詞語二評量',
         mountId: 'w2-unit-quiz-mount',
         nextSubKey: null,
@@ -5410,14 +6088,15 @@
         questions: WORDS2_DATA.map((item) => ({
           type: 'handwriting_w2',
           item,
-          q: `請根據注音「${item.targetZhuyin}」與詞義，在田字格手寫板寫出【${item.word.replace(item.targetChar, '＿')}】缺空的國字，並點擊「👁️ 核對正解」：`,
-          audioText: item.tts,
+          promptHtml: buildW2PromptWithZhuyin(item),
+          q: `請看上方題目詞語的注音，在田字格寫出正確國字：`,
+          audioText: ``,
           ans: 1,
           hint: `${item.structureHint}｜${item.mnemonicHint}`
         }))
       },
 
-      // ---------------- 解釋：15 則注釋全測（共 15 題） ----------------
+      // ---------------- 解釋：15 則注釋全測（共 15 題｜題幹不提示目標詞語、答案均衡隨機分布 A:4, B:4, C:4, D:3） ----------------
       notes: {
         title: '解釋（課文15則注釋全測・共15題）',
         category: '解釋評量',
@@ -5425,148 +6104,189 @@
         nextTab: 'tab-similar',
         questions: [
           {
-            q: '【注釋 1：蕃】課文「水陸草木之花，可愛者甚蕃」中的「蕃（ㄈㄢˊ）」字，正確解釋是什麼？',
-            options: ['A. 眾多、非常多', 'B. 外國傳來的品種', 'C. 稀少罕見', 'D. 枯萎凋謝'],
+            // Q1 -> C (2)
+            q: '課文「水陸草木之花，可愛者甚蕃」中，最後一個字的意思是什麼？',
+            options: ['A. 外國傳來的品種', 'B. 稀少罕見', 'C. 眾多、非常多', 'D. 枯萎凋謝'],
+            ans: 2,
+            hint: '想想看：水裡和陸地上的花草樹木，值得喜愛的數量是很多還是很少？'
+          },
+          {
+            // Q2 -> B (1)
+            q: '課文「自李唐來，世人盛愛牡丹」中，提到哪一個歷史朝代？為什麼這樣稱呼？',
+            options: [
+              'A. 宋朝，因為皇帝喜歡吃李子',
+              'B. 唐朝，因為開國君主李淵姓李，國號唐',
+              'C. 晉朝，因為陶淵明姓李',
+              'D. 漢朝，因為首都種滿李樹'
+            ],
+            ans: 1,
+            hint: '這個朝代的開國皇帝是李淵，世人常把皇室姓氏冠在國號前面。'
+          },
+          {
+            // Q3 -> D (3)
+            q: '課文描寫蓮花從池底爛泥中生長出來，卻一點也不受汙染，這句話用來比喻君子的什麼品德？',
+            options: [
+              'A. 喜歡在泥巴裡玩耍',
+              'B. 只要環境不好就立刻搬家逃跑',
+              'C. 懂得如何把泥土變成肥料',
+              'D. 就算身處汙濁惡劣的環境，也能潔身自愛、不同流合汙'
+            ],
+            ans: 3,
+            hint: '池底的爛泥比喻汙濁的環境，不受汙染則代表自己能保持清白。'
+          },
+          {
+            // Q4 -> A (0)
+            q: '課文描寫蓮花「在清澈的水波中洗滌過，卻不顯得妖豔媚俗」，請問對應的課文原句與比喻意義為何？',
+            options: [
+              'A. 濯清漣而不妖（比喻君子不逢迎媚世、不賣弄風姿）',
+              'B. 中通外直（比喻君子結交很多朋友）',
+              'C. 香遠益清（比喻蓮花生長在深山裡）',
+              'D. 陶後鮮有聞（比喻蓮花非常罕見）'
+            ],
             ans: 0,
-            hint: '「蕃」音 ㄈㄢˊ，意思是眾多。「甚蕃」即非常多。'
+            hint: '「洗滌」對應三點水的字，「清澈的水波」是清漣。'
           },
           {
-            q: '【注釋 2：李唐】課文「自李唐來，世人盛愛牡丹」中的「李唐」是指哪一個朝代？為什麼這樣稱呼？',
-            options: ['A. 宋朝，因為皇帝喜歡吃李子', 'B. 唐朝，因為唐朝開國君主為李淵，國號唐，故稱李唐', 'C. 晉朝，因為陶淵明姓李', 'D. 漢朝，因為首都種滿李樹'],
-            ans: 1,
-            hint: '唐朝皇帝姓李（開國君主李淵），國號唐，故稱「李唐」。'
-          },
-          {
-            q: '【注釋 3：出淤泥而不染】「予獨愛蓮之出淤泥而不染」除了描寫蓮花從爛泥長出卻潔淨無瑕，更比喻君子的什麼品德？',
-            options: ['A. 喜歡在泥巴裡玩耍', 'B. 就算身處汙濁不好的環境，也能潔身自愛、不同流合汙', 'C. 只要環境不好就立刻搬家逃跑', 'D. 懂得如何把泥土變成肥料'],
-            ans: 1,
-            hint: '「淤泥」比喻汙濁惡劣的環境，「出淤泥而不染」比喻君子潔身自愛、不同流合汙。'
-          },
-          {
-            q: '【注釋 4：濯清漣而不妖】關於「濯清漣而不妖」的注釋，下列何者完全正確？',
+            // Q5 -> C (2)
+            q: '課文有一句四字詞語描寫蓮梗「內部中空貫通、外表挺直」，並象徵君子「內心通達道理、行為方正不阿」，請問是哪一句？',
             options: [
-              'A. 濯是拔起；清漣是蓮蓬；妖是妖怪',
-              'B. 在清澈的水波（清漣）中洗滌（濯）過，卻不顯得妖豔媚俗（比喻君子不逢迎媚世）',
-              'C. 在混濁的泥水裡游泳',
-              'D. 把蓮花染成鮮豔的紅色來討好別人'
+              'A. 盛愛牡丹',
+              'B. 宜乎眾矣',
+              'C. 中通外直',
+              'D. 隱逸者也'
+            ],
+            ans: 2,
+            hint: '「內部中空貫通」對應前兩個字，「外表挺直」對應後兩個字。'
+          },
+          {
+            // Q6 -> B (1)
+            q: '課文描寫蓮花的莖梗「不生藤蔓、不長旁枝」，用來比喻君子的哪一種處世態度？',
+            options: [
+              'A. 喜歡到處攀交權貴、組織小團體',
+              'B. 不攀附權貴、不結黨營私，獨立自主',
+              'C. 遇到困難就立刻放棄',
+              'D. 把所有的樹枝砍下來當柴燒'
             ],
             ans: 1,
-            hint: '濯（ㄓㄨㄛˊ）是洗滌；清漣（ㄌㄧㄢˊ）是清澈的水波；不妖是不顯得妖豔媚俗。'
+            hint: '不攀附別的樹木、也不橫生多餘枝節，代表做人正派、不搞小圈圈。'
           },
           {
-            q: '【注釋 5：中通外直】課文「中通外直」在描寫蓮花的哪一個部位？象徵君子什麼風範？',
+            // Q7 -> D (3)
+            q: '課文「香遠益清」的意思是「香氣傳得越遠就越清香」，句中哪一個字是「更加、越發」的意思？',
             options: [
-              'A. 描寫蓮梗中間貫通、外部筆直；象徵君子內心通達道理、行為正直不阿',
-              'B. 描寫蓮葉又圓又大',
-              'C. 描寫池塘的道路很筆直',
-              'D. 描寫牡丹花的樹幹很粗壯'
+              'A. 香',
+              'B. 遠',
+              'C. 清',
+              'D. 益'
+            ],
+            ans: 3,
+            hint: '想想看：「精□求精」、「多多□善」裡也有這個字，代表「更加」。'
+          },
+          {
+            // Q8 -> A (0)
+            q: '課文中哪一個四字詞語的意思是「高聳潔淨地挺立在水中」，用來比喻君子卓然獨立、品格高尚？',
+            options: [
+              'A. 亭亭淨植',
+              'B. 可愛者甚蕃',
+              'C. 陶後鮮有聞',
+              'D. 世人盛愛'
             ],
             ans: 0,
-            hint: '「中通外直」描寫蓮梗內部中空貫通、外表挺直，比喻君子內心通達、行為方正。'
+            hint: '前兩字形容「高聳直立的樣子」，第三字是「潔淨」，第四字是「挺立」。'
           },
           {
-            q: '【注釋 6：不蔓不枝】課文「不蔓不枝」中的「蔓（ㄇㄢˋ）」與「枝」，正確解釋與象徵意義為何？',
-            options: [
-              'A. 長滿藤蔓與樹枝，象徵朋友很多',
-              'B. 不生藤蔓、不長旁枝；比喻君子不攀附權貴、不結黨營私',
-              'C. 沒有葉子也沒有花朵',
-              'D. 把樹枝全部砍掉當柴燒'
-            ],
-            ans: 1,
-            hint: '「蔓」與「枝」在此皆作動詞，「不蔓不枝」即不生藤蔓、不長旁枝，比喻君子不結黨營私。'
-          },
-          {
-            q: '【注釋 7：益】課文「香遠益清，亭亭淨植」中的「益」字，注釋的意思是什麼？',
-            options: ['A. 好處、利益', 'B. 更加、越發（香氣傳得越遠就更加清香）', 'C. 滿出來', 'D. 減少'],
-            ans: 1,
-            hint: '「香遠益清」的「益」是副詞，意思是「更加、越發」。'
-          },
-          {
-            q: '【注釋 8：亭亭淨植】關於「亭亭淨植」的字詞解釋，下列何者正確？',
-            options: [
-              'A. 在涼亭裡面種植很多植物',
-              'B. 亭亭：聳立的樣子；淨：潔淨；植：立、挺立（高聳潔淨地挺立在水中）',
-              'C. 停下來把池塘打掃乾淨',
-              'D. 花朵垂頭喪氣地倒在水面上'
-            ],
-            ans: 1,
-            hint: '「亭亭淨植」指蓮花高聳潔淨地挺立在水中，比喻君子卓然獨立、品格高尚。'
-          },
-          {
-            q: '【注釋 9：褻玩焉】「可遠觀而不可褻玩焉」的「褻玩焉」，正確解釋是哪一項？',
+            // Q9 -> D (3)
+            q: '課文「可遠觀而不可褻玩焉」後半句的意思是什麼？',
             options: [
               'A. 可以拿回家種在花盆裡玩賞',
-              'B. 用輕慢、不莊重的態度去接近玩弄它（焉：代詞，指蓮花）',
-              'C. 站在很遠的地方大聲叫喊',
-              'D. 把花瓣摘下來泡茶'
+              'B. 站在很遠的地方大聲叫喊',
+              'C. 把花瓣摘下來泡茶喝',
+              'D. 用輕慢、不莊重的態度去接近玩弄它'
             ],
-            ans: 1,
-            hint: '「褻（ㄒㄧㄝˋ）」是親近而不莊重，「褻玩焉」即用輕慢態度去玩弄蓮花。'
+            ans: 3,
+            hint: '君子人格高潔莊重，只能遠遠敬仰欣賞，不能隨便輕慢對待。'
           },
           {
-            q: '【注釋 10：謂】「予謂菊，花之隱逸者也」中的「謂」字，意思是什麼？',
-            options: ['A. 害怕', 'B. 認為、以為（「予謂」即「我認為」）', 'C. 嘆氣', 'D. 責備'],
-            ans: 1,
-            hint: '「予謂菊」就是「我認為菊花……」。'
-          },
-          {
-            q: '【注釋 11：隱逸者】課文稱菊花為「花之隱逸者也」，請問「隱逸者」是什麼意思？',
+            // Q10 -> C (2)
+            q: '課文「予謂菊，花之隱逸者也」中，第二個字的意思是什麼？',
             options: [
-              'A. 追求高官厚祿的富貴人家',
-              'B. 隱居避世、不慕名利的人（即隱士，如陶淵明）',
-              'C. 專門研究植物的花匠',
-              'D. 喜歡到處旅行的商人'
+              'A. 害怕、恐懼',
+              'B. 大聲責備',
+              'C. 認為、以為（「予……」即「我認為」）',
+              'D. 傷心嘆氣'
             ],
-            ans: 1,
-            hint: '「隱逸者」指隱居避世的人，即隱士。'
+            ans: 2,
+            hint: '作者在表達自己對菊花、牡丹、蓮花三種花的看法與評論。'
           },
           {
-            q: '【注釋 12：噫】文末「噫！菊之愛，陶後鮮有聞」的「噫」字，正確注音與解釋為何？',
+            // Q11 -> A (0)
+            q: '課文把菊花比喻為「隱居避世、不慕名利的人（隱士）」，請問課文使用哪一個詞語來稱呼這樣的人？',
             options: [
-              'A. 讀作一聲 ㄧ，表示開心大笑',
-              'B. 讀作四聲 ㄧˋ（音同「意」），文言嘆詞，相當於「唉！」，表示感嘆',
-              'C. 讀作二聲 ㄧˊ，表示懷疑驚訝',
-              'D. 讀作四聲 ㄞˋ，表示喜愛'
+              'A. 隱逸者',
+              'B. 富貴者',
+              'C. 同予者',
+              'D. 盛愛者'
             ],
-            ans: 1,
-            hint: '「噫」音同「意」（四聲 ㄧˋ），是文言嘆詞，相當於「唉」，表示感嘆。'
+            ans: 0,
+            hint: '陶淵明不願為五斗米折腰，選擇回歸田園隱居。'
           },
           {
-            q: '【注釋 13：菊之愛】課文「噫！菊之愛，陶後鮮有聞」中的「菊之愛」，字面與實際指涉的意思為何？',
+            // Q12 -> B (1)
+            q: '文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？',
             options: [
-              'A. 菊花愛上了別的花',
-              'B. 對於菊花的喜愛（在文中指像陶淵明那樣喜愛菊花的隱士）',
-              'C. 種植菊花的方法',
-              'D. 菊花的價格'
+              'A. ㄧ（一聲），寫作「依」',
+              'B. ㄧˋ（四聲，音同「意」），寫作「噫」',
+              'C. ㄧˊ（二聲），寫作「疑」',
+              'D. ㄞˋ（四聲），寫作「愛」'
             ],
             ans: 1,
-            hint: '「菊之愛」即對於菊花的喜愛，指喜愛菊花、不慕名利的人。'
+            hint: '口字旁加上「意」，讀音也跟「意」完全相同！'
           },
           {
-            q: '【注釋 14：鮮】「菊之愛，陶後鮮有聞」中的「鮮」字，正確注音與意思為何？',
+            // Q13 -> C (2)
+            q: '文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？',
             options: [
-              'A. ㄒㄧㄢ，新鮮、剛摘下來的',
-              'B. ㄒㄧㄢˇ（三聲），意思是「少」（很少聽說）',
-              'C. ㄒㄧㄢˋ，進獻',
-              'D. ㄇㄟˇ，味道鮮美'
+              'A. 菊花愛上了別的花朵',
+              'B. 種植菊花的農夫',
+              'C. 對於菊花的喜愛（在文中指像陶淵明那樣喜愛菊花的隱士）',
+              'D. 買賣菊花的市場價格'
             ],
-            ans: 1,
-            hint: '「鮮」在此讀作三聲 ㄒㄧㄢˇ，意思是「少」。'
+            ans: 2,
+            hint: '「之」是結構助詞，把賓語「菊」提前，意思是「喜愛菊花這件事／喜愛菊花的人」。'
           },
           {
-            q: '【注釋 15：宜乎】文末「牡丹之愛，宜乎眾矣！」中的「宜乎」，正確解釋是什麼？',
-            options: ['A. 便宜得很', 'B. 難怪、當然（感嘆追求富貴的人難怪這麼多）', 'C. 不應該', 'D. 非常稀少'],
-            ans: 1,
-            hint: '「宜乎」意思是「難怪、當然」，帶有委婉反諷與感嘆語氣。'
+            // Q14 -> D (3)
+            q: '課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？',
+            options: [
+              'A. ㄒㄧㄢ（一聲）',
+              'B. ㄒㄧㄢˋ（四聲）',
+              'C. ㄇㄟˇ（三聲）',
+              'D. ㄒㄧㄢˇ（三聲）'
+            ],
+            ans: 3,
+            hint: '表示「稀有、少見」（如：寡廉□恥、□為人知）時，要讀三聲！'
+          },
+          {
+            // Q15 -> A (0)
+            q: '課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「難怪、當然（感嘆追求富貴的人難怪這麼多）」的是哪一個詞語？',
+            options: [
+              'A. 宜乎',
+              'B. 甚蕃',
+              'C. 盛愛',
+              'D. 獨愛'
+            ],
+            ans: 0,
+            hint: '出現在「眾矣」前面兩個字，帶有委婉反諷與感嘆語氣。'
           }
         ]
       },
 
-      // ---------------- 相似字：習作 4 大組形音義辨析（共 4 題） ----------------
-      sim: {
-        title: '相似字（習作4大組形音義辨析・共4題）',
+      // ---------------- 相似字：3 大題型全方位自主評量 ----------------
+      sim_choice: {
+        title: '相似字 ‧ 題型一：詞語填空（單選題・共 4 題）',
         category: '相似字評量',
         mountId: 'sim-unit-quiz-mount',
+        nextSubKey: 'sim_write',
         nextTab: 'tab-match',
         questions: [
           {
@@ -5583,12 +6303,12 @@
           {
             q: '【第 2 組：褻／褒】關於「褻（ㄒㄧㄝˋ）」與「褒（ㄅㄠ）」兩字的比較，下列何者正確？',
             options: [
-              'A. 「可遠觀而不可褻玩焉」的「褻」中間是「執」，意思是輕慢不莊重。',
-              'B. 「褻玩」的讀音是 ㄅㄠ ㄨㄢˊ。',
-              'C. 「褒貶」的意思是態度輕浮。',
-              'D. 兩個字的讀音與意思完全相同。'
+              'A. 「褻玩」的讀音是 ㄅㄠ ㄨㄢˊ。',
+              'B. 「褒貶」的意思是態度輕浮。',
+              'C. 兩個字的讀音與意思完全相同。',
+              'D. 「可遠觀而不可褻玩焉」的「褻」中間是「執」，意思是輕慢不莊重。'
             ],
-            ans: 0,
+            ans: 3,
             hint: '「褻（ㄒㄧㄝˋ）」中間是「執」，用於「褻玩、褻瀆」；「褒（ㄅㄠ）」中間是「保」，用於「褒獎、褒貶」。'
           },
           {
@@ -5606,12 +6326,110 @@
             q: '【第 4 組：蔓／漫／謾】「不□不枝」、「□不經心」、「□罵攻擊」，缺空處依序應填入哪些字？',
             options: [
               'A. 漫 → 蔓 → 謾',
-              'B. 蔓（艹草頭）→ 漫（氵水部）→ 謾（言部）',
-              'C. 蔓 → 謾 → 漫',
+              'B. 蔓 → 謾 → 漫',
+              'C. 蔓（艹草頭）→ 漫（氵水部）→ 謾（言部）',
               'D. 謾 → 漫 → 蔓'
             ],
-            ans: 1,
+            ans: 2,
             hint: '植物藤蔓用草頭「蔓」；水波隨興用三點水「漫」；開口亂罵用言部「謾」！'
+          }
+        ]
+      },
+      sim_write: {
+        title: '相似字 ‧ 題型二：詞語填空（手寫題・共 4 題）',
+        category: '相似字評量',
+        mountId: 'sim-unit-quiz-mount',
+        nextSubKey: 'sim_zhuyin',
+        nextTab: 'tab-match',
+        questions: [
+          {
+            type: 'handwriting_sim',
+            groupNum: 1,
+            groupChars: ['淤', '瘀'],
+            targetChar: '淤',
+            stem: '池塘底部的爛泥，稱為「出（　）泥而不染」：',
+            promptHtml: '出<span style="color:#0284c7; border-bottom:3px solid #0284c7; padding:0 8px;">？</span>泥而不染',
+            audioText: '請寫出出淤泥而不染的淤',
+            ans: 1,
+            hint: '水部，三點水加上於。同組相似字：【淤、瘀】'
+          },
+          {
+            type: 'handwriting_sim',
+            groupNum: 2,
+            groupChars: ['褻', '褒'],
+            targetChar: '褻',
+            stem: '以輕慢不莊重的態度接近玩弄，稱為「不可（　）玩焉」：',
+            promptHtml: '不可<span style="color:#0284c7; border-bottom:3px solid #0284c7; padding:0 8px;">？</span>玩焉',
+            audioText: '請寫出不可褻玩焉的褻',
+            ans: 1,
+            hint: '衣部，中間是執。同組相似字：【褻、褒】'
+          },
+          {
+            type: 'handwriting_sim',
+            groupNum: 3,
+            groupChars: ['濯', '擢', '躍', '耀'],
+            targetChar: '濯',
+            stem: '在清澈的水波中清洗洗滌，稱為「（　）清漣而不妖」：',
+            promptHtml: '<span style="color:#0284c7; border-bottom:3px solid #0284c7; padding:0 8px;">？</span>清漣而不妖',
+            audioText: '請寫出濯清漣而不妖的濯',
+            ans: 1,
+            hint: '水部，三點水加上翟。同組相似字：【濯、擢、躍、耀】'
+          },
+          {
+            type: 'handwriting_sim',
+            groupNum: 4,
+            groupChars: ['蔓', '漫', '謾'],
+            targetChar: '蔓',
+            stem: '比喻不攀附權貴、不結黨營私，稱為「不（　）不枝」：',
+            promptHtml: '不<span style="color:#0284c7; border-bottom:3px solid #0284c7; padding:0 8px;">？</span>不枝',
+            audioText: '請寫出不蔓不枝的蔓',
+            ans: 1,
+            hint: '艸部，草字頭加上曼。同組相似字：【蔓、漫、謾】'
+          }
+        ]
+      },
+      sim_zhuyin: {
+        title: '相似字 ‧ 題型三：看詞語填注音（共 4 題）',
+        category: '相似字評量',
+        mountId: 'sim-unit-quiz-mount',
+        nextSubKey: null,
+        nextTab: 'tab-match',
+        questions: [
+          {
+            type: 'zhuyin_sim',
+            word: '淤泥',
+            targetChar: '淤',
+            stem: '請寫出「淤」泥的正確注音：',
+            targetZhuyin: 'ㄩ',
+            ans: 'ㄩ',
+            hint: '讀作一聲 ㄩ（音同「迂」）'
+          },
+          {
+            type: 'zhuyin_sim',
+            word: '褻玩',
+            targetChar: '褻',
+            stem: '請寫出「褻」玩的正確注音：',
+            targetZhuyin: 'ㄒㄧㄝˋ',
+            ans: 'ㄒㄧㄝˋ',
+            hint: '讀作四聲 ㄒㄧㄝˋ（音同「謝」）'
+          },
+          {
+            type: 'zhuyin_sim',
+            word: '濯清漣',
+            targetChar: '濯',
+            stem: '請寫出「濯」清漣的正確注音：',
+            targetZhuyin: 'ㄓㄨㄛˊ',
+            ans: 'ㄓㄨㄛˊ',
+            hint: '讀作二聲 ㄓㄨㄛˊ（音同「著」）'
+          },
+          {
+            type: 'zhuyin_sim',
+            word: '不蔓不枝',
+            targetChar: '蔓',
+            stem: '請寫出不「蔓」不枝的正確注音：',
+            targetZhuyin: 'ㄇㄢˋ',
+            ans: 'ㄇㄢˋ',
+            hint: '讀作四聲 ㄇㄢˋ（音同「慢」）'
           }
         ]
       }
@@ -5620,6 +6438,21 @@
     const unitQuizStates = {};
     let curActiveW1SubKey = 'w1_match';
     let curActiveW2SubKey = 'w2_listen';
+    let curActiveSimSubKey = 'sim_choice';
+
+    function switchSimSubQuiz(subKey, btn) {
+      curActiveSimSubKey = subKey;
+      const nav = document.getElementById('sim-sub-quiz-nav');
+      if (nav && btn) {
+        nav.querySelectorAll('.sub-quiz-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      if (!unitQuizStates[subKey]) {
+        initUnitQuizState(subKey);
+      } else {
+        renderUnitQuiz(subKey);
+      }
+    }
 
     function switchW1SubQuiz(subKey, btn) {
       curActiveW1SubKey = subKey;
@@ -5662,6 +6495,8 @@
         hwTraceMode: {},
         hwStructureOpen: {},
         hintsUsed: {},
+        audioFinished: {},
+        hintRevealStep: {},
         startTime: Date.now(),
         submitted: false,
         lastResult: null
@@ -5669,13 +6504,127 @@
       renderUnitQuiz(unitKey);
     }
 
-    // 大千標準注音鍵盤配置
+    function playAudioQuizPart(unitKey, qRealIdx, part) {
+      const bank = UNIT_QUIZ_BANKS[unitKey];
+      const st = unitQuizStates[unitKey];
+      if (!bank || !st) return;
+      const qObj = bank.questions[qRealIdx];
+      const textToSpeak = (part === 'word') ? qObj.audioWordText : `詞義解釋：${qObj.audioDefText}`;
+      speakText(textToSpeak, () => {
+        if (!st.audioFinished) st.audioFinished = {};
+        st.audioFinished[qRealIdx] = true;
+        renderUnitQuiz(unitKey);
+      });
+    }
+
+    function toggleSimGroupHint(unitKey, qRealIdx) {
+      const st = unitQuizStates[unitKey];
+      if (!st) return;
+      if (!st.hintsUsed) st.hintsUsed = {};
+      st.hintsUsed[qRealIdx] = !st.hintsUsed[qRealIdx];
+      renderUnitQuiz(unitKey);
+    }
+
+    function stepFillHint(unitKey, qRealIdx) {
+      const st = unitQuizStates[unitKey];
+      if (!st) return;
+      if (!st.hintRevealStep) st.hintRevealStep = {};
+      const cur = st.hintRevealStep[qRealIdx] || 0;
+      st.hintRevealStep[qRealIdx] = cur + 1;
+      renderUnitQuiz(unitKey);
+    }
+
+    // 標準台灣電腦注音鍵盤（大千式 4 列排列 + 實體鍵盤對應）
     const ZHUYIN_KEYPAD_ROWS = [
-      ['ㄅ', 'ㄆ', 'ㄇ', 'ㄈ', 'ㄉ', 'ㄊ', 'ㄋ', 'ㄌ', 'ㄍ', 'ㄎ', 'ㄏ'],
-      ['ㄐ', 'ㄑ', 'ㄒ', 'ㄓ', 'ㄔ', 'ㄕ', 'ㄖ', 'ㄗ', 'ㄘ', 'ㄙ'],
-      ['ㄧ', 'ㄨ', 'ㄩ', 'ㄚ', 'ㄛ', 'ㄜ', 'ㄝ', 'ㄞ', 'ㄟ', 'ㄠ', 'ㄡ', 'ㄢ', 'ㄣ', 'ㄤ', 'ㄥ', 'ㄦ'],
-      ['ˊ', 'ˇ', 'ˋ', '˙']
+      [
+        { z: 'ㄅ', k: '1' }, { z: 'ㄉ', k: '2' }, { z: 'ˇ', k: '3', tone: true }, { z: 'ˋ', k: '4', tone: true },
+        { z: 'ㄓ', k: '5' }, { z: 'ˊ', k: '6', tone: true }, { z: '˙', k: '7', tone: true }, { z: 'ㄚ', k: '8' },
+        { z: 'ㄞ', k: '9' }, { z: 'ㄢ', k: '0' }, { z: 'ㄦ', k: '-' }
+      ],
+      [
+        { z: 'ㄆ', k: 'Q' }, { z: 'ㄊ', k: 'W' }, { z: 'ㄍ', k: 'E' }, { z: 'ㄐ', k: 'R' },
+        { z: 'ㄔ', k: 'T' }, { z: 'ㄗ', k: 'Y' }, { z: 'ㄧ', k: 'U' }, { z: 'ㄛ', k: 'I' },
+        { z: 'ㄟ', k: 'O' }, { z: 'ㄣ', k: 'P' }
+      ],
+      [
+        { z: 'ㄇ', k: 'A' }, { z: 'ㄋ', k: 'S' }, { z: 'ㄎ', k: 'D' }, { z: 'ㄑ', k: 'F' },
+        { z: 'ㄕ', k: 'G' }, { z: 'ㄘ', k: 'H' }, { z: 'ㄨ', k: 'J' }, { z: 'ㄜ', k: 'K' },
+        { z: 'ㄠ', k: 'L' }, { z: 'ㄤ', k: ';' }
+      ],
+      [
+        { z: 'ㄈ', k: 'Z' }, { z: 'ㄌ', k: 'X' }, { z: 'ㄏ', k: 'C' }, { z: 'ㄒ', k: 'V' },
+        { z: 'ㄖ', k: 'B' }, { z: 'ㄙ', k: 'N' }, { z: 'ㄩ', k: 'M' }, { z: 'ㄝ', k: ',' },
+        { z: 'ㄡ', k: '.' }, { z: 'ㄥ', k: '/' }
+      ]
     ];
+
+    const PHYSICAL_KEY_TO_ZHUYIN = {};
+    ZHUYIN_KEYPAD_ROWS.forEach(row => {
+      row.forEach(btn => {
+        PHYSICAL_KEY_TO_ZHUYIN[btn.k.toLowerCase()] = btn.z;
+      });
+    });
+
+    // 綁定實體鍵盤輸入（當學生在「詞語二 -> 測驗二：注音輸入」分頁時，可直接敲擊電腦鍵盤輸入注音）
+    window.addEventListener('keydown', (e) => {
+      const w2Panel = document.getElementById('tab-words2');
+      if (!w2Panel || !w2Panel.classList.contains('active')) return;
+      if (curActiveW2SubKey !== 'w2_zhuyin') return;
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT')) return;
+      const lightbox = document.getElementById('sentenceImgLightbox');
+      if (lightbox && lightbox.style.display === 'flex') return;
+
+      const st = unitQuizStates['w2_zhuyin'];
+      if (!st) return;
+      const qRealIdx = st.order[st.curIdx];
+
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        zhuyinKeyBackspace('w2_zhuyin', qRealIdx);
+        return;
+      }
+      if (e.key === 'Escape' || e.key === 'Delete') {
+        e.preventDefault();
+        zhuyinKeyClear('w2_zhuyin', qRealIdx);
+        return;
+      }
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        confirmZhuyinInput('w2_zhuyin', qRealIdx);
+        return;
+      }
+      if (e.key === ' ') {
+        // 空白鍵代表一聲（不加調號直接確認或忽略空白）
+        e.preventDefault();
+        return;
+      }
+      const mapped = PHYSICAL_KEY_TO_ZHUYIN[e.key.toLowerCase()];
+      if (mapped) {
+        e.preventDefault();
+        zhuyinKeyPress('w2_zhuyin', qRealIdx, mapped);
+      }
+    });
+
+    function autoAdvanceUnitQuiz(unitKey) {
+      const st = unitQuizStates[unitKey];
+      if (!st) return;
+      const total = st.order.length;
+      setTimeout(() => {
+        const curSt = unitQuizStates[unitKey];
+        if (!curSt) return;
+        if (curSt.curIdx < total - 1) {
+          curSt.curIdx++;
+          renderUnitQuiz(unitKey);
+        } else {
+          // 若已在最後一題，尋找是否還有未作答題目，若有則跳至第一道未答題
+          const firstUnanswered = curSt.order.findIndex(rIdx => curSt.answers[rIdx] === undefined);
+          if (firstUnanswered !== -1 && firstUnanswered !== curSt.curIdx) {
+            curSt.curIdx = firstUnanswered;
+            renderUnitQuiz(unitKey);
+          }
+        }
+      }, 280);
+    }
 
     function renderUnitQuiz(unitKey) {
       const bank = UNIT_QUIZ_BANKS[unitKey];
@@ -5709,12 +6658,55 @@
       let interactionHtml = '';
 
       if (qObj.type === 'choice_img') {
+        const isMatchQuiz = (unitKey === 'w1_match');
         interactionHtml = `
           <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; background:#f8fafc; border:2px solid #e2e8f0; border-radius:14px; padding:16px; margin-bottom:16px;">
-            ${renderWordImagePlaceholder(qObj.img, '看圖選詞')}
+            ${renderWordImagePlaceholder(qObj.img, qObj.wordLabel || '看圖選詞', qObj.wordLabel || '題目情境圖', true)}
             <div style="flex:1; min-width:220px;">
-              <div style="font-size:17pt; font-weight:bold; color:#0369a1; margin-bottom:8px;">${qObj.clue}</div>
-              <button type="button" class="audio-play-btn" onclick="speakText('${qObj.audioText.replace(/'/g, "\\'")}')">🔊 聽詞義線索</button>
+              <div style="font-size:18pt; font-weight:900; color:#0369a1; margin-bottom:10px; line-height:1.55;">${isMatchQuiz ? qObj.clue : `📘 解釋：${qObj.clue}`}</div>
+              <button type="button" class="audio-play-btn" onclick="speakText('${qObj.audioText.replace(/'/g, "\\'")}')">🔊 聽解釋朗讀</button>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            ${qObj.options.map((optText, oIdx) => {
+              let cls = 'unit-opt-btn';
+              if (isGraded) {
+                if (oIdx === qObj.ans) cls += ' correct';
+                else if (oIdx === selectedOpt) cls += ' wrong';
+              } else if (selectedOpt === oIdx) {
+                cls += ' selected';
+              }
+              return `<button type="button" class="${cls}" data-correct="${oIdx === qObj.ans}" onclick="selectUnitOpt('${unitKey}', ${qRealIdx}, ${oIdx})">${optText}</button>`;
+            }).join('')}
+          </div>
+        `;
+      } else if (qObj.type === 'choice_fill') {
+        const revealStep = st.hintRevealStep?.[qRealIdx] || 0;
+        interactionHtml = `
+          <div style="background:#ffffff; border:2px solid #bfdbfe; border-radius:16px; padding:20px; margin-bottom:16px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px;">
+              <div style="font-size:22pt; font-weight:900; color:#0f172a; line-height:1.6;">${qObj.q}</div>
+              <button type="button" class="tool-btn" onclick="speakText('${qObj.audioText.replace(/'/g, "\\'")}')" style="font-size:15pt; padding:6px 16px;">🔊 讀題</button>
+            </div>
+            <!-- 特教逐步提示區（學生點擊才逐步呈現：第1步字詞義、第2步情境圖片） -->
+            <div style="background:#f8fafc; border:1.5px dashed #93c5fd; border-radius:14px; padding:14px 18px; margin-bottom:10px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+                <span style="font-weight:900; color:#0369a1; font-size:15pt;">💡 答題輔助提示（自主選擇點擊展開）：</span>
+                <button type="button" class="tool-btn" onclick="stepFillHint('${unitKey}', ${qRealIdx})" style="background:#e0f2fe; color:#0369a1; border:1.5px solid #7dd3fc; font-size:14pt;">
+                  ${revealStep === 0 ? '🔍 點擊展開第 1 步提示：字詞義解釋' : (revealStep === 1 ? '🖼️ 點擊展開第 2 步提示：情境輔助圖' : '✔️ 提示已全數展開')}
+                </button>
+              </div>
+              ${revealStep >= 1 ? `
+                <div style="margin-top:12px; padding:10px 14px; background:#eff6ff; border-radius:10px; font-size:17pt; font-weight:bold; color:#1e40af;">
+                  📘 詞義提示：${qObj.clue}
+                </div>
+              ` : ''}
+              ${revealStep >= 2 ? `
+                <div style="margin-top:12px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+                  ${renderWordImagePlaceholder(qObj.img, qObj.wordLabel, qObj.wordLabel, true)}
+                  <span style="font-size:14pt; color:#64748b;">🖼️ 情境提示圖（點擊可放大觀看）</span>
+                </div>
+              ` : ''}
             </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:10px;">
@@ -5731,12 +6723,21 @@
           </div>
         `;
       } else if (qObj.type === 'choice_audio') {
+        const canAnswer = (isTeacherCheckMode || isGraded || !!st.audioFinished?.[qRealIdx]);
         interactionHtml = `
           <div style="text-align:center; background:#f0f9ff; border:2px dashed #38bdf8; border-radius:14px; padding:20px; margin-bottom:16px;">
-            <button type="button" class="tool-btn primary" onclick="speakText('${qObj.audioText.replace(/'/g, "\\'")}')" style="font-size:18pt; padding:12px 28px; border-radius:999px;">
-              🔊 點擊播放題目語音
-            </button>
-            ${qObj.clue ? `<div style="margin-top:10px; font-size:16pt; color:#0369a1; font-weight:bold;">${qObj.clue}</div>` : ''}
+            <div style="font-size:16pt; font-weight:bold; color:#0369a1; margin-bottom:12px;">🎧 請先聽完語音說明，才能解鎖選項作答：</div>
+            <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap; margin-bottom:10px;">
+              <button type="button" class="tool-btn primary" onclick="playAudioQuizPart('${unitKey}', ${qRealIdx}, 'word')" style="font-size:16pt; padding:10px 24px; border-radius:999px;">
+                🔊 1. 詞語發音
+              </button>
+              <button type="button" class="tool-btn" onclick="playAudioQuizPart('${unitKey}', ${qRealIdx}, 'def')" style="font-size:16pt; padding:10px 24px; border-radius:999px; background:#eff6ff; color:#1d4ed8; border:2px solid #93c5fd;">
+                🔊 2. 解釋說明
+              </button>
+            </div>
+            <div style="font-size:14pt; color:${canAnswer ? '#15803d' : '#dc2626'}; font-weight:bold;">
+              ${canAnswer ? '🟢 已聽完語音，已解鎖下方選項！' : '🔒 請點擊上方語音按鈕，聽完後即可點選選項'}
+            </div>
           </div>
           <div style="display:flex; flex-direction:column; gap:10px;">
             ${qObj.options.map((optText, oIdx) => {
@@ -5747,7 +6748,8 @@
               } else if (selectedOpt === oIdx) {
                 cls += ' selected';
               }
-              return `<button type="button" class="${cls}" data-correct="${oIdx === qObj.ans}" onclick="selectUnitOpt('${unitKey}', ${qRealIdx}, ${oIdx})">${optText}</button>`;
+              const clickAction = canAnswer ? `onclick="selectUnitOpt('${unitKey}', ${qRealIdx}, ${oIdx})"` : `onclick="alert('請先點擊上方語音按鈕聽完語音，再開始作答喔！')" style="opacity:0.6; cursor:not-allowed;"`;
+              return `<button type="button" class="${cls}" data-correct="${oIdx === qObj.ans}" ${clickAction}>${optText}</button>`;
             }).join('')}
           </div>
         `;
@@ -5760,7 +6762,7 @@
 
         interactionHtml = `
           <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:14px; padding:18px; margin-bottom:16px; text-align:center;">
-            <div style="font-size:16pt; color:#334155; font-weight:bold; margin-bottom:12px;">${qObj.clue}</div>
+            <div style="font-size:17pt; color:#0369a1; font-weight:900; margin-bottom:12px;">📘 解釋：${qObj.clue}</div>
             <div style="display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:16px;">
               ${slotsHtml}
             </div>
@@ -5798,20 +6800,114 @@
             </div>
             <div style="font-size:15pt; color:#475569; margin-bottom:10px;">📘 詞義：${item.meaning}</div>
             <div style="display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-              <span style="font-size:16pt; font-weight:bold; color:#0369a1;">當前輸入注音：<strong style="font-size:20pt; color:#dc2626; background:#fff; padding:2px 14px; border:2px solid #93c5fd; border-radius:8px;">${curDraft || '（尚未輸入）'}</strong></span>
-              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyBackspace('${unitKey}', ${qRealIdx})">⌫ 退格</button>
-              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyClear('${unitKey}', ${qRealIdx})">🧹 清除</button>
-              <button type="button" class="tool-btn primary" onclick="confirmZhuyinInput('${unitKey}', ${qRealIdx})">✔️ 確認輸入</button>
+              <span style="font-size:16pt; font-weight:bold; color:#0369a1;">當前輸入注音：<strong style="font-size:20pt; color:#dc2626; background:#fff; padding:2px 14px; border:2px solid #93c5fd; border-radius:8px;">${curDraft || '（可直接敲擊電腦鍵盤或點下方按鍵）'}</strong></span>
+              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyBackspace('${unitKey}', ${qRealIdx})"><span class="zy-main">⌫ 退格</span><span class="zy-sub">Backspace</span></button>
+              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyClear('${unitKey}', ${qRealIdx})"><span class="zy-main">🧹 清除</span><span class="zy-sub">Esc</span></button>
+              <button type="button" class="tool-btn primary" onclick="confirmZhuyinInput('${unitKey}', ${qRealIdx})">✔️ 確認輸入 (Enter)</button>
             </div>
             <div class="zhuyin-keypad-grid">
               ${ZHUYIN_KEYPAD_ROWS.map((row, rIdx) => `
-                <div class="zhuyin-key-row">
-                  ${row.map(k => `<button type="button" class="zy-key-btn ${rIdx === 3 ? 'tone' : ''}" onclick="zhuyinKeyPress('${unitKey}', ${qRealIdx}, '${k}')">${k}</button>`).join('')}
+                <div class="zhuyin-key-row row-${rIdx}">
+                  ${row.map(btn => `
+                    <button type="button" class="zy-key-btn ${btn.tone ? 'tone' : ''}" onclick="zhuyinKeyPress('${unitKey}', ${qRealIdx}, '${btn.z}')" title="電腦鍵盤按鍵：${btn.k}">
+                      <span class="zy-main">${btn.z}</span>
+                      <span class="zy-sub">${btn.k}</span>
+                    </button>
+                  `).join('')}
                 </div>
               `).join('')}
             </div>
             ${selectedOpt !== undefined ? `<div style="margin-top:10px; font-weight:900; color:#15803d;">✔️ 已記錄您的注音答案：「${selectedOpt}」</div>` : ''}
             <div class="teacher-ans-banner" style="margin-top:10px;">【教師正解】：${item.targetChar} → ${item.targetZhuyin}</div>
+          </div>
+        `;
+      } else if (qObj.type === 'handwriting_sim') {
+        const isRevealed = !!st.hwRevealed[qRealIdx];
+        const isTrace = !!st.hwTraceMode[qRealIdx];
+        const isHintOpen = !!st.hintsUsed[qRealIdx];
+        interactionHtml = `
+          <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:16px; padding:18px; text-align:center;">
+            <div style="font-size:20pt; font-weight:bold; color:#0f172a; margin-bottom:12px;">${qObj.stem}</div>
+            <div style="font-size:38pt; font-weight:900; color:#0369a1; font-family:'DFKai-SB',serif; margin-bottom:14px; background:#fff; padding:12px; border-radius:12px; border:2px dashed #93c5fd; display:inline-block;">
+              ${qObj.promptHtml}
+            </div>
+            <!-- 提示按鈕：按下出現同一組相似字的所有字形 -->
+            <div style="margin-bottom:14px;">
+              <button type="button" class="tool-btn" onclick="toggleSimGroupHint('${unitKey}', ${qRealIdx})" style="background:#fef3c7; color:#92400e; border:1.5px solid #fde68a; font-size:15pt; padding:8px 20px;">
+                💡 查看本組相似字形提示（第 ${qObj.groupNum} 組）
+              </button>
+              ${isHintOpen ? `
+                <div style="margin-top:10px; background:#eff6ff; border:2px solid #93c5fd; border-radius:12px; padding:12px 18px; display:inline-block;">
+                  <span style="font-weight:900; color:#1e40af; font-size:16pt;">🔍 本組相似字候選清單：</span>
+                  <div style="display:flex; justify-content:center; gap:12px; margin-top:8px;">
+                    ${qObj.groupChars.map(c => `
+                      <span style="font-size:28pt; font-weight:900; font-family:'DFKai-SB',serif; background:#fff; border:2.5px solid #38bdf8; border-radius:10px; padding:4px 16px; color:#0f172a;">${c}</span>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- 田字格手寫畫布 -->
+            <div style="display:flex; justify-content:center; margin:14px 0;">
+              <div class="hw-canvas-wrap" id="hw-wrap-${unitKey}-${qRealIdx}-0">
+                <div class="hw-ghost-char" id="hw-ghost-${unitKey}-${qRealIdx}-0" style="display:${isTrace ? 'flex' : 'none'};">${qObj.targetChar}</div>
+                <div class="hw-cursor-dot" id="hw-dot-${unitKey}-${qRealIdx}-0"></div>
+                <canvas id="hw-cvs-${unitKey}-${qRealIdx}-0" width="240" height="240" style="position:relative; z-index:2;"></canvas>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:10px;">
+              <button type="button" class="tool-btn" onclick="clearHwCanvas('${unitKey}', ${qRealIdx}, 1)">🧹 清除重寫</button>
+              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 4)" style="background:#dcfce7; color:#166534;">✍️ 描紅輔助</button>
+              <button type="button" class="tool-btn primary" onclick="revealHwAnswer('${unitKey}', ${qRealIdx})">👁️ 核對正解</button>
+            </div>
+
+            ${(isRevealed || isTeacherCheckMode || isGraded) ? `
+              <div style="margin-top:16px; background:#ecfdf5; border:2px solid #10b981; border-radius:14px; padding:16px;">
+                <div style="font-size:16pt; font-weight:900; color:#065f46; margin-bottom:8px;">
+                  ✨ 標準國字正解：<span style="font-size:34pt; font-family:'DFKai-SB',serif; color:#047857; margin:0 8px;">${qObj.targetChar}</span>
+                </div>
+                <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+                  <button type="button" class="tool-btn ${selectedOpt === 1 ? 'primary' : ''}" onclick="recordHwSelfEval('${unitKey}', ${qRealIdx}, 1)" style="background:${selectedOpt === 1 ? '#16a34a' : '#ffffff'}; color:${selectedOpt === 1 ? '#ffffff' : '#166534'}; border-color:#16a34a;">
+                    ⭕ 我寫對了！（記錄答對）
+                  </button>
+                  <button type="button" class="tool-btn ${selectedOpt === 0 ? 'primary' : ''}" onclick="recordHwSelfEval('${unitKey}', ${qRealIdx}, 0)" style="background:${selectedOpt === 0 ? '#dc2626' : '#ffffff'}; color:${selectedOpt === 0 ? '#ffffff' : '#991b1b'}; border-color:#dc2626;">
+                    ❌ 需再練習（記錄待訂正）
+                  </button>
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else if (qObj.type === 'zhuyin_sim') {
+        const curDraft = st.zhuyinDraft[qRealIdx] !== undefined ? st.zhuyinDraft[qRealIdx] : (selectedOpt || '');
+        interactionHtml = `
+          <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:16px; padding:20px; text-align:center;">
+            <div style="font-size:20pt; font-weight:bold; color:#0f172a; margin-bottom:12px;">${qObj.stem}</div>
+            <div style="font-size:36pt; font-weight:900; color:#0369a1; font-family:'DFKai-SB',serif; margin-bottom:14px; background:#fff; padding:10px 24px; border-radius:12px; border:2px solid #93c5fd; display:inline-block;">
+              ${qObj.word}
+            </div>
+            <div style="display:flex; justify-content:center; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+              <span style="font-size:16pt; font-weight:bold; color:#0369a1;">目標字【${qObj.targetChar}】注音：<strong style="font-size:22pt; color:#dc2626; background:#fff; padding:2px 14px; border:2px solid #93c5fd; border-radius:8px;">${curDraft || '（請輸入注音）'}</strong></span>
+              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyBackspace('${unitKey}', ${qRealIdx})"><span class="zy-main">⌫ 退格</span></button>
+              <button type="button" class="zy-key-btn action" onclick="zhuyinKeyClear('${unitKey}', ${qRealIdx})"><span class="zy-main">🧹 清除</span></button>
+              <button type="button" class="tool-btn primary" onclick="confirmZhuyinInput('${unitKey}', ${qRealIdx})">✔️ 確認輸入</button>
+            </div>
+            <div class="zhuyin-keypad-grid">
+              ${ZHUYIN_KEYPAD_ROWS.map((row, rIdx) => `
+                <div class="zhuyin-key-row row-${rIdx}">
+                  ${row.map(btn => `
+                    <button type="button" class="zy-key-btn ${btn.tone ? 'tone' : ''}" onclick="zhuyinKeyPress('${unitKey}', ${qRealIdx}, '${btn.z}')" title="電腦鍵盤：${btn.k}">
+                      <span class="zy-main">${btn.z}</span>
+                      <span class="zy-sub">${btn.k}</span>
+                    </button>
+                  `).join('')}
+                </div>
+              `).join('')}
+            </div>
+            ${selectedOpt !== undefined ? `<div style="margin-top:12px; font-weight:900; color:#15803d; font-size:16pt;">✔️ 已記錄您的注音答案：「${selectedOpt}」</div>` : ''}
+            <div class="teacher-ans-banner" style="margin-top:10px;">【教師正解】：${qObj.targetChar} → ${qObj.targetZhuyin}</div>
           </div>
         `;
       } else if (qObj.type === 'handwriting_w1' || qObj.type === 'handwriting_w2') {
@@ -5827,7 +6923,8 @@
 
         let candidateBar = '';
         if (isW1 && stage === 2) {
-          const pool = [...charsToWrite, ...item.distractors];
+          const rawPool = [...charsToWrite, ...item.distractors];
+          const pool = rawPool.map((_, pIdx) => rawPool[(pIdx + qRealIdx + 1) % rawPool.length]);
           candidateBar = `
             <div style="margin-bottom:12px; background:#eff6ff; padding:10px 14px; border-radius:10px; display:inline-block;">
               <span style="font-weight:bold; color:#1e40af;">🔍 候選字卡參考：</span>
@@ -5836,16 +6933,36 @@
           `;
         }
 
+        // 詞語二「看注音寫國字」：簡潔大字題目框（比照學習單出題方式，依指示不顯示文字字詞義）
+        const w2BigPromptHtml = !isW1 ? `
+          <div style="background:#ffffff; border:3px solid #f59e0b; border-radius:18px; padding:22px 32px; margin:0 auto 16px; display:inline-block; box-shadow:0 6px 16px rgba(245,158,11,0.12);">
+            <div style="font-size:42pt; font-weight:900; color:#0f172a; font-family:'DFKai-SB','BiauKai',serif; letter-spacing:6px; line-height:1.3;">
+              ${qObj.promptHtml}
+            </div>
+          </div>
+        ` : '';
+
         interactionHtml = `
           <div style="background:#f8fafc; border:2px solid #e2e8f0; border-radius:16px; padding:18px; text-align:center;">
+            ${w2BigPromptHtml}
             <!-- 4層特教鷹架提示工具列 -->
             <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; background:#fffbeb; padding:10px; border-radius:12px; border:1.5px solid #fde68a;">
               <span style="font-weight:900; color:#92400e; align-self:center;">🪜 四層寫字輔助鷹架：</span>
-              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 1)" style="background:#fef3c7; color:#92400e;">1. 🔊 聽記憶口訣</button>
-              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 2)" style="background:#e0f2fe; color:#0369a1;">2. 🧩 看結構部件</button>
-              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 3)" style="background:#f3e8ff; color:#6b21a8;">3. ⚡ 閃看 1 秒</button>
-              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 4)" style="background:#dcfce7; color:#166534;">4. ✍️ 淡灰底字描紅</button>
+              ${isW1 ? `<button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 1)" style="background:#fef3c7; color:#92400e;">1. 🔊 聽記憶口訣</button>` : ''}
+              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 2)" style="background:#e0f2fe; color:#0369a1;">${isW1 ? '2. ' : '1. '}🧩 看結構部件</button>
+              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 3)" style="background:#f3e8ff; color:#6b21a8;">${isW1 ? '3. ' : '2. '}⚡ 閃看 1 秒</button>
+              <button type="button" class="tool-btn" onclick="useHwScaffold('${unitKey}', ${qRealIdx}, 4)" style="background:#dcfce7; color:#166534;">${isW1 ? '4. ' : '3. '}✍️ 淡灰底字描紅</button>
             </div>
+
+            ${isW1 ? `
+              <div style="display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:14px;">
+                ${renderWordImagePlaceholder(item.img, stage === 1 ? item.word : '看圖寫字', stage === 1 ? `【${item.word}】詞語圖片` : '看圖寫字提示圖', stage !== 1)}
+                <div style="text-align:left; max-width:460px;">
+                  <div style="font-size:16pt; font-weight:bold; color:#0369a1; margin-bottom:6px;">📘 解釋：${item.quizMeaning}</div>
+                  <div style="font-size:14pt; color:#475569;">🌱 生活例句：${item.exampleBlank}</div>
+                </div>
+              </div>
+            ` : ''}
 
             ${isStructOpen ? `
               <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:10px; padding:10px 14px; margin-bottom:12px; color:#1e40af; font-weight:bold;">
@@ -5855,13 +6972,14 @@
 
             ${candidateBar}
 
-            <!-- 手寫田字格畫布區 -->
+            <!-- 手寫田字格畫布區（含高顯眼動態筆尖游標指示點） -->
             <div style="display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin:12px 0;">
               ${charsToWrite.map((ch, cIdx) => `
                 <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
                   <div class="hw-canvas-wrap" id="hw-wrap-${unitKey}-${qRealIdx}-${cIdx}">
                     <div class="hw-ghost-char" id="hw-ghost-${unitKey}-${qRealIdx}-${cIdx}" style="display:${isTrace ? 'flex' : 'none'};">${ch}</div>
-                    <canvas id="hw-cvs-${unitKey}-${qRealIdx}-${cIdx}" width="240" height="240" style="position:relative; z-index:2; cursor:crosshair;"></canvas>
+                    <div class="hw-cursor-dot" id="hw-dot-${unitKey}-${qRealIdx}-${cIdx}"></div>
+                    <canvas id="hw-cvs-${unitKey}-${qRealIdx}-${cIdx}" width="240" height="240" style="position:relative; z-index:2;"></canvas>
                   </div>
                   <span style="font-size:14pt; color:#64748b; font-weight:bold;">第 ${cIdx + 1} 字手寫格</span>
                 </div>
@@ -5873,7 +6991,7 @@
               <button type="button" class="tool-btn primary" onclick="revealHwAnswer('${unitKey}', ${qRealIdx})">👁️ 核對正解</button>
             </div>
 
-            ${(isRevealed || isTeacher) ? `
+            ${(isRevealed || isTeacherCheckMode || isGraded) ? `
               <div style="margin-top:16px; background:#ecfdf5; border:2px solid #10b981; border-radius:14px; padding:16px;">
                 <div style="font-size:16pt; font-weight:900; color:#065f46; margin-bottom:8px;">
                   ✨ 標準國字正解：<span style="font-size:32pt; font-family:'DFKai-SB',serif; color:#047857; margin:0 8px;">${charsToWrite.join('')}</span>（${isW1 ? item.zhuyin : item.targetZhuyin}）
@@ -5956,7 +7074,7 @@
       }
 
       mount.innerHTML = `
-        <div style="background:#ffffff; border:3px solid #cbd5e1; border-radius:20px; padding:24px; box-shadow:0 6px 18px rgba(0,0,0,0.05);">
+        <div class="${isGraded ? 'is-graded-section' : ''}" style="background:#ffffff; border:3px solid #cbd5e1; border-radius:20px; padding:24px; box-shadow:0 6px 18px rgba(0,0,0,0.05);">
           ${stageBarHtml}
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid #f1f5f9;">
             <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
@@ -6006,22 +7124,23 @@
       `;
 
       // 若為手寫題型，初始化手寫 Canvas 事件
-      if (qObj.type === 'handwriting_w1' || qObj.type === 'handwriting_w2') {
+      if (qObj.type === 'handwriting_w1' || qObj.type === 'handwriting_w2' || qObj.type === 'handwriting_sim') {
         const count = qObj.type === 'handwriting_w1' ? qObj.item.chars.length : 1;
         setTimeout(() => bindHwCanvases(unitKey, qRealIdx, count), 20);
       }
     }
 
-    // 單選題點擊：記錄作答並自動跳下一未答題（遵循規範6：全做完才檢核）
+    // 單選題點擊：記錄作答並自動跳下一題（遵循第11點與規範6）
     function selectUnitOpt(unitKey, qRealIdx, oIdx) {
       const st = unitQuizStates[unitKey];
       const bank = UNIT_QUIZ_BANKS[unitKey];
       if (!st || !bank) return;
       st.answers[qRealIdx] = oIdx;
       renderUnitQuiz(unitKey);
+      autoAdvanceUnitQuiz(unitKey);
     }
 
-    // 積木選字互動
+    // 積木選字互動（拼滿時自動記錄並跳下一題）
     function pickPuzzleChar(unitKey, qRealIdx, ch) {
       const st = unitQuizStates[unitKey];
       const bank = UNIT_QUIZ_BANKS[unitKey];
@@ -6031,10 +7150,14 @@
       if (st.puzzleProgress[qRealIdx].length < qObj.targetChars.length) {
         st.puzzleProgress[qRealIdx].push(ch);
       }
-      if (st.puzzleProgress[qRealIdx].length === qObj.targetChars.length) {
+      const isComplete = (st.puzzleProgress[qRealIdx].length === qObj.targetChars.length);
+      if (isComplete) {
         st.answers[qRealIdx] = st.puzzleProgress[qRealIdx].join('');
       }
       renderUnitQuiz(unitKey);
+      if (isComplete) {
+        autoAdvanceUnitQuiz(unitKey);
+      }
     }
 
     function clearPuzzleChar(unitKey, qRealIdx) {
@@ -6075,12 +7198,13 @@
       if (!st) return;
       const draft = (st.zhuyinDraft[qRealIdx] || '').trim();
       if (!draft) {
-        alert('請先點擊下方注音按鍵輸入注音！');
+        alert('請先敲擊電腦鍵盤或點擊下方注音按鍵輸入注音！');
         return;
       }
       st.answers[qRealIdx] = draft;
       speakText('已記錄注音輸入');
       renderUnitQuiz(unitKey);
+      autoAdvanceUnitQuiz(unitKey);
     }
 
     // 手寫板 4 層鷹架與畫布邏輯
@@ -6117,10 +7241,11 @@
     function bindHwCanvases(unitKey, qRealIdx, count) {
       for (let i = 0; i < count; i++) {
         const cvs = document.getElementById(`hw-cvs-${unitKey}-${qRealIdx}-${i}`);
+        const dot = document.getElementById(`hw-dot-${unitKey}-${qRealIdx}-${i}`);
         if (!cvs || cvs.dataset.bound === '1') continue;
         cvs.dataset.bound = '1';
         const ctx = cvs.getContext('2d');
-        ctx.lineWidth = 6;
+        ctx.lineWidth = 7;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         ctx.strokeStyle = '#0f172a';
@@ -6133,25 +7258,45 @@
           return { x: clientX - rect.left, y: clientY - rect.top };
         };
 
+        const moveDot = (p, show) => {
+          if (!dot) return;
+          if (!show) {
+            dot.style.display = 'none';
+            return;
+          }
+          dot.style.display = 'block';
+          dot.style.left = `${p.x}px`;
+          dot.style.top = `${p.y}px`;
+        };
+
+        cvs.addEventListener('mouseenter', (e) => {
+          moveDot(getPos(e), true);
+        });
         cvs.addEventListener('mousedown', (e) => {
           drawing = true;
           const p = getPos(e);
+          moveDot(p, true);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
         });
         cvs.addEventListener('mousemove', (e) => {
-          if (!drawing) return;
           const p = getPos(e);
+          moveDot(p, true);
+          if (!drawing) return;
           ctx.lineTo(p.x, p.y);
           ctx.stroke();
         });
         cvs.addEventListener('mouseup', () => { drawing = false; });
-        cvs.addEventListener('mouseleave', () => { drawing = false; });
+        cvs.addEventListener('mouseleave', () => {
+          drawing = false;
+          moveDot(null, false);
+        });
 
         cvs.addEventListener('touchstart', (e) => {
           e.preventDefault();
           drawing = true;
           const p = getPos(e);
+          moveDot(p, true);
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
         }, { passive: false });
@@ -6159,10 +7304,14 @@
           if (!drawing) return;
           e.preventDefault();
           const p = getPos(e);
+          moveDot(p, true);
           ctx.lineTo(p.x, p.y);
           ctx.stroke();
         }, { passive: false });
-        cvs.addEventListener('touchend', () => { drawing = false; });
+        cvs.addEventListener('touchend', () => {
+          drawing = false;
+          moveDot(null, false);
+        });
       }
     }
 
@@ -6189,6 +7338,7 @@
       st.answers[qRealIdx] = val;
       speakText(val === 1 ? '太棒了，已記錄寫對！' : '沒關係，已記錄待練習！');
       renderUnitQuiz(unitKey);
+      autoAdvanceUnitQuiz(unitKey);
     }
 
     function toggleUnitHint(unitKey, qRealIdx) {
@@ -6238,7 +7388,7 @@
       if (!st || !bank) return;
       const total = bank.questions.length;
       const answered = Object.keys(st.answers).length;
-      if (answered < total && currentUserSeat !== 'test.') {
+      if (answered < total && !isTeacherCheckMode) {
         alert(`⚠️ 還有 ${total - answered} 題尚未作答！請完成全部 ${total} 題後再檢核結算成績。`);
         return;
       }
@@ -6336,6 +7486,209 @@
       }
     }
 
+      // 課文圖文成組排序資料 (第 14 點：對應的圖片與句子是一組的，不用分開排序)
+      const LESSON_SEQ_STANDARD = [
+        { id: 1, step: 1, img: 'assets/images/s01.jpg', text: '水陸草木之花，可愛者甚蕃。', desc: '總提天下草木繁花眾多，引起下文各人所好。' },
+        { id: 2, step: 2, img: 'assets/images/s02.jpg', text: '晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹。', desc: '舉陶淵明愛菊與世人愛牡丹，正襯與反襯蓮花。' },
+        { id: 3, step: 3, img: 'assets/images/s04.jpg', text: '予獨愛蓮之出淤泥而不染，濯清漣而不妖。', desc: '描摹蓮花出淤泥之高潔，象徵君子潔身自愛。' },
+        { id: 4, step: 4, img: 'assets/images/s06.jpg', text: '中通外直，不蔓不枝，香遠益清，亭亭淨植。', desc: '描摹蓮花花梗端直與清香遠播，象徵君子正直高雅。' },
+        { id: 5, step: 5, img: 'assets/images/s10.jpg', text: '予謂：菊，花之隱逸者也；牡丹，花之富貴者也；蓮，花之君子者也。', desc: '三花擬人象徵三種人格：隱士、富貴者、君子。' },
+        { id: 6, step: 6, img: 'assets/images/s13.jpg', text: '噫！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？牡丹之愛，宜乎眾矣！', desc: '末尾發出深深感嘆，表明自己堅守君子之道。' }
+      ];
+
+      let lessonSeqCards = [];
+
+      function initLessonSeqQuiz() {
+        const resEl = document.getElementById('lessonSeqResult');
+        if (resEl) resEl.style.display = 'none';
+        // 打亂順序
+        let shuffled = [...LESSON_SEQ_STANDARD].sort(() => Math.random() - 0.5);
+        // 確保剛開始不恰好全對
+        if (shuffled.every((c, i) => c.step === i + 1)) {
+          shuffled = [shuffled[1], shuffled[0], ...shuffled.slice(2)];
+        }
+        lessonSeqCards = shuffled;
+        renderLessonSeqUI();
+      }
+
+      function renderLessonSeqUI() {
+        const listEl = document.getElementById('lessonSeqCardList');
+        if (!listEl) return;
+        listEl.innerHTML = lessonSeqCards.map((item, idx) => `
+          <div style="background:#ffffff; border:2.5px solid #93c5fd; border-radius:16px; padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; box-shadow:0 4px 12px rgba(2,132,199,0.06);">
+            <div style="display:flex; align-items:center; gap:16px; flex:1; min-width:280px;">
+              <span style="width:42px; height:42px; border-radius:999px; background:#0284c7; color:#fff; display:flex; align-items:center; justify-content:center; font-size:18pt; font-weight:900; flex-shrink:0;">
+                ${idx + 1}
+              </span>
+              <img src="${item.img}" alt="" style="width:130px; height:95px; object-fit:cover; border-radius:10px; border:2px solid #cbd5e1; flex-shrink:0;">
+              <div>
+                <div style="font-size:18pt; font-weight:bold; color:#0f172a; line-height:1.4;">${item.text}</div>
+                <div style="font-size:14pt; color:#64748b; margin-top:4px;">💡 脈絡提示：${item.desc}</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="tool-btn" onclick="moveLessonSeqCard(${idx}, -1)" ${idx === 0 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''} style="font-size:15pt; padding:8px 16px;">⬆ 上移</button>
+              <button type="button" class="tool-btn" onclick="moveLessonSeqCard(${idx}, 1)" ${idx === lessonSeqCards.length - 1 ? 'disabled style="opacity:0.4; cursor:not-allowed;"' : ''} style="font-size:15pt; padding:8px 16px;">⬇ 下移</button>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function moveLessonSeqCard(idx, delta) {
+        const target = idx + delta;
+        if (target < 0 || target >= lessonSeqCards.length) return;
+        const temp = lessonSeqCards[idx];
+        lessonSeqCards[idx] = lessonSeqCards[target];
+        lessonSeqCards[target] = temp;
+        renderLessonSeqUI();
+      }
+
+      function submitLessonSeqQuiz() {
+        let isAllRight = true;
+        let rightCount = 0;
+        lessonSeqCards.forEach((c, i) => {
+          if (c.step === i + 1) rightCount++;
+          else isAllRight = false;
+        });
+        const resEl = document.getElementById('lessonSeqResult');
+        if (resEl) {
+          resEl.style.display = 'block';
+          if (isAllRight) {
+            resEl.style.background = '#dcfce7';
+            resEl.style.color = '#15803d';
+            resEl.style.border = '2px solid #86efac';
+            resEl.innerHTML = `🎉 恭喜全部排序正確！完全掌握〈愛蓮說〉的全文行文脈絡！`;
+          } else {
+            resEl.style.background = '#fef2f2';
+            resEl.style.color = '#b91c1c';
+            resEl.style.border = '2px solid #fecaca';
+            resEl.innerHTML = `目前正確位置：${rightCount} / ${lessonSeqCards.length} 組。<br><span style="font-size:15pt; font-weight:normal;">請再檢視「總起 ➔ 烘托 ➔ 描摹蓮花 ➔ 擬人象徵 ➔ 發出慨嘆」的順序喔！</span>`;
+          }
+        }
+      }
+
+      let currentNotesQuizType = 'choice';
+      let notesMatchPool = [];
+      let notesMatchSelectedTerm = null;
+      let notesMatchUserAnswers = {}; // term -> targetId
+
+      function switchNotesQuizType(type) {
+        currentNotesQuizType = type;
+        const btn1 = document.getElementById('btnNotesType1');
+        const btn2 = document.getElementById('btnNotesType2');
+        const c1 = document.getElementById('notes-choice-container');
+        const c2 = document.getElementById('notes-match-container');
+        if (type === 'choice') {
+          if (btn1) { btn1.className = 'tool-btn primary'; }
+          if (btn2) { btn2.className = 'tool-btn'; btn2.style.background = '#f8fafc'; btn2.style.color = '#1e293b'; }
+          if (c1) c1.style.display = 'block';
+          if (c2) c2.style.display = 'none';
+        } else {
+          if (btn1) { btn1.className = 'tool-btn'; btn1.style.background = '#f8fafc'; btn1.style.color = '#1e293b'; }
+          if (btn2) { btn2.className = 'tool-btn primary'; }
+          if (c1) c1.style.display = 'none';
+          if (c2) c2.style.display = 'block';
+          if (!notesMatchPool || notesMatchPool.length === 0) {
+            initNotesMatchQuiz();
+          }
+        }
+      }
+
+      function initNotesMatchQuiz() {
+        notesMatchSelectedTerm = null;
+        notesMatchUserAnswers = {};
+        const resEl = document.getElementById('notesMatchResult');
+        if (resEl) resEl.style.display = 'none';
+
+        // 從 15 則注釋中隨機抽選 10 則
+        const shuffled = [...NOTES_DATA].sort(() => Math.random() - 0.5);
+        notesMatchPool = shuffled.slice(0, 10);
+
+        renderNotesMatchUI();
+      }
+
+      function renderNotesMatchUI() {
+        const bankEl = document.getElementById('notesMatchWordBank');
+        const listEl = document.getElementById('notesMatchList');
+        if (!bankEl || !listEl) return;
+
+        // 渲染詞語庫
+        bankEl.innerHTML = NOTES_DATA.map(item => {
+          const isSelected = (notesMatchSelectedTerm === item.term);
+          const isUsed = Object.values(notesMatchUserAnswers).includes(item.term);
+          return `
+            <button type="button" class="tool-btn ${isSelected ? 'primary' : ''}" onclick="selectNotesMatchTerm('${item.term}')" style="font-size:16pt; padding:8px 18px; border-radius:10px; ${isUsed ? 'opacity:0.6;' : ''}">
+              ${item.term} ${isUsed ? '✓' : ''}
+            </button>
+          `;
+        }).join('');
+
+        // 渲染 10 則隨機抽出的解釋
+        listEl.innerHTML = notesMatchPool.map((item, idx) => {
+          const curVal = notesMatchUserAnswers[item.id] || '';
+          return `
+            <div style="background:#ffffff; border:2px solid #cbd5e1; border-radius:14px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div style="flex:1; min-width:280px;">
+                <span style="background:#f1f5f9; color:#475569; padding:2px 10px; border-radius:6px; font-weight:bold; font-size:13pt; margin-right:8px;">第 ${idx + 1} 題</span>
+                <span style="font-size:17pt; color:#0f172a; font-weight:bold; line-height:1.5;">${item.formalDef}</span>
+                <div style="font-size:14pt; color:#64748b; margin-top:4px;">課文句：${item.quote}</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <button type="button" class="tool-btn" onclick="applyNotesMatchTerm(${item.id})" style="background:${curVal ? '#dcfce7' : '#eff6ff'}; color:${curVal ? '#15803d' : '#1d4ed8'}; border:2px solid ${curVal ? '#86efac' : '#93c5fd'}; font-size:16pt; padding:8px 18px; font-weight:bold;">
+                  ${curVal ? `已填入：【${curVal}】` : '👉 放入所選詞語'}
+                </button>
+                ${curVal ? `<button type="button" class="tool-btn" onclick="clearNotesMatchSlot(${item.id})" style="font-size:13pt; padding:6px 12px;">✖</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function selectNotesMatchTerm(term) {
+        notesMatchSelectedTerm = term;
+        renderNotesMatchUI();
+      }
+
+      function applyNotesMatchTerm(id) {
+        if (!notesMatchSelectedTerm) {
+          alert('請先在上方詞語庫點選一個詞語，再點擊放入喔！');
+          return;
+        }
+        notesMatchUserAnswers[id] = notesMatchSelectedTerm;
+        renderNotesMatchUI();
+      }
+
+      function clearNotesMatchSlot(id) {
+        delete notesMatchUserAnswers[id];
+        renderNotesMatchUI();
+      }
+
+      function submitNotesMatchQuiz() {
+        const total = notesMatchPool.length;
+        let rightCount = 0;
+        notesMatchPool.forEach(item => {
+          if (notesMatchUserAnswers[item.id] === item.term) {
+            rightCount++;
+          }
+        });
+        const score = Math.round((rightCount / total) * 100);
+        const resEl = document.getElementById('notesMatchResult');
+        if (resEl) {
+          resEl.style.display = 'block';
+          if (score === 100) {
+            resEl.style.background = '#dcfce7';
+            resEl.style.color = '#15803d';
+            resEl.style.border = '2px solid #86efac';
+            resEl.innerHTML = `🎉 太棒了！10 題配對全部正確！得分：100 分！`;
+          } else {
+            resEl.style.background = '#fef2f2';
+            resEl.style.color = '#b91c1c';
+            resEl.style.border = '2px solid #fecaca';
+            resEl.innerHTML = `本次測驗答對：${rightCount} / ${total} 題（得分：${score} 分）<br><span style="font-size:15pt; font-weight:normal;">可對照上方解釋重新調整再檢核一次喔！</span>`;
+          }
+        }
+      }
+
     function initSingleCardLearningAndQuizzes() {
       renderW1FocusCard();
       renderW2FocusCard();
@@ -6343,7 +7696,9 @@
       initUnitQuizState('w1_match');
       initUnitQuizState('w2_listen');
       initUnitQuizState('notes');
-      initUnitQuizState('sim');
+      initUnitQuizState('sim_choice');
+      initNotesMatchQuiz();
+      initLessonSeqQuiz();
     }
 
     // ================= 規範: 一鍵回到頁面頂端 =================
@@ -6368,6 +7723,12 @@
     let teacherL2Verified = false;
     let cachedTeacherL1Pin = "";
     let cachedTeacherL2Pin = "";
+    // 顯示試算表內容前先跳脫 HTML，避免內容被當成程式碼執行
+    function mgmtEsc(v) {
+      return String(v === undefined || v === null ? '' : v)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
     let studentHwState = [
       { seat: "01", item: "愛蓮說學習單", status: "🟡 部分繳交", details: "詞語二尚未完成" },
       { seat: "02", item: "愛蓮說學習單", status: "🟢 已完成", details: "" },
@@ -6512,7 +7873,7 @@
       msg.innerText = '驗證中...';
 
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=verifyLevel1&password=' + encodeURIComponent(pin));
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel1', password: pin }) });
         const res = await resp.json();
         if (res.status === 'success' && res.verified) {
           teacherL1Verified = true;
@@ -6609,7 +7970,7 @@
 
     async function fetchHomeworkFromCloud() {
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=getHomeworkList');
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'getHomeworkList', password: (typeof cachedTeacherL1Pin !== 'undefined' ? cachedTeacherL1Pin : '') }) });
         const res = await resp.json();
         if (res.status === 'success' && res.data && res.data.length > 0) {
           const map = {};
@@ -6667,7 +8028,7 @@
       msg.innerText = '驗證中...';
 
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=verifyLevel2&password=' + encodeURIComponent(pin));
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel2', password: pin }) });
         const res = await resp.json();
         if (res.status === 'success' && res.verified) {
           teacherL2Verified = true;
@@ -6690,7 +8051,7 @@
       msg.innerText = '驗證中...';
 
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=verifyLevel2&password=' + encodeURIComponent(pin));
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'verifyLevel2', password: pin }) });
         const res = await resp.json();
         if (res.status === 'success' && res.verified) {
           teacherL2Verified = true;
@@ -6712,7 +8073,7 @@
       tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#64748b;">⏳ 正在自 Google 試算表計算最新平均與歷程...</td></tr>';
 
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=getScoreStats&password=' + encodeURIComponent(cachedTeacherL2Pin));
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'getScoreStats', password: cachedTeacherL2Pin }) });
         const res = await resp.json();
         if (res.status === 'success' && res.statsSummary) {
           tbody.innerHTML = '';
@@ -6795,7 +8156,7 @@
       tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color:#64748b;">⏳ 讀取輔導紀錄中...</td></tr>';
 
       try {
-        const resp = await fetch(MANAGEMENT_API_URL + '?action=getCounselingLogs&password=' + encodeURIComponent(cachedTeacherL2Pin));
+        const resp = await fetch(MANAGEMENT_API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'getCounselingLogs', password: cachedTeacherL2Pin }) });
         const res = await resp.json();
         if (res.status === 'success' && res.logs) {
           tbody.innerHTML = '';
@@ -6806,11 +8167,11 @@
           res.logs.forEach(row => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
-              <td>${row[0]}</td>
-              <td style="font-weight:bold; color:#991b1b; text-align:center;">${row[1]}號</td>
-              <td>${row[2]}</td>
-              <td>${row[3]}</td>
-              <td>${row[4] || '-'}</td>
+              <td>${mgmtEsc(row[0])}</td>
+              <td style="font-weight:bold; color:#991b1b; text-align:center;">${mgmtEsc(row[1])}號</td>
+              <td>${mgmtEsc(row[2])}</td>
+              <td>${mgmtEsc(row[3])}</td>
+              <td>${mgmtEsc(row[4] || '-')}</td>
             `;
             tbody.appendChild(tr);
           });
@@ -6945,12 +8306,54 @@
     ];
 
     const P64_TABLE_ROWS = [
-      { id: 'p64_r1', cat: '生長環境', rowspan: 2, quote: '出淤泥而不染', ans: '不同流合汙' },
-      { id: 'p64_r2', cat: null, rowspan: 0, quote: '濯清漣而不妖', ans: '不阿諛諂媚' },
-      { id: 'p64_r3', cat: '花梗', rowspan: 2, quote: '中通外直', ans: '內心通達，行事正直' },
-      { id: 'p64_r4', cat: null, rowspan: 0, quote: '不蔓不枝', ans: '不結黨營私' },
-      { id: 'p64_r5', cat: '香氣', rowspan: 1, quote: '香遠益清', ans: '美德聲名遠播' },
-      { id: 'p64_r6', cat: '整體給人的觀賞感受', rowspan: 1, quote: '亭亭淨植，可遠觀而不可褻玩焉', ans: '人格高潔，不容許輕慢侮弄' }
+      { 
+        id: 'p64_r1', 
+        cat: '生長環境', 
+        rowspan: 2, 
+        quote: '出淤泥而不染', 
+        ans: '不同流合汙',
+        explain: '淤泥是水底汙濁的爛泥，象徵惡劣不良的世俗環境；蓮花從泥中生長卻不沾染汙漬，象徵君子身處濁世依然潔身自愛、不隨波逐流。'
+      },
+      { 
+        id: 'p64_r2', 
+        cat: null, 
+        rowspan: 0, 
+        quote: '濯清漣而不妖', 
+        ans: '不阿諛諂媚',
+        explain: '清漣是清澈的漣漪水波，洗過後樸素端莊不妖豔，象徵君子氣質高雅莊重、不逢迎討好權貴。'
+      },
+      { 
+        id: 'p64_r3', 
+        cat: '花梗', 
+        rowspan: 2, 
+        quote: '中通外直', 
+        ans: '內心通達，行事正直',
+        explain: '中通指花梗中空通達，象徵君子虛懷若谷、通達事理；外直指花梗挺拔筆直，象徵君子為人端正、行為方正不阿。'
+      },
+      { 
+        id: 'p64_r4', 
+        cat: null, 
+        rowspan: 0, 
+        quote: '不蔓不枝', 
+        ans: '不結黨營私',
+        explain: '蓮梗不橫生藤蔓、不旁生枝條，象徵君子端莊自立，不攀附權貴也不結黨營私。'
+      },
+      { 
+        id: 'p64_r5', 
+        cat: '香氣', 
+        rowspan: 1, 
+        quote: '香遠益清', 
+        ans: '美德聲名遠播',
+        explain: '清香隨著微風飄得越遠越顯得清雅悠長，象徵君子的高尚品格與好名聲流傳久遠、為人稱頌。'
+      },
+      { 
+        id: 'p64_r6', 
+        cat: '整體給人的觀賞感受', 
+        rowspan: 1, 
+        quote: '亭亭淨植，可遠觀而不可褻玩焉', 
+        ans: '人格高潔，不容許輕慢侮弄',
+        explain: '端莊高潔地直立在水中央，令人肅然起敬，只敢遠觀不敢輕慢玩弄，象徵君子莊重端莊威儀，不容許他人輕薄侮慢。'
+      }
     ];
 
     const P64_OPTIONS = [
@@ -7004,7 +8407,7 @@
               </div>
               <button type="button" class="tool-btn" onclick="speakText('${q.tag}。${q.q}')" style="padding:4px 12px; font-size:14pt;">🔊 讀題</button>
             </div>
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:10px;">
+            <div style="display:grid; grid-template-columns:1fr; gap:10px;">
               ${optsHtml}
             </div>
             <div class="teacher-answer-tag" style="margin-top:10px; padding:8px 14px; background:#fef2f2; border-left:4px solid #ef4444; color:#dc2626; font-weight:bold; border-radius:6px;">
@@ -7033,10 +8436,13 @@
           `;
         }
         trHtml += `
-          <td style="padding:14px 16px; border:2px solid #86efac; font-weight:bold; color:#1e293b; vertical-align:middle; width:32%;">
+          <td style="padding:14px 16px; border:2px solid #86efac; font-weight:bold; color:#1e293b; vertical-align:middle; width:36%;">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-              <span>${r.quote}</span>
-              <button type="button" class="tool-btn" onclick="speakText('${r.quote}')" style="padding:2px 8px; font-size:13pt;">🔊</button>
+              <span style="font-size:18pt; color:#0f172a;">${r.quote}</span>
+              <button type="button" class="tool-btn" onclick="speakText('${r.quote}。象徵說明：${r.explain}')" style="padding:2px 8px; font-size:13pt;">🔊</button>
+            </div>
+            <div style="font-size:14pt; color:#15803d; font-weight:normal; margin-top:6px; line-height:1.45; background:#f0fdf4; padding:6px 10px; border-radius:8px;">
+              💡 <strong>寓意解析：</strong>${r.explain}
             </div>
           </td>
           <td style="padding:12px 16px; border:2px solid #86efac; vertical-align:middle; background:${isActive ? '#fefce8' : '#ffffff'}; cursor:pointer;"
@@ -7130,10 +8536,12 @@
         }
       });
 
-      if (missingP63.length > 0 || missingP64.length > 0) {
+      if ((missingP63.length > 0 || missingP64.length > 0) && !isTeacherCheckMode) {
         alert('⚠️ 請完成所有題目後再檢核成果！\n尚未完成項目：\n' + [...missingP63, ...missingP64].join('、'));
         return;
       }
+
+      document.getElementById('postReadingSection')?.classList.add('is-graded-section');
 
       let correctCount = 0;
       const total = P63_QUESTIONS.length + P64_TABLE_ROWS.length; // 12
@@ -7218,6 +8626,7 @@
       p64UserAnswers = {};
       activeP64SlotId = 'p64_r1';
       postReadingStartTime = Date.now();
+      document.getElementById('postReadingSection')?.classList.remove('is-graded-section');
       initPostReadingPractice();
       document.getElementById('resultPanel-postReading').style.display = 'none';
       document.getElementById('submitBadge-postReading').style.display = 'none';
