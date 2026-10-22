@@ -1,0 +1,2406 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國文二上 第四課〈愛蓮說〉詞語二學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  /* 頂部固定操作列 */
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  /* 語音按鈕微型化 */
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  /* 卷別切換標籤 */
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  /* 題目卡片 */
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  /* 選項網格 */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .option-pill {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 雙欄排版 */
+  .two-col-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) {
+    .two-col-container { grid-template-columns: 1fr; }
+  }
+
+  /* 解答顯示狀態控制 */
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 愛蓮說・詞語二學習單（有聲報讀）</div>
+      <div class="top-controls">
+        <button class="btn rate-btn" onclick="setRate(0.8, this)">0.8x 慢速</button>
+        <button class="btn rate-btn active" onclick="setRate(1.0, this)">1.0x 正常</button>
+        <button class="btn rate-btn" onclick="setRate(1.2, this)">1.2x 快速</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹ 停止朗讀</button>
+        <button class="btn" onclick="toggleFontSize()">🔤 字體大小</button>
+        <button id="btnToggleAns" class="btn" onclick="toggleAnswers()">👁️ 顯示解答</button>
+      </div>
+    </header>
+
+    <div class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </div>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card" id="A-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：重點詞語習寫（15組重點詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽目標生字讀音與部首筆畫記憶重點：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 解頤</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄧㄝˇ ㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('解頤，注音：ㄐㄧㄝˇ ㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：頤，讀音：ㄧˊ。頁部（16畫），左臣右頁。鬆開臉頰開懷大笑。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【頤】ㄧˊ ｜ 頁部（16畫），左臣右頁<br>
+            提示：鬆開臉頰開懷大笑。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 濂溪先生</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ）</span>
+            <button class="btn-speak" onclick="speakText('濂溪先生，注音：ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濂，讀音：ㄌㄧㄢˊ。水部（16畫），左氵右廉。周敦頤的別號。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濂】ㄌㄧㄢˊ ｜ 水部（16畫），左氵右廉<br>
+            提示：周敦頤的別號。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：淤，讀音：ㄩ。水部（11畫），左氵右於。池底爛泥，音同「迂」（勿寫成瘀）。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【淤】ㄩ ｜ 水部（11畫），左氵右於<br>
+            提示：池底爛泥，音同「迂」（勿寫成瘀）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濯，讀音：ㄓㄨㄛˊ。水部（17畫），左氵右翟。洗滌、沖洗乾淨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濯】ㄓㄨㄛˊ ｜ 水部（17畫），左氵右翟<br>
+            提示：洗滌、沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 清漣</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄑㄧㄥ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('清漣，注音：ㄑㄧㄥ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：漣，讀音：ㄌㄧㄢˊ。水部（14畫），左氵右連。清澈水波，漣漪。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【漣】ㄌㄧㄢˊ ｜ 水部（14畫），左氵右連<br>
+            提示：清澈水波，漣漪。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 亭亭淨植</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ）</span>
+            <button class="btn-speak" onclick="speakText('亭亭淨植，注音：ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：植，讀音：ㄓˊ。木部（12畫），左木右直。高挺潔淨地立在水中。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【植】ㄓˊ ｜ 木部（12畫），左木右直<br>
+            提示：高挺潔淨地立在水中。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 花梗</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄏㄨㄚ ㄍㄥˇ）</span>
+            <button class="btn-speak" onclick="speakText('花梗，注音：ㄏㄨㄚ ㄍㄥˇ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：梗，讀音：ㄍㄥˇ。木部（11畫），左木右更。植物枝莖、枝柄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【梗】ㄍㄥˇ ｜ 木部（11畫），左木右更<br>
+            提示：植物枝莖、枝柄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 不蔓不枝</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ）</span>
+            <button class="btn-speak" onclick="speakText('不蔓不枝，注音：ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蔓，讀音：ㄇㄢˋ。艸部（15畫），上艹下曼。不蔓延細莖，比喻不攀附權貴。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蔓】ㄇㄢˋ ｜ 艸部（15畫），上艹下曼<br>
+            提示：不蔓延細莖，比喻不攀附權貴。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 褻玩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄝˋ ㄨㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('褻玩，注音：ㄒㄧㄝˋ ㄨㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：褻，讀音：ㄒㄧㄝˋ。衣部（17畫），衣包夾執。輕慢不莊重地玩弄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【褻】ㄒㄧㄝˋ ｜ 衣部（17畫），衣包夾執<br>
+            提示：輕慢不莊重地玩弄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 隱逸</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄣˇ ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('隱逸，注音：ㄧㄣˇ ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：逸，讀音：ㄧˋ。辵部（11畫），免＋辶。隱居避世的高士。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【逸】ㄧˋ ｜ 辵部（11畫），免＋辶<br>
+            提示：隱居避世的高士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 噫</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('噫，注音：ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：噫，讀音：ㄧˋ。口部（16畫），左口右意。文言嘆詞，音同意，表感慨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【噫】ㄧˋ ｜ 口部（16畫），左口右意<br>
+            提示：文言嘆詞，音同意，表感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 甚蕃</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄣˋ ㄈㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('甚蕃，注音：ㄕㄣˋ ㄈㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蕃，讀音：ㄈㄢˊ。艸部（16畫），上艹下番。音ㄈㄢˊ（通繁），眾多。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蕃】ㄈㄢˊ ｜ 艸部（16畫），上艹下番<br>
+            提示：音ㄈㄢˊ（通繁），眾多。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 牡丹花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹花，注音：ㄇㄨˇ ㄉㄢ ㄏㄨㄚ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：牡，讀音：ㄇㄨˇ。牛部（7畫），左牜右土。不可誤寫成木部的杜。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【牡】ㄇㄨˇ ｜ 牛部（7畫），左牜右土<br>
+            提示：不可誤寫成木部的杜。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 予獨愛蓮</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('予獨愛蓮，注音：ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：予，讀音：ㄩˊ。亅部（4畫）。第一人稱「我」讀 ㄩˊ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【予】ㄩˊ ｜ 亅部（4畫）<br>
+            提示：第一人稱「我」讀 ㄩˊ。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 鮮有聞</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ）</span>
+            <button class="btn-speak" onclick="speakText('鮮有聞，注音：ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：鮮，讀音：ㄒㄧㄢˇ。魚部（17畫），左魚右羊。作「少」時讀 ㄒㄧㄢˇ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【鮮】ㄒㄧㄢˇ ｜ 魚部（17畫），左魚右羊<br>
+            提示：作「少」時讀 ㄒㄧㄢˇ。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：依題目寫出注音（雙欄排列・15題）</div>
+          <span class="section-badge">第 2 頁 / 依題目寫注音</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 出「淤」泥而不染
+            <button class="btn-speak" onclick="speakText('出「淤」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 隱「逸」之士
+            <button class="btn-speak" onclick="speakText('隱「逸」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 不可「褻」玩
+            <button class="btn-speak" onclick="speakText('不可「褻」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄝˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 令人解「頤」
+            <button class="btn-speak" onclick="speakText('令人解「頤」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 「牡」丹富貴
+            <button class="btn-speak" onclick="speakText('「牡」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄨˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「噫」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「噫」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 洗「濯」乾淨
+            <button class="btn-speak" onclick="speakText('洗「濯」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓㄨㄛˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 濯清「漣」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「漣」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 不「蔓」不枝
+            <button class="btn-speak" onclick="speakText('不「蔓」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄢˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 亭亭淨「植」
+            <button class="btn-speak" onclick="speakText('亭亭淨「植」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 「濂」溪先生
+            <button class="btn-speak" onclick="speakText('「濂」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 花「梗」挺拔
+            <button class="btn-speak" onclick="speakText('花「梗」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄍㄥˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 陶後「鮮」有聞
+            <button class="btn-speak" onclick="speakText('陶後「鮮」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 可愛者甚「蕃」
+            <button class="btn-speak" onclick="speakText('可愛者甚「蕃」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄈㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 「予」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「予」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩˊ】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="A-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：依題目寫出國字（雙欄排列・15題）</div>
+          <span class="section-badge">第 3 頁 / 依題目寫國字</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 令人解「ㄧˊ」
+            <button class="btn-speak" onclick="speakText('令人解「ㄧˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 「ㄩˊ」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「ㄩˊ」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 花「ㄍㄥˇ」挺拔
+            <button class="btn-speak" onclick="speakText('花「ㄍㄥˇ」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 洗「ㄓㄨㄛˊ」乾淨
+            <button class="btn-speak" onclick="speakText('洗「ㄓㄨㄛˊ」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 不「ㄇㄢˋ」不枝
+            <button class="btn-speak" onclick="speakText('不「ㄇㄢˋ」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「ㄧˋ」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「ㄧˋ」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 可愛者甚「ㄈㄢˊ」
+            <button class="btn-speak" onclick="speakText('可愛者甚「ㄈㄢˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 「ㄇㄨˇ」丹富貴
+            <button class="btn-speak" onclick="speakText('「ㄇㄨˇ」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 隱「ㄧˋ」之士
+            <button class="btn-speak" onclick="speakText('隱「ㄧˋ」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 亭亭淨「ㄓˊ」
+            <button class="btn-speak" onclick="speakText('亭亭淨「ㄓˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 「ㄌㄧㄢˊ」溪先生
+            <button class="btn-speak" onclick="speakText('「ㄌㄧㄢˊ」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 陶後「ㄒㄧㄢˇ」有聞
+            <button class="btn-speak" onclick="speakText('陶後「ㄒㄧㄢˇ」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 出「ㄩ」泥而不染
+            <button class="btn-speak" onclick="speakText('出「ㄩ」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 不可「ㄒㄧㄝˋ」玩
+            <button class="btn-speak" onclick="speakText('不可「ㄒㄧㄝˋ」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 濯清「ㄌㄧㄢˊ」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「ㄌㄧㄢˊ」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【漣】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="A-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇・15題）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 水陸草木之花，可愛者甚（　　）。
+            <button class="btn-speak" onclick="speakText('可愛者甚蕃')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 濯清（　　）而不妖，中通外直。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 予謂：菊，花之隱（　　）者也。
+            <button class="btn-speak" onclick="speakText('花之隱逸者也')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 蓮花高雅端莊，可遠觀而不可（　　）玩焉。
+            <button class="btn-speak" onclick="speakText('不可褻玩焉')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 中通外直，不（　　）不枝，比喻君子不攀附權貴。
+            <button class="btn-speak" onclick="speakText('中通外直，不蔓不枝')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. （　　）溪先生周敦頤寫下〈愛蓮說〉，說明喜愛蓮花的操守。
+            <button class="btn-speak" onclick="speakText('濂溪先生周敦頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. （　　）獨愛蓮之出淤泥而不染，濯清漣而不妖。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 濂溪先生為人風趣幽默，談吐常令人解（　　）。
+            <button class="btn-speak" onclick="speakText('令人解頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 菊之愛，陶後（　　）有聞。
+            <button class="btn-speak" onclick="speakText('陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 自李唐來，世人盛愛（　　）丹花。
+            <button class="btn-speak" onclick="speakText('世人盛愛牡丹')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 予獨愛蓮之出（　　）泥而不染。
+            <button class="btn-speak" onclick="speakText('出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 蓮花在清澈的水波中洗（　　）過後，潔淨而不顯妖豔。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 蓮花的花（　　）內部中空、外表挺直，象徵君子正直的氣節。
+            <button class="btn-speak" onclick="speakText('花梗中通外直')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 香遠益清，亭亭淨（　　），可遠觀而不可褻玩焉。
+            <button class="btn-speak" onclick="speakText('亭亭淨植')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. （　　）！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？
+            <button class="btn-speak" onclick="speakText('噫！菊之愛，陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇・15題）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 媽媽將剛採收的新鮮青菜仔細洗（　　）乾淨。
+            <button class="btn-speak" onclick="speakText('媽媽將剛採收的新鮮青菜仔細洗濯乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. （　　）！這件事情真是令人感到無比惋惜與感慨啊！
+            <button class="btn-speak" onclick="speakText('噫！這件事情真是令人感到無比惋惜與感慨啊！')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. （　　）丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。
+            <button class="btn-speak" onclick="speakText('牡丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 爬山虎的細（　　）順著牆壁向上蔓延生長。
+            <button class="btn-speak" onclick="speakText('爬山虎的細蔓順著牆壁向上蔓延生長。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 微風吹拂過水面，湖面上泛起了一圈圈美麗的清（　　）。
+            <button class="btn-speak" onclick="speakText('微風吹拂過水面，湖面上泛起了一圈圈美麗的清漣。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 春天到了，國家公園裡的花草樹木種類繁多、草木甚（　　）。
+            <button class="btn-speak" onclick="speakText('春天到了，國家公園裡的花草樹木種類繁多、草木甚蕃。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 文物古蹟應當好好珍惜保護，絕不可隨意觸摸（　　）玩。
+            <button class="btn-speak" onclick="speakText('文物古蹟應當好好珍惜保護，絕不可隨意觸摸褻玩。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 池塘中央的荷花亭亭淨（　　），顯得十分端莊優雅。
+            <button class="btn-speak" onclick="speakText('池塘中央的荷花亭亭淨植，顯得十分端莊優雅。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 爺爺說了一個生動逗趣的笑話，逗得大家開懷解（　　）。
+            <button class="btn-speak" onclick="speakText('爺爺說了一個生動逗趣的笑話，逗得大家開懷解頤。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 這枝康乃馨的花（　　）非常翠綠挺拔，適合插在花瓶裡。
+            <button class="btn-speak" onclick="speakText('這枝康乃馨的花梗非常翠綠挺拔，適合插在花瓶裡。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 「（　　）取予求」讀ㄩˇ，文言文中「（　　）」讀ㄩˊ，指我。
+            <button class="btn-speak" onclick="speakText('「予取予求」讀ㄩˇ，文言文中「予」讀ㄩˊ，指我。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 後世學者尊稱周敦頤為（　　）溪先生，開創了理學思想。
+            <button class="btn-speak" onclick="speakText('後世學者尊稱周敦頤為濂溪先生，開創了理學思想。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 陶淵明不慕名利，辭官歸隱，是歷史上著名的隱（　　）高士。
+            <button class="btn-speak" onclick="speakText('陶淵明不慕名利，辭官歸隱，是歷史上著名的隱逸高士。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 他平時深居簡出，在公開場合（　　）少發表自己的看法。
+            <button class="btn-speak" onclick="speakText('他平時深居簡出，在公開場合鮮少發表自己的看法。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 工人叔叔頂著烈日，努力清理河道底部堆積的（　　）泥。
+            <button class="btn-speak" onclick="speakText('工人叔叔頂著烈日，努力清理河道底部堆積的淤泥。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card" id="B-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：重點詞語習寫（15組重點詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽目標生字讀音與部首筆畫記憶重點：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 解頤</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄧㄝˇ ㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('解頤，注音：ㄐㄧㄝˇ ㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：頤，讀音：ㄧˊ。頁部（16畫），左臣右頁。鬆開臉頰開懷大笑。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【頤】ㄧˊ ｜ 頁部（16畫），左臣右頁<br>
+            提示：鬆開臉頰開懷大笑。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 濂溪先生</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ）</span>
+            <button class="btn-speak" onclick="speakText('濂溪先生，注音：ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濂，讀音：ㄌㄧㄢˊ。水部（16畫），左氵右廉。周敦頤的別號。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濂】ㄌㄧㄢˊ ｜ 水部（16畫），左氵右廉<br>
+            提示：周敦頤的別號。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：淤，讀音：ㄩ。水部（11畫），左氵右於。池底爛泥，音同「迂」（勿寫成瘀）。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【淤】ㄩ ｜ 水部（11畫），左氵右於<br>
+            提示：池底爛泥，音同「迂」（勿寫成瘀）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濯，讀音：ㄓㄨㄛˊ。水部（17畫），左氵右翟。洗滌、沖洗乾淨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濯】ㄓㄨㄛˊ ｜ 水部（17畫），左氵右翟<br>
+            提示：洗滌、沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 清漣</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄑㄧㄥ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('清漣，注音：ㄑㄧㄥ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：漣，讀音：ㄌㄧㄢˊ。水部（14畫），左氵右連。清澈水波，漣漪。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【漣】ㄌㄧㄢˊ ｜ 水部（14畫），左氵右連<br>
+            提示：清澈水波，漣漪。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 亭亭淨植</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ）</span>
+            <button class="btn-speak" onclick="speakText('亭亭淨植，注音：ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：植，讀音：ㄓˊ。木部（12畫），左木右直。高挺潔淨地立在水中。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【植】ㄓˊ ｜ 木部（12畫），左木右直<br>
+            提示：高挺潔淨地立在水中。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 花梗</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄏㄨㄚ ㄍㄥˇ）</span>
+            <button class="btn-speak" onclick="speakText('花梗，注音：ㄏㄨㄚ ㄍㄥˇ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：梗，讀音：ㄍㄥˇ。木部（11畫），左木右更。植物枝莖、枝柄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【梗】ㄍㄥˇ ｜ 木部（11畫），左木右更<br>
+            提示：植物枝莖、枝柄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 不蔓不枝</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ）</span>
+            <button class="btn-speak" onclick="speakText('不蔓不枝，注音：ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蔓，讀音：ㄇㄢˋ。艸部（15畫），上艹下曼。不蔓延細莖，比喻不攀附權貴。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蔓】ㄇㄢˋ ｜ 艸部（15畫），上艹下曼<br>
+            提示：不蔓延細莖，比喻不攀附權貴。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 褻玩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄝˋ ㄨㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('褻玩，注音：ㄒㄧㄝˋ ㄨㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：褻，讀音：ㄒㄧㄝˋ。衣部（17畫），衣包夾執。輕慢不莊重地玩弄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【褻】ㄒㄧㄝˋ ｜ 衣部（17畫），衣包夾執<br>
+            提示：輕慢不莊重地玩弄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 隱逸</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄣˇ ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('隱逸，注音：ㄧㄣˇ ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：逸，讀音：ㄧˋ。辵部（11畫），免＋辶。隱居避世的高士。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【逸】ㄧˋ ｜ 辵部（11畫），免＋辶<br>
+            提示：隱居避世的高士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 噫</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('噫，注音：ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：噫，讀音：ㄧˋ。口部（16畫），左口右意。文言嘆詞，音同意，表感慨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【噫】ㄧˋ ｜ 口部（16畫），左口右意<br>
+            提示：文言嘆詞，音同意，表感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 甚蕃</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄣˋ ㄈㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('甚蕃，注音：ㄕㄣˋ ㄈㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蕃，讀音：ㄈㄢˊ。艸部（16畫），上艹下番。音ㄈㄢˊ（通繁），眾多。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蕃】ㄈㄢˊ ｜ 艸部（16畫），上艹下番<br>
+            提示：音ㄈㄢˊ（通繁），眾多。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 牡丹花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹花，注音：ㄇㄨˇ ㄉㄢ ㄏㄨㄚ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：牡，讀音：ㄇㄨˇ。牛部（7畫），左牜右土。不可誤寫成木部的杜。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【牡】ㄇㄨˇ ｜ 牛部（7畫），左牜右土<br>
+            提示：不可誤寫成木部的杜。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 予獨愛蓮</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('予獨愛蓮，注音：ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：予，讀音：ㄩˊ。亅部（4畫）。第一人稱「我」讀 ㄩˊ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【予】ㄩˊ ｜ 亅部（4畫）<br>
+            提示：第一人稱「我」讀 ㄩˊ。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 鮮有聞</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ）</span>
+            <button class="btn-speak" onclick="speakText('鮮有聞，注音：ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：鮮，讀音：ㄒㄧㄢˇ。魚部（17畫），左魚右羊。作「少」時讀 ㄒㄧㄢˇ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【鮮】ㄒㄧㄢˇ ｜ 魚部（17畫），左魚右羊<br>
+            提示：作「少」時讀 ㄒㄧㄢˇ。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：依題目寫出注音（雙欄排列・15題）</div>
+          <span class="section-badge">第 2 頁 / 依題目寫注音</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 出「淤」泥而不染
+            <button class="btn-speak" onclick="speakText('出「淤」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 陶後「鮮」有聞
+            <button class="btn-speak" onclick="speakText('陶後「鮮」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「予」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「予」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 不可「褻」玩
+            <button class="btn-speak" onclick="speakText('不可「褻」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄝˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 「濂」溪先生
+            <button class="btn-speak" onclick="speakText('「濂」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 隱「逸」之士
+            <button class="btn-speak" onclick="speakText('隱「逸」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 令人解「頤」
+            <button class="btn-speak" onclick="speakText('令人解「頤」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 可愛者甚「蕃」
+            <button class="btn-speak" onclick="speakText('可愛者甚「蕃」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄈㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 洗「濯」乾淨
+            <button class="btn-speak" onclick="speakText('洗「濯」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓㄨㄛˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「噫」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「噫」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 不「蔓」不枝
+            <button class="btn-speak" onclick="speakText('不「蔓」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄢˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 「牡」丹富貴
+            <button class="btn-speak" onclick="speakText('「牡」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄨˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 花「梗」挺拔
+            <button class="btn-speak" onclick="speakText('花「梗」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄍㄥˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 亭亭淨「植」
+            <button class="btn-speak" onclick="speakText('亭亭淨「植」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 濯清「漣」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「漣」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="B-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：依題目寫出國字（雙欄排列・15題）</div>
+          <span class="section-badge">第 3 頁 / 依題目寫國字</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 花「ㄍㄥˇ」挺拔
+            <button class="btn-speak" onclick="speakText('花「ㄍㄥˇ」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 隱「ㄧˋ」之士
+            <button class="btn-speak" onclick="speakText('隱「ㄧˋ」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 洗「ㄓㄨㄛˊ」乾淨
+            <button class="btn-speak" onclick="speakText('洗「ㄓㄨㄛˊ」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 「ㄩˊ」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「ㄩˊ」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 可愛者甚「ㄈㄢˊ」
+            <button class="btn-speak" onclick="speakText('可愛者甚「ㄈㄢˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 不可「ㄒㄧㄝˋ」玩
+            <button class="btn-speak" onclick="speakText('不可「ㄒㄧㄝˋ」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 「ㄌㄧㄢˊ」溪先生
+            <button class="btn-speak" onclick="speakText('「ㄌㄧㄢˊ」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 濯清「ㄌㄧㄢˊ」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「ㄌㄧㄢˊ」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 令人解「ㄧˊ」
+            <button class="btn-speak" onclick="speakText('令人解「ㄧˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「ㄇㄨˇ」丹富貴
+            <button class="btn-speak" onclick="speakText('「ㄇㄨˇ」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 不「ㄇㄢˋ」不枝
+            <button class="btn-speak" onclick="speakText('不「ㄇㄢˋ」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 亭亭淨「ㄓˊ」
+            <button class="btn-speak" onclick="speakText('亭亭淨「ㄓˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 陶後「ㄒㄧㄢˇ」有聞
+            <button class="btn-speak" onclick="speakText('陶後「ㄒㄧㄢˇ」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 出「ㄩ」泥而不染
+            <button class="btn-speak" onclick="speakText('出「ㄩ」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 「ㄧˋ」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「ㄧˋ」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【噫】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="B-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇・15題）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 蓮花的花（　　）內部中空、外表挺直，象徵君子正直的氣節。
+            <button class="btn-speak" onclick="speakText('花梗中通外直')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 香遠益清，亭亭淨（　　），可遠觀而不可褻玩焉。
+            <button class="btn-speak" onclick="speakText('亭亭淨植')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 水陸草木之花，可愛者甚（　　）。
+            <button class="btn-speak" onclick="speakText('可愛者甚蕃')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 蓮花高雅端莊，可遠觀而不可（　　）玩焉。
+            <button class="btn-speak" onclick="speakText('不可褻玩焉')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 濯清（　　）而不妖，中通外直。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 濂溪先生為人風趣幽默，談吐常令人解（　　）。
+            <button class="btn-speak" onclick="speakText('令人解頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 菊之愛，陶後（　　）有聞。
+            <button class="btn-speak" onclick="speakText('陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 自李唐來，世人盛愛（　　）丹花。
+            <button class="btn-speak" onclick="speakText('世人盛愛牡丹')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 予謂：菊，花之隱（　　）者也。
+            <button class="btn-speak" onclick="speakText('花之隱逸者也')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. （　　）！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？
+            <button class="btn-speak" onclick="speakText('噫！菊之愛，陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 中通外直，不（　　）不枝，比喻君子不攀附權貴。
+            <button class="btn-speak" onclick="speakText('中通外直，不蔓不枝')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 蓮花在清澈的水波中洗（　　）過後，潔淨而不顯妖豔。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. （　　）溪先生周敦頤寫下〈愛蓮說〉，說明喜愛蓮花的操守。
+            <button class="btn-speak" onclick="speakText('濂溪先生周敦頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. （　　）獨愛蓮之出淤泥而不染，濯清漣而不妖。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 予獨愛蓮之出（　　）泥而不染。
+            <button class="btn-speak" onclick="speakText('出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇・15題）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 春天到了，國家公園裡的花草樹木種類繁多、草木甚（　　）。
+            <button class="btn-speak" onclick="speakText('春天到了，國家公園裡的花草樹木種類繁多、草木甚蕃。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 後世學者尊稱周敦頤為（　　）溪先生，開創了理學思想。
+            <button class="btn-speak" onclick="speakText('後世學者尊稱周敦頤為濂溪先生，開創了理學思想。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. （　　）丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。
+            <button class="btn-speak" onclick="speakText('牡丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 「（　　）取予求」讀ㄩˇ，文言文中「（　　）」讀ㄩˊ，指我。
+            <button class="btn-speak" onclick="speakText('「予取予求」讀ㄩˇ，文言文中「予」讀ㄩˊ，指我。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 這枝康乃馨的花（　　）非常翠綠挺拔，適合插在花瓶裡。
+            <button class="btn-speak" onclick="speakText('這枝康乃馨的花梗非常翠綠挺拔，適合插在花瓶裡。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 爺爺說了一個生動逗趣的笑話，逗得大家開懷解（　　）。
+            <button class="btn-speak" onclick="speakText('爺爺說了一個生動逗趣的笑話，逗得大家開懷解頤。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 媽媽將剛採收的新鮮青菜仔細洗（　　）乾淨。
+            <button class="btn-speak" onclick="speakText('媽媽將剛採收的新鮮青菜仔細洗濯乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 陶淵明不慕名利，辭官歸隱，是歷史上著名的隱（　　）高士。
+            <button class="btn-speak" onclick="speakText('陶淵明不慕名利，辭官歸隱，是歷史上著名的隱逸高士。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 微風吹拂過水面，湖面上泛起了一圈圈美麗的清（　　）。
+            <button class="btn-speak" onclick="speakText('微風吹拂過水面，湖面上泛起了一圈圈美麗的清漣。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 爬山虎的細（　　）順著牆壁向上蔓延生長。
+            <button class="btn-speak" onclick="speakText('爬山虎的細蔓順著牆壁向上蔓延生長。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 他平時深居簡出，在公開場合（　　）少發表自己的看法。
+            <button class="btn-speak" onclick="speakText('他平時深居簡出，在公開場合鮮少發表自己的看法。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 工人叔叔頂著烈日，努力清理河道底部堆積的（　　）泥。
+            <button class="btn-speak" onclick="speakText('工人叔叔頂著烈日，努力清理河道底部堆積的淤泥。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 池塘中央的荷花亭亭淨（　　），顯得十分端莊優雅。
+            <button class="btn-speak" onclick="speakText('池塘中央的荷花亭亭淨植，顯得十分端莊優雅。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. （　　）！這件事情真是令人感到無比惋惜與感慨啊！
+            <button class="btn-speak" onclick="speakText('噫！這件事情真是令人感到無比惋惜與感慨啊！')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 文物古蹟應當好好珍惜保護，絕不可隨意觸摸（　　）玩。
+            <button class="btn-speak" onclick="speakText('文物古蹟應當好好珍惜保護，絕不可隨意觸摸褻玩。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card" id="C-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：重點詞語習寫（15組重點詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽目標生字讀音與部首筆畫記憶重點：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 解頤</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄧㄝˇ ㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('解頤，注音：ㄐㄧㄝˇ ㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：頤，讀音：ㄧˊ。頁部（16畫），左臣右頁。鬆開臉頰開懷大笑。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【頤】ㄧˊ ｜ 頁部（16畫），左臣右頁<br>
+            提示：鬆開臉頰開懷大笑。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 濂溪先生</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ）</span>
+            <button class="btn-speak" onclick="speakText('濂溪先生，注音：ㄌㄧㄢˊ ㄒㄧ ㄒㄧㄢ ㄕㄥ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濂，讀音：ㄌㄧㄢˊ。水部（16畫），左氵右廉。周敦頤的別號。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濂】ㄌㄧㄢˊ ｜ 水部（16畫），左氵右廉<br>
+            提示：周敦頤的別號。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：淤，讀音：ㄩ。水部（11畫），左氵右於。池底爛泥，音同「迂」（勿寫成瘀）。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【淤】ㄩ ｜ 水部（11畫），左氵右於<br>
+            提示：池底爛泥，音同「迂」（勿寫成瘀）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：濯，讀音：ㄓㄨㄛˊ。水部（17畫），左氵右翟。洗滌、沖洗乾淨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【濯】ㄓㄨㄛˊ ｜ 水部（17畫），左氵右翟<br>
+            提示：洗滌、沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 清漣</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄑㄧㄥ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('清漣，注音：ㄑㄧㄥ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：漣，讀音：ㄌㄧㄢˊ。水部（14畫），左氵右連。清澈水波，漣漪。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【漣】ㄌㄧㄢˊ ｜ 水部（14畫），左氵右連<br>
+            提示：清澈水波，漣漪。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 亭亭淨植</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ）</span>
+            <button class="btn-speak" onclick="speakText('亭亭淨植，注音：ㄊㄧㄥˊ ㄊㄧㄥˊ ㄐㄧㄥˋ ㄓˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：植，讀音：ㄓˊ。木部（12畫），左木右直。高挺潔淨地立在水中。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【植】ㄓˊ ｜ 木部（12畫），左木右直<br>
+            提示：高挺潔淨地立在水中。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 花梗</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄏㄨㄚ ㄍㄥˇ）</span>
+            <button class="btn-speak" onclick="speakText('花梗，注音：ㄏㄨㄚ ㄍㄥˇ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：梗，讀音：ㄍㄥˇ。木部（11畫），左木右更。植物枝莖、枝柄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【梗】ㄍㄥˇ ｜ 木部（11畫），左木右更<br>
+            提示：植物枝莖、枝柄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 不蔓不枝</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ）</span>
+            <button class="btn-speak" onclick="speakText('不蔓不枝，注音：ㄅㄨˊ ㄇㄢˋ ㄅㄨˋ ㄓ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蔓，讀音：ㄇㄢˋ。艸部（15畫），上艹下曼。不蔓延細莖，比喻不攀附權貴。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蔓】ㄇㄢˋ ｜ 艸部（15畫），上艹下曼<br>
+            提示：不蔓延細莖，比喻不攀附權貴。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 褻玩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄝˋ ㄨㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('褻玩，注音：ㄒㄧㄝˋ ㄨㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：褻，讀音：ㄒㄧㄝˋ。衣部（17畫），衣包夾執。輕慢不莊重地玩弄。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【褻】ㄒㄧㄝˋ ｜ 衣部（17畫），衣包夾執<br>
+            提示：輕慢不莊重地玩弄。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 隱逸</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄣˇ ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('隱逸，注音：ㄧㄣˇ ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：逸，讀音：ㄧˋ。辵部（11畫），免＋辶。隱居避世的高士。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【逸】ㄧˋ ｜ 辵部（11畫），免＋辶<br>
+            提示：隱居避世的高士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 噫</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('噫，注音：ㄧˋ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：噫，讀音：ㄧˋ。口部（16畫），左口右意。文言嘆詞，音同意，表感慨。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【噫】ㄧˋ ｜ 口部（16畫），左口右意<br>
+            提示：文言嘆詞，音同意，表感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 甚蕃</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄣˋ ㄈㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('甚蕃，注音：ㄕㄣˋ ㄈㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：蕃，讀音：ㄈㄢˊ。艸部（16畫），上艹下番。音ㄈㄢˊ（通繁），眾多。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【蕃】ㄈㄢˊ ｜ 艸部（16畫），上艹下番<br>
+            提示：音ㄈㄢˊ（通繁），眾多。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 牡丹花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹花，注音：ㄇㄨˇ ㄉㄢ ㄏㄨㄚ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：牡，讀音：ㄇㄨˇ。牛部（7畫），左牜右土。不可誤寫成木部的杜。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【牡】ㄇㄨˇ ｜ 牛部（7畫），左牜右土<br>
+            提示：不可誤寫成木部的杜。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 予獨愛蓮</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ）</span>
+            <button class="btn-speak" onclick="speakText('予獨愛蓮，注音：ㄩˊ ㄉㄨˊ ㄞˋ ㄌㄧㄢˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：予，讀音：ㄩˊ。亅部（4畫）。第一人稱「我」讀 ㄩˊ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【予】ㄩˊ ｜ 亅部（4畫）<br>
+            提示：第一人稱「我」讀 ㄩˊ。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 鮮有聞</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ）</span>
+            <button class="btn-speak" onclick="speakText('鮮有聞，注音：ㄒㄧㄢˇ ㄧㄡˇ ㄨㄣˊ')">🔊 聽詞語</button>
+            <button class="btn-speak" onclick="speakText('目標字：鮮，讀音：ㄒㄧㄢˇ。魚部（17畫），左魚右羊。作「少」時讀 ㄒㄧㄢˇ。')">🔊 聽考查重點</button>
+          </div>
+          <div class="item-details">
+            考查生字：【鮮】ㄒㄧㄢˇ ｜ 魚部（17畫），左魚右羊<br>
+            提示：作「少」時讀 ㄒㄧㄢˇ。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：依題目寫出注音（雙欄排列・15題）</div>
+          <span class="section-badge">第 2 頁 / 依題目寫注音</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 隱「逸」之士
+            <button class="btn-speak" onclick="speakText('隱「逸」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 不「蔓」不枝
+            <button class="btn-speak" onclick="speakText('不「蔓」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄢˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 令人解「頤」
+            <button class="btn-speak" onclick="speakText('令人解「頤」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 花「梗」挺拔
+            <button class="btn-speak" onclick="speakText('花「梗」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄍㄥˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 出「淤」泥而不染
+            <button class="btn-speak" onclick="speakText('出「淤」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「牡」丹富貴
+            <button class="btn-speak" onclick="speakText('「牡」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄇㄨˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 可愛者甚「蕃」
+            <button class="btn-speak" onclick="speakText('可愛者甚「蕃」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄈㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 洗「濯」乾淨
+            <button class="btn-speak" onclick="speakText('洗「濯」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓㄨㄛˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 不可「褻」玩
+            <button class="btn-speak" onclick="speakText('不可「褻」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄝˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「濂」溪先生
+            <button class="btn-speak" onclick="speakText('「濂」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 「噫」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「噫」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 陶後「鮮」有聞
+            <button class="btn-speak" onclick="speakText('陶後「鮮」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄒㄧㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 濯清「漣」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「漣」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄌㄧㄢˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 亭亭淨「植」
+            <button class="btn-speak" onclick="speakText('亭亭淨「植」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄓˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 「予」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「予」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確注音：【ㄩˊ】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="C-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：依題目寫出國字（雙欄排列・15題）</div>
+          <span class="section-badge">第 3 頁 / 依題目寫國字</span>
+        </div>
+        <div class="two-col-container">
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 令人解「ㄧˊ」
+            <button class="btn-speak" onclick="speakText('令人解「ㄧˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 洗「ㄓㄨㄛˊ」乾淨
+            <button class="btn-speak" onclick="speakText('洗「ㄓㄨㄛˊ」乾淨')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「ㄩˊ」獨愛蓮
+            <button class="btn-speak" onclick="speakText('「ㄩˊ」獨愛蓮')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 亭亭淨「ㄓˊ」
+            <button class="btn-speak" onclick="speakText('亭亭淨「ㄓˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 不「ㄇㄢˋ」不枝
+            <button class="btn-speak" onclick="speakText('不「ㄇㄢˋ」不枝')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 可愛者甚「ㄈㄢˊ」
+            <button class="btn-speak" onclick="speakText('可愛者甚「ㄈㄢˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 「ㄇㄨˇ」丹富貴
+            <button class="btn-speak" onclick="speakText('「ㄇㄨˇ」丹富貴')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 隱「ㄧˋ」之士
+            <button class="btn-speak" onclick="speakText('隱「ㄧˋ」之士')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 花「ㄍㄥˇ」挺拔
+            <button class="btn-speak" onclick="speakText('花「ㄍㄥˇ」挺拔')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「ㄌㄧㄢˊ」溪先生
+            <button class="btn-speak" onclick="speakText('「ㄌㄧㄢˊ」溪先生')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 「ㄧˋ」！感嘆之詞
+            <button class="btn-speak" onclick="speakText('「ㄧˋ」！感嘆之詞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 陶後「ㄒㄧㄢˇ」有聞
+            <button class="btn-speak" onclick="speakText('陶後「ㄒㄧㄢˇ」有聞')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 不可「ㄒㄧㄝˋ」玩
+            <button class="btn-speak" onclick="speakText('不可「ㄒㄧㄝˋ」玩')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 出「ㄩ」泥而不染
+            <button class="btn-speak" onclick="speakText('出「ㄩ」泥而不染')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 濯清「ㄌㄧㄢˊ」而不妖
+            <button class="btn-speak" onclick="speakText('濯清「ㄌㄧㄢˊ」而不妖')">🔊 聽題目</button>
+          </div>
+          <div class="teacher-answer">★ 正確國字：【漣】</div>
+        </div>
+      </div></section>
+      <section class="section-card" id="C-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇・15題）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 香遠益清，亭亭淨（　　），可遠觀而不可褻玩焉。
+            <button class="btn-speak" onclick="speakText('亭亭淨植')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 菊之愛，陶後（　　）有聞。
+            <button class="btn-speak" onclick="speakText('陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 予謂：菊，花之隱（　　）者也。
+            <button class="btn-speak" onclick="speakText('花之隱逸者也')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 蓮花高雅端莊，可遠觀而不可（　　）玩焉。
+            <button class="btn-speak" onclick="speakText('不可褻玩焉')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 蓮花的花（　　）內部中空、外表挺直，象徵君子正直的氣節。
+            <button class="btn-speak" onclick="speakText('花梗中通外直')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 濯清（　　）而不妖，中通外直。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 濂溪先生為人風趣幽默，談吐常令人解（　　）。
+            <button class="btn-speak" onclick="speakText('令人解頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 中通外直，不（　　）不枝，比喻君子不攀附權貴。
+            <button class="btn-speak" onclick="speakText('中通外直，不蔓不枝')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 蓮花在清澈的水波中洗（　　）過後，潔淨而不顯妖豔。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. （　　）溪先生周敦頤寫下〈愛蓮說〉，說明喜愛蓮花的操守。
+            <button class="btn-speak" onclick="speakText('濂溪先生周敦頤')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. （　　）！菊之愛，陶後鮮有聞。蓮之愛，同予者何人？
+            <button class="btn-speak" onclick="speakText('噫！菊之愛，陶後鮮有聞')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 予獨愛蓮之出（　　）泥而不染。
+            <button class="btn-speak" onclick="speakText('出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 自李唐來，世人盛愛（　　）丹花。
+            <button class="btn-speak" onclick="speakText('世人盛愛牡丹')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. （　　）獨愛蓮之出淤泥而不染，濯清漣而不妖。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 水陸草木之花，可愛者甚（　　）。
+            <button class="btn-speak" onclick="speakText('可愛者甚蕃')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇・15題）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 這枝康乃馨的花（　　）非常翠綠挺拔，適合插在花瓶裡。
+            <button class="btn-speak" onclick="speakText('這枝康乃馨的花梗非常翠綠挺拔，適合插在花瓶裡。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【梗】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. （　　）丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。
+            <button class="btn-speak" onclick="speakText('牡丹花朵色彩豔麗，自古以來被視為繁榮富貴的象徵。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「（　　）取予求」讀ㄩˇ，文言文中「（　　）」讀ㄩˊ，指我。
+            <button class="btn-speak" onclick="speakText('「予取予求」讀ㄩˇ，文言文中「予」讀ㄩˊ，指我。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【予】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 陶淵明不慕名利，辭官歸隱，是歷史上著名的隱（　　）高士。
+            <button class="btn-speak" onclick="speakText('陶淵明不慕名利，辭官歸隱，是歷史上著名的隱逸高士。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【逸】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 池塘中央的荷花亭亭淨（　　），顯得十分端莊優雅。
+            <button class="btn-speak" onclick="speakText('池塘中央的荷花亭亭淨植，顯得十分端莊優雅。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【植】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 爬山虎的細（　　）順著牆壁向上蔓延生長。
+            <button class="btn-speak" onclick="speakText('爬山虎的細蔓順著牆壁向上蔓延生長。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蔓】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 文物古蹟應當好好珍惜保護，絕不可隨意觸摸（　　）玩。
+            <button class="btn-speak" onclick="speakText('文物古蹟應當好好珍惜保護，絕不可隨意觸摸褻玩。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【褻】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 微風吹拂過水面，湖面上泛起了一圈圈美麗的清（　　）。
+            <button class="btn-speak" onclick="speakText('微風吹拂過水面，湖面上泛起了一圈圈美麗的清漣。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【漣】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 後世學者尊稱周敦頤為（　　）溪先生，開創了理學思想。
+            <button class="btn-speak" onclick="speakText('後世學者尊稱周敦頤為濂溪先生，開創了理學思想。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濂】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 他平時深居簡出，在公開場合（　　）少發表自己的看法。
+            <button class="btn-speak" onclick="speakText('他平時深居簡出，在公開場合鮮少發表自己的看法。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【鮮】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 春天到了，國家公園裡的花草樹木種類繁多、草木甚（　　）。
+            <button class="btn-speak" onclick="speakText('春天到了，國家公園裡的花草樹木種類繁多、草木甚蕃。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蕃】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 爺爺說了一個生動逗趣的笑話，逗得大家開懷解（　　）。
+            <button class="btn-speak" onclick="speakText('爺爺說了一個生動逗趣的笑話，逗得大家開懷解頤。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【頤】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 媽媽將剛採收的新鮮青菜仔細洗（　　）乾淨。
+            <button class="btn-speak" onclick="speakText('媽媽將剛採收的新鮮青菜仔細洗濯乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. （　　）！這件事情真是令人感到無比惋惜與感慨啊！
+            <button class="btn-speak" onclick="speakText('噫！這件事情真是令人感到無比惋惜與感慨啊！')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【噫】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 工人叔叔頂著烈日，努力清理河道底部堆積的（　　）泥。
+            <button class="btn-speak" onclick="speakText('工人叔叔頂著烈日，努力清理河道底部堆積的淤泥。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤】</div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let currentUtterance = null;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  // 自動根據網址參數 ?v=A / ?v=B / ?v=C 切換
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>

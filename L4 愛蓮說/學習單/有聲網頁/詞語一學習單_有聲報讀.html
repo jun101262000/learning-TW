@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國文二上 第四課〈愛蓮說〉詞語一學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  /* 頂部固定操作列 */
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  /* 語音按鈕微型化 */
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  /* 卷別切換標籤 */
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  /* 題目卡片 */
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  /* 選項網格 */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .option-pill {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 雙欄排版 */
+  .two-col-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) {
+    .two-col-container { grid-template-columns: 1fr; }
+  }
+
+  /* 解答顯示狀態控制 */
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 愛蓮說・詞語一學習單（有聲報讀）</div>
+      <div class="top-controls">
+        <button class="btn rate-btn" onclick="setRate(0.8, this)">0.8x 慢速</button>
+        <button class="btn rate-btn active" onclick="setRate(1.0, this)">1.0x 正常</button>
+        <button class="btn rate-btn" onclick="setRate(1.2, this)">1.2x 快速</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹ 停止朗讀</button>
+        <button class="btn" onclick="toggleFontSize()">🔤 字體大小</button>
+        <button id="btnToggleAns" class="btn" onclick="toggleAnswers()">👁️ 顯示解答</button>
+      </div>
+    </header>
+
+    <div class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </div>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card" id="A-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 愛</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˋ）</span>
+            <button class="btn-speak" onclick="speakText('愛，注音：ㄞˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('愛，心部（13畫），上中下（爫＋冖＋心＋夊）。心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：心部（13畫） ｜ 結構拆解：上中下（爫＋冖＋心＋夊）<br>
+            詞義重點：心裡喜歡、疼惜、欣賞某人事物。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 蓮花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('蓮花，注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('蓮花，艸部（蓮15畫/花8畫），上下結構（艹＋連）。生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（蓮15畫/花8畫） ｜ 結構拆解：上下結構（艹＋連）<br>
+            詞義重點：生在池塘水中的多年生草本植物，象徵品德高潔的君子。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄨㄛ）</span>
+            <button class="btn-speak" onclick="speakText('說，注音：ㄕㄨㄛ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('說，言部（14畫），左右結構（言＋兌）。用話語表達講述；古代用來說明事理的文體。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：言部（14畫） ｜ 結構拆解：左右結構（言＋兌）<br>
+            詞義重點：用話語表達講述；古代用來說明事理的文體。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('淤泥，水部（淤11畫/泥8畫），左右結構（氵＋於 / 氵＋尼）。水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（淤11畫/泥8畫） ｜ 結構拆解：左右結構（氵＋於 / 氵＋尼）<br>
+            詞義重點：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('洗濯，水部（洗9畫/濯17畫），左右結構（氵＋先 / 氵＋翟）。洗滌、用清水沖洗乾淨。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（洗9畫/濯17畫） ｜ 結構拆解：左右結構（氵＋先 / 氵＋翟）<br>
+            詞義重點：洗滌、用清水沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 菊花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄩˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('菊花，注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('菊花，艸部（菊12畫/花8畫），上下結構（艹＋匊）。秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（菊12畫/花8畫） ｜ 結構拆解：上下結構（艹＋匊）<br>
+            詞義重點：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 牡丹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹，注音：ㄇㄨˇ ㄉㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('牡丹，牛部7畫 ＋ 丶部4畫，左右（牜＋土） / 獨體。花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：牛部7畫 ＋ 丶部4畫 ｜ 結構拆解：左右（牜＋土） / 獨體<br>
+            詞義重點：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 菊花（ㄐㄩˊ ㄏㄨㄚ） ｜ (B) 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ） ｜ (C) 說（ㄕㄨㄛ） ｜ (D) 淤泥（ㄩ ㄋㄧˊ） ｜ (E) 牡丹（ㄇㄨˇ ㄉㄢ） ｜ (F) 洗濯（ㄒㄧˇ ㄓㄨㄛˊ） ｜ (G) 愛（ㄞˋ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：用話語表達講述；古代用來說明事理的文體。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：用話語表達講述；古代用來說明事理的文體。</div>
+          <div class="teacher-answer">★ 正解：【C】 說（ㄕㄨㄛ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。</div>
+          <div class="teacher-answer">★ 正解：【E】 牡丹（ㄇㄨˇ ㄉㄢ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：心裡喜歡、疼惜、欣賞某人事物。</div>
+          <div class="teacher-answer">★ 正解：【G】 愛（ㄞˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。</div>
+          <div class="teacher-answer">★ 正解：【B】 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：洗滌、用清水沖洗乾淨。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：洗滌、用清水沖洗乾淨。</div>
+          <div class="teacher-answer">★ 正解：【F】 洗濯（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。</div>
+          <div class="teacher-answer">★ 正解：【A】 菊花（ㄐㄩˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。</div>
+          <div class="teacher-answer">★ 正解：【D】 淤泥（ㄩ ㄋㄧˊ）</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：洗滌、用清水沖洗乾淨。。注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：洗滌、用清水沖洗乾淨。 ｜ 注音引導：（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【洗濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。。注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。 ｜ 注音引導：（ㄐㄩˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【菊花】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。。注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。 ｜ 注音引導：（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【蓮花】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：用話語表達講述；古代用來說明事理的文體。。注音：ㄕㄨㄛ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：用話語表達講述；古代用來說明事理的文體。 ｜ 注音引導：（ㄕㄨㄛ）</div>
+          <div class="teacher-answer">★ 正解國字：【說】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。。注音：ㄩ ㄋㄧˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。 ｜ 注音引導：（ㄩ ㄋㄧˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【淤泥】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：心裡喜歡、疼惜、欣賞某人事物。。注音：ㄞˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：心裡喜歡、疼惜、欣賞某人事物。 ｜ 注音引導：（ㄞˋ）</div>
+          <div class="teacher-answer">★ 正解國字：【愛】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。。注音：ㄇㄨˇ ㄉㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。 ｜ 注音引導：（ㄇㄨˇ ㄉㄢ）</div>
+          <div class="teacher-answer">★ 正解國字：【牡丹】</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 蓮花在清澈的水波中（　　）過後，卻不會顯得妖豔媚俗。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 原句全文：濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 晉陶淵明獨愛（　　），作者認為它象徵不慕名利的隱逸者。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 原句全文：晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 予獨愛蓮之出（　　）而不染。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 原句全文：予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 予獨（　　）蓮之出淤泥而不染。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 原句全文：晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 自李唐來，世人盛愛（　　），作者認為它是「花之富貴者也」。
+            <button class="btn-speak" onclick="speakText('自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 原句全文：自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 予獨愛（　　）之出淤泥而不染，象徵品格高潔的君子。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 原句全文：予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 課文篇名〈愛蓮（　　）〉，代表闡述喜愛蓮花道理的文章。
+            <button class="btn-speak" onclick="speakText('篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 原句全文：篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 午後的一場陣雨，把庭院裡的樹葉（　　）得一塵不染。
+            <button class="btn-speak" onclick="speakText('午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 例句全文：午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. （　　）的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。
+            <button class="btn-speak" onclick="speakText('牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 例句全文：牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 蓮花雖然長在池塘底部的（　　）裡，開出來的花朵卻依然潔白乾淨。
+            <button class="btn-speak" onclick="speakText('蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 例句全文：蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 夏天到了，池塘裡的（　　）一朵朵盛開，散發出淡淡的清香。
+            <button class="btn-speak" onclick="speakText('夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 例句全文：夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 我們要（　　）護大自然，也珍惜身邊每一個關心我們的人。
+            <button class="btn-speak" onclick="speakText('我們要愛護大自然，也珍惜身邊每一個關心我們的人。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 例句全文：我們要愛護大自然，也珍惜身邊每一個關心我們的人。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 老師在課堂上（　　）了一個關於周敦頤欣賞蓮花的故事。
+            <button class="btn-speak" onclick="speakText('老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 例句全文：老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 秋天到了，公園裡金黃色的（　　）盛開，非常美麗。
+            <button class="btn-speak" onclick="speakText('秋天到了，公園裡金黃色的菊花盛開，非常美麗。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 例句全文：秋天到了，公園裡金黃色的菊花盛開，非常美麗。</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p6">
+        <div class="section-header">
+          <div class="section-title">題型六：課文名句與君子美德配合題（10組）</div>
+          <span class="section-badge">第 6 頁 / 君子美德配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【君子美德選項庫】：</strong><br>
+          (A) 有德君子 ｜ (B) 莊重威嚴 ｜ (C) 特立獨行 ｜ (D) 潔身自愛 ｜ (E) 端莊雅致 ｜ (F) 美德遠播 ｜ (G) 世俗名利 ｜ (H) 隱士高風 ｜ (I) 卓然獨立 ｜ (J) 豁達正直
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 「不蔓不枝」
+            <button class="btn-speak" onclick="speakText('名句：不蔓不枝。象徵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。</div>
+          <div class="teacher-answer">★ 正解美德：【C】 特立獨行</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 「中通外直」
+            <button class="btn-speak" onclick="speakText('名句：中通外直。象徵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。</div>
+          <div class="teacher-answer">★ 正解美德：【J】 豁達正直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「牡丹，花之富貴者也」
+            <button class="btn-speak" onclick="speakText('名句：牡丹，花之富貴者也。象徵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。</div>
+          <div class="teacher-answer">★ 正解美德：【G】 世俗名利</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 「香遠益清」
+            <button class="btn-speak" onclick="speakText('名句：香遠益清。象徵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。</div>
+          <div class="teacher-answer">★ 正解美德：【F】 美德遠播</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 「蓮，花之君子者也」
+            <button class="btn-speak" onclick="speakText('名句：蓮，花之君子者也。象徵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。</div>
+          <div class="teacher-answer">★ 正解美德：【A】 有德君子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「濯清漣而不妖」
+            <button class="btn-speak" onclick="speakText('名句：濯清漣而不妖。象徵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。</div>
+          <div class="teacher-answer">★ 正解美德：【E】 端莊雅致</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 「予獨愛蓮之出淤泥而不染」
+            <button class="btn-speak" onclick="speakText('名句：予獨愛蓮之出淤泥而不染。象徵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。</div>
+          <div class="teacher-answer">★ 正解美德：【D】 潔身自愛</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 「亭亭淨植」
+            <button class="btn-speak" onclick="speakText('名句：亭亭淨植。象徵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。</div>
+          <div class="teacher-answer">★ 正解美德：【I】 卓然獨立</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 「菊，花之隱逸者也」
+            <button class="btn-speak" onclick="speakText('名句：菊，花之隱逸者也。象徵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。</div>
+          <div class="teacher-answer">★ 正解美德：【H】 隱士高風</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「可遠觀而不可褻玩焉」
+            <button class="btn-speak" onclick="speakText('名句：可遠觀而不可褻玩焉。象徵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。</div>
+          <div class="teacher-answer">★ 正解美德：【B】 莊重威嚴</div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card" id="B-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 愛</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˋ）</span>
+            <button class="btn-speak" onclick="speakText('愛，注音：ㄞˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('愛，心部（13畫），上中下（爫＋冖＋心＋夊）。心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：心部（13畫） ｜ 結構拆解：上中下（爫＋冖＋心＋夊）<br>
+            詞義重點：心裡喜歡、疼惜、欣賞某人事物。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 蓮花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('蓮花，注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('蓮花，艸部（蓮15畫/花8畫），上下結構（艹＋連）。生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（蓮15畫/花8畫） ｜ 結構拆解：上下結構（艹＋連）<br>
+            詞義重點：生在池塘水中的多年生草本植物，象徵品德高潔的君子。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄨㄛ）</span>
+            <button class="btn-speak" onclick="speakText('說，注音：ㄕㄨㄛ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('說，言部（14畫），左右結構（言＋兌）。用話語表達講述；古代用來說明事理的文體。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：言部（14畫） ｜ 結構拆解：左右結構（言＋兌）<br>
+            詞義重點：用話語表達講述；古代用來說明事理的文體。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('淤泥，水部（淤11畫/泥8畫），左右結構（氵＋於 / 氵＋尼）。水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（淤11畫/泥8畫） ｜ 結構拆解：左右結構（氵＋於 / 氵＋尼）<br>
+            詞義重點：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('洗濯，水部（洗9畫/濯17畫），左右結構（氵＋先 / 氵＋翟）。洗滌、用清水沖洗乾淨。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（洗9畫/濯17畫） ｜ 結構拆解：左右結構（氵＋先 / 氵＋翟）<br>
+            詞義重點：洗滌、用清水沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 菊花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄩˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('菊花，注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('菊花，艸部（菊12畫/花8畫），上下結構（艹＋匊）。秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（菊12畫/花8畫） ｜ 結構拆解：上下結構（艹＋匊）<br>
+            詞義重點：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 牡丹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹，注音：ㄇㄨˇ ㄉㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('牡丹，牛部7畫 ＋ 丶部4畫，左右（牜＋土） / 獨體。花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：牛部7畫 ＋ 丶部4畫 ｜ 結構拆解：左右（牜＋土） / 獨體<br>
+            詞義重點：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 菊花（ㄐㄩˊ ㄏㄨㄚ） ｜ (B) 說（ㄕㄨㄛ） ｜ (C) 愛（ㄞˋ） ｜ (D) 牡丹（ㄇㄨˇ ㄉㄢ） ｜ (E) 洗濯（ㄒㄧˇ ㄓㄨㄛˊ） ｜ (F) 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ） ｜ (G) 淤泥（ㄩ ㄋㄧˊ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：心裡喜歡、疼惜、欣賞某人事物。</div>
+          <div class="teacher-answer">★ 正解：【C】 愛（ㄞˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。</div>
+          <div class="teacher-answer">★ 正解：【G】 淤泥（ㄩ ㄋㄧˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：洗滌、用清水沖洗乾淨。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：洗滌、用清水沖洗乾淨。</div>
+          <div class="teacher-answer">★ 正解：【E】 洗濯（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。</div>
+          <div class="teacher-answer">★ 正解：【F】 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。</div>
+          <div class="teacher-answer">★ 正解：【A】 菊花（ㄐㄩˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：用話語表達講述；古代用來說明事理的文體。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：用話語表達講述；古代用來說明事理的文體。</div>
+          <div class="teacher-answer">★ 正解：【B】 說（ㄕㄨㄛ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。</div>
+          <div class="teacher-answer">★ 正解：【D】 牡丹（ㄇㄨˇ ㄉㄢ）</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。。注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。 ｜ 注音引導：（ㄐㄩˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【菊花】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。。注音：ㄩ ㄋㄧˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。 ｜ 注音引導：（ㄩ ㄋㄧˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【淤泥】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：心裡喜歡、疼惜、欣賞某人事物。。注音：ㄞˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：心裡喜歡、疼惜、欣賞某人事物。 ｜ 注音引導：（ㄞˋ）</div>
+          <div class="teacher-answer">★ 正解國字：【愛】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。。注音：ㄇㄨˇ ㄉㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。 ｜ 注音引導：（ㄇㄨˇ ㄉㄢ）</div>
+          <div class="teacher-answer">★ 正解國字：【牡丹】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。。注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。 ｜ 注音引導：（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【蓮花】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：洗滌、用清水沖洗乾淨。。注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：洗滌、用清水沖洗乾淨。 ｜ 注音引導：（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【洗濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：用話語表達講述；古代用來說明事理的文體。。注音：ㄕㄨㄛ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：用話語表達講述；古代用來說明事理的文體。 ｜ 注音引導：（ㄕㄨㄛ）</div>
+          <div class="teacher-answer">★ 正解國字：【說】</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 課文篇名〈愛蓮（　　）〉，代表闡述喜愛蓮花道理的文章。
+            <button class="btn-speak" onclick="speakText('篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 原句全文：篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 予獨愛蓮之出（　　）而不染。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 原句全文：予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 予獨愛（　　）之出淤泥而不染，象徵品格高潔的君子。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 原句全文：予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 蓮花在清澈的水波中（　　）過後，卻不會顯得妖豔媚俗。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 原句全文：濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 予獨（　　）蓮之出淤泥而不染。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 原句全文：晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 自李唐來，世人盛愛（　　），作者認為它是「花之富貴者也」。
+            <button class="btn-speak" onclick="speakText('自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 原句全文：自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 晉陶淵明獨愛（　　），作者認為它象徵不慕名利的隱逸者。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 原句全文：晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 秋天到了，公園裡金黃色的（　　）盛開，非常美麗。
+            <button class="btn-speak" onclick="speakText('秋天到了，公園裡金黃色的菊花盛開，非常美麗。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 例句全文：秋天到了，公園裡金黃色的菊花盛開，非常美麗。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 蓮花雖然長在池塘底部的（　　）裡，開出來的花朵卻依然潔白乾淨。
+            <button class="btn-speak" onclick="speakText('蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 例句全文：蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 老師在課堂上（　　）了一個關於周敦頤欣賞蓮花的故事。
+            <button class="btn-speak" onclick="speakText('老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 例句全文：老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. （　　）的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。
+            <button class="btn-speak" onclick="speakText('牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 例句全文：牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 午後的一場陣雨，把庭院裡的樹葉（　　）得一塵不染。
+            <button class="btn-speak" onclick="speakText('午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 例句全文：午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 我們要（　　）護大自然，也珍惜身邊每一個關心我們的人。
+            <button class="btn-speak" onclick="speakText('我們要愛護大自然，也珍惜身邊每一個關心我們的人。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 例句全文：我們要愛護大自然，也珍惜身邊每一個關心我們的人。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 夏天到了，池塘裡的（　　）一朵朵盛開，散發出淡淡的清香。
+            <button class="btn-speak" onclick="speakText('夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 例句全文：夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p6">
+        <div class="section-header">
+          <div class="section-title">題型六：課文名句與君子美德配合題（10組）</div>
+          <span class="section-badge">第 6 頁 / 君子美德配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【君子美德選項庫】：</strong><br>
+          (A) 有德君子 ｜ (B) 特立獨行 ｜ (C) 潔身自愛 ｜ (D) 隱士高風 ｜ (E) 世俗名利 ｜ (F) 端莊雅致 ｜ (G) 卓然獨立 ｜ (H) 美德遠播 ｜ (I) 豁達正直 ｜ (J) 莊重威嚴
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 「亭亭淨植」
+            <button class="btn-speak" onclick="speakText('名句：亭亭淨植。象徵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。</div>
+          <div class="teacher-answer">★ 正解美德：【G】 卓然獨立</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 「可遠觀而不可褻玩焉」
+            <button class="btn-speak" onclick="speakText('名句：可遠觀而不可褻玩焉。象徵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。</div>
+          <div class="teacher-answer">★ 正解美德：【J】 莊重威嚴</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「不蔓不枝」
+            <button class="btn-speak" onclick="speakText('名句：不蔓不枝。象徵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。</div>
+          <div class="teacher-answer">★ 正解美德：【B】 特立獨行</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 「菊，花之隱逸者也」
+            <button class="btn-speak" onclick="speakText('名句：菊，花之隱逸者也。象徵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。</div>
+          <div class="teacher-answer">★ 正解美德：【D】 隱士高風</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 「蓮，花之君子者也」
+            <button class="btn-speak" onclick="speakText('名句：蓮，花之君子者也。象徵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。</div>
+          <div class="teacher-answer">★ 正解美德：【A】 有德君子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「牡丹，花之富貴者也」
+            <button class="btn-speak" onclick="speakText('名句：牡丹，花之富貴者也。象徵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。</div>
+          <div class="teacher-answer">★ 正解美德：【E】 世俗名利</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 「濯清漣而不妖」
+            <button class="btn-speak" onclick="speakText('名句：濯清漣而不妖。象徵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。</div>
+          <div class="teacher-answer">★ 正解美德：【F】 端莊雅致</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 「中通外直」
+            <button class="btn-speak" onclick="speakText('名句：中通外直。象徵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。</div>
+          <div class="teacher-answer">★ 正解美德：【I】 豁達正直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 「香遠益清」
+            <button class="btn-speak" onclick="speakText('名句：香遠益清。象徵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。</div>
+          <div class="teacher-answer">★ 正解美德：【H】 美德遠播</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「予獨愛蓮之出淤泥而不染」
+            <button class="btn-speak" onclick="speakText('名句：予獨愛蓮之出淤泥而不染。象徵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。</div>
+          <div class="teacher-answer">★ 正解美德：【C】 潔身自愛</div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card" id="C-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依學習區順序排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 愛</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˋ）</span>
+            <button class="btn-speak" onclick="speakText('愛，注音：ㄞˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('愛，心部（13畫），上中下（爫＋冖＋心＋夊）。心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：心部（13畫） ｜ 結構拆解：上中下（爫＋冖＋心＋夊）<br>
+            詞義重點：心裡喜歡、疼惜、欣賞某人事物。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 蓮花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄧㄢˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('蓮花，注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('蓮花，艸部（蓮15畫/花8畫），上下結構（艹＋連）。生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（蓮15畫/花8畫） ｜ 結構拆解：上下結構（艹＋連）<br>
+            詞義重點：生在池塘水中的多年生草本植物，象徵品德高潔的君子。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄨㄛ）</span>
+            <button class="btn-speak" onclick="speakText('說，注音：ㄕㄨㄛ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('說，言部（14畫），左右結構（言＋兌）。用話語表達講述；古代用來說明事理的文體。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：言部（14畫） ｜ 結構拆解：左右結構（言＋兌）<br>
+            詞義重點：用話語表達講述；古代用來說明事理的文體。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 淤泥</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩ ㄋㄧˊ）</span>
+            <button class="btn-speak" onclick="speakText('淤泥，注音：ㄩ ㄋㄧˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('淤泥，水部（淤11畫/泥8畫），左右結構（氵＋於 / 氵＋尼）。水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（淤11畫/泥8畫） ｜ 結構拆解：左右結構（氵＋於 / 氵＋尼）<br>
+            詞義重點：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 洗濯</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧˇ ㄓㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('洗濯，注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('洗濯，水部（洗9畫/濯17畫），左右結構（氵＋先 / 氵＋翟）。洗滌、用清水沖洗乾淨。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：水部（洗9畫/濯17畫） ｜ 結構拆解：左右結構（氵＋先 / 氵＋翟）<br>
+            詞義重點：洗滌、用清水沖洗乾淨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 菊花</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄐㄩˊ ㄏㄨㄚ）</span>
+            <button class="btn-speak" onclick="speakText('菊花，注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('菊花，艸部（菊12畫/花8畫），上下結構（艹＋匊）。秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：艸部（菊12畫/花8畫） ｜ 結構拆解：上下結構（艹＋匊）<br>
+            詞義重點：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 牡丹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄇㄨˇ ㄉㄢ）</span>
+            <button class="btn-speak" onclick="speakText('牡丹，注音：ㄇㄨˇ ㄉㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('牡丹，牛部7畫 ＋ 丶部4畫，左右（牜＋土） / 獨體。花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽部首與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：牛部7畫 ＋ 丶部4畫 ｜ 結構拆解：左右（牜＋土） / 獨體<br>
+            詞義重點：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。
+          </div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ） ｜ (B) 愛（ㄞˋ） ｜ (C) 洗濯（ㄒㄧˇ ㄓㄨㄛˊ） ｜ (D) 淤泥（ㄩ ㄋㄧˊ） ｜ (E) 說（ㄕㄨㄛ） ｜ (F) 菊花（ㄐㄩˊ ㄏㄨㄚ） ｜ (G) 牡丹（ㄇㄨˇ ㄉㄢ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。</div>
+          <div class="teacher-answer">★ 正解：【G】 牡丹（ㄇㄨˇ ㄉㄢ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。</div>
+          <div class="teacher-answer">★ 正解：【D】 淤泥（ㄩ ㄋㄧˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。</div>
+          <div class="teacher-answer">★ 正解：【F】 菊花（ㄐㄩˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：洗滌、用清水沖洗乾淨。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：洗滌、用清水沖洗乾淨。</div>
+          <div class="teacher-answer">★ 正解：【C】 洗濯（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生在池塘水中的多年生草本植物，象徵品德高潔的君子。</div>
+          <div class="teacher-answer">★ 正解：【A】 蓮花（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：心裡喜歡、疼惜、欣賞某人事物。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：心裡喜歡、疼惜、欣賞某人事物。</div>
+          <div class="teacher-answer">★ 正解：【B】 愛（ㄞˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：用話語表達講述；古代用來說明事理的文體。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：用話語表達講述；古代用來說明事理的文體。</div>
+          <div class="teacher-answer">★ 正解：【E】 說（ㄕㄨㄛ）</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p3">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：洗滌、用清水沖洗乾淨。。注音：ㄒㄧˇ ㄓㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：洗滌、用清水沖洗乾淨。 ｜ 注音引導：（ㄒㄧˇ ㄓㄨㄛˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【洗濯】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。。注音：ㄩ ㄋㄧˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：水底沉積的爛泥，在課文中比喻汙濁惡劣的環境。 ｜ 注音引導：（ㄩ ㄋㄧˊ）</div>
+          <div class="teacher-answer">★ 正解國字：【淤泥】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。。注音：ㄇㄨˇ ㄉㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：花朵碩大華麗，唐人盛愛，課文中象徵追求富貴名利之人。 ｜ 注音引導：（ㄇㄨˇ ㄉㄢ）</div>
+          <div class="teacher-answer">★ 正解國字：【牡丹】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：用話語表達講述；古代用來說明事理的文體。。注音：ㄕㄨㄛ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：用話語表達講述；古代用來說明事理的文體。 ｜ 注音引導：（ㄕㄨㄛ）</div>
+          <div class="teacher-answer">★ 正解國字：【說】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：心裡喜歡、疼惜、欣賞某人事物。。注音：ㄞˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：心裡喜歡、疼惜、欣賞某人事物。 ｜ 注音引導：（ㄞˋ）</div>
+          <div class="teacher-answer">★ 正解國字：【愛】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。。注音：ㄌㄧㄢˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：生在池塘水中的多年生草本植物，象徵品德高潔的君子。 ｜ 注音引導：（ㄌㄧㄢˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【蓮花】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。。注音：ㄐㄩˊ ㄏㄨㄚ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">語境提示：秋天盛開耐寒的花，陶淵明最愛，象徵不慕名利的隱士。 ｜ 注音引導：（ㄐㄩˊ ㄏㄨㄚ）</div>
+          <div class="teacher-answer">★ 正解國字：【菊花】</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p4">
+        <div class="section-header">
+          <div class="section-title">題型四：字詞填空（課文原句精讀篇）</div>
+          <span class="section-badge">第 4 頁 / 課文填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 自李唐來，世人盛愛（　　），作者認為它是「花之富貴者也」。
+            <button class="btn-speak" onclick="speakText('自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 原句全文：自李唐來，世人盛愛牡丹……牡丹，花之富貴者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 蓮花在清澈的水波中（　　）過後，卻不會顯得妖豔媚俗。
+            <button class="btn-speak" onclick="speakText('濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 原句全文：濯清漣而不妖。（蓮花在清澈的水波中洗滌過後，不顯妖豔。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 晉陶淵明獨愛（　　），作者認為它象徵不慕名利的隱逸者。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 原句全文：晉陶淵明獨愛菊……予謂：菊，花之隱逸者也。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 予獨（　　）蓮之出淤泥而不染。
+            <button class="btn-speak" onclick="speakText('晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 原句全文：晉陶淵明獨愛菊；自李唐來，世人盛愛牡丹；予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 予獨愛蓮之出（　　）而不染。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 原句全文：予獨愛蓮之出淤泥而不染。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 課文篇名〈愛蓮（　　）〉，代表闡述喜愛蓮花道理的文章。
+            <button class="btn-speak" onclick="speakText('篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 原句全文：篇名〈愛蓮說〉：周敦頤寫這篇文章，用來說明自己喜愛蓮花的道理。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 予獨愛（　　）之出淤泥而不染，象徵品格高潔的君子。
+            <button class="btn-speak" onclick="speakText('予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。')">🔊 朗讀原句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 原句全文：予獨愛蓮之出淤泥而不染，濯清漣而不妖……蓮，花之君子者也。</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p5">
+        <div class="section-header">
+          <div class="section-title">題型五：字詞填空（生活例句應用篇）</div>
+          <span class="section-badge">第 5 頁 / 生活例句填空</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 我們要（　　）護大自然，也珍惜身邊每一個關心我們的人。
+            <button class="btn-speak" onclick="speakText('我們要愛護大自然，也珍惜身邊每一個關心我們的人。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【愛】 ➔ 例句全文：我們要愛護大自然，也珍惜身邊每一個關心我們的人。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 秋天到了，公園裡金黃色的（　　）盛開，非常美麗。
+            <button class="btn-speak" onclick="speakText('秋天到了，公園裡金黃色的菊花盛開，非常美麗。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【菊花】 ➔ 例句全文：秋天到了，公園裡金黃色的菊花盛開，非常美麗。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 蓮花雖然長在池塘底部的（　　）裡，開出來的花朵卻依然潔白乾淨。
+            <button class="btn-speak" onclick="speakText('蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【淤泥】 ➔ 例句全文：蓮花雖然長在池塘底部的淤泥裡，開出來的花朵卻依然潔白乾淨。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 夏天到了，池塘裡的（　　）一朵朵盛開，散發出淡淡的清香。
+            <button class="btn-speak" onclick="speakText('夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【蓮花】 ➔ 例句全文：夏天到了，池塘裡的蓮花一朵朵盛開，散發出淡淡的清香。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 老師在課堂上（　　）了一個關於周敦頤欣賞蓮花的故事。
+            <button class="btn-speak" onclick="speakText('老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【說】 ➔ 例句全文：老師在課堂上說了一個關於周敦頤欣賞蓮花的故事。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. （　　）的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。
+            <button class="btn-speak" onclick="speakText('牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【牡丹】 ➔ 例句全文：牡丹的花朵又大又鮮豔，從唐朝開始就受到許多人喜愛。</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 午後的一場陣雨，把庭院裡的樹葉（　　）得一塵不染。
+            <button class="btn-speak" onclick="speakText('午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。')">🔊 朗讀例句</button>
+          </div>
+          <div class="teacher-answer">★ 正解填空：【洗濯】 ➔ 例句全文：午後的一場陣雨，把庭院裡的樹葉洗濯得一塵不染。</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p6">
+        <div class="section-header">
+          <div class="section-title">題型六：課文名句與君子美德配合題（10組）</div>
+          <span class="section-badge">第 6 頁 / 君子美德配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【君子美德選項庫】：</strong><br>
+          (A) 莊重威嚴 ｜ (B) 世俗名利 ｜ (C) 端莊雅致 ｜ (D) 有德君子 ｜ (E) 特立獨行 ｜ (F) 美德遠播 ｜ (G) 卓然獨立 ｜ (H) 豁達正直 ｜ (I) 隱士高風 ｜ (J) 潔身自愛
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 「香遠益清」
+            <button class="btn-speak" onclick="speakText('名句：香遠益清。象徵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：醇厚美德與高尚名聲能流芳遠播、為人千古稱頌傳揚。</div>
+          <div class="teacher-answer">★ 正解美德：【F】 美德遠播</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 「中通外直」
+            <button class="btn-speak" onclick="speakText('名句：中通外直。象徵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：內心通達明理、虛懷若谷；行為方正正直、不偏不倚。</div>
+          <div class="teacher-answer">★ 正解美德：【H】 豁達正直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 「不蔓不枝」
+            <button class="btn-speak" onclick="speakText('名句：不蔓不枝。象徵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：品性端正獨立，不逢迎攀附權貴豪門，也不結黨營私搞小團體。</div>
+          <div class="teacher-answer">★ 正解美德：【E】 特立獨行</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 「菊，花之隱逸者也」
+            <button class="btn-speak" onclick="speakText('名句：菊，花之隱逸者也。象徵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：不與世俗爭榮、安貧樂道、超然遠引的高士典型（陶淵明）。</div>
+          <div class="teacher-answer">★ 正解美德：【I】 隱士高風</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 「蓮，花之君子者也」
+            <button class="btn-speak" onclick="speakText('名句：蓮，花之君子者也。象徵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：兼具高尚德行、處事中道、自尊自愛的完美人格典範（周敦頤）。</div>
+          <div class="teacher-answer">★ 正解美德：【D】 有德君子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 「可遠觀而不可褻玩焉」
+            <button class="btn-speak" onclick="speakText('名句：可遠觀而不可褻玩焉。象徵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：儀表堂堂、莊重端肅，具令人敬畏之威儀，不容輕慢侮弄。</div>
+          <div class="teacher-answer">★ 正解美德：【A】 莊重威嚴</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 「濯清漣而不妖」
+            <button class="btn-speak" onclick="speakText('名句：濯清漣而不妖。象徵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：立身光明磊落，端莊持重，不逢迎媚世、不取巧討好他人。</div>
+          <div class="teacher-answer">★ 正解美德：【C】 端莊雅致</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 「牡丹，花之富貴者也」
+            <button class="btn-speak" onclick="speakText('名句：牡丹，花之富貴者也。象徵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：追求榮華富貴、隨俗浮沉的世俗之人（反襯君子的高潔）。</div>
+          <div class="teacher-answer">★ 正解美德：【B】 世俗名利</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 「予獨愛蓮之出淤泥而不染」
+            <button class="btn-speak" onclick="speakText('名句：予獨愛蓮之出淤泥而不染。象徵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：身處惡劣汙濁環境，依然保持純潔高尚、不同流合汙。</div>
+          <div class="teacher-answer">★ 正解美德：【J】 潔身自愛</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 「亭亭淨植」
+            <button class="btn-speak" onclick="speakText('名句：亭亭淨植。象徵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。')">🔊 聽名句與象徵</button>
+          </div>
+          <div class="item-details">象徵意涵：風骨崚嶒、高潔端直，展現堅定不移的高尚守道節操。</div>
+          <div class="teacher-answer">★ 正解美德：【G】 卓然獨立</div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let currentUtterance = null;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  // 自動根據網址參數 ?v=A / ?v=B / ?v=C 切換
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>

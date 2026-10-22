@@ -1,0 +1,2775 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國文二上 第四課〈愛蓮說〉解釋學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  /* 頂部固定操作列 */
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  /* 語音按鈕微型化 */
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  /* 卷別切換標籤 */
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  /* 題目卡片 */
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  /* 選項網格 */
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .option-pill {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* 雙欄排版 */
+  .two-col-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) {
+    .two-col-container { grid-template-columns: 1fr; }
+  }
+
+  /* 解答顯示狀態控制 */
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 愛蓮說・解釋學習單（有聲報讀）</div>
+      <div class="top-controls">
+        <button class="btn rate-btn" onclick="setRate(0.8, this)">0.8x 慢速</button>
+        <button class="btn rate-btn active" onclick="setRate(1.0, this)">1.0x 正常</button>
+        <button class="btn rate-btn" onclick="setRate(1.2, this)">1.2x 快速</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹ 停止朗讀</button>
+        <button class="btn" onclick="toggleFontSize()">🔤 字體大小</button>
+        <button id="btnToggleAns" class="btn" onclick="toggleAnswers()">👁️ 顯示解答</button>
+      </div>
+    </header>
+
+    <div class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </div>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card" id="A-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞與解釋配合題（全課15則注釋詞義）</div>
+          <span class="section-badge">第 1 頁 / 詞義配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【注釋目標詞語庫】：</strong><br>
+          (A) 亭亭淨植 ｜ (B) 出淤泥而不染 ｜ (C) 隱逸者 ｜ (D) 謂 ｜ (E) 鮮 ｜ (F) 噫 ｜ (G) 益 ｜ (H) 褻玩焉 ｜ (I) 菊之愛 ｜ (J) 不蔓不枝 ｜ (K) 宜乎 ｜ (L) 蕃 ｜ (M) 中通外直 ｜ (N) 李唐 ｜ (O) 濯清漣而不妖
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 釋義：認為。
+            <button class="btn-speak" onclick="speakText('第1題。釋義：認為。。課文出處：予「謂」：菊，花之隱逸者也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予「謂」：菊，花之隱逸者也。」</div>
+          <div class="teacher-answer">★ 正解代號：【D】 詞語：謂</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 釋義：應當。
+            <button class="btn-speak" onclick="speakText('第2題。釋義：應當。。課文出處：牡丹之愛，「宜乎」眾矣！')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「牡丹之愛，「宜乎」眾矣！」</div>
+          <div class="teacher-answer">★ 正解代號：【K】 詞語：宜乎</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 釋義：少。
+            <button class="btn-speak" onclick="speakText('第3題。釋義：少。。課文出處：陶後「鮮」有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「陶後「鮮」有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【E】 詞語：鮮</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 釋義：愛菊（的人）。
+            <button class="btn-speak" onclick="speakText('第4題。釋義：愛菊（的人）。。課文出處：噫！「菊之愛」，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「噫！「菊之愛」，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【I】 詞語：菊之愛</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 釋義：以輕慢的態度接近玩弄。
+            <button class="btn-speak" onclick="speakText('第5題。釋義：以輕慢的態度接近玩弄。。課文出處：可遠觀而不可「褻玩焉」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「可遠觀而不可「褻玩焉」。」</div>
+          <div class="teacher-answer">★ 正解代號：【H】 詞語：褻玩焉</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 釋義：更加。
+            <button class="btn-speak" onclick="speakText('第6題。釋義：更加。。課文出處：香遠「益」清，亭亭淨植。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠「益」清，亭亭淨植。」</div>
+          <div class="teacher-answer">★ 正解代號：【G】 詞語：益</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 釋義：表示感嘆的語氣，相當於白話的「唉」。
+            <button class="btn-speak" onclick="speakText('第7題。釋義：表示感嘆的語氣，相當於白話的「唉」。。課文出處：「噫」！菊之愛，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「噫」！菊之愛，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【F】 詞語：噫</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 釋義：通「繁」，眾多。
+            <button class="btn-speak" onclick="speakText('第8題。釋義：通「繁」，眾多。。課文出處：水陸草木之花，可愛者甚「蕃」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「水陸草木之花，可愛者甚「蕃」。」</div>
+          <div class="teacher-answer">★ 正解代號：【L】 詞語：蕃</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 釋義：指蓮花生長於清水中卻不妖媚。
+            <button class="btn-speak" onclick="speakText('第9題。釋義：指蓮花生長於清水中卻不妖媚。。課文出處：「濯清漣而不妖」，中通外直。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「濯清漣而不妖」，中通外直。」</div>
+          <div class="teacher-answer">★ 正解代號：【O】 詞語：濯清漣而不妖</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 釋義：指蓮花由水底的爛泥中長出，卻不受汙染。
+            <button class="btn-speak" onclick="speakText('第10題。釋義：指蓮花由水底的爛泥中長出，卻不受汙染。。課文出處：予獨愛蓮之「出淤泥而不染」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予獨愛蓮之「出淤泥而不染」。」</div>
+          <div class="teacher-answer">★ 正解代號：【B】 詞語：出淤泥而不染</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 釋義：高挺而潔淨地直立在水中。
+            <button class="btn-speak" onclick="speakText('第11題。釋義：高挺而潔淨地直立在水中。。課文出處：香遠益清，「亭亭淨植」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠益清，「亭亭淨植」。」</div>
+          <div class="teacher-answer">★ 正解代號：【A】 詞語：亭亭淨植</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 釋義：不蔓延細莖，不旁生枝條。
+            <button class="btn-speak" onclick="speakText('第12題。釋義：不蔓延細莖，不旁生枝條。。課文出處：中通外直，「不蔓不枝」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「中通外直，「不蔓不枝」。」</div>
+          <div class="teacher-answer">★ 正解代號：【J】 詞語：不蔓不枝</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 釋義：唐代由李淵建國，故稱李唐。
+            <button class="btn-speak" onclick="speakText('第13題。釋義：唐代由李淵建國，故稱李唐。。課文出處：自「李唐」來，世人盛愛牡丹。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「自「李唐」來，世人盛愛牡丹。」</div>
+          <div class="teacher-answer">★ 正解代號：【N】 詞語：李唐</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 釋義：花梗中空，外表挺直。
+            <button class="btn-speak" onclick="speakText('第14題。釋義：花梗中空，外表挺直。。課文出處：「中通外直」，不蔓不枝。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「中通外直」，不蔓不枝。」</div>
+          <div class="teacher-answer">★ 正解代號：【M】 詞語：中通外直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 釋義：隱居的高士。
+            <button class="btn-speak" onclick="speakText('第15題。釋義：隱居的高士。。課文出處：菊，花之「隱逸者」也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「菊，花之「隱逸者」也。」</div>
+          <div class="teacher-answer">★ 正解代號：【C】 詞語：隱逸者</div>
+        </div>
+      </section>
+      <section class="section-card" id="A-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：解釋與美德單選測驗（精選20題）</div>
+          <span class="section-badge">第 2 頁 / 單選測驗</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：課文「中通外直」用來比喻君子的哪一種人格特質？
+            <button class="btn-speak" onclick="speakText('第1題。課文「中通外直」用來比喻君子的哪一種人格特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 個性固執不知變通，容易得罪朋友</span>
+            <button class="btn-speak" onclick="speakText('選項A：個性固執不知變通，容易得罪朋友')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 內心通達明理、虛懷若谷；立身處世行為方正正直</span>
+            <button class="btn-speak" onclick="speakText('選項B：內心通達明理、虛懷若谷；立身處世行為方正正直')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 心裡藏不住祕密，到處宣揚別人的隱私</span>
+            <button class="btn-speak" onclick="speakText('選項C：心裡藏不住祕密，到處宣揚別人的隱私')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 身材高大挺拔，擅長體育運動</span>
+            <button class="btn-speak" onclick="speakText('選項D：身材高大挺拔，擅長體育運動')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「中通」象徵君子虛懷若谷、豁達通理；「外直」象徵行為方正正直、光明磊落。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：課文「可遠觀而不可褻玩焉」後半句的「不可褻玩焉」意思是什麼？
+            <button class="btn-speak" onclick="speakText('第2題。課文「可遠觀而不可褻玩焉」後半句的「不可褻玩焉」意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 用輕慢、不莊重的態度去接近玩弄它</span>
+            <button class="btn-speak" onclick="speakText('選項A：用輕慢、不莊重的態度去接近玩弄它')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 站在很遠的地方大聲呼喊</span>
+            <button class="btn-speak" onclick="speakText('選項B：站在很遠的地方大聲呼喊')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 可以隨手摘下來種在花盆裡賞玩</span>
+            <button class="btn-speak" onclick="speakText('選項C：可以隨手摘下來種在花盆裡賞玩')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 把花瓣採摘下來泡茶飲用</span>
+            <button class="btn-speak" onclick="speakText('選項D：把花瓣採摘下來泡茶飲用')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「褻玩」是以輕慢不莊重的態度玩弄；「不可褻玩」形容君子端莊有威儀，不可輕侮。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：課文「予謂菊，花之隱逸者也」中，其中的「謂」意思是什麼？
+            <button class="btn-speak" onclick="speakText('第3題。課文「予謂菊，花之隱逸者也」中，其中的「謂」意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 大聲責備斥責</span>
+            <button class="btn-speak" onclick="speakText('選項A：大聲責備斥責')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 害怕、擔憂恐懼</span>
+            <button class="btn-speak" onclick="speakText('選項B：害怕、擔憂恐懼')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 認為、以為（提出看法評論）</span>
+            <button class="btn-speak" onclick="speakText('選項C：認為、以為（提出看法評論）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 悲傷嘆息</span>
+            <button class="btn-speak" onclick="speakText('選項D：悲傷嘆息')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「謂」在此為動詞，意思是「認為、評論說」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：課文「水陸草木之花，可愛者甚蕃」中，最後一個字的意思是什麼？
+            <button class="btn-speak" onclick="speakText('第4題。課文「水陸草木之花，可愛者甚蕃」中，最後一個字的意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 稀少罕見</span>
+            <button class="btn-speak" onclick="speakText('選項A：稀少罕見')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 外國傳來的品種</span>
+            <button class="btn-speak" onclick="speakText('選項B：外國傳來的品種')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 眾多、非常多</span>
+            <button class="btn-speak" onclick="speakText('選項C：眾多、非常多')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 枯萎凋謝</span>
+            <button class="btn-speak" onclick="speakText('選項D：枯萎凋謝')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「蕃」通「繁」，意思是眾多、非常多。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：課文「不蔓不枝」中的「蔓」和「枝」在此處作什麼詞性使用？意思為何？
+            <button class="btn-speak" onclick="speakText('第5題。課文「不蔓不枝」中的「蔓」和「枝」在此處作什麼詞性使用？意思為何？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 都是名詞，指植物的細蔓與枝條</span>
+            <button class="btn-speak" onclick="speakText('選項A：都是名詞，指植物的細蔓與枝條')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 都是動詞，指長出細蔓、長出旁枝</span>
+            <button class="btn-speak" onclick="speakText('選項B：都是動詞，指長出細蔓、長出旁枝')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 都是形容詞，形容花朵茂盛</span>
+            <button class="btn-speak" onclick="speakText('選項C：都是形容詞，形容花朵茂盛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 都是副詞，修飾生長速度</span>
+            <button class="btn-speak" onclick="speakText('選項D：都是副詞，修飾生長速度')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「蔓」與「枝」在此皆作動詞用，指蔓延細莖、旁生枝條。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？
+            <button class="btn-speak" onclick="speakText('第6題。蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡組織小圈圈、結黨營私搞派系</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡組織小圈圈、結黨營私搞派系')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 個性孤僻不喜歡結交朋友</span>
+            <button class="btn-speak" onclick="speakText('選項B：個性孤僻不喜歡結交朋友')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 做事情不給自己留後路</span>
+            <button class="btn-speak" onclick="speakText('選項C：做事情不給自己留後路')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正</span>
+            <button class="btn-speak" onclick="speakText('選項D：不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「不蔓不枝」象徵君子品格端方自立，不阿諛奉承、不依附權貴豪門。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：課文有一句四字詞語描寫蓮花的花梗「內部中空貫通、外表挺直不彎」，請問是哪一句？
+            <button class="btn-speak" onclick="speakText('第7題。課文有一句四字詞語描寫蓮花的花梗「內部中空貫通、外表挺直不彎」，請問是哪一句？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 隱逸者也</span>
+            <button class="btn-speak" onclick="speakText('選項A：隱逸者也')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 宜乎眾矣</span>
+            <button class="btn-speak" onclick="speakText('選項B：宜乎眾矣')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 盛愛牡丹</span>
+            <button class="btn-speak" onclick="speakText('選項C：盛愛牡丹')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 中通外直</span>
+            <button class="btn-speak" onclick="speakText('選項D：中通外直')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「中通外直」描繪蓮花花梗中空挺直，比喻君子內心通達明理、外表方正正直。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？
+            <button class="btn-speak" onclick="speakText('第8題。文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 每年菊花盛開的秋天季節</span>
+            <button class="btn-speak" onclick="speakText('選項A：每年菊花盛開的秋天季節')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 種植菊花販售的花農</span>
+            <button class="btn-speak" onclick="speakText('選項B：種植菊花販售的花農')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 菊花愛上了荷花的花香</span>
+            <button class="btn-speak" onclick="speakText('選項C：菊花愛上了荷花的花香')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）</span>
+            <button class="btn-speak" onclick="speakText('選項D：對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「菊之愛」即「愛菊」，在文中代指像陶淵明一樣追求清高、隱居避世之人。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：課文「濯清漣而不妖」中，句中的「濯」和「清漣」分別是什麼意思？
+            <button class="btn-speak" onclick="speakText('第9題。課文「濯清漣而不妖」中，句中的「濯」和「清漣」分別是什麼意思？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 採摘；奔流的大河</span>
+            <button class="btn-speak" onclick="speakText('選項A：採摘；奔流的大河')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 游泳；深綠色的水草</span>
+            <button class="btn-speak" onclick="speakText('選項B：游泳；深綠色的水草')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 照鏡子；細小的雨滴</span>
+            <button class="btn-speak" onclick="speakText('選項C：照鏡子；細小的雨滴')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 洗滌；清澈的水波</span>
+            <button class="btn-speak" onclick="speakText('選項D：洗滌；清澈的水波')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「濯」是洗滌、沖洗；「清漣」指清澈的水波。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？
+            <button class="btn-speak" onclick="speakText('第10題。課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 甚蕃</span>
+            <button class="btn-speak" onclick="speakText('選項A：甚蕃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 盛愛</span>
+            <button class="btn-speak" onclick="speakText('選項B：盛愛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 獨愛</span>
+            <button class="btn-speak" onclick="speakText('選項C：獨愛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 宜乎</span>
+            <button class="btn-speak" onclick="speakText('選項D：宜乎')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「宜乎」意思是應當、理所當然。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？
+            <button class="btn-speak" onclick="speakText('第11題。文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄧ（一聲），寫作「依」</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄧ（一聲），寫作「依」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄞˋ（四聲），寫作「愛」</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄞˋ（四聲），寫作「愛」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄧˊ（二聲），寫作「疑」</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄧˊ（二聲），寫作「疑」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄧˋ（四聲，音同「意」），寫作「噫」</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄧˋ（四聲，音同「意」），寫作「噫」')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「噫」讀作 ㄧˋ，文言嘆詞，相當於現代口語的「唉！」，表示深切的感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：課文中哪一個四字詞語的意思是「高聳潔淨地挺立在水中」，形容蓮花挺拔的姿態？
+            <button class="btn-speak" onclick="speakText('第12題。課文中哪一個四字詞語的意思是「高聳潔淨地挺立在水中」，形容蓮花挺拔的姿態？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 世人盛愛</span>
+            <button class="btn-speak" onclick="speakText('選項A：世人盛愛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 可愛者甚蕃</span>
+            <button class="btn-speak" onclick="speakText('選項B：可愛者甚蕃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 陶後鮮有聞</span>
+            <button class="btn-speak" onclick="speakText('選項C：陶後鮮有聞')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 亭亭淨植</span>
+            <button class="btn-speak" onclick="speakText('選項D：亭亭淨植')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「亭亭淨植」形容蓮花高潔挺拔、卓然獨立於水中。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：課文「香遠益清」的意思是「香氣傳得越遠就越清香」，句中哪一個字是「更加、越發」的意思？
+            <button class="btn-speak" onclick="speakText('第13題。課文「香遠益清」的意思是「香氣傳得越遠就越清香」，句中哪一個字是「更加、越發」的意思？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 益</span>
+            <button class="btn-speak" onclick="speakText('選項A：益')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 遠</span>
+            <button class="btn-speak" onclick="speakText('選項B：遠')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 清</span>
+            <button class="btn-speak" onclick="speakText('選項C：清')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 香</span>
+            <button class="btn-speak" onclick="speakText('選項D：香')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「益」在此為副詞，表示更加、越發。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？
+            <button class="btn-speak" onclick="speakText('第14題。蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡居住在空氣清新的深山裡</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡居住在空氣清新的深山裡')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚</span>
+            <button class="btn-speak" onclick="speakText('選項B：醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 做飯廚藝高超，香氣飄散整條街</span>
+            <button class="btn-speak" onclick="speakText('選項C：做飯廚藝高超，香氣飄散整條街')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 隨身攜帶高級香水散發香味</span>
+            <button class="btn-speak" onclick="speakText('選項D：隨身攜帶高級香水散發香味')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「香遠益清」比喻君子美好的德行聲譽能流芳遠播、為人所敬仰。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？
+            <button class="btn-speak" onclick="speakText('第15題。課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 追求奢華富貴的生活方式</span>
+            <button class="btn-speak" onclick="speakText('選項A：追求奢華富貴的生活方式')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 喜歡打扮得妖豔媚俗來吸引眾人目光</span>
+            <button class="btn-speak" onclick="speakText('選項B：喜歡打扮得妖豔媚俗來吸引眾人目光')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人</span>
+            <button class="btn-speak" onclick="speakText('選項C：端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 喜歡在清水中游泳鍛鍊強健身體</span>
+            <button class="btn-speak" onclick="speakText('選項D：喜歡在清水中游泳鍛鍊強健身體')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「濯清漣而不妖」象徵君子氣度端莊穩重，不媚俗逢迎、不譁眾取寵。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：課文「自李唐來，世人盛愛牡丹」中，提到哪一個歷史朝代？為什麼這樣稱呼？
+            <button class="btn-speak" onclick="speakText('第16題。課文「自李唐來，世人盛愛牡丹」中，提到哪一個歷史朝代？為什麼這樣稱呼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 漢朝，因為首都種滿李樹</span>
+            <button class="btn-speak" onclick="speakText('選項A：漢朝，因為首都種滿李樹')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 晉朝，因為陶淵明姓李</span>
+            <button class="btn-speak" onclick="speakText('選項B：晉朝，因為陶淵明姓李')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 唐朝，因為開國君主李淵姓李，國號唐</span>
+            <button class="btn-speak" onclick="speakText('選項C：唐朝，因為開國君主李淵姓李，國號唐')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 宋朝，因為皇帝喜歡吃李子</span>
+            <button class="btn-speak" onclick="speakText('選項D：宋朝，因為皇帝喜歡吃李子')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：唐代由李淵建國，皇帝姓李，故歷史上常稱為「李唐」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 17 題：課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？
+            <button class="btn-speak" onclick="speakText('第17題。課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄒㄧㄢˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄒㄧㄢˇ（三聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄇㄟˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄇㄟˇ（三聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄒㄧㄢˋ（四聲）</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄒㄧㄢˋ（四聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄒㄧㄢ（一聲）</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄒㄧㄢ（一聲）')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「鮮」作「少」的意思時，讀為 ㄒㄧㄢˇ（如鮮為人知、寡廉鮮恥）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 18 題：課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？
+            <button class="btn-speak" onclick="speakText('第18題。課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 潔身自愛，身處惡劣環境依然堅守清白、不同流合汙</span>
+            <button class="btn-speak" onclick="speakText('選項A：潔身自愛，身處惡劣環境依然堅守清白、不同流合汙')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 遇到環境不好就立刻逃跑避開</span>
+            <button class="btn-speak" onclick="speakText('選項B：遇到環境不好就立刻逃跑避開')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 喜歡穿白色的衣服以顯得乾淨高雅</span>
+            <button class="btn-speak" onclick="speakText('選項C：喜歡穿白色的衣服以顯得乾淨高雅')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 懂得離開家鄉去大城市做生意發財</span>
+            <button class="btn-speak" onclick="speakText('選項D：懂得離開家鄉去大城市做生意發財')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「淤泥」比喻混濁惡劣的環境，「不染」象徵君子潔身自愛、不同流合汙。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 19 題：課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？
+            <button class="btn-speak" onclick="speakText('第19題。課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 甚蕃者</span>
+            <button class="btn-speak" onclick="speakText('選項A：甚蕃者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 隱逸者</span>
+            <button class="btn-speak" onclick="speakText('選項B：隱逸者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 富貴者</span>
+            <button class="btn-speak" onclick="speakText('選項C：富貴者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 同予者</span>
+            <button class="btn-speak" onclick="speakText('選項D：同予者')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：菊花在深秋獨自盛開，不與百花爭豔，故周敦頤稱其為「花之隱逸者」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 20 題：課文「予獨愛蓮之出淤泥而不染」中，關於「淤泥」的解釋何者正確？
+            <button class="btn-speak" onclick="speakText('第20題。課文「予獨愛蓮之出淤泥而不染」中，關於「淤泥」的解釋何者正確？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 岸邊乾燥的沙子</span>
+            <button class="btn-speak" onclick="speakText('選項A：岸邊乾燥的沙子')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 水底沉積黏軟的爛泥</span>
+            <button class="btn-speak" onclick="speakText('選項B：水底沉積黏軟的爛泥')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 清澈見底的溪水</span>
+            <button class="btn-speak" onclick="speakText('選項C：清澈見底的溪水')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 肥沃的花盆培養土</span>
+            <button class="btn-speak" onclick="speakText('選項D：肥沃的花盆培養土')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「淤泥」指水底沉積的爛泥，在文中比喻混濁惡劣的環境。
+          </div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card" id="B-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞與解釋配合題（全課15則注釋詞義）</div>
+          <span class="section-badge">第 1 頁 / 詞義配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【注釋目標詞語庫】：</strong><br>
+          (A) 噫 ｜ (B) 出淤泥而不染 ｜ (C) 中通外直 ｜ (D) 亭亭淨植 ｜ (E) 鮮 ｜ (F) 不蔓不枝 ｜ (G) 濯清漣而不妖 ｜ (H) 謂 ｜ (I) 菊之愛 ｜ (J) 益 ｜ (K) 褻玩焉 ｜ (L) 李唐 ｜ (M) 蕃 ｜ (N) 宜乎 ｜ (O) 隱逸者
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 釋義：花梗中空，外表挺直。
+            <button class="btn-speak" onclick="speakText('第1題。釋義：花梗中空，外表挺直。。課文出處：「中通外直」，不蔓不枝。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「中通外直」，不蔓不枝。」</div>
+          <div class="teacher-answer">★ 正解代號：【C】 詞語：中通外直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 釋義：以輕慢的態度接近玩弄。
+            <button class="btn-speak" onclick="speakText('第2題。釋義：以輕慢的態度接近玩弄。。課文出處：可遠觀而不可「褻玩焉」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「可遠觀而不可「褻玩焉」。」</div>
+          <div class="teacher-answer">★ 正解代號：【K】 詞語：褻玩焉</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 釋義：通「繁」，眾多。
+            <button class="btn-speak" onclick="speakText('第3題。釋義：通「繁」，眾多。。課文出處：水陸草木之花，可愛者甚「蕃」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「水陸草木之花，可愛者甚「蕃」。」</div>
+          <div class="teacher-answer">★ 正解代號：【M】 詞語：蕃</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 釋義：表示感嘆的語氣，相當於白話的「唉」。
+            <button class="btn-speak" onclick="speakText('第4題。釋義：表示感嘆的語氣，相當於白話的「唉」。。課文出處：「噫」！菊之愛，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「噫」！菊之愛，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【A】 詞語：噫</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 釋義：更加。
+            <button class="btn-speak" onclick="speakText('第5題。釋義：更加。。課文出處：香遠「益」清，亭亭淨植。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠「益」清，亭亭淨植。」</div>
+          <div class="teacher-answer">★ 正解代號：【J】 詞語：益</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 釋義：愛菊（的人）。
+            <button class="btn-speak" onclick="speakText('第6題。釋義：愛菊（的人）。。課文出處：噫！「菊之愛」，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「噫！「菊之愛」，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【I】 詞語：菊之愛</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 釋義：指蓮花由水底的爛泥中長出，卻不受汙染。
+            <button class="btn-speak" onclick="speakText('第7題。釋義：指蓮花由水底的爛泥中長出，卻不受汙染。。課文出處：予獨愛蓮之「出淤泥而不染」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予獨愛蓮之「出淤泥而不染」。」</div>
+          <div class="teacher-answer">★ 正解代號：【B】 詞語：出淤泥而不染</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 釋義：隱居的高士。
+            <button class="btn-speak" onclick="speakText('第8題。釋義：隱居的高士。。課文出處：菊，花之「隱逸者」也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「菊，花之「隱逸者」也。」</div>
+          <div class="teacher-answer">★ 正解代號：【O】 詞語：隱逸者</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 釋義：高挺而潔淨地直立在水中。
+            <button class="btn-speak" onclick="speakText('第9題。釋義：高挺而潔淨地直立在水中。。課文出處：香遠益清，「亭亭淨植」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠益清，「亭亭淨植」。」</div>
+          <div class="teacher-answer">★ 正解代號：【D】 詞語：亭亭淨植</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 釋義：指蓮花生長於清水中卻不妖媚。
+            <button class="btn-speak" onclick="speakText('第10題。釋義：指蓮花生長於清水中卻不妖媚。。課文出處：「濯清漣而不妖」，中通外直。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「濯清漣而不妖」，中通外直。」</div>
+          <div class="teacher-answer">★ 正解代號：【G】 詞語：濯清漣而不妖</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 釋義：應當。
+            <button class="btn-speak" onclick="speakText('第11題。釋義：應當。。課文出處：牡丹之愛，「宜乎」眾矣！')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「牡丹之愛，「宜乎」眾矣！」</div>
+          <div class="teacher-answer">★ 正解代號：【N】 詞語：宜乎</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 釋義：不蔓延細莖，不旁生枝條。
+            <button class="btn-speak" onclick="speakText('第12題。釋義：不蔓延細莖，不旁生枝條。。課文出處：中通外直，「不蔓不枝」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「中通外直，「不蔓不枝」。」</div>
+          <div class="teacher-answer">★ 正解代號：【F】 詞語：不蔓不枝</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 釋義：認為。
+            <button class="btn-speak" onclick="speakText('第13題。釋義：認為。。課文出處：予「謂」：菊，花之隱逸者也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予「謂」：菊，花之隱逸者也。」</div>
+          <div class="teacher-answer">★ 正解代號：【H】 詞語：謂</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 釋義：少。
+            <button class="btn-speak" onclick="speakText('第14題。釋義：少。。課文出處：陶後「鮮」有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「陶後「鮮」有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【E】 詞語：鮮</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 釋義：唐代由李淵建國，故稱李唐。
+            <button class="btn-speak" onclick="speakText('第15題。釋義：唐代由李淵建國，故稱李唐。。課文出處：自「李唐」來，世人盛愛牡丹。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「自「李唐」來，世人盛愛牡丹。」</div>
+          <div class="teacher-answer">★ 正解代號：【L】 詞語：李唐</div>
+        </div>
+      </section>
+      <section class="section-card" id="B-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：解釋與美德單選測驗（精選20題）</div>
+          <span class="section-badge">第 2 頁 / 單選測驗</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？
+            <button class="btn-speak" onclick="speakText('第1題。課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄒㄧㄢˋ（四聲）</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄒㄧㄢˋ（四聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄒㄧㄢ（一聲）</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄒㄧㄢ（一聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄇㄟˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄇㄟˇ（三聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄒㄧㄢˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄒㄧㄢˇ（三聲）')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「鮮」作「少」的意思時，讀為 ㄒㄧㄢˇ（如鮮為人知、寡廉鮮恥）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？
+            <button class="btn-speak" onclick="speakText('第2題。文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄧˋ（四聲，音同「意」），寫作「噫」</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄧˋ（四聲，音同「意」），寫作「噫」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄞˋ（四聲），寫作「愛」</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄞˋ（四聲），寫作「愛」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄧˊ（二聲），寫作「疑」</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄧˊ（二聲），寫作「疑」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄧ（一聲），寫作「依」</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄧ（一聲），寫作「依」')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「噫」讀作 ㄧˋ，文言嘆詞，相當於現代口語的「唉！」，表示深切的感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：課文「予謂菊，花之隱逸者也」中，其中的「謂」意思是什麼？
+            <button class="btn-speak" onclick="speakText('第3題。課文「予謂菊，花之隱逸者也」中，其中的「謂」意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 悲傷嘆息</span>
+            <button class="btn-speak" onclick="speakText('選項A：悲傷嘆息')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 認為、以為（提出看法評論）</span>
+            <button class="btn-speak" onclick="speakText('選項B：認為、以為（提出看法評論）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 大聲責備斥責</span>
+            <button class="btn-speak" onclick="speakText('選項C：大聲責備斥責')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 害怕、擔憂恐懼</span>
+            <button class="btn-speak" onclick="speakText('選項D：害怕、擔憂恐懼')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「謂」在此為動詞，意思是「認為、評論說」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：周敦頤在《愛蓮說》中將蓮花譽為「花之君子者也」，「君子」最核心的精神內涵是什麼？
+            <button class="btn-speak" onclick="speakText('第4題。周敦頤在《愛蓮說》中將蓮花譽為「花之君子者也」，「君子」最核心的精神內涵是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 飽讀詩書且必須在朝廷做大官考上狀元</span>
+            <button class="btn-speak" onclick="speakText('選項A：飽讀詩書且必須在朝廷做大官考上狀元')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 身處世俗濁浪與誘惑中，依然能堅持道義、自重自愛的高尚品格</span>
+            <button class="btn-speak" onclick="speakText('選項B：身處世俗濁浪與誘惑中，依然能堅持道義、自重自愛的高尚品格')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 隱居深山老林，永遠不與任何人群接觸交流</span>
+            <button class="btn-speak" onclick="speakText('選項C：隱居深山老林，永遠不與任何人群接觸交流')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 家財萬貫、社會地位非常崇高</span>
+            <button class="btn-speak" onclick="speakText('選項D：家財萬貫、社會地位非常崇高')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：君子入世而不染世，既能處於濁世之中，又能保持方正自愛、中通外直的完美人格。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：課文「可遠觀而不可褻玩焉」後半句的「不可褻玩焉」意思是什麼？
+            <button class="btn-speak" onclick="speakText('第5題。課文「可遠觀而不可褻玩焉」後半句的「不可褻玩焉」意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 用輕慢、不莊重的態度去接近玩弄它</span>
+            <button class="btn-speak" onclick="speakText('選項A：用輕慢、不莊重的態度去接近玩弄它')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 站在很遠的地方大聲呼喊</span>
+            <button class="btn-speak" onclick="speakText('選項B：站在很遠的地方大聲呼喊')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 把花瓣採摘下來泡茶飲用</span>
+            <button class="btn-speak" onclick="speakText('選項C：把花瓣採摘下來泡茶飲用')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 可以隨手摘下來種在花盆裡賞玩</span>
+            <button class="btn-speak" onclick="speakText('選項D：可以隨手摘下來種在花盆裡賞玩')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「褻玩」是以輕慢不莊重的態度玩弄；「不可褻玩」形容君子端莊有威儀，不可輕侮。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：文中寫「世人盛愛牡丹」，作者以牡丹象徵「富貴者」，在文章結構中起到什麼作用？
+            <button class="btn-speak" onclick="speakText('第6題。文中寫「世人盛愛牡丹」，作者以牡丹象徵「富貴者」，在文章結構中起到什麼作用？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 說明作者自己也想種植牡丹花發財</span>
+            <button class="btn-speak" onclick="speakText('選項A：說明作者自己也想種植牡丹花發財')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 批評牡丹花的花瓣長得不夠漂亮</span>
+            <button class="btn-speak" onclick="speakText('選項B：批評牡丹花的花瓣長得不夠漂亮')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 反襯世人普遍追逐功名利祿，更凸顯蓮花君子品格之難能可貴</span>
+            <button class="btn-speak" onclick="speakText('選項C：反襯世人普遍追逐功名利祿，更凸顯蓮花君子品格之難能可貴')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 讚美唐朝社會經濟繁榮昌盛、百姓富裕</span>
+            <button class="btn-speak" onclick="speakText('選項D：讚美唐朝社會經濟繁榮昌盛、百姓富裕')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：作者以牡丹的富貴熱鬧，反襯出世俗之人多追逐名利，藉以烘托蓮花君子人格的高尚。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？
+            <button class="btn-speak" onclick="speakText('第7題。文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 種植菊花販售的花農</span>
+            <button class="btn-speak" onclick="speakText('選項A：種植菊花販售的花農')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 每年菊花盛開的秋天季節</span>
+            <button class="btn-speak" onclick="speakText('選項B：每年菊花盛開的秋天季節')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）</span>
+            <button class="btn-speak" onclick="speakText('選項C：對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 菊花愛上了荷花的花香</span>
+            <button class="btn-speak" onclick="speakText('選項D：菊花愛上了荷花的花香')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「菊之愛」即「愛菊」，在文中代指像陶淵明一樣追求清高、隱居避世之人。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？
+            <button class="btn-speak" onclick="speakText('第8題。課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 懂得離開家鄉去大城市做生意發財</span>
+            <button class="btn-speak" onclick="speakText('選項A：懂得離開家鄉去大城市做生意發財')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 潔身自愛，身處惡劣環境依然堅守清白、不同流合汙</span>
+            <button class="btn-speak" onclick="speakText('選項B：潔身自愛，身處惡劣環境依然堅守清白、不同流合汙')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 遇到環境不好就立刻逃跑避開</span>
+            <button class="btn-speak" onclick="speakText('選項C：遇到環境不好就立刻逃跑避開')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 喜歡穿白色的衣服以顯得乾淨高雅</span>
+            <button class="btn-speak" onclick="speakText('選項D：喜歡穿白色的衣服以顯得乾淨高雅')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「淤泥」比喻混濁惡劣的環境，「不染」象徵君子潔身自愛、不同流合汙。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：課文「不蔓不枝」中的「蔓」和「枝」在此處作什麼詞性使用？意思為何？
+            <button class="btn-speak" onclick="speakText('第9題。課文「不蔓不枝」中的「蔓」和「枝」在此處作什麼詞性使用？意思為何？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 都是名詞，指植物的細蔓與枝條</span>
+            <button class="btn-speak" onclick="speakText('選項A：都是名詞，指植物的細蔓與枝條')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 都是動詞，指長出細蔓、長出旁枝</span>
+            <button class="btn-speak" onclick="speakText('選項B：都是動詞，指長出細蔓、長出旁枝')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 都是副詞，修飾生長速度</span>
+            <button class="btn-speak" onclick="speakText('選項C：都是副詞，修飾生長速度')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 都是形容詞，形容花朵茂盛</span>
+            <button class="btn-speak" onclick="speakText('選項D：都是形容詞，形容花朵茂盛')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「蔓」與「枝」在此皆作動詞用，指蔓延細莖、旁生枝條。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：課文「中通外直」用來比喻君子的哪一種人格特質？
+            <button class="btn-speak" onclick="speakText('第10題。課文「中通外直」用來比喻君子的哪一種人格特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 內心通達明理、虛懷若谷；立身處世行為方正正直</span>
+            <button class="btn-speak" onclick="speakText('選項A：內心通達明理、虛懷若谷；立身處世行為方正正直')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 心裡藏不住祕密，到處宣揚別人的隱私</span>
+            <button class="btn-speak" onclick="speakText('選項B：心裡藏不住祕密，到處宣揚別人的隱私')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 身材高大挺拔，擅長體育運動</span>
+            <button class="btn-speak" onclick="speakText('選項C：身材高大挺拔，擅長體育運動')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 個性固執不知變通，容易得罪朋友</span>
+            <button class="btn-speak" onclick="speakText('選項D：個性固執不知變通，容易得罪朋友')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「中通」象徵君子虛懷若谷、豁達通理；「外直」象徵行為方正正直、光明磊落。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？
+            <button class="btn-speak" onclick="speakText('第11題。課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 隱逸者</span>
+            <button class="btn-speak" onclick="speakText('選項A：隱逸者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 甚蕃者</span>
+            <button class="btn-speak" onclick="speakText('選項B：甚蕃者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 富貴者</span>
+            <button class="btn-speak" onclick="speakText('選項C：富貴者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 同予者</span>
+            <button class="btn-speak" onclick="speakText('選項D：同予者')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：菊花在深秋獨自盛開，不與百花爭豔，故周敦頤稱其為「花之隱逸者」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：「可遠觀而不可褻玩焉」表現出君子哪一種令人敬仰的氣度？
+            <button class="btn-speak" onclick="speakText('第12題。「可遠觀而不可褻玩焉」表現出君子哪一種令人敬仰的氣度？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 端莊自持、威儀肅穆，令人心生敬重而不敢隨意輕慢侮弄</span>
+            <button class="btn-speak" onclick="speakText('選項A：端莊自持、威儀肅穆，令人心生敬重而不敢隨意輕慢侮弄')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 身體虛弱嬌嫩碰不得</span>
+            <button class="btn-speak" onclick="speakText('選項B：身體虛弱嬌嫩碰不得')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 態度凶惡傲慢，讓人不敢靠近說話</span>
+            <button class="btn-speak" onclick="speakText('選項C：態度凶惡傲慢，讓人不敢靠近說話')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 躲藏在隱密的地方不願見人</span>
+            <button class="btn-speak" onclick="speakText('選項D：躲藏在隱密的地方不願見人')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「可遠觀而不可褻玩」表現君子莊重有威儀，令人油然而生敬仰與尊重。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？
+            <button class="btn-speak" onclick="speakText('第13題。蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡組織小圈圈、結黨營私搞派系</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡組織小圈圈、結黨營私搞派系')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 個性孤僻不喜歡結交朋友</span>
+            <button class="btn-speak" onclick="speakText('選項B：個性孤僻不喜歡結交朋友')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正</span>
+            <button class="btn-speak" onclick="speakText('選項C：不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 做事情不給自己留後路</span>
+            <button class="btn-speak" onclick="speakText('選項D：做事情不給自己留後路')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「不蔓不枝」象徵君子品格端方自立，不阿諛奉承、不依附權貴豪門。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：「亭亭淨植」描寫蓮花潔淨聳立在水池中央，比喻君子的何種風骨？
+            <button class="btn-speak" onclick="speakText('第14題。「亭亭淨植」描寫蓮花潔淨聳立在水池中央，比喻君子的何種風骨？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 驕傲自滿、目中無人，看不起身邊的人</span>
+            <button class="btn-speak" onclick="speakText('選項A：驕傲自滿、目中無人，看不起身邊的人')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 站崗衛兵姿勢端正不搖晃</span>
+            <button class="btn-speak" onclick="speakText('選項B：站崗衛兵姿勢端正不搖晃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 卓然獨立、風骨崚嶒，堅守高尚節操不隨俗屈服</span>
+            <button class="btn-speak" onclick="speakText('選項C：卓然獨立、風骨崚嶒，堅守高尚節操不隨俗屈服')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 害怕與人群接觸而選擇逃避</span>
+            <button class="btn-speak" onclick="speakText('選項D：害怕與人群接觸而選擇逃避')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「亭亭淨植」象徵君子卓立孤傲、堅定守道，不為世俗所動搖。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：課文「香遠益清」的意思是「香氣傳得越遠就越清香」，句中哪一個字是「更加、越發」的意思？
+            <button class="btn-speak" onclick="speakText('第15題。課文「香遠益清」的意思是「香氣傳得越遠就越清香」，句中哪一個字是「更加、越發」的意思？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 益</span>
+            <button class="btn-speak" onclick="speakText('選項A：益')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 香</span>
+            <button class="btn-speak" onclick="speakText('選項B：香')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 遠</span>
+            <button class="btn-speak" onclick="speakText('選項C：遠')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 清</span>
+            <button class="btn-speak" onclick="speakText('選項D：清')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「益」在此為副詞，表示更加、越發。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：周敦頤在文中把菊花喻為「花之隱逸者」，是代表哪一種人生境界？
+            <button class="btn-speak" onclick="speakText('第16題。周敦頤在文中把菊花喻為「花之隱逸者」，是代表哪一種人生境界？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 不慕名利、不隨世俗沉浮，超然遠引的隱士高風</span>
+            <button class="btn-speak" onclick="speakText('選項A：不慕名利、不隨世俗沉浮，超然遠引的隱士高風')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 悲觀消極、放棄生活希望的逃避心態</span>
+            <button class="btn-speak" onclick="speakText('選項B：悲觀消極、放棄生活希望的逃避心態')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 貪生怕死躲避兵役的農民</span>
+            <button class="btn-speak" onclick="speakText('選項C：貪生怕死躲避兵役的農民')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 喜歡在秋天賞花品茶的富貴人家</span>
+            <button class="btn-speak" onclick="speakText('選項D：喜歡在秋天賞花品茶的富貴人家')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：陶淵明「採菊東籬下，悠然見南山」，菊花代表安貧樂道、超然物外的隱士情操。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 17 題：蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？
+            <button class="btn-speak" onclick="speakText('第17題。蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚</span>
+            <button class="btn-speak" onclick="speakText('選項A：醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 喜歡居住在空氣清新的深山裡</span>
+            <button class="btn-speak" onclick="speakText('選項B：喜歡居住在空氣清新的深山裡')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 隨身攜帶高級香水散發香味</span>
+            <button class="btn-speak" onclick="speakText('選項C：隨身攜帶高級香水散發香味')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 做飯廚藝高超，香氣飄散整條街</span>
+            <button class="btn-speak" onclick="speakText('選項D：做飯廚藝高超，香氣飄散整條街')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「香遠益清」比喻君子美好的德行聲譽能流芳遠播、為人所敬仰。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 18 題：課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？
+            <button class="btn-speak" onclick="speakText('第18題。課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 盛愛</span>
+            <button class="btn-speak" onclick="speakText('選項A：盛愛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 宜乎</span>
+            <button class="btn-speak" onclick="speakText('選項B：宜乎')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 甚蕃</span>
+            <button class="btn-speak" onclick="speakText('選項C：甚蕃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 獨愛</span>
+            <button class="btn-speak" onclick="speakText('選項D：獨愛')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「宜乎」意思是應當、理所當然。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 19 題：課文中哪一個四字詞語的意思是「高聳潔淨地挺立在水中」，形容蓮花挺拔的姿態？
+            <button class="btn-speak" onclick="speakText('第19題。課文中哪一個四字詞語的意思是「高聳潔淨地挺立在水中」，形容蓮花挺拔的姿態？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 可愛者甚蕃</span>
+            <button class="btn-speak" onclick="speakText('選項A：可愛者甚蕃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 陶後鮮有聞</span>
+            <button class="btn-speak" onclick="speakText('選項B：陶後鮮有聞')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 亭亭淨植</span>
+            <button class="btn-speak" onclick="speakText('選項C：亭亭淨植')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 世人盛愛</span>
+            <button class="btn-speak" onclick="speakText('選項D：世人盛愛')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「亭亭淨植」形容蓮花高潔挺拔、卓然獨立於水中。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 20 題：課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？
+            <button class="btn-speak" onclick="speakText('第20題。課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡打扮得妖豔媚俗來吸引眾人目光</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡打扮得妖豔媚俗來吸引眾人目光')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 喜歡在清水中游泳鍛鍊強健身體</span>
+            <button class="btn-speak" onclick="speakText('選項B：喜歡在清水中游泳鍛鍊強健身體')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人</span>
+            <button class="btn-speak" onclick="speakText('選項C：端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 追求奢華富貴的生活方式</span>
+            <button class="btn-speak" onclick="speakText('選項D：追求奢華富貴的生活方式')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「濯清漣而不妖」象徵君子氣度端莊穩重，不媚俗逢迎、不譁眾取寵。
+          </div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card" id="C-p1">
+        <div class="section-header">
+          <div class="section-title">題型一：詞與解釋配合題（全課15則注釋詞義）</div>
+          <span class="section-badge">第 1 頁 / 詞義配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【注釋目標詞語庫】：</strong><br>
+          (A) 鮮 ｜ (B) 蕃 ｜ (C) 隱逸者 ｜ (D) 噫 ｜ (E) 謂 ｜ (F) 濯清漣而不妖 ｜ (G) 益 ｜ (H) 亭亭淨植 ｜ (I) 中通外直 ｜ (J) 菊之愛 ｜ (K) 出淤泥而不染 ｜ (L) 宜乎 ｜ (M) 褻玩焉 ｜ (N) 不蔓不枝 ｜ (O) 李唐
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            1. 釋義：隱居的高士。
+            <button class="btn-speak" onclick="speakText('第1題。釋義：隱居的高士。。課文出處：菊，花之「隱逸者」也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「菊，花之「隱逸者」也。」</div>
+          <div class="teacher-answer">★ 正解代號：【C】 詞語：隱逸者</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            2. 釋義：花梗中空，外表挺直。
+            <button class="btn-speak" onclick="speakText('第2題。釋義：花梗中空，外表挺直。。課文出處：「中通外直」，不蔓不枝。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「中通外直」，不蔓不枝。」</div>
+          <div class="teacher-answer">★ 正解代號：【I】 詞語：中通外直</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            3. 釋義：通「繁」，眾多。
+            <button class="btn-speak" onclick="speakText('第3題。釋義：通「繁」，眾多。。課文出處：水陸草木之花，可愛者甚「蕃」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「水陸草木之花，可愛者甚「蕃」。」</div>
+          <div class="teacher-answer">★ 正解代號：【B】 詞語：蕃</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            4. 釋義：表示感嘆的語氣，相當於白話的「唉」。
+            <button class="btn-speak" onclick="speakText('第4題。釋義：表示感嘆的語氣，相當於白話的「唉」。。課文出處：「噫」！菊之愛，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「噫」！菊之愛，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【D】 詞語：噫</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            5. 釋義：唐代由李淵建國，故稱李唐。
+            <button class="btn-speak" onclick="speakText('第5題。釋義：唐代由李淵建國，故稱李唐。。課文出處：自「李唐」來，世人盛愛牡丹。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「自「李唐」來，世人盛愛牡丹。」</div>
+          <div class="teacher-answer">★ 正解代號：【O】 詞語：李唐</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            6. 釋義：應當。
+            <button class="btn-speak" onclick="speakText('第6題。釋義：應當。。課文出處：牡丹之愛，「宜乎」眾矣！')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「牡丹之愛，「宜乎」眾矣！」</div>
+          <div class="teacher-answer">★ 正解代號：【L】 詞語：宜乎</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            7. 釋義：認為。
+            <button class="btn-speak" onclick="speakText('第7題。釋義：認為。。課文出處：予「謂」：菊，花之隱逸者也。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予「謂」：菊，花之隱逸者也。」</div>
+          <div class="teacher-answer">★ 正解代號：【E】 詞語：謂</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            8. 釋義：指蓮花生長於清水中卻不妖媚。
+            <button class="btn-speak" onclick="speakText('第8題。釋義：指蓮花生長於清水中卻不妖媚。。課文出處：「濯清漣而不妖」，中通外直。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「「濯清漣而不妖」，中通外直。」</div>
+          <div class="teacher-answer">★ 正解代號：【F】 詞語：濯清漣而不妖</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            9. 釋義：指蓮花由水底的爛泥中長出，卻不受汙染。
+            <button class="btn-speak" onclick="speakText('第9題。釋義：指蓮花由水底的爛泥中長出，卻不受汙染。。課文出處：予獨愛蓮之「出淤泥而不染」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「予獨愛蓮之「出淤泥而不染」。」</div>
+          <div class="teacher-answer">★ 正解代號：【K】 詞語：出淤泥而不染</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            10. 釋義：愛菊（的人）。
+            <button class="btn-speak" onclick="speakText('第10題。釋義：愛菊（的人）。。課文出處：噫！「菊之愛」，陶後鮮有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「噫！「菊之愛」，陶後鮮有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【J】 詞語：菊之愛</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            11. 釋義：少。
+            <button class="btn-speak" onclick="speakText('第11題。釋義：少。。課文出處：陶後「鮮」有聞。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「陶後「鮮」有聞。」</div>
+          <div class="teacher-answer">★ 正解代號：【A】 詞語：鮮</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            12. 釋義：更加。
+            <button class="btn-speak" onclick="speakText('第12題。釋義：更加。。課文出處：香遠「益」清，亭亭淨植。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠「益」清，亭亭淨植。」</div>
+          <div class="teacher-answer">★ 正解代號：【G】 詞語：益</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            13. 釋義：不蔓延細莖，不旁生枝條。
+            <button class="btn-speak" onclick="speakText('第13題。釋義：不蔓延細莖，不旁生枝條。。課文出處：中通外直，「不蔓不枝」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「中通外直，「不蔓不枝」。」</div>
+          <div class="teacher-answer">★ 正解代號：【N】 詞語：不蔓不枝</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            14. 釋義：高挺而潔淨地直立在水中。
+            <button class="btn-speak" onclick="speakText('第14題。釋義：高挺而潔淨地直立在水中。。課文出處：香遠益清，「亭亭淨植」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「香遠益清，「亭亭淨植」。」</div>
+          <div class="teacher-answer">★ 正解代號：【H】 詞語：亭亭淨植</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            15. 釋義：以輕慢的態度接近玩弄。
+            <button class="btn-speak" onclick="speakText('第15題。釋義：以輕慢的態度接近玩弄。。課文出處：可遠觀而不可「褻玩焉」。')">🔊 聽解釋與出處</button>
+          </div>
+          <div class="item-details">出處：「可遠觀而不可「褻玩焉」。」</div>
+          <div class="teacher-answer">★ 正解代號：【M】 詞語：褻玩焉</div>
+        </div>
+      </section>
+      <section class="section-card" id="C-p2">
+        <div class="section-header">
+          <div class="section-title">題型二：解釋與美德單選測驗（精選20題）</div>
+          <span class="section-badge">第 2 頁 / 單選測驗</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？
+            <button class="btn-speak" onclick="speakText('第1題。蓮梗「不蔓不枝」不攀附其他植物、不橫生旁枝，比喻君子的哪一種品格？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡組織小圈圈、結黨營私搞派系</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡組織小圈圈、結黨營私搞派系')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正</span>
+            <button class="btn-speak" onclick="speakText('選項B：不逢迎攀附權貴豪門、不阿諛諂媚，處世獨立端正')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 個性孤僻不喜歡結交朋友</span>
+            <button class="btn-speak" onclick="speakText('選項C：個性孤僻不喜歡結交朋友')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 做事情不給自己留後路</span>
+            <button class="btn-speak" onclick="speakText('選項D：做事情不給自己留後路')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「不蔓不枝」象徵君子品格端方自立，不阿諛奉承、不依附權貴豪門。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？
+            <button class="btn-speak" onclick="speakText('第2題。課文把菊花比喻為「隱居避世、不慕名利的高士」，請問課文使用哪一個詞語？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 甚蕃者</span>
+            <button class="btn-speak" onclick="speakText('選項A：甚蕃者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 隱逸者</span>
+            <button class="btn-speak" onclick="speakText('選項B：隱逸者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 富貴者</span>
+            <button class="btn-speak" onclick="speakText('選項C：富貴者')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 同予者</span>
+            <button class="btn-speak" onclick="speakText('選項D：同予者')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：菊花在深秋獨自盛開，不與百花爭豔，故周敦頤稱其為「花之隱逸者」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：課文有一句四字詞語描寫蓮花的花梗「內部中空貫通、外表挺直不彎」，請問是哪一句？
+            <button class="btn-speak" onclick="speakText('第3題。課文有一句四字詞語描寫蓮花的花梗「內部中空貫通、外表挺直不彎」，請問是哪一句？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 隱逸者也</span>
+            <button class="btn-speak" onclick="speakText('選項A：隱逸者也')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 中通外直</span>
+            <button class="btn-speak" onclick="speakText('選項B：中通外直')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 盛愛牡丹</span>
+            <button class="btn-speak" onclick="speakText('選項C：盛愛牡丹')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 宜乎眾矣</span>
+            <button class="btn-speak" onclick="speakText('選項D：宜乎眾矣')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「中通外直」描繪蓮花花梗中空挺直，比喻君子內心通達明理、外表方正正直。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？
+            <button class="btn-speak" onclick="speakText('第4題。課文最後一句「牡丹之愛，宜乎眾矣！」中，用來表達「理所當然、難怪」的詞語是哪一個？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 盛愛</span>
+            <button class="btn-speak" onclick="speakText('選項A：盛愛')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 甚蕃</span>
+            <button class="btn-speak" onclick="speakText('選項B：甚蕃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 宜乎</span>
+            <button class="btn-speak" onclick="speakText('選項C：宜乎')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 獨愛</span>
+            <button class="btn-speak" onclick="speakText('選項D：獨愛')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「宜乎」意思是應當、理所當然。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？
+            <button class="btn-speak" onclick="speakText('第5題。課文描寫蓮花「出淤泥而不染」，主要是象徵君子的哪一種品格美德？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡穿白色的衣服以顯得乾淨高雅</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡穿白色的衣服以顯得乾淨高雅')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 懂得離開家鄉去大城市做生意發財</span>
+            <button class="btn-speak" onclick="speakText('選項B：懂得離開家鄉去大城市做生意發財')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 潔身自愛，身處惡劣環境依然堅守清白、不同流合汙</span>
+            <button class="btn-speak" onclick="speakText('選項C：潔身自愛，身處惡劣環境依然堅守清白、不同流合汙')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 遇到環境不好就立刻逃跑避開</span>
+            <button class="btn-speak" onclick="speakText('選項D：遇到環境不好就立刻逃跑避開')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：「淤泥」比喻混濁惡劣的環境，「不染」象徵君子潔身自愛、不同流合汙。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：課文「水陸草木之花，可愛者甚蕃」中，最後一個字的意思是什麼？
+            <button class="btn-speak" onclick="speakText('第6題。課文「水陸草木之花，可愛者甚蕃」中，最後一個字的意思是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 外國傳來的品種</span>
+            <button class="btn-speak" onclick="speakText('選項A：外國傳來的品種')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 眾多、非常多</span>
+            <button class="btn-speak" onclick="speakText('選項B：眾多、非常多')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 稀少罕見</span>
+            <button class="btn-speak" onclick="speakText('選項C：稀少罕見')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 枯萎凋謝</span>
+            <button class="btn-speak" onclick="speakText('選項D：枯萎凋謝')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「蕃」通「繁」，意思是眾多、非常多。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？
+            <button class="btn-speak" onclick="speakText('第7題。課文「陶後鮮有聞」的意思是「陶淵明之後就很少聽說了」，句中表示「少」的那個字，正確讀音是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄒㄧㄢ（一聲）</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄒㄧㄢ（一聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄒㄧㄢˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄒㄧㄢˇ（三聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄒㄧㄢˋ（四聲）</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄒㄧㄢˋ（四聲）')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄇㄟˇ（三聲）</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄇㄟˇ（三聲）')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「鮮」作「少」的意思時，讀為 ㄒㄧㄢˇ（如鮮為人知、寡廉鮮恥）。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：「可遠觀而不可褻玩焉」表現出君子哪一種令人敬仰的氣度？
+            <button class="btn-speak" onclick="speakText('第8題。「可遠觀而不可褻玩焉」表現出君子哪一種令人敬仰的氣度？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 躲藏在隱密的地方不願見人</span>
+            <button class="btn-speak" onclick="speakText('選項A：躲藏在隱密的地方不願見人')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 端莊自持、威儀肅穆，令人心生敬重而不敢隨意輕慢侮弄</span>
+            <button class="btn-speak" onclick="speakText('選項B：端莊自持、威儀肅穆，令人心生敬重而不敢隨意輕慢侮弄')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 態度凶惡傲慢，讓人不敢靠近說話</span>
+            <button class="btn-speak" onclick="speakText('選項C：態度凶惡傲慢，讓人不敢靠近說話')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 身體虛弱嬌嫩碰不得</span>
+            <button class="btn-speak" onclick="speakText('選項D：身體虛弱嬌嫩碰不得')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「可遠觀而不可褻玩」表現君子莊重有威儀，令人油然而生敬仰與尊重。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？
+            <button class="btn-speak" onclick="speakText('第9題。文末感嘆「陶後鮮有聞」之前，作者先發出一個文言嘆詞（相當於白話的「唉！」），請問這個字的正確讀音與字形為何？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> ㄧˋ（四聲，音同「意」），寫作「噫」</span>
+            <button class="btn-speak" onclick="speakText('選項A：ㄧˋ（四聲，音同「意」），寫作「噫」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> ㄧˊ（二聲），寫作「疑」</span>
+            <button class="btn-speak" onclick="speakText('選項B：ㄧˊ（二聲），寫作「疑」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> ㄧ（一聲），寫作「依」</span>
+            <button class="btn-speak" onclick="speakText('選項C：ㄧ（一聲），寫作「依」')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> ㄞˋ（四聲），寫作「愛」</span>
+            <button class="btn-speak" onclick="speakText('選項D：ㄞˋ（四聲），寫作「愛」')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「噫」讀作 ㄧˋ，文言嘆詞，相當於現代口語的「唉！」，表示深切的感慨。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？
+            <button class="btn-speak" onclick="speakText('第10題。課文以蓮花「濯清漣而不妖」，象徵君子的哪一種處世態度？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡打扮得妖豔媚俗來吸引眾人目光</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡打扮得妖豔媚俗來吸引眾人目光')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 喜歡在清水中游泳鍛鍊強健身體</span>
+            <button class="btn-speak" onclick="speakText('選項B：喜歡在清水中游泳鍛鍊強健身體')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 追求奢華富貴的生活方式</span>
+            <button class="btn-speak" onclick="speakText('選項C：追求奢華富貴的生活方式')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人</span>
+            <button class="btn-speak" onclick="speakText('選項D：端莊雅致、光明磊落，不逢迎媚世也不取巧討好他人')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「濯清漣而不妖」象徵君子氣度端莊穩重，不媚俗逢迎、不譁眾取寵。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：課文「予獨愛蓮之出淤泥而不染」中，關於「淤泥」的解釋何者正確？
+            <button class="btn-speak" onclick="speakText('第11題。課文「予獨愛蓮之出淤泥而不染」中，關於「淤泥」的解釋何者正確？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 清澈見底的溪水</span>
+            <button class="btn-speak" onclick="speakText('選項A：清澈見底的溪水')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 肥沃的花盆培養土</span>
+            <button class="btn-speak" onclick="speakText('選項B：肥沃的花盆培養土')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 岸邊乾燥的沙子</span>
+            <button class="btn-speak" onclick="speakText('選項C：岸邊乾燥的沙子')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 水底沉積黏軟的爛泥</span>
+            <button class="btn-speak" onclick="speakText('選項D：水底沉積黏軟的爛泥')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「淤泥」指水底沉積的爛泥，在文中比喻混濁惡劣的環境。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？
+            <button class="btn-speak" onclick="speakText('第12題。文末「陶後鮮有聞」前面提到的「菊之愛」，在課文中的正確解釋是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 菊花愛上了荷花的花香</span>
+            <button class="btn-speak" onclick="speakText('選項A：菊花愛上了荷花的花香')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 每年菊花盛開的秋天季節</span>
+            <button class="btn-speak" onclick="speakText('選項B：每年菊花盛開的秋天季節')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 種植菊花販售的花農</span>
+            <button class="btn-speak" onclick="speakText('選項C：種植菊花販售的花農')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）</span>
+            <button class="btn-speak" onclick="speakText('選項D：對於菊花的喜愛（指像陶淵明那樣喜愛菊花的清高隱士）')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「菊之愛」即「愛菊」，在文中代指像陶淵明一樣追求清高、隱居避世之人。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：課文「中通外直」用來比喻君子的哪一種人格特質？
+            <button class="btn-speak" onclick="speakText('第13題。課文「中通外直」用來比喻君子的哪一種人格特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 心裡藏不住祕密，到處宣揚別人的隱私</span>
+            <button class="btn-speak" onclick="speakText('選項A：心裡藏不住祕密，到處宣揚別人的隱私')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 身材高大挺拔，擅長體育運動</span>
+            <button class="btn-speak" onclick="speakText('選項B：身材高大挺拔，擅長體育運動')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 個性固執不知變通，容易得罪朋友</span>
+            <button class="btn-speak" onclick="speakText('選項C：個性固執不知變通，容易得罪朋友')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 內心通達明理、虛懷若谷；立身處世行為方正正直</span>
+            <button class="btn-speak" onclick="speakText('選項D：內心通達明理、虛懷若谷；立身處世行為方正正直')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「中通」象徵君子虛懷若谷、豁達通理；「外直」象徵行為方正正直、光明磊落。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：「亭亭淨植」描寫蓮花潔淨聳立在水池中央，比喻君子的何種風骨？
+            <button class="btn-speak" onclick="speakText('第14題。「亭亭淨植」描寫蓮花潔淨聳立在水池中央，比喻君子的何種風骨？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 害怕與人群接觸而選擇逃避</span>
+            <button class="btn-speak" onclick="speakText('選項A：害怕與人群接觸而選擇逃避')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 站崗衛兵姿勢端正不搖晃</span>
+            <button class="btn-speak" onclick="speakText('選項B：站崗衛兵姿勢端正不搖晃')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 驕傲自滿、目中無人，看不起身邊的人</span>
+            <button class="btn-speak" onclick="speakText('選項C：驕傲自滿、目中無人，看不起身邊的人')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 卓然獨立、風骨崚嶒，堅守高尚節操不隨俗屈服</span>
+            <button class="btn-speak" onclick="speakText('選項D：卓然獨立、風骨崚嶒，堅守高尚節操不隨俗屈服')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：「亭亭淨植」象徵君子卓立孤傲、堅定守道，不為世俗所動搖。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：周敦頤在文中把菊花喻為「花之隱逸者」，是代表哪一種人生境界？
+            <button class="btn-speak" onclick="speakText('第15題。周敦頤在文中把菊花喻為「花之隱逸者」，是代表哪一種人生境界？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 喜歡在秋天賞花品茶的富貴人家</span>
+            <button class="btn-speak" onclick="speakText('選項A：喜歡在秋天賞花品茶的富貴人家')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 貪生怕死躲避兵役的農民</span>
+            <button class="btn-speak" onclick="speakText('選項B：貪生怕死躲避兵役的農民')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 悲觀消極、放棄生活希望的逃避心態</span>
+            <button class="btn-speak" onclick="speakText('選項C：悲觀消極、放棄生活希望的逃避心態')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 不慕名利、不隨世俗沉浮，超然遠引的隱士高風</span>
+            <button class="btn-speak" onclick="speakText('選項D：不慕名利、不隨世俗沉浮，超然遠引的隱士高風')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【D】<br>
+            【解析】：陶淵明「採菊東籬下，悠然見南山」，菊花代表安貧樂道、超然物外的隱士情操。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：課文「自李唐來，世人盛愛牡丹」中，提到哪一個歷史朝代？為什麼這樣稱呼？
+            <button class="btn-speak" onclick="speakText('第16題。課文「自李唐來，世人盛愛牡丹」中，提到哪一個歷史朝代？為什麼這樣稱呼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 漢朝，因為首都種滿李樹</span>
+            <button class="btn-speak" onclick="speakText('選項A：漢朝，因為首都種滿李樹')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 晉朝，因為陶淵明姓李</span>
+            <button class="btn-speak" onclick="speakText('選項B：晉朝，因為陶淵明姓李')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 唐朝，因為開國君主李淵姓李，國號唐</span>
+            <button class="btn-speak" onclick="speakText('選項C：唐朝，因為開國君主李淵姓李，國號唐')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 宋朝，因為皇帝喜歡吃李子</span>
+            <button class="btn-speak" onclick="speakText('選項D：宋朝，因為皇帝喜歡吃李子')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：唐代由李淵建國，皇帝姓李，故歷史上常稱為「李唐」。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 17 題：文中寫「世人盛愛牡丹」，作者以牡丹象徵「富貴者」，在文章結構中起到什麼作用？
+            <button class="btn-speak" onclick="speakText('第17題。文中寫「世人盛愛牡丹」，作者以牡丹象徵「富貴者」，在文章結構中起到什麼作用？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 批評牡丹花的花瓣長得不夠漂亮</span>
+            <button class="btn-speak" onclick="speakText('選項A：批評牡丹花的花瓣長得不夠漂亮')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 說明作者自己也想種植牡丹花發財</span>
+            <button class="btn-speak" onclick="speakText('選項B：說明作者自己也想種植牡丹花發財')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 反襯世人普遍追逐功名利祿，更凸顯蓮花君子品格之難能可貴</span>
+            <button class="btn-speak" onclick="speakText('選項C：反襯世人普遍追逐功名利祿，更凸顯蓮花君子品格之難能可貴')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 讚美唐朝社會經濟繁榮昌盛、百姓富裕</span>
+            <button class="btn-speak" onclick="speakText('選項D：讚美唐朝社會經濟繁榮昌盛、百姓富裕')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【C】<br>
+            【解析】：作者以牡丹的富貴熱鬧，反襯出世俗之人多追逐名利，藉以烘托蓮花君子人格的高尚。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 18 題：課文「濯清漣而不妖」中，句中的「濯」和「清漣」分別是什麼意思？
+            <button class="btn-speak" onclick="speakText('第18題。課文「濯清漣而不妖」中，句中的「濯」和「清漣」分別是什麼意思？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 照鏡子；細小的雨滴</span>
+            <button class="btn-speak" onclick="speakText('選項A：照鏡子；細小的雨滴')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 洗滌；清澈的水波</span>
+            <button class="btn-speak" onclick="speakText('選項B：洗滌；清澈的水波')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 採摘；奔流的大河</span>
+            <button class="btn-speak" onclick="speakText('選項C：採摘；奔流的大河')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 游泳；深綠色的水草</span>
+            <button class="btn-speak" onclick="speakText('選項D：游泳；深綠色的水草')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【B】<br>
+            【解析】：「濯」是洗滌、沖洗；「清漣」指清澈的水波。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 19 題：蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？
+            <button class="btn-speak" onclick="speakText('第19題。蓮花「香遠益清」香氣飄散得越遠越清幽，象徵君子的什麼特質？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚</span>
+            <button class="btn-speak" onclick="speakText('選項A：醇厚美德與高尚名聲能流芳遠播、受人千古稱頌傳揚')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 做飯廚藝高超，香氣飄散整條街</span>
+            <button class="btn-speak" onclick="speakText('選項B：做飯廚藝高超，香氣飄散整條街')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 喜歡居住在空氣清新的深山裡</span>
+            <button class="btn-speak" onclick="speakText('選項C：喜歡居住在空氣清新的深山裡')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 隨身攜帶高級香水散發香味</span>
+            <button class="btn-speak" onclick="speakText('選項D：隨身攜帶高級香水散發香味')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：「香遠益清」比喻君子美好的德行聲譽能流芳遠播、為人所敬仰。
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 20 題：周敦頤在《愛蓮說》中將蓮花譽為「花之君子者也」，「君子」最核心的精神內涵是什麼？
+            <button class="btn-speak" onclick="speakText('第20題。周敦頤在《愛蓮說》中將蓮花譽為「花之君子者也」，「君子」最核心的精神內涵是什麼？')">🔊 聽題目</button>
+          </div>
+          <div class="options-grid">
+            
+          <div class="option-pill">
+            <span><strong>(A)</strong> 身處世俗濁浪與誘惑中，依然能堅持道義、自重自愛的高尚品格</span>
+            <button class="btn-speak" onclick="speakText('選項A：身處世俗濁浪與誘惑中，依然能堅持道義、自重自愛的高尚品格')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(B)</strong> 飽讀詩書且必須在朝廷做大官考上狀元</span>
+            <button class="btn-speak" onclick="speakText('選項B：飽讀詩書且必須在朝廷做大官考上狀元')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(C)</strong> 隱居深山老林，永遠不與任何人群接觸交流</span>
+            <button class="btn-speak" onclick="speakText('選項C：隱居深山老林，永遠不與任何人群接觸交流')">🔊</button>
+          </div>
+        
+          <div class="option-pill">
+            <span><strong>(D)</strong> 家財萬貫、社會地位非常崇高</span>
+            <button class="btn-speak" onclick="speakText('選項D：家財萬貫、社會地位非常崇高')">🔊</button>
+          </div>
+        
+          </div>
+          <div class="teacher-answer">
+            ★ 正解選項：【A】<br>
+            【解析】：君子入世而不染世，既能處於濁世之中，又能保持方正自愛、中通外直的完美人格。
+          </div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let currentUtterance = null;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  // 自動根據網址參數 ?v=A / ?v=B / ?v=C 切換
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>
