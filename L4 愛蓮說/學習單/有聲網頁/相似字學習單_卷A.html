@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國文二上 第四課〈愛蓮說〉相似字學習單（卷 A）</title>
+  <style>
+    @page { size: A4 portrait; margin: 15mm 18mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "DFKai-SB", "標楷體", serif;
+      font-size: 15pt;
+      line-height: 1.6;
+      color: #0f172a;
+      background: #ffffff;
+      padding: 0;
+      margin: 0;
+    }
+    .sheet-page {
+      page-break-after: always;
+      padding: 10px 0;
+    }
+    .sheet-header {
+      border-top: 3px solid #1e3a8a;
+      border-bottom: 3px solid #1e3a8a;
+      padding: 8px 0;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-title { font-size: 18pt; font-weight: bold; color: #1e3a8a; }
+    .header-sub { font-size: 14pt; color: #475569; margin-top: 4px; }
+    .header-info { font-size: 13pt; margin-top: 4px; font-weight: bold; }
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      margin: 16px 0;
+    }
+    .q-item {
+      display: flex;
+      align-items: center;
+      font-size: 15pt;
+      padding: 6px 0;
+    }
+    .q-num { font-weight: bold; color: #1e3a8a; margin-right: 6px; width: 28px; }
+    .q-stem { font-weight: bold; }
+    .q-ans-box { font-weight: bold; margin-left: 4px; }
+    .q-ans-box.teacher { color: #dc2626; display: none; }
+    body.show-teacher-ans .q-ans-box.teacher { display: inline; }
+    body.show-teacher-ans .q-ans-box.student { display: none; }
+    .btn-speak {
+      background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc;
+      border-radius: 4px; padding: 2px 6px; font-size: 11pt; cursor: pointer; margin-left: 8px;
+    }
+    .toolbar-no-print {
+      position: sticky; top: 0; background: #f8fafc; border-bottom: 2px solid #cbd5e1;
+      padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    }
+    .btn-tool {
+      padding: 6px 14px; font-size: 13pt; font-weight: bold; border-radius: 6px; cursor: pointer;
+    }
+    @media print {
+      .no-print, .toolbar-no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar-no-print no-print">
+    <div>
+      <strong>📄 相似字學習單（卷 A）列印與互動系統</strong>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn-tool" onclick="window.print()" style="background:#0284c7; color:#fff; border:none;">🖨️ 直接列印 A4</button>
+      <button class="btn-tool" id="btnToggleTeacher" onclick="toggleTeacherMode()" style="background:#f59e0b; color:#fff; border:none;">👁️ 切換教師解答版</button>
+    </div>
+  </div>
+
+  <div style="max-width:860px; margin:0 auto; padding:16px;">
+    <!-- 第 1 頁：看詞寫注音 -->
+    <div class="sheet-page">
+      <div class="sheet-header">
+        <div>
+          <div class="header-title">國文二上 第四課〈愛蓮說〉相似字學習單（卷 A）</div>
+          <div class="header-sub">大題一：看詞寫注音（全課11字完整測驗） [第 1 頁]</div>
+          <div class="header-info">班級：______ 座號：______ 姓名：__________</div>
+        </div>
+      </div>
+      <p style="font-size:13pt; color:#475569; margin-bottom:14px;">
+        說明：請仔細閱讀常用詞語中引號標示的生字，並在括號內填入正確的標準注音：
+      </p>
+      <div class="two-col-grid">
+        
+    <div class="q-item">
+      <span class="q-num">1.</span>
+      <span class="q-stem">雀「躍」不已：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄩㄝˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('雀躍不已。目標字：躍，注音：ㄩㄝˋ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">2.</span>
+      <span class="q-stem">「瘀」血紅腫：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄩ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('瘀血紅腫。目標字：瘀，注音：ㄩ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">3.</span>
+      <span class="q-stem">「耀」眼奪目：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄧㄠˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('耀眼奪目。目標字：耀，注音：ㄧㄠˋ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">4.</span>
+      <span class="q-stem">「漫」不經心：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄇㄢˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('漫不經心。目標字：漫，注音：ㄇㄢˋ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">5.</span>
+      <span class="q-stem">「褒」貶不一：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄅㄠ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('褒貶不一。目標字：褒，注音：ㄅㄠ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">6.</span>
+      <span class="q-stem">泥沙「淤」積：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄩ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('泥沙淤積。目標字：淤，注音：ㄩ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">7.</span>
+      <span class="q-stem">「褻」瀆神明：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄒㄧㄝˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('褻瀆神明。目標字：褻，注音：ㄒㄧㄝˋ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">8.</span>
+      <span class="q-stem">拔「擢」人才：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄓㄨㄛˊ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('拔擢人才。目標字：擢，注音：ㄓㄨㄛˊ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">9.</span>
+      <span class="q-stem">童山「濯」濯：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄓㄨㄛˊ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('童山濯濯。目標字：濯，注音：ㄓㄨㄛˊ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">10.</span>
+      <span class="q-stem">隨意「謾」罵：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄇㄢˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('隨意謾罵。目標字：謾，注音：ㄇㄢˋ')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">11.</span>
+      <span class="q-stem">藤「蔓」攀爬：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　ㄇㄢˋ　）</span>
+      <button class="no-print btn-speak" onclick="speakText('藤蔓攀爬。目標字：蔓，注音：ㄇㄢˋ')">🔊</button>
+    </div>
+  
+      </div>
+    </div>
+
+    <!-- 第 2 頁：看注音寫國字 + 訂正表 -->
+    <div class="sheet-page" style="page-break-after:avoid;">
+      <div class="sheet-header">
+        <div>
+          <div class="header-title">國文二上 第四課〈愛蓮說〉相似字學習單（卷 A）</div>
+          <div class="header-sub">大題二：看注音寫國字（全課11字完整測驗） [第 2 頁]</div>
+          <div class="header-info">班級：______ 座號：______ 姓名：__________</div>
+        </div>
+      </div>
+      <p style="font-size:13pt; color:#475569; margin-bottom:14px;">
+        說明：請仔細閱讀常用詞語中引號標示的注音提示，並在括號內填入正確的國字：
+      </p>
+      <div class="two-col-grid">
+        
+    <div class="q-item">
+      <span class="q-num">1.</span>
+      <span class="q-stem">拔「ㄓㄨㄛˊ」人才：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　擢　）</span>
+      <button class="no-print btn-speak" onclick="speakText('拔擢人才。注音：ㄓㄨㄛˊ，請寫出國字擢')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">2.</span>
+      <span class="q-stem">隨意「ㄇㄢˋ」罵：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　謾　）</span>
+      <button class="no-print btn-speak" onclick="speakText('隨意謾罵。注音：ㄇㄢˋ，請寫出國字謾')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">3.</span>
+      <span class="q-stem">童山「ㄓㄨㄛˊ」濯：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　濯　）</span>
+      <button class="no-print btn-speak" onclick="speakText('童山濯濯。注音：ㄓㄨㄛˊ，請寫出國字濯')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">4.</span>
+      <span class="q-stem">泥沙「ㄩ」積：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　淤　）</span>
+      <button class="no-print btn-speak" onclick="speakText('泥沙淤積。注音：ㄩ，請寫出國字淤')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">5.</span>
+      <span class="q-stem">「ㄩ」血紅腫：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　瘀　）</span>
+      <button class="no-print btn-speak" onclick="speakText('瘀血紅腫。注音：ㄩ，請寫出國字瘀')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">6.</span>
+      <span class="q-stem">「ㄅㄠ」貶不一：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　褒　）</span>
+      <button class="no-print btn-speak" onclick="speakText('褒貶不一。注音：ㄅㄠ，請寫出國字褒')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">7.</span>
+      <span class="q-stem">雀「ㄩㄝˋ」不已：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　躍　）</span>
+      <button class="no-print btn-speak" onclick="speakText('雀躍不已。注音：ㄩㄝˋ，請寫出國字躍')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">8.</span>
+      <span class="q-stem">「ㄇㄢˋ」不經心：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　漫　）</span>
+      <button class="no-print btn-speak" onclick="speakText('漫不經心。注音：ㄇㄢˋ，請寫出國字漫')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">9.</span>
+      <span class="q-stem">「ㄧㄠˋ」眼奪目：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　耀　）</span>
+      <button class="no-print btn-speak" onclick="speakText('耀眼奪目。注音：ㄧㄠˋ，請寫出國字耀')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">10.</span>
+      <span class="q-stem">「ㄒㄧㄝˋ」瀆神明：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　褻　）</span>
+      <button class="no-print btn-speak" onclick="speakText('褻瀆神明。注音：ㄒㄧㄝˋ，請寫出國字褻')">🔊</button>
+    </div>
+  
+    <div class="q-item">
+      <span class="q-num">11.</span>
+      <span class="q-stem">藤「ㄇㄢˋ」攀爬：</span>
+      <span class="q-ans-box student">（　　　）</span>
+      <span class="q-ans-box teacher">（　蔓　）</span>
+      <button class="no-print btn-speak" onclick="speakText('藤蔓攀爬。注音：ㄇㄢˋ，請寫出國字蔓')">🔊</button>
+    </div>
+  
+      </div>
+
+      <div style="margin-top:24px;">
+        <div style="font-weight:bold; color:#b45309; font-size:14pt; margin-bottom:8px;">
+          ★ 相似字錯字弱點自我訂正區（4欄11列自主檢視）
+        </div>
+        <table style="width:100%; border-collapse:collapse; text-align:center; font-size:13pt;">
+          <thead>
+            <tr style="background:#f1f5f9;">
+              <th style="width:28%; border:1px solid #94a3b8; padding:6px;">1. 錯字／弱點詞</th>
+              <th style="width:24%; border:1px solid #94a3b8; padding:6px;">訂正習寫1</th>
+              <th style="width:24%; border:1px solid #94a3b8; padding:6px;">訂正習寫2</th>
+              <th style="width:24%; border:1px solid #94a3b8; padding:6px;">訂正習寫3</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">1.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">2.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">3.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">4.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">5.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">6.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">7.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">8.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">9.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">10.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+    <tr>
+      <td style="border:1px solid #94a3b8; padding:6px; text-align:left;">11.</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+      <td style="border:1px solid #94a3b8; padding:6px;">&nbsp;</td>
+    </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTeacherMode() {
+      document.body.classList.toggle('show-teacher-ans');
+      const btn = document.getElementById('btnToggleTeacher');
+      if (document.body.classList.contains('show-teacher-ans')) {
+        btn.innerText = '👨‍🏫 目前：教師紅字版（點擊切回學生版）';
+        btn.style.background = '#dc2626';
+      } else {
+        btn.innerText = '👁️ 切換教師解答版';
+        btn.style.background = '#f59e0b';
+      }
+    }
+    function speakText(txt) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(txt);
+      u.lang = 'zh-TW';
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    }
+  </script>
+</body>
+</html>
