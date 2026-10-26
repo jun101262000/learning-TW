@@ -1,0 +1,974 @@
+<!-- 
+================================================================================
+115學年度 國文特教課堂教學管理系統 ── 標準前端可抽換模組 (Reusable Component)
+版本：v1.2.0 (雲端中樞連線整合版)
+中央 API 端點：https://script.google.com/macros/s/AKfycbz55BvjA24C7uR5VN1oRvMGO9NvciNGBGIyrobwjHXhslDlZEMDCAnubqiNNvoBFWUemw/exec
+中央資料庫試算表：115國文特教課堂教學管理系統.gsheet
+
+【新課次 3 步驟快速嵌入說明】：
+1. 將下方 <style> 內容複製至電子書 index.html 的 </style> 前。
+2. 將下方 HTML 模態視窗（contactBookModal 與 teacherMgmtModal）貼到 </body> 前；
+   並在頂部功能列與右側側邊工具列加入對應之「📋 班級聯絡簿」與「📊 教學管理」按鈕。
+3. 將下方 <script> 內容複製至 index.html 的 </script> 前，並依課次修改 CURRENT_LESSON_KEY。
+================================================================================
+-->
+
+<!-- 1. 樣式區 (CSS) -->
+<style id="classroom-mgmt-styles">
+  /* 黑板聯絡簿擬真風格 */
+  .blackboard-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    z-index: 100005;
+  }
+  .blackboard-frame {
+    width: 94%;
+    max-width: 920px;
+    max-height: 90vh;
+    background: #5c3a21;
+    border: 12px solid #3d2314;
+    border-radius: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 2px 6px rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .blackboard-surface {
+    background: #1e3a2b;
+    background-image: radial-gradient(circle at 50% 50%, #244634 0%, #173023 100%);
+    padding: 24px;
+    color: #f1f5f9;
+    font-family: "標楷體", "DFKai-SB", "Noto Sans TC", sans-serif;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .blackboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px dashed rgba(255, 255, 255, 0.35);
+    padding-bottom: 12px;
+  }
+  .blackboard-title {
+    font-size: 24pt;
+    font-weight: 900;
+    color: #fef08a;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  }
+  .chalk-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .chalk-label {
+    font-size: 15pt;
+    font-weight: bold;
+    color: #93c5fd;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chalk-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 16pt;
+    padding: 10px 14px;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+  .chalk-input:focus {
+    outline: none;
+    border-color: #fde047;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  /* 教學管理面板風格 */
+  .mgmt-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    z-index: 100010;
+    padding: 16px;
+  }
+  .mgmt-frame {
+    width: 96%;
+    max-width: 1060px;
+    max-height: 92vh;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .mgmt-header {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mgmt-title-group h3 {
+    margin: 0;
+    font-size: 18pt;
+    font-weight: 900;
+  }
+  .mgmt-title-group p {
+    margin: 4px 0 0 0;
+    font-size: 12pt;
+    opacity: 0.9;
+  }
+  .mgmt-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    border-bottom: 2px solid #cbd5e1;
+    padding: 10px 16px;
+    gap: 10px;
+    flex-shrink: 0;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  .mgmt-tab-btn {
+    padding: 8px 16px;
+    font-size: 14pt;
+    font-weight: bold;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+  }
+  .mgmt-tab-btn:hover {
+    background: #f0f9ff;
+    border-color: #0284c7;
+    color: #0284c7;
+  }
+  .mgmt-tab-btn.active {
+    color: #ffffff;
+    border-color: #0284c7;
+    background: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+  }
+  .mgmt-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    background: #f8fafc;
+    font-size: 14pt;
+  }
+  .auth-lock-card {
+    background: #ffffff;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 440px;
+    margin: 30px auto;
+  }
+  .auth-pin-input {
+    font-size: 20pt;
+    letter-spacing: 8px;
+    text-align: center;
+    padding: 8px 16px;
+    width: 200px;
+    border: 2px solid #94a3b8;
+    border-radius: 8px;
+    margin: 14px 0;
+  }
+  .mgmt-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .mgmt-table th, .mgmt-table td {
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    font-size: 14pt;
+  }
+  .mgmt-table th {
+    background: #f1f5f9;
+    color: #1e293b;
+    font-weight: bold;
+  }
+
+  /* 版面最大化收合膠囊 */
+  .floating-expand-capsule {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 14px;
+    z-index: 99999;
+    background: rgba(2, 132, 199, 0.92);
+    backdrop-filter: blur(4px);
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 13pt;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+</style>
+
+<!-- 2. HTML 模態視窗結構 -->
+<!-- 課堂黑板聯絡簿 Modal (免密公開) -->
+<div class="blackboard-modal-overlay" id="contactBookModal" onclick="closeContactBookModal()">
+  <div class="blackboard-frame" onclick="event.stopPropagation()">
+    <div class="blackboard-surface">
+      <div class="blackboard-header">
+        <div class="blackboard-title">
+          <span>📋 課堂黑板聯絡簿</span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <button class="tool-btn" style="background:#38bdf8; color:#0f172a; font-size:13pt;" onclick="fetchContactBookFromCloud()" title="從雲端試算表抓取最新內容">🔄 雲端同步</button>
+          <button class="tool-btn primary" style="font-size:13pt;" onclick="saveContactBookToCloud()" title="儲存並同步至試算表">💾 儲存發布</button>
+          <button class="tool-btn warm" style="font-size:13pt;" onclick="openTeacherMgmtModal()" title="進入115國文特教課堂教學管理系統">📊 教學管理</button>
+          <button class="tool-btn" style="background:#334155; color:#fff; font-size:13pt;" onclick="closeContactBookModal()">✕ 關閉</button>
+        </div>
+      </div>
+
+      <div class="chalk-row">
+        <label class="chalk-label">📅 日期 (民國 ROC 紀年)：</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="chalk-input" id="cbDate" style="flex:1;" placeholder="例：115年10月19日(一)">
+          <button class="tool-btn" style="background:#475569; color:#fff; font-size:12pt; white-space:nowrap;" onclick="applyTodayROCDate()">🗓️ 帶入今日</button>
+        </div>
+      </div>
+
+      <div class="chalk-row">
+        <label class="chalk-label">📖 今日上課進度：</label>
+        <input type="text" class="chalk-input" id="cbProgress" placeholder="例：第四課〈愛蓮說〉字詞聚焦與課文意象探討">
+      </div>
+
+      <div class="chalk-row">
+        <label class="chalk-label">✍️ 回家／隨堂作業：</label>
+        <input type="text" class="chalk-input" id="cbHomework" placeholder="例：完成字詞辨析學習單、練習念讀課文三次">
+      </div>
+
+      <div class="chalk-row">
+        <label class="chalk-label">📢 最新公布成績：</label>
+        <input type="text" class="chalk-input" id="cbScoreAnnouncement" placeholder="例：第三課隨堂小考全班表現優異，最高分100分！">
+      </div>
+
+      <div class="chalk-row">
+        <label class="chalk-label">🔴 待補交作業名單：</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" class="chalk-input" id="cbPendingList" style="flex:1;" placeholder="點擊右側按鈕自動自作業追蹤庫彙整或手動輸入">
+          <button class="tool-btn" style="background:#dc2626; color:#fff; font-size:12pt; white-space:nowrap;" onclick="syncPendingFromHomeworkStatus()">⚡ 彙整未交名單</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 115國文特教課堂教學管理系統 Modal (雙層密碼安全解鎖) -->
+<div class="mgmt-modal-overlay" id="teacherMgmtModal" onclick="closeTeacherMgmtModal()">
+  <div class="mgmt-frame" onclick="event.stopPropagation()">
+    <div class="mgmt-header">
+      <div class="mgmt-title-group">
+        <h3>📊 115 國文特教課堂教學管理系統</h3>
+        <p>雙層密碼安全隔離 ｜ 01~06個別作業追蹤 ｜ 跨課歷程與IEP輔導</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span id="mgmtAuthStatusBadge" style="font-size:12pt; background:rgba(255,255,255,0.2); padding:4px 12px; border-radius:20px;">未驗證</span>
+        <button class="tool-btn" style="background:#ffffff; color:#0f172a; font-size:13pt;" onclick="closeTeacherMgmtModal()">✕ 關閉</button>
+      </div>
+    </div>
+
+    <!-- 管理功能切換分頁列 -->
+    <div class="mgmt-tabs">
+      <button class="mgmt-tab-btn active" onclick="switchMgmtTab('hw')">📋 個別作業追蹤 (一級權限)</button>
+      <button class="mgmt-tab-btn" onclick="switchMgmtTab('mission')">🎯 個別任務指派 (一級權限)</button>
+      <button class="mgmt-tab-btn" onclick="switchMgmtTab('score')">📊 紙本/測驗成績登錄 (二級權限)</button>
+      <button class="mgmt-tab-btn" onclick="switchMgmtTab('stats')">📈 成績統計與跨課歷程 (二級權限)</button>
+      <button class="mgmt-tab-btn" onclick="switchMgmtTab('counsel')">🔒 IEP個別輔導紀錄 (二級權限)</button>
+    </div>
+
+    <div class="mgmt-body">
+      <!-- 1. 個別作業追蹤 (一級) -->
+      <div id="mgmtPane-hw" class="mgmt-pane" style="display:block;">
+        <div id="hwAuthLock" class="auth-lock-card">
+          <h4>🔑 請輸入：密碼 1</h4>
+          <p style="color:#64748b; font-size:12pt;">日常課堂管理（聯絡簿與作業追蹤）</p>
+          <input type="password" id="inputL1Pin" class="auth-pin-input" placeholder="密碼 1" maxlength="12">
+          <br>
+          <button class="tool-btn primary" onclick="submitVerifyL1()">🔓 驗證進入</button>
+        </div>
+        <div id="hwMainContent" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="font-weight:bold; color:#0369a1;">特教學生 01~06 號作業完成狀態：</div>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+              <button class="tool-btn" style="background:#38bdf8; color:#0f172a;" onclick="fetchHomeworkListFromCloud()">🔄 讀取最新狀態</button>
+              <button class="tool-btn" id="btnNextHomeworkItem" style="background:#fef3c7; color:#92400e; border:1.5px solid #f59e0b; font-weight:bold;" onclick="prepareNextHomeworkRecord()">➕ 新增下一項作業記錄</button>
+              <button class="tool-btn primary" onclick="saveHomeworkToCloud()">💾 儲存並同步黑板</button>
+            </div>
+          </div>
+          <!-- 作業儲存成功即時提示與快速引導橫幅 -->
+          <div id="mgmtHwSavePromptBanner" style="display:none; background:#ecfdf5; border:1.5px solid #10b981; border-radius:10px; padding:12px 18px; margin-bottom:14px; color:#065f46; font-size:13.5pt; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; box-shadow:0 2px 6px rgba(16,185,129,0.15);">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:20pt;">🎉</span>
+              <div>
+                <div style="font-weight:bold; color:#047857; font-size:14pt;" id="mgmtHwSavePromptTitle">作業進度已成功同步儲存至雲端試算表！</div>
+                <div style="font-size:12pt; color:#065f46; margin-top:2px;" id="mgmtHwSavePromptDesc">已成功寫入「成績」與「評語與備註」欄位至【📋 個別作業追蹤】。</div>
+              </div>
+            </div>
+            <button class="tool-btn" style="background:#059669; color:#fff; border:none; padding:7px 15px; font-weight:bold; font-size:12.5pt; border-radius:8px;" onclick="prepareNextHomeworkRecord()">➕ 新增下一項作業記錄</button>
+          </div>
+          <table class="mgmt-table" id="tableHomeworkStatus">
+            <thead>
+              <tr>
+                <th style="width:70px;">座號</th>
+                <th style="width:110px;">姓名</th>
+                <th>當前作業狀態 (點擊切換)</th>
+                <th>未交/待補項目說明</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyHomework">
+              <!-- 動態生成 01~06 號 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 1.5. 個別任務指派與導航 (一級) -->
+      <div id="mgmtPane-mission" class="mgmt-pane" style="display:none;">
+        <div id="missionAuthLock" class="auth-lock-card">
+          <h4>🔑 請輸入：密碼 1</h4>
+          <p style="color:#64748b; font-size:12pt;">日常課堂管理（個別任務指派與起始點導航）</p>
+          <input type="password" id="inputL1Pin-mission" class="auth-pin-input" placeholder="密碼 1" maxlength="12">
+          <br>
+          <button class="tool-btn primary" onclick="submitVerifyL1('mission')">🔓 驗證進入</button>
+        </div>
+        <div id="missionMainContent" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="font-weight:bold; color:#0369a1;">🎯 學生個別化任務指派（可設定各座號今日起始題型）：</div>
+            <div style="display:flex; gap:8px;">
+              <button class="tool-btn" style="background:#e0f2fe; color:#0369a1;" onclick="resetAllMissionsToAuto()">🔄 全班重設為自動接續</button>
+              <button class="tool-btn primary" onclick="saveMissionsToCloud()">💾 儲存任務指派</button>
+            </div>
+          </div>
+          <table class="mgmt-table" id="tableStudentMissions">
+            <thead>
+              <tr>
+                <th style="width:65px;">座號</th>
+                <th style="width:110px;">學生姓名</th>
+                <th style="width:180px;">上次練習紀錄</th>
+                <th>今日指定起始任務 / 題型</th>
+                <th style="width:120px;">預覽導航</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyStudentMissions">
+              <!-- 動態生成 01~06 號 -->
+            </tbody>
+          </table>
+          <div id="mgmtMissionSaveMsg" style="margin-top:10px; font-weight:bold; color:#15803d; text-align:right;"></div>
+        </div>
+      </div>
+
+      <!-- 2. 紙本成績登錄 (二級) -->
+      <div id="mgmtPane-score" class="mgmt-pane" style="display:none;">
+        <div id="scoreAuthLock" class="auth-lock-card">
+          <h4>🔑 請輸入：密碼 2</h4>
+          <p style="color:#64748b; font-size:12pt;">成績登錄與管理保護</p>
+          <input type="password" id="inputL2Pin-score" class="auth-pin-input" placeholder="密碼 2" maxlength="12">
+          <br>
+          <button class="tool-btn primary" onclick="submitVerifyL2('score')">🔓 解鎖成績登錄</button>
+        </div>
+        <div id="scoreMainContent" style="display:none;">
+          <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:16px; margin-bottom:16px;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:12px;">
+              <div>
+                <label style="font-weight:bold; color:#1e293b; display:block; margin-bottom:4px;">評量日期：</label>
+                <input type="date" id="scoreRecordDate" class="chalk-input" style="background:#fff; color:#000; border:1px solid #94a3b8; font-size:13pt;">
+              </div>
+              <div>
+                <label style="font-weight:bold; color:#1e293b; display:block; margin-bottom:4px;">評量大標 / 測驗項目：</label>
+                <input type="text" id="scoreRecordTitle" class="chalk-input" style="background:#fff; color:#000; border:1px solid #94a3b8; font-size:13pt;" placeholder="例：課文聽寫小考(紙本)">
+              </div>
+            </div>
+            <table class="mgmt-table">
+              <thead>
+                <tr>
+                  <th>01號</th><th>02號</th><th>03號</th><th>04號</th><th>05號</th><th>06號</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="number" id="sc_01" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                  <td><input type="number" id="sc_02" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                  <td><input type="number" id="sc_03" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                  <td><input type="number" id="sc_04" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                  <td><input type="number" id="sc_05" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                  <td><input type="number" id="sc_06" class="chalk-input" style="background:#fff; color:#000; text-align:center; padding:4px;" min="0" max="100"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="text-align:right; margin-top:14px;">
+              <button class="tool-btn primary" onclick="submitManualScoresToCloud()">💾 儲存並寫入成績庫</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 成績統計與跨課歷程 (二級) -->
+      <div id="mgmtPane-stats" class="mgmt-pane" style="display:none;">
+        <div id="statsAuthLock" class="auth-lock-card">
+          <h4>🔑 請輸入：密碼 2</h4>
+          <p style="color:#64748b; font-size:12pt;">成績統計與測驗歷程</p>
+          <input type="password" id="inputL2Pin-stats" class="auth-pin-input" placeholder="密碼 2" maxlength="12">
+          <br>
+          <button class="tool-btn primary" onclick="submitVerifyL2('stats')">🔓 解鎖統計歷程</button>
+        </div>
+        <div id="statsMainContent" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:bold; color:#0369a1;">全班學期平均與單課歷程：</span>
+            <button class="tool-btn" style="background:#38bdf8; color:#0f172a;" onclick="fetchScoreStatsFromCloud()">🔄 重新整理歷程</button>
+          </div>
+          <div id="statsSummaryContainer" style="background:#fff; border-radius:8px; padding:16px; border:1px solid #cbd5e1;">
+            載入中...
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. IEP 個別輔導紀錄 (二級) -->
+      <div id="mgmtPane-counsel" class="mgmt-pane" style="display:none;">
+        <div id="counselAuthLock" class="auth-lock-card">
+          <h4>🔑 請輸入：密碼 2</h4>
+          <p style="color:#64748b; font-size:12pt;">特教課堂觀察與 IEP 個別輔導紀錄</p>
+          <input type="password" id="inputL2Pin-counsel" class="auth-pin-input" placeholder="密碼 2" maxlength="12">
+          <br>
+          <button class="tool-btn primary" onclick="submitVerifyL2('counsel')">🔓 解鎖 IEP 紀錄</button>
+        </div>
+        <div id="counselMainContent" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:bold; color:#0369a1;">個別化教育計畫 (IEP) 課堂觀察與引導紀錄：</span>
+            <button class="tool-btn" style="background:#38bdf8; color:#0f172a;" onclick="fetchCounselingLogsFromCloud()">🔄 讀取最新紀錄</button>
+          </div>
+          <div id="counselLogsContainer" style="background:#fff; border-radius:8px; padding:16px; border:1px solid #cbd5e1; max-height:280px; overflow-y:auto; margin-bottom:14px;">
+            載入中...
+          </div>
+          <div style="background:#eff6ff; padding:14px; border-radius:8px; border:1px solid #bfdbfe;">
+            <h5 style="margin:0 0 8px 0; font-size:14pt; color:#1e40af;">✍️ 新增課堂輔導紀錄：</h5>
+            <div style="display:flex; gap:10px; margin-bottom:8px; flex-wrap:wrap;">
+              <select id="newLogSeat" class="chalk-input" style="background:#fff; color:#000; width:130px; font-size:13pt; padding:6px;">
+                <option value="01">01號</option><option value="02">02號</option><option value="03">03號</option>
+                <option value="04">04號</option><option value="05">05號</option><option value="06">06號</option>
+              </select>
+              <input type="text" id="newLogSummary" class="chalk-input" style="background:#fff; color:#000; flex:1; font-size:13pt;" placeholder="摘要：課堂情緒／學習卡關／突破表現">
+            </div>
+            <textarea id="newLogDetail" class="chalk-input" style="background:#fff; color:#000; width:100%; height:70px; font-size:13pt;" placeholder="詳細引導策略與後續建議..."></textarea>
+            <div style="text-align:right; margin-top:8px;">
+              <button class="tool-btn primary" onclick="submitNewCounselingLogToCloud()">💾 儲存輔導紀錄</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 浮動展開選單與分頁膠囊 (支援規範第16條大屏收合) -->
+<button class="floating-expand-capsule" id="floatingExpandCapsule" onclick="toggleTopBarsExpansion()">🔽 展開選單與分頁</button>
+
+<!-- 3. JavaScript 函式庫 -->
+<script id="classroom-mgmt-scripts">
+  // ==================== 115國文特教課堂教學管理系統 API 常數 ====================
+  const MANAGEMENT_API_URL = "https://script.google.com/macros/s/AKfycbz55BvjA24C7uR5VN1oRvMGO9NvciNGBGIyrobwjHXhslDlZEMDCAnubqiNNvoBFWUemw/exec";
+  const CURRENT_LESSON_KEY = "L4 愛蓮說"; // 請於新課時依課次名稱修改
+
+  let teacherL1Verified = false;
+  let teacherL2Verified = false;
+  let cachedTeacherL1Pin = "";
+  let cachedTeacherL2Pin = "";
+
+  // 共用：以 POST 本文呼叫後端（密碼不放在網址上）
+  async function callMgmtApi(payload) {
+    const resp = await fetch(MANAGEMENT_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    return resp.json();
+  }
+
+  // 共用：顯示文字前先跳脫 HTML，避免試算表內容被當成程式碼執行
+  function escapeHtml(v) {
+    return String(v === undefined || v === null ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function getTodayROCShort() {
+    const now = new Date();
+    return `${now.getFullYear() - 1911}/${String(now.getMonth() + 1).padStart(2, '0')}/${String(now.getDate()).padStart(2, '0')}`;
+  }
+
+  // 學生名冊預設
+  let studentRoster = [
+    { seat: "01", name: "學生01", status: "🟢 已完成", pending: "" },
+    { seat: "02", name: "學生02", status: "🟢 已完成", pending: "" },
+    { seat: "03", name: "學生03", status: "🟢 已完成", pending: "" },
+    { seat: "04", name: "學生04", status: "🟢 已完成", pending: "" },
+    { seat: "05", name: "學生05", status: "🟢 已完成", pending: "" },
+    { seat: "06", name: "學生06", status: "🟢 已完成", pending: "" }
+  ];
+
+  // ==================== 黑板聯絡簿邏輯 ====================
+  function openContactBookModal() {
+    const modal = document.getElementById('contactBookModal');
+    if (modal) modal.style.display = 'flex';
+    fetchContactBookFromCloud(true);
+  }
+
+  function closeContactBookModal() {
+    const modal = document.getElementById('contactBookModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function applyTodayROCDate() {
+    const now = new Date();
+    const rocYear = now.getFullYear() - 1911;
+    const m = now.getMonth() + 1;
+    const d = now.getDate();
+    const weekMap = ["日", "一", "二", "三", "四", "五", "六"];
+    const w = weekMap[now.getDay()];
+    document.getElementById('cbDate').value = `${rocYear}年${m}月${d}日(${w})`;
+  }
+
+  async function fetchContactBookFromCloud(silent = false) {
+    try {
+      const res = await callMgmtApi({ action: 'getContactBook' });
+      if (res.status === 'success') {
+        if (res.date) document.getElementById('cbDate').value = res.date;
+        const prog = res.progress || res.lesson || '';
+        if (prog) document.getElementById('cbProgress').value = prog;
+        if (res.homework) document.getElementById('cbHomework').value = res.homework;
+        if (res.scoreAnnouncement) document.getElementById('cbScoreAnnouncement').value = res.scoreAnnouncement;
+        if (res.pendingList) document.getElementById('cbPendingList').value = res.pendingList;
+        if (!silent) alert('✅ 已從雲端更新黑板聯絡簿！');
+      }
+    } catch (e) {
+      if (!silent) console.log('離線或讀取失敗:', e);
+    }
+  }
+
+  async function saveContactBookToCloud() {
+    if (!teacherL1Verified && !cachedTeacherL1Pin) {
+      const pin = prompt('🔑 請輸入：密碼 1');
+      if (!pin) return;
+      cachedTeacherL1Pin = pin.trim();
+    }
+    const progVal = document.getElementById('cbProgress').value;
+    const payload = {
+      action: 'updateContactBook',
+      password: cachedTeacherL1Pin,
+      date: document.getElementById('cbDate').value,
+      progress: progVal,
+      lesson: progVal,
+      homework: document.getElementById('cbHomework').value,
+      scoreAnnouncement: document.getElementById('cbScoreAnnouncement').value,
+      pendingList: document.getElementById('cbPendingList').value
+    };
+    try {
+      const res = await callMgmtApi(payload);
+      if (res.status === 'success') {
+        alert('✅ 黑板聯絡簿已成功發布並同步至雲端試算表！');
+      } else {
+        alert('發布回傳：' + res.message);
+      }
+    } catch (e) {
+      alert('發布異常，請檢查網路連線。');
+    }
+  }
+
+  function syncPendingFromHomeworkStatus() {
+    let uncompleted = [];
+    studentRoster.forEach(s => {
+      if (s.status.includes('未交') || s.status.includes('部分')) {
+        uncompleted.push(`${s.seat}號(${s.pending || '待補'})`);
+      }
+    });
+    const str = uncompleted.length > 0 ? uncompleted.join('、') : '全班作業皆已完成！';
+    document.getElementById('cbPendingList').value = str;
+  }
+
+  // ==================== 教學管理系統邏輯 ====================
+  function openTeacherMgmtModal() {
+    const modal = document.getElementById('teacherMgmtModal');
+    if (modal) modal.style.display = 'flex';
+    renderHwTable();
+    const todayIso = new Date().toISOString().split('T')[0];
+    const dateInp = document.getElementById('scoreRecordDate');
+    if (dateInp && !dateInp.value) dateInp.value = todayIso;
+  }
+
+  function closeTeacherMgmtModal() {
+    const modal = document.getElementById('teacherMgmtModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function switchMgmtTab(tabKey) {
+    document.querySelectorAll('.mgmt-tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.mgmt-pane').forEach(p => p.style.display = 'none');
+    event.currentTarget.classList.add('active');
+    const target = document.getElementById('mgmtPane-' + tabKey);
+    if (target) target.style.display = 'block';
+  }
+
+  async function submitVerifyL1() {
+    const pin = document.getElementById('inputL1Pin').value.trim();
+    try {
+      const res = await callMgmtApi({ action: 'verifyLevel1', password: pin });
+      if (res.status === 'success' && res.verified) {
+        teacherL1Verified = true;
+        cachedTeacherL1Pin = pin;
+        document.getElementById('hwAuthLock').style.display = 'none';
+        document.getElementById('hwMainContent').style.display = 'block';
+        if (document.getElementById('missionAuthLock')) {
+          document.getElementById('missionAuthLock').style.display = 'none';
+          document.getElementById('missionMainContent').style.display = 'block';
+        }
+        updateMgmtBadge();
+        fetchHomeworkListFromCloud();
+      } else {
+        alert(res.locked ? ('🔒 ' + res.message) : '❌ 密碼 1 錯誤，請重新輸入！');
+      }
+    } catch (e) {
+      alert('連線失敗，請稍後再試。');
+    }
+  }
+
+  async function submitVerifyL2(paneKey) {
+    const inp = document.getElementById('inputL2Pin-' + paneKey);
+    const pin = inp ? inp.value.trim() : '';
+    try {
+      const res = await callMgmtApi({ action: 'verifyLevel2', password: pin });
+      if (res.status === 'success' && res.verified) {
+        teacherL2Verified = true;
+        cachedTeacherL2Pin = pin;
+        document.querySelectorAll('[id$="AuthLock"]').forEach(el => {
+          if (el.id !== 'hwAuthLock') el.style.display = 'none';
+        });
+        document.getElementById('scoreMainContent').style.display = 'block';
+        document.getElementById('statsMainContent').style.display = 'block';
+        document.getElementById('counselMainContent').style.display = 'block';
+        updateMgmtBadge();
+        if (paneKey === 'stats') fetchScoreStatsFromCloud();
+        if (paneKey === 'counsel') fetchCounselingLogsFromCloud();
+      } else {
+        alert(res.locked ? ('🔒 ' + res.message) : '❌ 密碼 2 錯誤，請重新輸入！');
+      }
+    } catch (e) {
+      alert('驗證連線失敗。');
+    }
+  }
+
+  function updateMgmtBadge() {
+    const badge = document.getElementById('mgmtAuthStatusBadge');
+    if (!badge) return;
+    if (teacherL2Verified) {
+      badge.innerText = '二級完全權限';
+      badge.style.background = '#22c55e';
+    } else if (teacherL1Verified) {
+      badge.innerText = '一級作業權限';
+      badge.style.background = '#eab308';
+    }
+  }
+
+  function renderHwTable() {
+    const tb = document.getElementById('tbodyHomework');
+    if (!tb) return;
+    tb.innerHTML = '';
+    studentRoster.forEach((s, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="font-weight:bold;">${escapeHtml(s.seat)}號</td>
+        <td>${escapeHtml(s.name)}</td>
+        <td>
+          <button class="tool-btn" style="font-size:12pt; padding:6px 12px;" onclick="cycleHwStatus(${idx})">
+            ${escapeHtml(s.status)}
+          </button>
+        </td>
+        <td>
+          <input type="text" class="chalk-input" style="background:#fff; color:#000; border:1px solid #cbd5e1; font-size:12pt; padding:6px;" value="${escapeHtml(s.pending || '')}" onchange="updatePendingDesc(${idx}, this.value)" placeholder="例：缺學習單第2題">
+        </td>
+      `;
+      tb.appendChild(tr);
+    });
+  }
+
+  function cycleHwStatus(idx) {
+    const cur = studentRoster[idx].status;
+    if (cur.includes('已完成')) studentRoster[idx].status = '🔴 未交';
+    else if (cur.includes('未交')) studentRoster[idx].status = '🟡 部分繳交';
+    else studentRoster[idx].status = '🟢 已完成';
+    renderHwTable();
+  }
+
+  function updatePendingDesc(idx, val) {
+    studentRoster[idx].pending = val;
+  }
+
+  // 讀取作業：後端是逐筆累積的歷程，這裡取「本課、每個座號最新的一筆」
+  async function fetchHomeworkListFromCloud() {
+    try {
+      const res = await callMgmtApi({ action: 'getHomeworkList', password: cachedTeacherL1Pin });
+      if (res.status === 'success' && Array.isArray(res.data) && res.data.length > 0) {
+        const latest = {};
+        res.data.forEach(r => {
+          const seat = String(r.seat).padStart(2, '0');
+          if (String(r.lesson) === CURRENT_LESSON_KEY || !latest[seat]) latest[seat] = r;
+        });
+        studentRoster = studentRoster.map(s => {
+          const r = latest[s.seat];
+          return r ? { ...s, status: r.status || s.status, pending: r.pendingDetails || '' } : s;
+        });
+        renderHwTable();
+      }
+    } catch (e) {
+      console.log('讀取作業清單失敗:', e);
+    }
+  }
+
+  function prepareNextHomeworkRecord() {
+    studentRoster.forEach(s => {
+      s.status = '🟢 已完成';
+      s.pending = '';
+    });
+    renderHwTable();
+    const banner = document.getElementById('mgmtHwSavePromptBanner');
+    if (banner) {
+      banner.style.display = 'flex';
+      banner.style.background = '#eff6ff';
+      banner.style.borderColor = '#3b82f6';
+      banner.style.color = '#1e40af';
+      const title = document.getElementById('mgmtHwSavePromptTitle');
+      const desc = document.getElementById('mgmtHwSavePromptDesc');
+      if (title) title.innerHTML = '✏️ 已為您清空並準備好「下一項作業記錄」！';
+      if (desc) desc.innerText = '請直接於下方各學生列標記新作業狀態與說明。';
+    }
+    if (typeof showProgressToast === 'function') {
+      showProgressToast('已準備好登記下一項作業記錄');
+    }
+  }
+
+  async function saveHomeworkToCloud() {
+    if (!teacherL1Verified) {
+      alert('🔒 請先驗證第一層教師密碼。');
+      return;
+    }
+    const today = getTodayROCShort();
+    const payload = {
+      action: 'updateHomeworkBatch',
+      password: cachedTeacherL1Pin,
+      updates: studentRoster.map(s => ({
+        date: today,
+        lesson: CURRENT_LESSON_KEY,
+        seat: s.seat,
+        item: '課堂作業',
+        status: s.status,
+        pendingDetails: s.pending || ''
+      }))
+    };
+    try {
+      const res = await callMgmtApi(payload);
+      if (res.status === 'success') {
+        syncPendingFromHomeworkStatus();
+        const banner = document.getElementById('mgmtHwSavePromptBanner');
+        if (banner) {
+          banner.style.display = 'flex';
+          banner.style.background = '#ecfdf5';
+          banner.style.borderColor = '#10b981';
+          banner.style.color = '#065f46';
+          const title = document.getElementById('mgmtHwSavePromptTitle');
+          const desc = document.getElementById('mgmtHwSavePromptDesc');
+          if (title) title.innerHTML = '🎉 作業進度已成功同步儲存至雲端試算表！';
+          if (desc) desc.innerText = '已成功寫入「成績」與「評語與備註」欄位至【📋 個別作業追蹤】。';
+        }
+        alert('🎉 全班作業進度已成功同步寫入 Google 試算表，且已自動連動更新至黑板聯絡簿！\n\n📌 已同步寫入欄位：\n・作業項目名稱\n・繳交狀態\n・成績\n・評語與備註\n\n如需登記其他作業，可點擊「➕ 新增下一項作業記錄」。');
+      } else {
+        alert('儲存回傳：' + res.message);
+      }
+    } catch (e) {
+      alert('儲存作業狀態失敗。');
+    }
+  }
+
+  async function submitManualScoresToCloud() {
+    if (!teacherL2Verified) {
+      alert('🔒 請先驗證第二層教師密碼。');
+      return;
+    }
+    const recordDate = document.getElementById('scoreRecordDate').value;
+    const title = document.getElementById('scoreRecordTitle').value || '紙本評量';
+    const scores = [];
+    ['01', '02', '03', '04', '05', '06'].forEach(seat => {
+      const el = document.getElementById('sc_' + seat);
+      const val = el ? el.value.trim() : '';
+      if (val !== '') {
+        scores.push({ date: recordDate, lesson: CURRENT_LESSON_KEY, category: title, subCategory: '', seat, score: Number(val), maxScore: 100 });
+      }
+    });
+    if (scores.length === 0) {
+      alert('請至少填寫一位學生的分數！');
+      return;
+    }
+    try {
+      const res = await callMgmtApi({ action: 'addPaperScores', password: cachedTeacherL2Pin, scores });
+      if (res.status === 'success') {
+        alert('✅ 成績已成功寫入中央試算表資料庫！');
+      } else {
+        alert('回傳訊息：' + res.message);
+      }
+    } catch (e) {
+      alert('成績送出失敗，請檢查網路。');
+    }
+  }
+
+  async function fetchScoreStatsFromCloud() {
+    const box = document.getElementById('statsSummaryContainer');
+    box.innerHTML = '正在計算全班學期平均與跨課歷程...';
+    try {
+      const res = await callMgmtApi({ action: 'getScoreStats', password: cachedTeacherL2Pin });
+      if (res.status === 'success' && Array.isArray(res.statsSummary)) {
+        const head = ['座號', '學期平時總平均', 'L4 愛蓮說', '一段作文', '生詞1 (L1)', '生詞1 (L2)', '趨勢'];
+        const fmt = v => (typeof v === 'number') ? (Math.round(v * 10) / 10) : escapeHtml(v);
+        box.innerHTML = `
+          <table style="width:100%; border-collapse:collapse; font-size:13pt;">
+            <thead><tr>${head.map(h => `<th style="border:1px solid #cbd5e1; padding:6px; background:#f1f5f9;">${h}</th>`).join('')}</tr></thead>
+            <tbody>${res.statsSummary.map(row => `<tr>${row.slice(0, 7).map(c => `<td style="border:1px solid #e2e8f0; padding:6px; text-align:center;">${fmt(c)}</td>`).join('')}</tr>`).join('')}</tbody>
+          </table>`;
+      } else {
+        box.innerHTML = '查無資料或權限不足。';
+      }
+    } catch (e) {
+      box.innerHTML = '歷程讀取失敗。';
+    }
+  }
+
+  // 輔導紀錄欄位：[日期, 座號, 課堂觀察, 處遇措施, 成效追蹤, 記錄教師]
+  async function fetchCounselingLogsFromCloud() {
+    const box = document.getElementById('counselLogsContainer');
+    box.innerHTML = '讀取 IEP 紀錄中...';
+    try {
+      const res = await callMgmtApi({ action: 'getCounselingLogs', password: cachedTeacherL2Pin });
+      if (res.status === 'success' && Array.isArray(res.logs)) {
+        if (res.logs.length === 0) {
+          box.innerHTML = '尚無紀錄。';
+          return;
+        }
+        box.innerHTML = res.logs.slice().reverse().map(l => `
+          <div style="border-bottom:1px solid #e2e8f0; padding:8px 0;">
+            <div style="font-weight:bold; color:#0369a1;">[${escapeHtml(l[0])}] ${escapeHtml(l[1])}號 - ${escapeHtml(l[2])}</div>
+            <div style="color:#475569; font-size:12pt; margin-top:2px;">${escapeHtml(l[3])}${l[4] ? '｜成效：' + escapeHtml(l[4]) : ''}</div>
+          </div>`).join('');
+      } else {
+        box.innerHTML = '查無資料或權限不足。';
+      }
+    } catch (e) {
+      box.innerHTML = '讀取紀錄失敗。';
+    }
+  }
+
+  async function submitNewCounselingLogToCloud() {
+    const summary = document.getElementById('newLogSummary').value;
+    const detail = document.getElementById('newLogDetail').value;
+    if (!summary) {
+      alert('請填寫紀錄摘要！');
+      return;
+    }
+    const payload = {
+      action: 'addCounselingLog',
+      password: cachedTeacherL2Pin,
+      date: getTodayROCShort(),
+      seat: document.getElementById('newLogSeat').value,
+      observation: summary,
+      actionTaken: detail,
+      followUp: ''
+    };
+    try {
+      const res = await callMgmtApi(payload);
+      if (res.status === 'success') {
+        alert('✅ IEP 輔導紀錄已成功儲存！');
+        document.getElementById('newLogSummary').value = '';
+        document.getElementById('newLogDetail').value = '';
+        fetchCounselingLogsFromCloud();
+      } else {
+        alert('儲存回傳：' + res.message);
+      }
+    } catch (e) {
+      alert('儲存紀錄失敗。');
+    }
+  }
+
+  // ==================== 線上測驗交卷自動串接 ====================
+  function sendRecordToManagementSystem(studentNum, studentName, score, details) {
+    const payload = {
+      action: "submitOnlineQuiz",
+      lesson: CURRENT_LESSON_KEY,
+      category: "線上測驗",
+      subCategory: "全課綜合評量",
+      seat: studentNum,
+      name: studentName,
+      score: score,
+      maxScore: 100,
+      note: details
+    };
+    fetch(MANAGEMENT_API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).catch(err => console.log("管理系統連線離線回退:", err));
+  }
+
+  // ==================== 規範第16條：大屏版面最大化收合聯動 ====================
+  function toggleTopBarsExpansion() {
+    const topBar = document.querySelector('header.top-bar') || document.querySelector('.top-nav') || document.querySelector('header');
+    const navTabs = document.querySelector('nav.nav-tabs') || document.querySelector('.tab-buttons') || document.querySelector('.nav-bar');
+    const capsule = document.getElementById('floatingExpandCapsule');
+
+    const isCollapsed = topBar ? topBar.classList.contains('collapsed') : false;
+
+    if (!isCollapsed) {
+      if (topBar) topBar.classList.add('collapsed');
+      if (navTabs) navTabs.classList.add('collapsed');
+      if (capsule) capsule.style.display = 'block';
+    } else {
+      if (topBar) topBar.classList.remove('collapsed');
+      if (navTabs) navTabs.classList.remove('collapsed');
+      if (capsule) capsule.style.display = 'none';
+    }
+  }
+</script>
