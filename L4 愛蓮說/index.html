@@ -1594,6 +1594,328 @@
       line-height: 1.85;
     }
 
+    /* 習作 P.25 植物象徵樹狀圖專用樣式 */
+    .p25-tree-card {
+      background: #ffffff;
+      border: 3px solid #0284c7;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.08);
+      margin-bottom: 24px;
+    }
+    .p25-tree-wrapper {
+      overflow-x: auto;
+      padding: 16px 8px;
+      background: #f0f9ff;
+      border-radius: 14px;
+      border: 1.5px dashed #7dd3fc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 920px;
+    }
+    .p25-root-node {
+      background: #bae6fd;
+      border: 2.5px solid #0284c7;
+      color: #0369a1;
+      font-size: 18pt;
+      font-weight: 900;
+      padding: 8px 32px;
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .p25-root-node::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 3px;
+      height: 20px;
+      background: #0284c7;
+    }
+    .p25-branches-bar {
+      position: relative;
+      width: 86%;
+      height: 3px;
+      background: #0284c7;
+      margin-bottom: 20px;
+    }
+    .p25-columns-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 14px;
+      direction: rtl; /* 由右至左比照習作 */
+    }
+    .p25-col-card {
+      direction: ltr;
+      flex: 1;
+      min-width: 135px;
+      max-width: 165px;
+      background: #ffffff;
+      border: 2.5px solid #38bdf8;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .p25-col-card::before {
+      content: '';
+      position: absolute;
+      top: -23px;
+      left: 50%;
+      width: 3px;
+      height: 22px;
+      background: #0284c7;
+    }
+    .p25-tag-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1.5px solid #7dd3fc;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 14.5pt;
+      font-weight: 900;
+      margin-bottom: 12px;
+      white-space: nowrap;
+    }
+    .p25-tag-badge.example {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border-color: #3b82f6;
+    }
+    .p25-desc-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      height: 320px;
+      font-family: 'DFKai-SB', '標楷體', 'BiauKai', serif;
+      font-size: 15.5pt;
+      line-height: 1.75;
+      color: #1e293b;
+      letter-spacing: 2px;
+      padding: 8px 4px;
+      border-top: 1px dashed #cbd5e1;
+      border-bottom: 1px dashed #cbd5e1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .p25-note-bubble {
+      font-size: 11pt;
+      color: #db2777;
+      background: #fdf2f8;
+      border: 1px solid #fbcfe8;
+      border-radius: 8px;
+      padding: 4px 8px;
+      margin: 8px 0;
+      text-align: center;
+      line-height: 1.35;
+      width: 100%;
+      font-weight: bold;
+    }
+    .p25-ans-box {
+      width: 100%;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .p25-ans-slot {
+      display: block;
+      width: 100%;
+      padding: 8px 4px;
+      border: 2px dashed #93c5fd;
+      background: #f8fafc;
+      border-radius: 10px;
+      font-size: 16pt;
+      font-weight: 900;
+      color: #0369a1;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      font-family: 'DFKai-SB', '標楷體', 'BiauKai', serif;
+    }
+    .p25-ans-slot:hover {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      transform: scale(1.03);
+    }
+    .p25-ans-slot.revealed {
+      border: 2px solid #dc2626 !important;
+      background: #fef2f2 !important;
+      color: #dc2626 !important;
+    }
+
+    /* 習作 P.28 「物」的聯想專用樣式 */
+    .p28-box {
+      background: #ffffff;
+      border: 3px solid #10b981;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.08);
+      margin-bottom: 24px;
+    }
+    .p28-idiom-bank {
+      background: #ecfdf5;
+      border: 2px solid #6ee7b7;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+    }
+    .p28-idiom-pill {
+      background: #ffffff;
+      border: 2px solid #34d399;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 15.5pt;
+      font-weight: 900;
+      color: #065f46;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .p28-idiom-pill:hover {
+      background: #d1fae5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2);
+    }
+    .p28-idiom-pill.active-select {
+      background: #059669;
+      color: #ffffff;
+      border-color: #047857;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.4);
+    }
+    .p28-item-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      transition: all 0.15s ease;
+    }
+    .p28-item-card:hover {
+      border-color: #6ee7b7;
+      background: #ffffff;
+    }
+    .p28-story-card {
+      background: #fffbeb;
+      border: 2px dashed #f59e0b;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+
+    /* 一次一題（Step-by-step）與拖曳配對專屬樣式 */
+    .single-q-card {
+      background: #ffffff;
+      border: 2.5px solid #0284c7;
+      border-radius: 18px;
+      padding: 24px;
+      box-shadow: 0 10px 25px rgba(2, 132, 199, 0.08);
+      margin-bottom: 20px;
+    }
+    .match-q-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      align-items: center;
+    }
+    .match-q-pill {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 14pt;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .match-q-pill:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+    .match-q-pill.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0369a1;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
+    }
+    .match-q-pill.done {
+      border-color: #22c55e;
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .match-dropzone {
+      min-height: 80px;
+      border: 3px dashed #93c5fd;
+      background: #f8fafc;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      font-size: 17pt;
+      font-weight: 900;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin: 16px 0;
+    }
+    .match-dropzone.drag-over {
+      border-color: #f59e0b;
+      background: #fef3c7;
+      transform: scale(1.02);
+    }
+    .match-dropzone.filled {
+      border: 3px solid #22c55e;
+      background: #f0fdf4;
+      color: #15803d;
+      font-size: 19pt;
+    }
+    .match-draggable-item {
+      cursor: grab;
+      user-select: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .match-draggable-item:active {
+      cursor: grabbing;
+      opacity: 0.7;
+    }
+    .match-detail-box {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-top: 14px;
+      line-height: 1.8;
+      font-size: 14.5pt;
+      color: #334155;
+      display: none;
+      animation: fadeInDetail 0.25s ease-out;
+    }
+    @keyframes fadeInDetail {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* 簡潔答對/答錯打勾打叉動畫 */
     @keyframes feedbackPop {
       0% {
@@ -1728,7 +2050,7 @@
     <button class="tab-btn" onclick="switchTab('tab-words2', this)">🔍 4. 詞語二</button>
     <button class="tab-btn" onclick="switchTab('tab-notes', this)">💡 5. 解釋</button>
     <button class="tab-btn" onclick="switchTab('tab-similar', this)">🔤 6. 相似字</button>
-    <button class="tab-btn" onclick="switchTab('tab-match', this)">🧩 7. 圖文配對</button>
+    <button class="tab-btn" onclick="switchTab('tab-match', this)">🧩 7. 習作配對（P.25/28）</button>
     <button class="tab-btn" onclick="switchTab('tab-seq', this)">⏳ 8. 課文順序</button>
     <button class="tab-btn" onclick="switchTab('tab-quiz', this)">🎯 9. 綜合評量</button>
   </nav>
@@ -3089,27 +3411,22 @@
         <div id="notes-focus-container"></div>
       </div>
 
-      <!-- 解釋 小試身手練習區 (三大題型：題型一 單選題 ＋ 題型二 詞與解釋配合題 ＋ 題型三 課文句子與君子美德配合題) -->
+      <!-- 解釋 小試身手練習區 (先配合題，再單選題：題型一 詞與解釋配合題 ＋ 題型二 課文句子與君子美德配合題 ＋ 題型三 注釋單選題) -->
       <div class="card" id="notes-quiz-section" style="border-top:4px solid #f59e0b;">
         <div class="card-header" style="flex-wrap:wrap; gap:10px;">
-          <div class="card-title">🎯 解釋 ‧ 課文注釋評量（三大題型）</div>
+          <div class="card-title">🎯 解釋 ‧ 課文注釋評量（先配合題，再單選題）</div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <button type="button" class="tool-btn primary" id="btnNotesType1" onclick="switchNotesQuizType('choice')" style="font-size:14pt;">題型一：注釋單選 (抽測20題)</button>
-            <button type="button" class="tool-btn" id="btnNotesType2" onclick="switchNotesQuizType('match')" style="font-size:14pt; background:#f8fafc; color:#1e293b;">題型二：詞釋配對 (全15則)</button>
-            <button type="button" class="tool-btn" id="btnNotesType3" onclick="switchNotesQuizType('virtue_match')" style="font-size:14pt; background:#f8fafc; color:#1e293b;">題型三：美德配對 (10組)</button>
+            <button type="button" class="tool-btn primary" id="btnNotesType2" onclick="switchNotesQuizType('match')" style="font-size:14pt;">🧩 題型一：詞釋配對 (全15則)</button>
+            <button type="button" class="tool-btn" id="btnNotesType3" onclick="switchNotesQuizType('virtue_match')" style="font-size:14pt; background:#f8fafc; color:#1e293b;">🪷 題型二：美德配對 (10組)</button>
+            <button type="button" class="tool-btn" id="btnNotesType1" onclick="switchNotesQuizType('choice')" style="font-size:14pt; background:#f8fafc; color:#1e293b;">📝 題型三：注釋單選 (抽測20題)</button>
           </div>
         </div>
 
-        <!-- 題型一：單選題容器 -->
-        <div id="notes-choice-container">
-          <div id="notes-unit-quiz-mount"></div>
-        </div>
-
-        <!-- 題型二：詞與解釋配合題容器 -->
-        <div id="notes-match-container" style="display:none; padding:12px 0;">
+        <!-- 題型一：詞與解釋配合題容器（先呈現） -->
+        <div id="notes-match-container" style="display:block; padding:12px 0;">
           <div style="background:#eff6ff; border:2px solid #93c5fd; border-radius:14px; padding:16px 20px; margin-bottom:18px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-              <span style="font-size:17pt; font-weight:900; color:#1e40af;">🧩 題型二：詞與解釋配對題（涵蓋全課 15 則注釋詞義）</span>
+              <span style="font-size:17pt; font-weight:900; color:#1e40af;">🧩 題型一：詞與解釋配對題（涵蓋全課 15 則注釋詞義）</span>
               <button type="button" class="tool-btn" onclick="initNotesMatchQuiz()" style="background:#ffffff; color:#0284c7; border:1.5px solid #0284c7; font-size:14pt;">🎲 重新洗牌 15 則</button>
             </div>
             <p style="font-size:15pt; color:#334155; margin:6px 0 0 0;">請先在下方「詞語庫」點選詞語，再點擊對應解釋的「👉 放入所選詞語」；或點擊 ✖ 清除重選！</p>
@@ -3157,6 +3474,11 @@
             </button>
           </div>
           <div id="notesVirtueMatchResult" style="display:none; margin-top:18px; padding:18px; border-radius:14px; text-align:center; font-size:18pt; font-weight:900;"></div>
+        </div>
+
+        <!-- 題型三：單選題容器（排在配合題之後） -->
+        <div id="notes-choice-container" style="display:none;">
+          <div id="notes-unit-quiz-mount"></div>
         </div>
 
         <div class="page-footer-nav no-print">
@@ -4538,32 +4860,314 @@
       </div>
     </section>
 
-    <!-- 【Tab 7】圖文配對 -->
+    <!-- 【Tab 7】習作配對（P.25/28）與圖文配對 -->
     <section class="tab-pane" id="tab-match">
       <div class="card">
-        <div class="card-header">
-          <div class="card-title">🧩 7. 圖文配對 ‧ 植物特質與象徵人品</div>
-          <span class="sec-badge">學習區</span>
+        <div class="card-header" style="flex-wrap:wrap; gap:10px;">
+          <div class="card-title">🧩 7. 習作配對實戰 ‧ 植物象徵與以物喻人（習作 P.25、P.28）</div>
+          <span class="sec-badge">習作互動評量</span>
         </div>
-        <p style="font-size:16pt; color:#64748b; margin-bottom:14px;">點擊左側花卉名稱，再點擊右側對應的象徵人品進行配對：</p>
-        
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;" id="matchContainer">
-          <div style="display:flex; flex-direction:column; gap:12px;">
-            <button class="tool-btn match-item-left" data-id="lotus" onclick="selectMatchLeft('lotus', this)" style="padding:12px; font-size:16pt;">🪷 蓮花（出淤泥而不染）</button>
-            <button class="tool-btn match-item-left" data-id="chrys" onclick="selectMatchLeft('chrys', this)" style="padding:12px; font-size:16pt;">🌼 菊花（陶淵明獨愛菊）</button>
-            <button class="tool-btn match-item-left" data-id="peony" onclick="selectMatchLeft('peony', this)" style="padding:12px; font-size:16pt;">🌺 牡丹（世人盛愛牡丹）</button>
-            <button class="tool-btn match-item-left" data-id="bamboo" onclick="selectMatchLeft('bamboo', this)" style="padding:12px; font-size:16pt;">🎋 竹子（中空有節）</button>
+
+        <!-- 3 個 Sub-tab 子頁籤切換按鈕 -->
+        <div style="display:flex; gap:12px; margin-bottom:20px; flex-wrap:wrap;" class="no-print">
+          <button type="button" id="subBtnP25" class="tool-btn primary" onclick="switchMatchSubTab('p25')" style="font-size:16pt; padding:10px 22px;">
+            🌸 習作 P.25「植物象徵配對」
+          </button>
+          <button type="button" id="subBtnP28" class="tool-btn" onclick="switchMatchSubTab('p28')" style="font-size:16pt; padding:10px 22px;">
+            🦆 習作 P.28「『物』的聯想」以物喻人
+          </button>
+          <button type="button" id="subBtnFlower" class="tool-btn" onclick="switchMatchSubTab('flower')" style="font-size:16pt; padding:10px 22px;">
+            🪷 課文延伸：四花人品象徵配對
+          </button>
+        </div>
+
+        <!-- =================== 子頁面 1: 習作 P.25 植物象徵配對 =================== -->
+        <div id="subPane-p25" class="match-subpane">
+          <!-- 頂部功能工具列 -->
+          <div style="background:#f0f9ff; border:2px solid #bae6fd; border-radius:14px; padding:14px 20px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;" class="no-print">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:16.5pt; font-weight:900; color:#0369a1;">📋 習作 P.25「三、植物象徵配對」</span>
+              <span id="p25ScoreBadge" style="font-size:14pt; background:#0284c7; color:#ffffff; padding:4px 14px; border-radius:999px; font-weight:900;">作答進度：0 / 5 (0分)</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" class="tool-btn" onclick="toggleP25ViewMode()" id="btnP25ToggleView" style="background:#ffffff; color:#0284c7; border:1.5px solid #0284c7; font-size:14pt; padding:8px 16px;">
+                🌳 切換樹狀總覽圖
+              </button>
+              <button type="button" class="tool-btn" onclick="readCurrentP25Q()" style="background:#ffffff; color:#0284c7; border:1.5px solid #0284c7; font-size:14pt; padding:8px 16px;">
+                🔊 讀題
+              </button>
+              <button type="button" class="tool-btn" onclick="toggleP25RevealAll(true)" style="background:#dc2626; color:#ffffff; font-size:14pt; padding:8px 16px;">
+                👁️ 揭曉答案
+              </button>
+              <button type="button" class="tool-btn" onclick="toggleP25RevealAll(false)" style="background:#64748b; color:#ffffff; font-size:14pt; padding:8px 16px;">
+                🙈 遮蔽
+              </button>
+              <button type="button" class="tool-btn" onclick="resetP25Quiz()" style="background:#ffffff; color:#475569; border:1.5px solid #cbd5e1; font-size:14pt; padding:8px 16px;">
+                🔄 重置作答
+              </button>
+            </div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:12px;">
-            <button class="tool-btn match-item-right" data-id="peony" onclick="selectMatchRight('peony', this)" style="padding:12px; font-size:16pt;">富貴者（追名逐利之人）</button>
-            <button class="tool-btn match-item-right" data-id="lotus" onclick="selectMatchRight('lotus', this)" style="padding:12px; font-size:16pt;">君子者（德行兼備高潔之人）</button>
-            <button class="tool-btn match-item-right" data-id="bamboo" onclick="selectMatchRight('bamboo', this)" style="padding:12px; font-size:16pt;">高風亮節（堅貞氣節）</button>
-            <button class="tool-btn match-item-right" data-id="chrys" onclick="selectMatchRight('chrys', this)" style="padding:12px; font-size:16pt;">隱逸者（消極避世高士）</button>
+
+          <!-- 一次一題互動卡片區（預設） -->
+          <div id="p25SingleView">
+            <!-- 題號導航列（依習作題序） -->
+            <div class="match-q-nav" id="p25QNav">
+              <button type="button" class="match-q-pill" onclick="goP25Question(0)" id="p25Nav-0">【範例】母愛</button>
+              <button type="button" class="match-q-pill active" onclick="goP25Question(1)" id="p25Nav-1">① 愛情</button>
+              <button type="button" class="match-q-pill" onclick="goP25Question(2)" id="p25Nav-2">② 堅忍不拔</button>
+              <button type="button" class="match-q-pill" onclick="goP25Question(3)" id="p25Nav-3">③ 高風亮節</button>
+              <button type="button" class="match-q-pill" onclick="goP25Question(4)" id="p25Nav-4">④ 清雅脫俗</button>
+              <button type="button" class="match-q-pill" onclick="goP25Question(5)" id="p25Nav-5">⑤ 離別</button>
+            </div>
+
+            <!-- 單題展示卡片 -->
+            <div class="single-q-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <span id="p25CurrentTag" style="font-size:18pt; font-weight:900; color:#0369a1; background:#e0f2fe; padding:6px 18px; border-radius:999px; border:2px solid #7dd3fc; cursor:pointer;" onclick="toggleP25Detail()" title="點擊查看或收合補充說明">
+                    ① 愛情
+                  </span>
+                  <span style="font-size:14pt; color:#64748b;">（點選特質標籤可查看典故補充說明）</span>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button type="button" class="tool-btn" onclick="prevP25Q()" style="padding:6px 14px; font-size:14pt;">⬅ 上一題</button>
+                  <button type="button" class="tool-btn" onclick="nextP25Q()" style="padding:6px 14px; font-size:14pt;">下一題 ➡️</button>
+                </div>
+              </div>
+
+              <!-- 拖曳或點選配對放置目標區 -->
+              <div class="match-dropzone" id="p25DropZone" 
+                   ondragover="handleDragOver(event)" 
+                   ondragleave="handleDragLeave(event)" 
+                   ondrop="handleP25Drop(event)"
+                   onclick="handleP25DropZoneClick()">
+                📥 點選下方植物 或 拖曳植物至此配對
+              </div>
+
+              <!-- 補充說明的文字（點選特質後或填答後才展開） -->
+              <div id="p25DetailBox" class="match-detail-box">
+                <div style="font-weight:900; color:#0284c7; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                  <span>📖 習作特質典故與說明：</span>
+                </div>
+                <div id="p25DetailContent" style="font-family:'DFKai-SB', '標楷體', 'BiauKai', serif; font-size:16pt; color:#1e293b; line-height:1.8;"></div>
+              </div>
+            </div>
+
+            <!-- 植物選項候選區（已填答者立即消失，支援拖曳或點選） -->
+            <div style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:14px; padding:18px 20px;">
+              <div style="font-size:15.5pt; font-weight:900; color:#0f172a; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span>🌱 植物候選選項（已填答配對成功將自動消失）：</span>
+                <span style="font-size:13pt; color:#64748b; font-weight:normal;">💡 支援拖曳植物卡片至上方空格，或直接點選填入</span>
+              </div>
+              <div id="p25PlantPool" style="display:flex; flex-wrap:wrap; gap:14px; min-height:54px; align-items:center;">
+                <!-- JS 動態渲染未填答之植物 -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 樹狀全貌總覽圖模式（供大屏投影總結） -->
+          <div id="p25TreeView" style="display:none;">
+            <div class="p25-tree-wrapper">
+              <div class="p25-root-node">🌿 植物象徵總覽</div>
+              <div class="p25-branches-bar"></div>
+              <div class="p25-columns-row">
+                <!-- 1. 母愛 -->
+                <div class="p25-col-card" style="background:#eff6ff;">
+                  <div class="p25-tag-badge example">【範例】母愛</div>
+                  <div class="p25-desc-text">層層花瓣就像是母親對子女連綿不絕的情感。</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" style="background:#dbeafe; color:#1e40af; border-color:#3b82f6;">🌸 康乃馨</div></div>
+                </div>
+                <!-- 2. 愛情 -->
+                <div class="p25-col-card">
+                  <div class="p25-tag-badge">① 愛情</div>
+                  <div class="p25-desc-text">熱情浪漫，是情人節的花卉代表。</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" id="p25TreeSlot-1">🌹 玫瑰</div></div>
+                </div>
+                <!-- 3. 堅忍不拔 -->
+                <div class="p25-col-card">
+                  <div class="p25-tag-badge">② 堅忍不拔</div>
+                  <div class="p25-desc-text">凌冬耐寒，愈冷愈開花。</div>
+                  <div class="p25-note-bubble">注釋：凌冬＝勝過冬天。形容在嚴寒的冬天仍堅韌不拔</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" id="p25TreeSlot-2">🌸 梅花</div></div>
+                </div>
+                <!-- 4. 高風亮節 -->
+                <div class="p25-col-card">
+                  <div class="p25-tag-badge">③ 高風亮節</div>
+                  <div class="p25-desc-text">中空有節，風吹過彎而不折，折而不斷，雨過不汙，不畏冷熱。</div>
+                  <div class="p25-note-bubble">注釋：高風亮節＝高尚品格，堅貞氣節</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" id="p25TreeSlot-3">🎋 竹子</div></div>
+                </div>
+                <!-- 5. 清雅脫俗 -->
+                <div class="p25-col-card">
+                  <div class="p25-tag-badge">④ 清雅脫俗</div>
+                  <div class="p25-desc-text">生於深谷，姿態優雅，香氣清新。</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" id="p25TreeSlot-4">🪴 蘭花</div></div>
+                </div>
+                <!-- 6. 離別 -->
+                <div class="p25-col-card">
+                  <div class="p25-tag-badge">⑤ 離別</div>
+                  <div class="p25-desc-text">古人在送別時，折其枝條贈別，不僅有「挽留」之意，也用來表達依依不捨的惜別之情。</div>
+                  <div class="p25-note-bubble">注釋：折柳贈別＝折柳相贈表惜別</div>
+                  <div class="p25-ans-box"><div class="p25-ans-slot" id="p25TreeSlot-5">🌿 楊柳</div></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div id="matchSuccessMsg" style="display:none; background:#ecfdf5; color:#065f46; padding:12px; border-radius:8px; margin-top:16px; font-weight:bold; text-align:center;">
-          🎉 恭喜！四項花卉與人品象徵全部配對成功！
+
+        <!-- =================== 子頁面 2: 習作 P.28 「物」的聯想 =================== -->
+        <div id="subPane-p28" class="match-subpane" style="display:none;">
+          <!-- 頂部功能工具列 -->
+          <div style="background:#ecfdf5; border:2px solid #a7f3d0; border-radius:14px; padding:14px 20px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;" class="no-print">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-size:16.5pt; font-weight:900; color:#065f46;">📋 習作 P.28「六、『物』的聯想」</span>
+              <span id="p28ScoreBadge" style="font-size:14pt; background:#10b981; color:#ffffff; padding:4px 14px; border-radius:999px; font-weight:900;">作答進度：0 / 10 (0分)</span>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button type="button" class="tool-btn" onclick="readCurrentP28Q()" style="background:#ffffff; color:#059669; border:1.5px solid #059669; font-size:14pt; padding:8px 16px;">
+                🔊 讀題
+              </button>
+              <button type="button" class="tool-btn" onclick="toggleP28RevealAll(true)" style="background:#dc2626; color:#ffffff; font-size:14pt; padding:8px 16px;">
+                👁️ 揭曉答案
+              </button>
+              <button type="button" class="tool-btn" onclick="toggleP28RevealAll(false)" style="background:#64748b; color:#ffffff; font-size:14pt; padding:8px 16px;">
+                🙈 遮蔽
+              </button>
+              <button type="button" class="tool-btn" onclick="resetP28Quiz()" style="background:#ffffff; color:#475569; border:1.5px solid #cbd5e1; font-size:14pt; padding:8px 16px;">
+                🔄 重置作答
+              </button>
+            </div>
+          </div>
+
+          <!-- 一次一題呈現 -->
+          <div class="match-q-nav" id="p28QNav">
+            <!-- 由 JS 渲染 Q1 ~ Q10 按鈕 -->
+          </div>
+
+          <!-- 單題卡片 -->
+          <div class="single-q-card" style="border-color:#10b981;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+              <div style="flex:1;">
+                <span id="p28QNumBadge" style="font-size:16pt; font-weight:900; color:#065f46; background:#d1fae5; padding:4px 14px; border-radius:999px; margin-right:8px;">Q1</span>
+                <span id="p28QText" style="font-size:17pt; font-weight:bold; color:#1e293b; line-height:1.75; cursor:pointer;" onclick="toggleP28Detail()" title="點擊查看白話解析">
+                  題目文字載入中...
+                </span>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="tool-btn" onclick="prevP28Q()" style="padding:6px 14px; font-size:14pt;">⬅ 上一題</button>
+                <button type="button" class="tool-btn" onclick="nextP28Q()" style="padding:6px 14px; font-size:14pt;">下一題 ➡️</button>
+              </div>
+            </div>
+
+            <!-- 配對放置區（拖曳或點選） -->
+            <div class="match-dropzone" id="p28DropZone" 
+                 ondragover="handleDragOver(event)" 
+                 ondragleave="handleDragLeave(event)" 
+                 ondrop="handleP28Drop(event)"
+                 onclick="handleP28DropZoneClick()">
+              📥 點選下方選項 或 拖曳慣用語至此配對
+            </div>
+
+            <!-- 補充說明的文字（點選特質或填答後才展開） -->
+            <div id="p28DetailBox" class="match-detail-box" style="border-color:#a7f3d0; background:#f0fdf4;">
+              <div style="font-weight:900; color:#059669; margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <span>📖 詞義深入解析與比喻典故：</span>
+              </div>
+              <div id="p28DetailContent" style="font-size:15.5pt; color:#064e3b; line-height:1.8;"></div>
+            </div>
+          </div>
+
+          <!-- 候選答案庫（已填答者立即消失） -->
+          <div style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:14px; padding:18px 20px; margin-bottom:20px;">
+            <div style="font-size:15.5pt; font-weight:900; color:#0f172a; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <span>🦆 慣用語選項庫（已配對成功將自動消失）：</span>
+              <span style="font-size:13pt; color:#64748b; font-weight:normal;">💡 支援拖曳至上方空格，或點選填入</span>
+            </div>
+            <div id="p28IdiomPool" style="display:flex; flex-wrap:wrap; gap:12px; min-height:54px; align-items:center;">
+              <!-- 由 JS 渲染未配對之慣用語按鈕 -->
+            </div>
+          </div>
+
+          <!-- 成語小故事「生花妙筆」卡片 -->
+          <div class="p28-story-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <div style="font-size:16.5pt; font-weight:900; color:#b45309; display:flex; align-items:center; gap:8px;">
+                📖 成語小故事 ‧ 生花妙筆（李白夢筆生花）
+              </div>
+              <button type="button" class="tool-btn" onclick="readP28Story()" style="background:#ffffff; color:#b45309; border:1px solid #f59e0b; font-size:13pt; padding:4px 12px;">
+                🔊 聽故事
+              </button>
+            </div>
+            <div style="font-size:12pt; color:#92400e; margin-bottom:8px; font-weight:bold;">
+              典故出處：唐 ‧ 馮贄《雲仙雜記 ‧ 開元遺事》
+            </div>
+            <div style="font-size:14.5pt; line-height:1.85; color:#451a03; text-align:justify;">
+              相傳李白年少時，有一晚做了一個奇妙的夢。他夢見自己手中所拿的毛筆，筆頭上竟然長出了一朵色彩絢爛的花朵！醒來後，李白文思泉湧，文名大振，寫出了許多傳世的名篇佳作。<br><br>
+              後人便以「<strong>生花妙筆</strong>」或「<strong>夢筆生花</strong>」來稱讚人富有文才，詞句優美，下筆如神。
+            </div>
+          </div>
         </div>
+
+        <!-- =================== 子頁面 3: 原課文延伸四花人品象徵 =================== -->
+        <div id="subPane-flower" class="match-subpane" style="display:none;">
+          <div style="background:#faf5ff; border:2px solid #e9d5ff; border-radius:14px; padding:14px 20px; margin-bottom:18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;" class="no-print">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <span style="font-size:16.5pt; font-weight:900; color:#6b21a8;">🪷 課文核心花卉與象徵人品配對</span>
+              <span id="flowerScoreBadge" style="font-size:14pt; background:#8b5cf6; color:#ffffff; padding:4px 14px; border-radius:999px; font-weight:900;">作答進度：0 / 4</span>
+            </div>
+            <button type="button" class="tool-btn" onclick="resetFlowerMatch()" style="background:#ffffff; color:#6b21a8; border:1.5px solid #c084fc; font-size:14pt; padding:8px 16px;">
+              🔄 重置配對
+            </button>
+          </div>
+
+          <!-- 一次一題花卉配對 -->
+          <div class="match-q-nav" id="flowerQNav">
+            <button type="button" class="match-q-pill active" onclick="goFlowerQ(0)" id="flNav-0">🪷 蓮花</button>
+            <button type="button" class="match-q-pill" onclick="goFlowerQ(1)" id="flNav-1">🌼 菊花</button>
+            <button type="button" class="match-q-pill" onclick="goFlowerQ(2)" id="flNav-2">🌺 牡丹</button>
+            <button type="button" class="match-q-pill" onclick="goFlowerQ(3)" id="flNav-3">🎋 竹子</button>
+          </div>
+
+          <div class="single-q-card" style="border-color:#a855f7;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+              <div>
+                <span id="flowerCurrentName" style="font-size:18pt; font-weight:900; color:#6b21a8; background:#f3e8ff; padding:6px 18px; border-radius:999px; border:2px solid #d8b4fe;">
+                  🪷 蓮花
+                </span>
+                <span id="flowerCurrentQuote" style="font-size:15pt; color:#475569; margin-left:10px;">（出淤泥而不染）</span>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="tool-btn" onclick="prevFlowerQ()" style="padding:6px 14px; font-size:14pt;">⬅ 上一題</button>
+                <button type="button" class="tool-btn" onclick="nextFlowerQ()" style="padding:6px 14px; font-size:14pt;">下一題 ➡️</button>
+              </div>
+            </div>
+
+            <div class="match-dropzone" id="flowerDropZone" 
+                 ondragover="handleDragOver(event)" 
+                 ondragleave="handleDragLeave(event)" 
+                 ondrop="handleFlowerDrop(event)"
+                 onclick="handleFlowerDropZoneClick()">
+              📥 點選下方象徵人品 或 拖曳人品至此配對
+            </div>
+
+            <!-- 補充說明的文字 -->
+            <div id="flowerDetailBox" class="match-detail-box" style="border-color:#e9d5ff; background:#faf5ff;">
+              <div style="font-weight:900; color:#7c3aed; margin-bottom:6px;">📖 象徵意涵解說：</div>
+              <div id="flowerDetailContent" style="font-size:15.5pt; color:#581c87; line-height:1.8;"></div>
+            </div>
+          </div>
+
+          <!-- 候選答案庫（已填答者立即消失） -->
+          <div style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:14px; padding:18px 20px;">
+            <div style="font-size:15.5pt; font-weight:900; color:#0f172a; margin-bottom:12px;">
+              👥 象徵人品候選選項（已配對成功將自動消失）：
+            </div>
+            <div id="flowerTraitPool" style="display:flex; flex-wrap:wrap; gap:12px; min-height:54px; align-items:center;">
+              <!-- JS 動態渲染未填答的人品選項 -->
+            </div>
+          </div>
+        </div>
+
         <!-- 規範: 每頁頁尾一鍵到頁面頂端按鈕 -->
         <div class="page-footer-nav no-print">
           <button class="back-to-top-btn" onclick="scrollToPageTop()">🔝 一鍵回到頁面頂端</button>
@@ -5001,6 +5605,9 @@
       initSpeech();
       initPaintCanvas();
       initContactBook();
+      renderP25SingleQuestion();
+      renderP28SingleQuestion();
+      renderFlowerSingleQuestion();
     });
 
     // 規範 1: 收合頂部功能列與分頁標籤
@@ -6857,44 +7464,781 @@
       location.href = './audio_quiz.html';
     }
 
-    // 圖文配對邏輯
-    let curMatchLeft = null;
-    const matchCorrectPairs = { lotus: 'lotus', chrys: 'chrys', peony: 'peony', bamboo: 'bamboo' };
-    const matchedSet = new Set();
+    // ================= 7. 習作配對（P.25/28）與圖文配對互動引擎 =================
 
-    function selectMatchLeft(id, btn) {
-      if (matchedSet.has(id)) return;
-      curMatchLeft = id;
-      document.querySelectorAll('.match-item-left').forEach(b => b.classList.remove('selected'));
-      btn.classList.add('selected');
-    }
-    function selectMatchRight(id, btn) {
-      if (!curMatchLeft) {
-        alert('請先點選左側花卉！');
-        return;
+    // 通用拖曳事件支援
+    let draggedData = null;
+    function handleDragStart(e, type, val) {
+      draggedData = { type, val };
+      if (e.dataTransfer) {
+        e.dataTransfer.setData('text/plain', JSON.stringify({ type, val }));
+        e.dataTransfer.effectAllowed = 'copyMove';
       }
-      if (curMatchLeft === id) {
-        matchedSet.add(id);
-        btn.style.background = '#dcfce7';
-        btn.style.color = '#15803d';
-        btn.style.borderColor = '#86efac';
-        const leftBtn = document.querySelector(`.match-item-left[data-id="${id}"]`);
-        if (leftBtn) {
-          leftBtn.style.background = '#dcfce7';
-          leftBtn.style.color = '#15803d';
-          leftBtn.style.borderColor = '#86efac';
-        }
-        curMatchLeft = null;
-        speakText('配對正確！');
-        if (matchedSet.size === 4) {
-          document.getElementById('matchSuccessMsg').style.display = 'block';
-          if (currentUserSeat && currentUserSeat !== 'test.') {
-            recordStudentProgress(currentUserSeat, 'tab_match', '已完成植物與象徵人品配對，得分：100分');
+    }
+    function handleDragOver(e) {
+      e.preventDefault();
+      if (e.currentTarget) e.currentTarget.classList.add('drag-over');
+    }
+    function handleDragLeave(e) {
+      if (e.currentTarget) e.currentTarget.classList.remove('drag-over');
+    }
+
+    // 0. 子分頁切換
+    function switchMatchSubTab(subKey) {
+      ['p25', 'p28', 'flower'].forEach(k => {
+        const pane = document.getElementById(`subPane-${k}`);
+        const btn = document.getElementById(k === 'p25' ? 'subBtnP25' : (k === 'p28' ? 'subBtnP28' : 'subBtnFlower'));
+        if (pane) pane.style.display = (k === subKey) ? 'block' : 'none';
+        if (btn) {
+          if (k === subKey) {
+            btn.classList.add('primary');
+            btn.style.background = '';
+            btn.style.color = '';
+          } else {
+            btn.classList.remove('primary');
           }
         }
-      } else {
-        alert('配對不正確，請再思考看看喔！');
+      });
+      if (subKey === 'p25') renderP25SingleQuestion();
+      if (subKey === 'p28') renderP28SingleQuestion();
+      if (subKey === 'flower') renderFlowerSingleQuestion();
+    }
+
+    // =========================================================================
+    // 🌸 模組一：習作 P.25 植物象徵配對（一次一題 + 補充說明後出 + 已填答即消失）
+    // =========================================================================
+    const P25_ITEMS = [
+      {
+        id: 0,
+        isExample: true,
+        tag: '【範例】母愛',
+        ans: '康乃馨',
+        icon: '🌸',
+        feature: '層層花瓣就像是母親對子女連綿不絕的情感。',
+        desc: '【特色描述】層層花瓣就像是母親對子女連綿不絕的情感。\n【文化補充】相傳在西洋，母親之神全身散發著康乃馨的花香，此花因而象徵「母愛」。在臺灣，每逢母親節，人們也習慣買一束康乃馨送給母親，以表達對母愛的感激。'
+      },
+      {
+        id: 1,
+        tag: '① 愛情',
+        ans: '玫瑰',
+        icon: '🌹',
+        feature: '熱情浪漫，是情人節的花卉代表。',
+        desc: '【特色描述】熱情浪漫，是情人節的花卉代表。\n【文化補充】在西洋傳說中，愛神維納斯誕生時，上天同時創造了此花來展現造化之美，因而被賦予「愛情」與「熱情」的象徵，也是情人節送禮時的首選。'
+      },
+      {
+        id: 2,
+        tag: '② 堅忍不拔',
+        ans: '梅花',
+        icon: '🌸',
+        feature: '凌冬耐寒，愈冷愈開花。',
+        desc: '【特色描述】凌冬耐寒，愈冷愈開花。\n【注釋】凌冬：勝過冬天。形容在嚴寒的冬天仍堅韌不拔。在百花凋零之際獨自綻放，象徵不畏逆境的堅毅精神。'
+      },
+      {
+        id: 3,
+        tag: '③ 高風亮節',
+        ans: '竹子',
+        icon: '🎋',
+        feature: '中空有節，風吹過彎而不折，折而不斷，雨過不汙，不畏冷熱。',
+        desc: '【特色描述】中空有節，風吹過彎而不折，折而不斷，雨過不汙，不畏冷熱。\n【注釋】高風亮節：高尚的品格，堅貞的氣節。竹子中空代表「虛心謙遜」，竹節代表「節操操守」，直挺堅韌不屈。'
+      },
+      {
+        id: 4,
+        tag: '④ 清雅脫俗',
+        ans: '蘭花',
+        icon: '🪴',
+        feature: '生於深谷，姿態優雅，香氣清新。',
+        desc: '【特色描述】生於深谷，姿態優雅，香氣清新。\n【文化補充】蘭花深居幽谷而不以無人而不芳，自古常用來象徵品德高潔、不求世俗名利聞達的謙謙君子或隱逸高士。'
+      },
+      {
+        id: 5,
+        tag: '⑤ 離別',
+        ans: '楊柳',
+        icon: '🌿',
+        feature: '古人在送別時，折其枝條贈別，不僅有「挽留」之意，也用來表達依依不捨的惜別之情。',
+        desc: '【特色描述】古人在送別時，折其枝條贈別，不僅有「挽留」之意，也用來表達依依不捨的惜別之情。\n【注釋】折柳贈別：折取柳枝相贈以表惜別。「柳」諧音「留」，寄託依依不捨、挽留友人之意。'
       }
+    ];
+
+    const P25_ALL_PLANTS = [
+      { name: '玫瑰', icon: '🌹' },
+      { name: '梅花', icon: '🌸' },
+      { name: '竹子', icon: '🎋' },
+      { name: '蘭花', icon: '🪴' },
+      { name: '楊柳', icon: '🌿' }
+    ];
+
+    let p25CurIdx = 1; // 預設從第 1 題開始
+    let p25Answers = { 1: null, 2: null, 3: null, 4: null, 5: null };
+    let p25DetailShown = false;
+    let p25IsTreeView = false;
+
+    function renderP25SingleQuestion() {
+      const item = P25_ITEMS[p25CurIdx];
+      if (!item) return;
+
+      // 1. 更新題號導航
+      P25_ITEMS.forEach(it => {
+        const btn = document.getElementById(`p25Nav-${it.id}`);
+        if (btn) {
+          btn.classList.toggle('active', it.id === p25CurIdx);
+          const isDone = it.isExample || (p25Answers[it.id] === it.ans);
+          btn.classList.toggle('done', isDone);
+        }
+      });
+
+      // 2. 更新題幹特質標籤與特色描述（習作原文呈現）
+      const tagEl = document.getElementById('p25CurrentTag');
+      if (tagEl) {
+        tagEl.innerHTML = `<span style="font-weight:900;">${item.tag}</span><span style="font-size:15pt; font-weight:normal; margin-left:10px; color:#1e293b;">特色：${item.feature}</span>`;
+        tagEl.style.background = item.isExample ? '#dbeafe' : '#e0f2fe';
+      }
+
+      // 3. 更新放置區內容
+      const dropZone = document.getElementById('p25DropZone');
+      const uAns = item.isExample ? item.ans : p25Answers[item.id];
+      if (dropZone) {
+        dropZone.classList.remove('drag-over');
+        if (uAns) {
+          dropZone.classList.add('filled');
+          dropZone.innerHTML = `${item.icon} ${uAns} ✔️ (配對正確)`;
+          dropZone.style.borderColor = '#22c55e';
+          dropZone.style.background = '#f0fdf4';
+          dropZone.style.color = '#15803d';
+        } else {
+          dropZone.classList.remove('filled');
+          dropZone.innerHTML = `📥 點選下方植物 或 拖曳植物至此配對`;
+          dropZone.style.borderColor = '#93c5fd';
+          dropZone.style.background = '#f8fafc';
+          dropZone.style.color = '#64748b';
+        }
+      }
+
+      // 4. 更新補充說明（若已答對或使用者點選則展示，否則隱藏）
+      const detailBox = document.getElementById('p25DetailBox');
+      const detailContent = document.getElementById('p25DetailContent');
+      if (detailBox && detailContent) {
+        detailContent.innerText = item.desc;
+        if (item.isExample || uAns === item.ans || p25DetailShown) {
+          detailBox.style.display = 'block';
+        } else {
+          detailBox.style.display = 'none';
+        }
+      }
+
+      // 5. 渲染植物候選選項（已填答者立即消失！）
+      renderP25PlantPool();
+      updateP25Score();
+    }
+
+    // 渲染候選池：已填對之植物不再出現
+    function renderP25PlantPool() {
+      const pool = document.getElementById('p25PlantPool');
+      if (!pool) return;
+
+      // 取得所有已正確配對的植物集合
+      const usedPlants = new Set();
+      for (let i = 1; i <= 5; i++) {
+        if (p25Answers[i] === P25_ITEMS[i].ans) {
+          usedPlants.add(p25Answers[i]);
+        }
+      }
+
+      // 過濾出尚未配對成功的植物
+      const available = P25_ALL_PLANTS.filter(p => !usedPlants.has(p.name));
+
+      if (available.length === 0) {
+        pool.innerHTML = `<span style="font-size:16pt; color:#15803d; font-weight:900;">🎉 太棒了！所有植物皆已全數配對完成！</span>`;
+        return;
+      }
+
+      pool.innerHTML = available.map(p => `
+        <div class="tool-btn match-draggable-item" 
+             draggable="true" 
+             ondragstart="handleDragStart(event, 'p25', '${p.name}')" 
+             onclick="handleP25PlantClick('${p.name}')" 
+             style="font-size:16pt; padding:10px 20px; border-radius:12px; background:#ffffff; border:2px solid #38bdf8; color:#0369a1; display:flex; align-items:center; gap:8px;">
+          <span>${p.icon} ${p.name}</span>
+          <span style="font-size:11pt; color:#64748b; background:#f1f5f9; padding:2px 6px; border-radius:6px;">拖曳或點選</span>
+        </div>
+      `).join('');
+    }
+
+    // 學生點選特質標籤時切換展開/收合補充說明
+    function toggleP25Detail() {
+      p25DetailShown = !p25DetailShown;
+      const detailBox = document.getElementById('p25DetailBox');
+      if (detailBox) {
+        detailBox.style.display = p25DetailShown ? 'block' : 'none';
+      }
+    }
+
+    // 拖曳放置配對
+    function handleP25Drop(e) {
+      e.preventDefault();
+      const dropZone = document.getElementById('p25DropZone');
+      if (dropZone) dropZone.classList.remove('drag-over');
+
+      let plantName = null;
+      if (draggedData && draggedData.type === 'p25') {
+        plantName = draggedData.val;
+      } else if (e.dataTransfer) {
+        try {
+          const raw = JSON.parse(e.dataTransfer.getData('text/plain'));
+          if (raw.type === 'p25') plantName = raw.val;
+        } catch (_) {}
+      }
+      if (plantName) {
+        submitP25Answer(plantName);
+      }
+      draggedData = null;
+    }
+
+    // 點選植物直接填答當前題目
+    function handleP25PlantClick(plantName) {
+      submitP25Answer(plantName);
+    }
+
+    function handleP25DropZoneClick() {
+      if (p25CurIdx === 0) return; // 範例不可改
+      // 若已有作答但想重答
+      if (p25Answers[p25CurIdx]) {
+        p25Answers[p25CurIdx] = null;
+        p25DetailShown = false;
+        renderP25SingleQuestion();
+      }
+    }
+
+    // 核算並提交當前作答
+    function submitP25Answer(plantName) {
+      if (p25CurIdx === 0) return; // 範例題直接略過
+      const item = P25_ITEMS[p25CurIdx];
+      const isCorrect = (plantName === item.ans);
+
+      // 特教友善作答反饋（打勾/打叉簡潔動畫，完全無語音）
+      showFeedbackBadge(isCorrect);
+
+      if (isCorrect) {
+        p25Answers[p25CurIdx] = plantName;
+        p25DetailShown = true; // 答對自動展開補充說明
+        renderP25SingleQuestion();
+
+        // 若不是最後一題，可自動在 900ms 後切至下一題未作答題
+        setTimeout(() => {
+          let nextUnanswered = -1;
+          for (let i = 1; i <= 5; i++) {
+            if (p25Answers[i] !== P25_ITEMS[i].ans) {
+              nextUnanswered = i;
+              break;
+            }
+          }
+          if (nextUnanswered !== -1 && nextUnanswered !== p25CurIdx) {
+            goP25Question(nextUnanswered);
+          }
+        }, 900);
+      } else {
+        const dropZone = document.getElementById('p25DropZone');
+        if (dropZone) {
+          dropZone.style.borderColor = '#ef4444';
+          dropZone.style.background = '#fee2e2';
+          dropZone.style.color = '#b91c1c';
+          dropZone.innerHTML = `${plantName} ❌ 尚不相符，請再思考喔！`;
+        }
+      }
+    }
+
+    function goP25Question(idx) {
+      p25CurIdx = idx;
+      p25DetailShown = false;
+      renderP25SingleQuestion();
+    }
+    function prevP25Q() {
+      if (p25CurIdx > 0) goP25Question(p25CurIdx - 1);
+    }
+    function nextP25Q() {
+      if (p25CurIdx < 5) goP25Question(p25CurIdx + 1);
+    }
+
+    function updateP25Score() {
+      let correctCount = 0;
+      for (let i = 1; i <= 5; i++) {
+        if (p25Answers[i] === P25_ITEMS[i].ans) correctCount++;
+      }
+      const score = correctCount * 20;
+      const badge = document.getElementById('p25ScoreBadge');
+      if (badge) {
+        badge.innerText = `作答進度：${correctCount} / 5 (${score}分)`;
+        badge.style.background = (score === 100) ? '#16a34a' : '#0284c7';
+      }
+      if (score === 100 && currentUserSeat && currentUserSeat !== 'test.') {
+        recordStudentProgress(currentUserSeat, 'p25_match', '習作P.25植物象徵配對全對，得分：100分');
+      }
+    }
+
+    function toggleP25ViewMode() {
+      p25IsTreeView = !p25IsTreeView;
+      const singleView = document.getElementById('p25SingleView');
+      const treeView = document.getElementById('p25TreeView');
+      const btn = document.getElementById('btnP25ToggleView');
+      if (singleView && treeView && btn) {
+        singleView.style.display = p25IsTreeView ? 'none' : 'block';
+        treeView.style.display = p25IsTreeView ? 'block' : 'none';
+        btn.innerText = p25IsTreeView ? '📋 切換一次一題模式' : '🌳 切換樹狀總覽圖';
+      }
+    }
+
+    function toggleP25RevealAll(reveal) {
+      for (let i = 1; i <= 5; i++) {
+        p25Answers[i] = reveal ? P25_ITEMS[i].ans : null;
+      }
+      p25DetailShown = reveal;
+      renderP25SingleQuestion();
+    }
+
+    function resetP25Quiz() {
+      p25Answers = { 1: null, 2: null, 3: null, 4: null, 5: null };
+      p25DetailShown = false;
+      p25CurIdx = 1;
+      renderP25SingleQuestion();
+    }
+
+    function readCurrentP25Q() {
+      const item = P25_ITEMS[p25CurIdx];
+      if (item) {
+        speakText(`第${p25CurIdx}題，特質是：${item.tag}。請由下方植物中選擇適當選項進行配對。`);
+      }
+    }
+
+    // =========================================================================
+    // 🦆 模組二：習作 P.28 「物」的聯想（一次一題 + 補充說明後出 + 已填答即消失）
+    // =========================================================================
+    const P28_QUESTIONS = [
+      { id: 1, text: '見風轉舵（比喻做事無定見，隨機應變，見機行事）', ans: 'E', idiom: '牆頭草', desc: '【牆頭草】長在牆頭上的野草隨風向左右搖擺，比喻沒有堅定立場、趨炎附勢、見風轉舵之人。' },
+      { id: 2, text: '不諳水性（注音：諳 ㄢ，知曉、熟悉）', ans: 'D', idiom: '旱鴨子', desc: '【旱鴨子】鴨子原本擅長游水，生在陸地不會游水的鴨子借喻為「完全不會游泳、不諳水性的人」。' },
+      { id: 3, text: '見識狹隘（注音：隘 ㄞˋ，眼光短淺、見聞不廣）', ans: 'I', idiom: '井底蛙', desc: '【井底蛙】語出《莊子》，住在井底的青蛙只能看到井口大的天空，比喻眼界狹窄、見識淺陋短淺的人。' },
+      { id: 4, text: '虛張聲勢（外表看似凶悍強大，實際上卻虛弱不堪）', ans: 'H', idiom: '紙老虎', desc: '【紙老虎】外表看似威風凶猛、強大不可一世，其實質地脆弱如紙，一戳即破，虛張聲勢。' },
+      { id: 5, text: '一毛不拔（生性極為吝嗇苛刻）', ans: 'F', idiom: '鐵公雞', desc: '【鐵公雞】民間俗語，形容鐵打的公雞「一毛不拔」，比喻生性極度吝嗇苛刻、絕不拔毛之人。' },
+      { id: 6, text: '技藝不精（對各種技藝略懂皮毛，但都不精通）', ans: 'J', idiom: '三腳貓', desc: '【三腳貓】比喻技藝不精、略懂皮毛卻無一專精的人。' },
+      { id: 7, text: '思想守舊（保守陳舊，不合時代潮流）', ans: 'A', idiom: '老古董', desc: '【老古董】原指古老器物，借喻為思想保守古板、固步自封、無法適應現代潮流轉變的人。' },
+      { id: 8, text: '懦弱無能（膽小怕事，軟弱無能、禁不起挫折考驗）', ans: 'C', idiom: '軟腳蝦', desc: '【軟腳蝦】比喻缺乏勇氣骨氣、膽小怯弱，遇到困難挫折便輕易退縮、懦弱無能的人。' },
+      { id: 9, text: '隨聲附和（說話做事毫無主見，只會隨聲附和）', ans: 'G', idiom: '應聲蟲', desc: '【應聲蟲】比喻毫無主見、隨聲附和的人。傳說古代有人體內寄居隨人說話應聲的怪蟲，後比喻盲從隨聲附和之人。' },
+      { id: 10, text: '身材勻稱（注音：勻 ㄩㄣˊ ㄔㄣˋ，穿任何衣服都好看）', ans: 'B', idiom: '衣架子', desc: '【衣架子】借喻人身材高挑勻稱（ㄩㄣˊ ㄔㄣˋ），任何剪裁風格的衣服穿起來都非常相稱美觀。' }
+    ];
+
+    const P28_ALL_IDIOMS = [
+      { code: 'A', name: '老古董' },
+      { code: 'B', name: '衣架子' },
+      { code: 'C', name: '軟腳蝦' },
+      { code: 'D', name: '旱鴨子' },
+      { code: 'E', name: '牆頭草' },
+      { code: 'F', name: '鐵公雞' },
+      { code: 'G', name: '應聲蟲' },
+      { code: 'H', name: '紙老虎' },
+      { code: 'I', name: '井底蛙' },
+      { code: 'J', name: '三腳貓' }
+    ];
+
+    let p28CurQId = 1;
+    let p28Answers = {};
+    let p28DetailShown = false;
+
+    function renderP28SingleQuestion() {
+      const q = P28_QUESTIONS.find(item => item.id === p28CurQId);
+      if (!q) return;
+
+      // 1. 渲染導航
+      const nav = document.getElementById('p28QNav');
+      if (nav) {
+        nav.innerHTML = P28_QUESTIONS.map(item => {
+          const isDone = (p28Answers[item.id] === item.ans);
+          const isActive = (item.id === p28CurQId);
+          return `
+            <button type="button" class="match-q-pill ${isActive ? 'active' : ''} ${isDone ? 'done' : ''}" 
+                    onclick="goP28Question(${item.id})">
+              Q${item.id} ${isDone ? '✔️' : ''}
+            </button>
+          `;
+        }).join('');
+      }
+
+      // 2. 渲染題幹文字（一開始只顯示習作題目文字）
+      const numBadge = document.getElementById('p28QNumBadge');
+      const qText = document.getElementById('p28QText');
+      if (numBadge) numBadge.innerText = `Q${q.id}`;
+      if (qText) qText.innerText = q.text;
+
+      // 3. 渲染放置區
+      const dropZone = document.getElementById('p28DropZone');
+      const uAns = p28Answers[q.id];
+      if (dropZone) {
+        dropZone.classList.remove('drag-over');
+        if (uAns) {
+          dropZone.classList.add('filled');
+          dropZone.innerHTML = `(${uAns}) ${q.idiom} ✔️ (配對成功)`;
+          dropZone.style.borderColor = '#10b981';
+          dropZone.style.background = '#ecfdf5';
+          dropZone.style.color = '#065f46';
+        } else {
+          dropZone.classList.remove('filled');
+          dropZone.innerHTML = `📥 點選下方選項 或 拖曳慣用語至此配對`;
+          dropZone.style.borderColor = '#93c5fd';
+          dropZone.style.background = '#f8fafc';
+          dropZone.style.color = '#64748b';
+        }
+      }
+
+      // 4. 補充說明（答對或點選才展示）
+      const detailBox = document.getElementById('p28DetailBox');
+      const detailContent = document.getElementById('p28DetailContent');
+      if (detailBox && detailContent) {
+        detailContent.innerText = q.desc;
+        if (uAns === q.ans || p28DetailShown) {
+          detailBox.style.display = 'block';
+        } else {
+          detailBox.style.display = 'none';
+        }
+      }
+
+      // 5. 渲染慣用語候選池（已配對成功者立即消失！）
+      renderP28IdiomPool();
+      updateP28Score();
+    }
+
+    function renderP28IdiomPool() {
+      const pool = document.getElementById('p28IdiomPool');
+      if (!pool) return;
+
+      // 已正確配對的 code 集合
+      const usedCodes = new Set();
+      P28_QUESTIONS.forEach(item => {
+        if (p28Answers[item.id] === item.ans) {
+          usedCodes.add(item.ans);
+        }
+      });
+
+      // 候選選項（已填答者消失）
+      const available = P28_ALL_IDIOMS.filter(item => !usedCodes.has(item.code));
+
+      if (available.length === 0) {
+        pool.innerHTML = `<span style="font-size:16pt; color:#059669; font-weight:900;">🎉 恭喜！10 道慣用語已全數正確配對！</span>`;
+        return;
+      }
+
+      pool.innerHTML = available.map(item => `
+        <div class="p28-idiom-pill match-draggable-item" 
+             draggable="true" 
+             ondragstart="handleDragStart(event, 'p28', '${item.code}')" 
+             onclick="handleP28IdiomClick('${item.code}')">
+          <span>(${item.code}) ${item.name}</span>
+        </div>
+      `).join('');
+    }
+
+    function toggleP28Detail() {
+      p28DetailShown = !p28DetailShown;
+      const detailBox = document.getElementById('p28DetailBox');
+      if (detailBox) {
+        detailBox.style.display = p28DetailShown ? 'block' : 'none';
+      }
+    }
+
+    function handleP28Drop(e) {
+      e.preventDefault();
+      const dropZone = document.getElementById('p28DropZone');
+      if (dropZone) dropZone.classList.remove('drag-over');
+
+      let code = null;
+      if (draggedData && draggedData.type === 'p28') {
+        code = draggedData.val;
+      } else if (e.dataTransfer) {
+        try {
+          const raw = JSON.parse(e.dataTransfer.getData('text/plain'));
+          if (raw.type === 'p28') code = raw.val;
+        } catch (_) {}
+      }
+      if (code) submitP28Answer(code);
+      draggedData = null;
+    }
+
+    function handleP28IdiomClick(code) {
+      submitP28Answer(code);
+    }
+
+    function handleP28DropZoneClick() {
+      if (p28Answers[p28CurQId]) {
+        p28Answers[p28CurQId] = null;
+        p28DetailShown = false;
+        renderP28SingleQuestion();
+      }
+    }
+
+    function submitP28Answer(code) {
+      const q = P28_QUESTIONS.find(item => item.id === p28CurQId);
+      if (!q) return;
+
+      const isCorrect = (code === q.ans);
+      showFeedbackBadge(isCorrect);
+
+      if (isCorrect) {
+        p28Answers[p28CurQId] = code;
+        p28DetailShown = true;
+        renderP28SingleQuestion();
+
+        // 自動推進到下一題未填答題目
+        setTimeout(() => {
+          const nextUnanswered = P28_QUESTIONS.find(item => p28Answers[item.id] !== item.ans);
+          if (nextUnanswered && nextUnanswered.id !== p28CurQId) {
+            goP28Question(nextUnanswered.id);
+          }
+        }, 900);
+      } else {
+        const dropZone = document.getElementById('p28DropZone');
+        const candidate = P28_ALL_IDIOMS.find(it => it.code === code);
+        const candName = candidate ? candidate.name : code;
+        if (dropZone) {
+          dropZone.style.borderColor = '#ef4444';
+          dropZone.style.background = '#fee2e2';
+          dropZone.style.color = '#b91c1c';
+          dropZone.innerHTML = `(${code}) ${candName} ❌ 尚不相符，請再思考喔！`;
+        }
+      }
+    }
+
+    function goP28Question(id) {
+      p28CurQId = id;
+      p28DetailShown = false;
+      renderP28SingleQuestion();
+    }
+    function prevP28Q() {
+      if (p28CurQId > 1) goP28Question(p28CurQId - 1);
+    }
+    function nextP28Q() {
+      if (p28CurQId < 10) goP28Question(p28CurQId + 1);
+    }
+
+    function updateP28Score() {
+      let correctCount = 0;
+      P28_QUESTIONS.forEach(item => {
+        if (p28Answers[item.id] === item.ans) correctCount++;
+      });
+      const score = correctCount * 10;
+      const badge = document.getElementById('p28ScoreBadge');
+      if (badge) {
+        badge.innerText = `作答進度：${correctCount} / 10 (${score}分)`;
+        badge.style.background = (score === 100) ? '#16a34a' : '#10b981';
+      }
+      if (score === 100 && currentUserSeat && currentUserSeat !== 'test.') {
+        recordStudentProgress(currentUserSeat, 'p28_idiom', '習作P.28物的聯想慣用語全對，得分：100分');
+      }
+    }
+
+    function toggleP28RevealAll(reveal) {
+      P28_QUESTIONS.forEach(item => {
+        p28Answers[item.id] = reveal ? item.ans : null;
+      });
+      p28DetailShown = reveal;
+      renderP28SingleQuestion();
+    }
+
+    function resetP28Quiz() {
+      p28Answers = {};
+      p28DetailShown = false;
+      p28CurQId = 1;
+      renderP28SingleQuestion();
+    }
+
+    function readCurrentP28Q() {
+      const q = P28_QUESTIONS.find(item => item.id === p28CurQId);
+      if (q) {
+        speakText(`第${q.id}題。${q.text}`);
+      }
+    }
+
+    function readP28Story() {
+      speakText('成語小故事：生花妙筆。相傳李白年少時，夢見所用的毛筆頭上長出了絢爛的花朵。醒來後文思泉湧，寫出了許多傳世名篇。後人便以生花妙筆或夢筆生花，稱讚人富有文才，下筆如神。');
+    }
+
+    // =========================================================================
+    // 🪷 模組三：課文延伸四花配對（一次一題 + 已填答即消失）
+    // =========================================================================
+    const FLOWER_QUESTIONS = [
+      { id: 0, flower: '蓮花', icon: '🪷', quote: '出淤泥而不染', ans: '君子者', desc: '【君子者】出淤泥而不染，濯清漣而不妖，德行高潔、品格兼備之典範。' },
+      { id: 1, flower: '菊花', icon: '🌼', quote: '陶淵明獨愛菊', ans: '隱逸者', desc: '【隱逸者】菊花凌霜自開，象徵不慕名利、不苟合取容的消極避世高士。' },
+      { id: 2, flower: '牡丹', icon: '🌺', quote: '世人盛愛牡丹', ans: '富貴者', desc: '【富貴者】花開濃豔華麗，代表追逐世俗名利、追求富貴榮華之人。' },
+      { id: 3, flower: '竹子', icon: '🎋', quote: '中空有節直挺', ans: '高風亮節', desc: '【高風亮節】竹子虛心且直挺堅韌，象徵堅貞氣節與謙遜虛心之品德。' }
+    ];
+
+    const FLOWER_ALL_TRAITS = [
+      { name: '君子者', label: '君子者（德行兼備高潔之人）' },
+      { name: '隱逸者', label: '隱逸者（消極避世高士）' },
+      { name: '富貴者', label: '富貴者（追名逐利之人）' },
+      { name: '高風亮節', label: '高風亮節（堅貞氣節）' }
+    ];
+
+    let flowerCurIdx = 0;
+    let flowerAnswers = { 0: null, 1: null, 2: null, 3: null };
+
+    function renderFlowerSingleQuestion() {
+      const q = FLOWER_QUESTIONS[flowerCurIdx];
+      if (!q) return;
+
+      // 導航
+      FLOWER_QUESTIONS.forEach(item => {
+        const btn = document.getElementById(`flNav-${item.id}`);
+        if (btn) {
+          btn.classList.toggle('active', item.id === flowerCurIdx);
+          btn.classList.toggle('done', flowerAnswers[item.id] === item.ans);
+        }
+      });
+
+      // 題目
+      const nameEl = document.getElementById('flowerCurrentName');
+      const quoteEl = document.getElementById('flowerCurrentQuote');
+      if (nameEl) nameEl.innerText = `${q.icon} ${q.flower}`;
+      if (quoteEl) quoteEl.innerText = `（${q.quote}）`;
+
+      // 放置區
+      const dropZone = document.getElementById('flowerDropZone');
+      const uAns = flowerAnswers[flowerCurIdx];
+      if (dropZone) {
+        dropZone.classList.remove('drag-over');
+        if (uAns) {
+          dropZone.classList.add('filled');
+          dropZone.innerHTML = `${uAns} ✔️ (配對成功)`;
+          dropZone.style.borderColor = '#a855f7';
+          dropZone.style.background = '#faf5ff';
+          dropZone.style.color = '#7c3aed';
+        } else {
+          dropZone.classList.remove('filled');
+          dropZone.innerHTML = `📥 點選下方象徵人品 或 拖曳至此配對`;
+          dropZone.style.borderColor = '#93c5fd';
+          dropZone.style.background = '#f8fafc';
+          dropZone.style.color = '#64748b';
+        }
+      }
+
+      // 補充說明
+      const detailBox = document.getElementById('flowerDetailBox');
+      const detailContent = document.getElementById('flowerDetailContent');
+      if (detailBox && detailContent) {
+        detailContent.innerText = q.desc;
+        detailBox.style.display = (uAns === q.ans) ? 'block' : 'none';
+      }
+
+      // 渲染人品選項（已填答者消失）
+      renderFlowerPool();
+      updateFlowerScore();
+    }
+
+    function renderFlowerPool() {
+      const pool = document.getElementById('flowerTraitPool');
+      if (!pool) return;
+
+      const usedTraits = new Set();
+      FLOWER_QUESTIONS.forEach(item => {
+        if (flowerAnswers[item.id] === item.ans) usedTraits.add(item.ans);
+      });
+
+      const available = FLOWER_ALL_TRAITS.filter(item => !usedTraits.has(item.name));
+      if (available.length === 0) {
+        pool.innerHTML = `<span style="font-size:16pt; color:#7c3aed; font-weight:900;">🎉 恭喜！四種花卉象徵人品已全數正確配對！</span>`;
+        return;
+      }
+
+      pool.innerHTML = available.map(item => `
+        <div class="tool-btn match-draggable-item" 
+             draggable="true" 
+             ondragstart="handleDragStart(event, 'flower', '${item.name}')" 
+             onclick="handleFlowerTraitClick('${item.name}')" 
+             style="font-size:15.5pt; padding:10px 18px; border-radius:12px; background:#ffffff; border:2px solid #c084fc; color:#6b21a8;">
+          ${item.label}
+        </div>
+      `).join('');
+    }
+
+    function handleFlowerDrop(e) {
+      e.preventDefault();
+      const dropZone = document.getElementById('flowerDropZone');
+      if (dropZone) dropZone.classList.remove('drag-over');
+
+      let traitName = null;
+      if (draggedData && draggedData.type === 'flower') {
+        traitName = draggedData.val;
+      } else if (e.dataTransfer) {
+        try {
+          const raw = JSON.parse(e.dataTransfer.getData('text/plain'));
+          if (raw.type === 'flower') traitName = raw.val;
+        } catch (_) {}
+      }
+      if (traitName) submitFlowerAnswer(traitName);
+      draggedData = null;
+    }
+
+    function handleFlowerTraitClick(traitName) {
+      submitFlowerAnswer(traitName);
+    }
+
+    function handleFlowerDropZoneClick() {
+      if (flowerAnswers[flowerCurIdx]) {
+        flowerAnswers[flowerCurIdx] = null;
+        renderFlowerSingleQuestion();
+      }
+    }
+
+    function submitFlowerAnswer(traitName) {
+      const q = FLOWER_QUESTIONS[flowerCurIdx];
+      const isCorrect = (traitName === q.ans);
+      showFeedbackBadge(isCorrect);
+
+      if (isCorrect) {
+        flowerAnswers[flowerCurIdx] = traitName;
+        renderFlowerSingleQuestion();
+        setTimeout(() => {
+          const nextUnanswered = FLOWER_QUESTIONS.findIndex(item => flowerAnswers[item.id] !== item.ans);
+          if (nextUnanswered !== -1 && nextUnanswered !== flowerCurIdx) {
+            goFlowerQ(nextUnanswered);
+          }
+        }, 900);
+      } else {
+        const dropZone = document.getElementById('flowerDropZone');
+        if (dropZone) {
+          dropZone.style.borderColor = '#ef4444';
+          dropZone.style.background = '#fee2e2';
+          dropZone.style.color = '#b91c1c';
+          dropZone.innerHTML = `${traitName} ❌ 尚不相符，請再思考喔！`;
+        }
+      }
+    }
+
+    function goFlowerQ(idx) {
+      flowerCurIdx = idx;
+      renderFlowerSingleQuestion();
+    }
+    function prevFlowerQ() {
+      if (flowerCurIdx > 0) goFlowerQ(flowerCurIdx - 1);
+    }
+    function nextFlowerQ() {
+      if (flowerCurIdx < 3) goFlowerQ(flowerCurIdx + 1);
+    }
+
+    function updateFlowerScore() {
+      let correctCount = 0;
+      FLOWER_QUESTIONS.forEach(item => {
+        if (flowerAnswers[item.id] === item.ans) correctCount++;
+      });
+      const badge = document.getElementById('flowerScoreBadge');
+      if (badge) {
+        badge.innerText = `作答進度：${correctCount} / 4`;
+        badge.style.background = (correctCount === 4) ? '#16a34a' : '#8b5cf6';
+      }
+      if (correctCount === 4 && currentUserSeat && currentUserSeat !== 'test.') {
+        recordStudentProgress(currentUserSeat, 'tab_match', '已完成四花與象徵人品配對，得分：100分');
+      }
+    }
+
+    function resetFlowerMatch() {
+      flowerAnswers = { 0: null, 1: null, 2: null, 3: null };
+      flowerCurIdx = 0;
+      renderFlowerSingleQuestion();
     }
 
     // ================= 單卡切換學習區（詞語一、詞語二、解釋）與全方位互動評量引擎 =================
@@ -11032,6 +12376,7 @@
       initUnitQuizState('sim_zhuyin');
       initNotesMatchQuiz();
       initNotesVirtueMatchQuiz();
+      switchNotesQuizType('match');
       initLessonSeqQuiz();
     }
 
