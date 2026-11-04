@@ -2738,7 +2738,7 @@
             
             <!-- 課文圖片 1（對應第 1、2 段） -->
             <div style="margin: 14px 0; text-align: center;">
-              <img src="assets/images/1.jpg" alt="圖片1：按鍵電話與現代生活節奏" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox('assets/images/1.jpg', '第 1、2 段情境圖：按鍵電話與現代生活節奏')">
+              <img src="assets/images/1.jpg" alt="圖片1：按鍵電話與現代生活節奏" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox(0)" title="點擊放大檢視（可左右切換下一張）">
               <div style="font-size: 13pt; color: #64748b; margin-top: 6px;">📷 課文插圖（第 1、2 段）：按鍵電話與迅速節奏的世界（點擊放大檢視）</div>
             </div>
 
@@ -2841,7 +2841,7 @@
             
             <!-- 課文圖片 2（對應第 3、4、5 段） -->
             <div style="margin: 14px 0; text-align: center;">
-              <img src="assets/images/2.jpg" alt="圖片2：古今智者珍惜零碎時間" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox('assets/images/2.jpg', '第 3、4、5 段情境圖：古今智者珍惜零碎時間')">
+              <img src="assets/images/2.jpg" alt="圖片2：古今智者珍惜零碎時間" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox(1)" title="點擊放大檢視（可左右切換下一張）">
               <div style="font-size: 13pt; color: #64748b; margin-top: 6px;">📷 課文插圖（第 3、4、5 段）：胡適、甘迺迪與歐陽脩三上工夫（點擊放大檢視）</div>
             </div>
 
@@ -2912,7 +2912,7 @@
             
             <!-- 課文圖片 3（對應第 6、7 段） -->
             <div style="margin: 14px 0; text-align: center;">
-              <img src="assets/images/3.jpg" alt="圖片3：大箱子裝石頭與細沙清水" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox('assets/images/3.jpg', '第 6、7 段情境圖：大箱子裝石頭與細沙清水')">
+              <img src="assets/images/3.jpg" alt="圖片3：大箱子裝石頭與細沙清水" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox(2)" title="點擊放大檢視（可左右切換下一張）">
               <div style="font-size: 13pt; color: #64748b; margin-top: 6px;">📷 課文插圖（第 6、7 段）：大箱子裝石頭與細沙清水的比喻（點擊放大檢視）</div>
             </div>
 
@@ -2951,7 +2951,7 @@
             
             <!-- 課文圖片 4（對應第 8 段） -->
             <div style="margin: 14px 0; text-align: center;">
-              <img src="assets/images/4.jpg" alt="圖片4：積沙成塔與生命中的碎珠" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox('assets/images/4.jpg', '第 8 段情境圖：積沙成塔與生命中的碎珠')">
+              <img src="assets/images/4.jpg" alt="圖片4：積沙成塔與生命中的碎珠" style="max-width: 100%; height: auto; border-radius: 12px; border: 2px solid #bae6fd; box-shadow: 0 4px 10px rgba(0,0,0,0.08); cursor: pointer;" onclick="showImageLightbox(3)" title="點擊放大檢視（可左右切換下一張）">
               <div style="font-size: 13pt; color: #64748b; margin-top: 6px;">📷 課文插圖（第 8 段）：積沙成塔、集腋成裘，生命中的碎珠（點擊放大檢視）</div>
             </div>
 
@@ -5854,16 +5854,50 @@
     </div>
   </div>
 
-  <!-- ================= 模態視窗：圖片放大 Lightbox ================= -->
+  <!-- ================= 模態視窗：圖片放大 Lightbox (支援左右切換下一張) ================= -->
   <div class="modal-overlay" id="lightboxModal" style="display:none;" onclick="closeLightboxModal()">
-    <div class="modal-box" onclick="event.stopPropagation()" style="max-width:800px; text-align:center;">
-      <div class="modal-header">
-        <h3 style="font-size:18pt; margin:0;" id="lightboxTitle">📷 圖片檢視</h3>
-        <button class="close-btn" onclick="closeLightboxModal()">✖</button>
+    <div class="modal-box" onclick="event.stopPropagation()" style="max-width:920px; width:95%; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 12px 36px rgba(0,0,0,0.35); display:flex; flex-direction:column; max-height:92vh;">
+      <!-- Header -->
+      <div class="modal-header" style="background:linear-gradient(135deg, #0284c7, #0369a1); color:#ffffff; padding:12px 20px; display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:18pt;">📷</span>
+          <h3 style="font-size:16pt; margin:0; font-weight:bold; color:#ffffff;" id="lightboxTitle">課文情境圖檢視</h3>
+          <span id="lightboxCounter" style="background:rgba(255,255,255,0.25); color:#ffffff; padding:2px 10px; border-radius:12px; font-size:13pt; font-weight:bold;">1 / 4</span>
+        </div>
+        <button class="close-btn" onclick="closeLightboxModal()" style="background:none; border:none; color:#ffffff; font-size:20pt; cursor:pointer; padding:0 6px;" title="關閉">✖</button>
       </div>
-      <div style="padding:24px;">
-        <div style="width:100%; height:320px; background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#94a3b8; font-size:20pt;">
-          📷 課文意象插圖（保留位置）
+
+      <!-- Main Image View Area with Prev/Next buttons -->
+      <div style="position:relative; flex:1; display:flex; align-items:center; justify-content:center; background:#0f172a; padding:16px; min-height:360px; max-height:68vh; overflow:hidden;">
+        <!-- Left Nav Arrow Button -->
+        <button onclick="prevLightboxImg()" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(0,0,0,0.55); color:#ffffff; border:2px solid rgba(255,255,255,0.6); width:52px; height:52px; border-radius:50%; font-size:24pt; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.85)'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(0,0,0,0.55)'; this.style.transform='translateY(-50%) scale(1)';" title="上一張 (鍵盤 ← 鍵)">
+          ❮
+        </button>
+
+        <!-- Enlarged Image -->
+        <img id="lightboxImg" src="assets/images/1.jpg" alt="放大課文插圖" style="max-width:100%; max-height:64vh; object-fit:contain; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,0.5); transition:opacity 0.2s;">
+
+        <!-- Right Nav Arrow Button -->
+        <button onclick="nextLightboxImg()" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(0,0,0,0.55); color:#ffffff; border:2px solid rgba(255,255,255,0.6); width:52px; height:52px; border-radius:50%; font-size:24pt; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(2,132,199,0.85)'; this.style.transform='translateY(-50%) scale(1.1)';" onmouseout="this.style.background='rgba(0,0,0,0.55)'; this.style.transform='translateY(-50%) scale(1)';" title="下一張 (鍵盤 → 鍵)">
+          ❯
+        </button>
+      </div>
+
+      <!-- Footer with Description and Navigation Buttons -->
+      <div style="background:#f8fafc; border-top:1px solid #e2e8f0; padding:12px 20px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+        <div id="lightboxCaption" style="font-size:14pt; color:#334155; line-height:1.5; flex:1; min-width:240px; font-weight:500;">
+          圖片說明文字
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button onclick="prevLightboxImg()" style="background:#e0f2fe; color:#0369a1; border:1px solid #7dd3fc; border-radius:8px; padding:8px 16px; font-size:13pt; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px;">
+            ◀ 上一張
+          </button>
+          <button onclick="nextLightboxImg()" style="background:#0284c7; color:#ffffff; border:1px solid #0284c7; border-radius:8px; padding:8px 16px; font-size:13pt; font-weight:bold; cursor:pointer; display:flex; align-items:center; gap:6px;">
+            下一張 ▶
+          </button>
+          <button onclick="closeLightboxModal()" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; border-radius:8px; padding:8px 14px; font-size:13pt; font-weight:bold; cursor:pointer;">
+            關閉 ✖
+          </button>
         </div>
       </div>
     </div>
@@ -6164,20 +6198,26 @@
 
     // ================= 1. 上方功能列與分頁連動收合 =================
     function toggleTopBarCollapse() {
-      const topBar = document.getElementById('mainTopBar');
-      const navTabs = document.getElementById('mainNavTabs');
+      const topBar = document.getElementById('mainTopBar') || document.querySelector('header.top-bar');
+      const navTabs = document.getElementById('mainNavTabs') || document.querySelector('nav.nav-tabs');
       const expandPill = document.getElementById('topBarExpandPill');
+      const capsule = document.getElementById('floatingExpandCapsule');
       if (!topBar) return;
       const isCollapsed = topBar.classList.contains('collapsed');
       if (isCollapsed) {
         topBar.classList.remove('collapsed');
         if (navTabs) navTabs.classList.remove('collapsed');
         if (expandPill) expandPill.style.display = 'none';
+        if (capsule) capsule.style.display = 'none';
       } else {
         topBar.classList.add('collapsed');
         if (navTabs) navTabs.classList.add('collapsed');
-        if (expandPill) expandPill.style.display = 'flex';
+        if (expandPill) expandPill.style.display = 'inline-flex';
+        if (capsule) capsule.style.display = 'inline-block';
       }
+    }
+    function toggleTopBarsExpansion() {
+      toggleTopBarCollapse();
     }
 
     // 分頁切換
@@ -6538,7 +6578,6 @@
       // 保持論證方式狀態同步
       isArgAnsRevealed = !isAnalysisAllRevealed;
       toggleArgMethodAnswer(document.getElementById('argAnswerSlot'));
-    });
     }
 
     // ================= 8. 詞語二切換 =================
@@ -6967,14 +7006,103 @@
       document.getElementById('gasUrlInput').value = DEFAULT_GAS_URL;
     }
 
-    // 圖片 Lightbox
+    // ================= 圖片 Lightbox (支援 4 張段落情境圖左右切換) =================
+    const textImages = [
+      {
+        src: "assets/images/1.jpg",
+        title: "圖片1：按鍵電話與現代生活節奏（第 1、2 段）",
+        desc: "以按鍵電話說明現代人分秒必爭、節奏迅速、步履匆忙，能掌握零碎時間者方為智者與成功者。"
+      },
+      {
+        src: "assets/images/2.jpg",
+        title: "圖片2：古今智者珍惜零碎時間（第 3、4、5 段）",
+        desc: "胡適先生「一日當三日」自勉、甘迺迪總統「治國本領在頭皮下」閱讀、陶淵明「及時當勉勵」、千字文「尺璧非寶寸陰是競」、歐陽脩「三上構思」。"
+      },
+      {
+        src: "assets/images/3.jpg",
+        title: "圖片3：大箱子裝石頭與細沙清水（第 6、7 段）",
+        desc: "經典空箱比喻：大石頭放滿後還可放大石、細沙與清水；比喻日常作息之餘，仍有零星空隙可完成許多事務。"
+      },
+      {
+        src: "assets/images/4.jpg",
+        title: "圖片4：積沙成塔與生命中的碎珠（第 8 段）",
+        desc: "積沙成塔、集腋成裘，零碎時間是生命中的碎珠、沙金、片玉，勤於撿拾累積便是一宗可觀的財富。"
+      }
+    ];
+    let currentLightboxIdx = 0;
+
+    function showImageLightbox(idxOrSrc, fallbackTitle) {
+      if (typeof idxOrSrc === 'number') {
+        currentLightboxIdx = idxOrSrc;
+      } else if (typeof idxOrSrc === 'string') {
+        const foundIdx = textImages.findIndex(img => img.src === idxOrSrc);
+        currentLightboxIdx = foundIdx !== -1 ? foundIdx : 0;
+      } else {
+        currentLightboxIdx = 0;
+      }
+      updateLightboxContent();
+      const modal = document.getElementById('lightboxModal');
+      if (modal) modal.style.display = 'flex';
+    }
+
     function showLightboxPlaceholder(title) {
-      document.getElementById('lightboxTitle').innerText = title;
-      document.getElementById('lightboxModal').style.display = 'flex';
+      showImageLightbox(0, title);
     }
+
+    function prevLightboxImg() {
+      if (currentLightboxIdx > 0) {
+        currentLightboxIdx--;
+      } else {
+        currentLightboxIdx = textImages.length - 1; // 循環回最後一張
+      }
+      updateLightboxContent();
+    }
+
+    function nextLightboxImg() {
+      if (currentLightboxIdx < textImages.length - 1) {
+        currentLightboxIdx++;
+      } else {
+        currentLightboxIdx = 0; // 循環回第一張
+      }
+      updateLightboxContent();
+    }
+
+    function updateLightboxContent() {
+      const item = textImages[currentLightboxIdx];
+      if (!item) return;
+      const imgEl = document.getElementById('lightboxImg');
+      const titleEl = document.getElementById('lightboxTitle');
+      const captionEl = document.getElementById('lightboxCaption');
+      const counterEl = document.getElementById('lightboxCounter');
+      
+      if (imgEl) {
+        imgEl.style.opacity = '0.4';
+        imgEl.src = item.src;
+        setTimeout(() => { imgEl.style.opacity = '1'; }, 100);
+      }
+      if (titleEl) titleEl.innerText = item.title;
+      if (captionEl) captionEl.innerText = item.desc;
+      if (counterEl) counterEl.innerText = (currentLightboxIdx + 1) + ' / ' + textImages.length;
+    }
+
     function closeLightboxModal() {
-      document.getElementById('lightboxModal').style.display = 'none';
+      const modal = document.getElementById('lightboxModal');
+      if (modal) modal.style.display = 'none';
     }
+
+    // 鍵盤左右鍵與 ESC 鍵導覽監聽
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('lightboxModal');
+      if (modal && modal.style.display === 'flex') {
+        if (e.key === 'ArrowLeft') {
+          prevLightboxImg();
+        } else if (e.key === 'ArrowRight') {
+          nextLightboxImg();
+        } else if (e.key === 'Escape') {
+          closeLightboxModal();
+        }
+      }
+    });
 
 
   // ==================== 115國文特教課堂教學管理系統 API 常數 ====================
