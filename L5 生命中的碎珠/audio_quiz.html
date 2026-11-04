@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎧 [L05] 有聲測驗卷 ‧ 陳幸蕙〈生命中的碎珠〉</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #f59e0b;
+      --accent-red: #dc2626;
+      --bg-page: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --border-color: #cbd5e1;
+      --topbar-font-size: 16pt;
+      --audio-content-font-size: 16pt;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-size: var(--audio-content-font-size);
+      line-height: 1.7;
+      padding: 16px 12px 100px 12px;
+    }
+    .container { max-width: 960px; margin: 0 auto; }
+
+    /* 頂部固定操作列 (16pt、可收合) */
+    header.top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #ffffff;
+      border: 2px solid #bae6fd;
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    header.top-bar.collapsed { display: none !important; }
+
+    #topBarExpandPill {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 18px;
+      z-index: 1001;
+      background: rgba(2, 132, 199, 0.92);
+      color: #ffffff;
+      border: 1.5px solid #ffffff;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14pt;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 15pt;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tool-btn:hover { border-color: #0284c7; color: #0284c7; }
+    .tool-btn.primary { background: #0284c7; color: #ffffff; border-color: #0369a1; }
+
+    /* 題目卡片 */
+    .audio-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+    }
+    .audio-card:hover { border-color: #93c5fd; }
+    .stem-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stem-text {
+      font-size: 17pt;
+      font-weight: bold;
+      color: #0f172a;
+      line-height: 1.6;
+    }
+    .opt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 16pt;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .opt-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .opt-btn.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+    }
+
+    /* 提示小卡 (方案 B) */
+    .hint-card {
+      display: none;
+      background: #fefce8;
+      border: 1.5px solid #fde047;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14pt;
+      color: #854d0e;
+      margin-bottom: 14px;
+    }
+
+    /* 詳解 */
+    .explain-card {
+      display: none;
+      margin-top: 14px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 15pt;
+      color: #166534;
+    }
+
+    /* 評量結果面板 */
+    #quizResultPanel {
+      display: none;
+      margin-top: 30px;
+      background: #ffffff;
+      border: 3px solid #0284c7;
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 8px 24px rgba(2, 132, 199, 0.15);
+    }
+  </style>
+</head>
+<body>
+
+  <header class="top-bar" id="mainTopBar">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="index.html" class="tool-btn" style="background:#e0f2fe; color:#0369a1; border-color:#7dd3fc;">
+        📖 回L5電子書
+      </a>
+      <span style="font-size:17pt; font-weight:900; color:#0c4a6e;">
+        🎧 有聲測驗卷 ‧ 生命中的碎珠
+      </span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="tool-btn" onclick="openIdentityPrompt()" id="btnCurIdentity">
+        👤 座號：01號 [切換]
+      </button>
+      <button class="tool-btn" onclick="toggleTopBar()" title="收合上方功能列">
+        🔼 收合功能列
+      </button>
+    </div>
+  </header>
+
+  <button id="topBarExpandPill" onclick="toggleTopBar()">
+    🔽 展開功能列
+  </button>
+
+  <main class="container">
+    <div style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:12px; padding:20px; margin-bottom:24px;">
+      <h2 style="font-size:20pt; font-weight:900; color:#0369a1; margin-bottom:6px;">
+        🎧 語音報讀 ‧ 全課精準有聲測驗卷
+      </h2>
+      <p style="font-size:15pt; color:#64748b;">
+        每道題目均支援 🔊 語音朗讀與 💡 特教提示引導。完成所有題目後，系統將統一結算成績並自動記錄特教輔助層級！
+      </p>
+    </div>
+
+    <!-- 題目列表 -->
+    <div id="quizList">
+
+      <div class="audio-card" id="card_1">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">主旨把握</span>
+            1. 關於〈生命中的碎珠〉一文的主旨，下列哪一個詞語最能代表作者想要傳遞的核心理念？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('關於〈生命中的碎珠〉一文的主旨，下列哪一個詞語最能代表作者想要傳遞的核心理念？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(1)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_1">
+          提示：請回想千字文中的格言，哪句話強調片刻光陰比珍貴玉器更值得爭取？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_1_0" onclick="selectAnswer(1, 0)">
+            (A) 寸陰尺璧
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_1_1" onclick="selectAnswer(1, 1)">
+            (B) 錙銖必較
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_1_2" onclick="selectAnswer(1, 2)">
+            (C) 時不我與
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_1_3" onclick="selectAnswer(1, 3)">
+            (D) 時過境遷
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_1">
+          <strong>💡 詳解解析：</strong>「寸陰尺璧」比喻光陰十分寶貴，一寸光陰比一尺璧玉更值得爭取，精準切合善用零碎時間的主旨。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_2">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">文意理解</span>
+            2. 胡適先生以「不做無益事，一日當三日，人活五十歲，我活百五十」自勉，這展現出他對時間的何種生活態度？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('胡適先生以「不做無益事，一日當三日，人活五十歲，我活百五十」自勉，這展現出他對時間的何種生活態度？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(2)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_2">
+          提示：胡適先生雖然事務繁雜，卻能如何運用時間，讓自己從不覺得時間不夠用？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_2_0" onclick="selectAnswer(2, 0)">
+            (A) 追求即時行樂，享受奢華的物質生活
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_2_1" onclick="selectAnswer(2, 1)">
+            (B) 充分掌握並支配零碎時間，使生命效益加倍
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_2_2" onclick="selectAnswer(2, 2)">
+            (C) 感嘆韶光易逝而悲觀消極，隱居自保
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_2_3" onclick="selectAnswer(2, 3)">
+            (D) 著重於追求長生不老與肉體年齡的延長
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_2">
+          <strong>💡 詳解解析：</strong>胡適善於掌握瑣碎空檔，使每一天發揮三倍效能，著書立說且從容自如。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_3">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">文意推論</span>
+            3. 甘迺迪總統回答批評他髮型古板的人說：「我相信治國的本領，不在頭皮上面，而在頭皮下面。」他這句話的真正涵義為何？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('甘迺迪總統回答批評他髮型古板的人說：「我相信治國的本領，不在頭皮上面，而在頭皮下面。」他這句話的真正涵義為何？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(3)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_3">
+          提示：「頭皮下面」指的是什麼？是人的內在智慧、思想，還是外表的裝扮？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_3_0" onclick="selectAnswer(3, 0)">
+            (A) 領導者應當走在時代尖端，講究前衛時髦的儀態
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_3_1" onclick="selectAnswer(3, 1)">
+            (B) 外在的容貌打扮比內在的思維學養更加重要
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_3_2" onclick="selectAnswer(3, 2)">
+            (C) 領導者充實內在學識與智慧，遠比修飾外貌更具決定性
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_3_3" onclick="selectAnswer(3, 3)">
+            (D) 身為政治人物，完全無須在乎人民的任何看法
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_3">
+          <strong>💡 詳解解析：</strong>「頭皮下面」代表腦中的知識學問與思維，「頭皮上面」代表外貌髮型。充實內在才是治國關鍵。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_4">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">修辭作法</span>
+            4. 本課篇名為「生命中的碎珠」，作者在文章結尾將零碎的時間比喻為「碎珠、沙金、片玉」，這種寫作手法的核心目的是什麼？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('本課篇名為「生命中的碎珠」，作者在文章結尾將零碎的時間比喻為「碎珠、沙金、片玉」，這種寫作手法的核心目的是什麼？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(4)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_4">
+          提示：珠子雖小，若勤於撿拾串聯，會變成什麼？這對時間有何啟示？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_4_0" onclick="selectAnswer(4, 0)">
+            (A) 感嘆世間物質財富的短暫易碎，勸人放下名利
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_4_1" onclick="selectAnswer(4, 1)">
+            (B) 說明古代珠寶開採的艱辛，提醒後人飲水思源
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_4_2" onclick="selectAnswer(4, 2)">
+            (C) 記錄自己收藏各種奇珍異寶的生活雅趣
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_4_3" onclick="selectAnswer(4, 3)">
+            (D) 具體凸顯細微時間的珍貴，鼓勵人們勤加累積運用
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_4">
+          <strong>💡 詳解解析：</strong>作者以具象的碎珠、沙金比喻抽象的零碎時間，強調點滴累積即能成為可觀的生命財富。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_5">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">情境應用</span>
+            5. 宋代歐陽脩常利用「三上」工夫（枕上、廁上、馬上）構思文章。在現代生活中，下列哪一種行為最符合歐陽脩「馬上」的精神？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('宋代歐陽脩常利用「三上」工夫（枕上、廁上、馬上）構思文章。在現代生活中，下列哪一種行為最符合歐陽脩「馬上」的精神？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(5)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_5">
+          提示：「馬上」是古代出門交通工具的移動時間，現代哪種情境也是移動中的零碎時間？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_5_0" onclick="selectAnswer(5, 0)">
+            (A) 利用每天搭公車或捷運的通勤時間背記英文單字
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_5_1" onclick="selectAnswer(5, 1)">
+            (B) 每天清晨起床後在書房安靜靜坐寫作半小時
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_5_2" onclick="selectAnswer(5, 2)">
+            (C) 趁著假日到圖書館整整閱讀一整天
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_5_3" onclick="selectAnswer(5, 3)">
+            (D) 上網購買許多書籍並整齊排列在書架上
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_5">
+          <strong>💡 詳解解析：</strong>「馬上」指騎馬行路時的交通空檔，現代對應為搭車、乘捷運等通勤的瑣碎片刻。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_6">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">文意理解</span>
+            6. 陶淵明在詩中寫道：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這四句詩最主要給予我們什麼啟發？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('陶淵明在詩中寫道：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這四句詩最主要給予我們什麼啟發？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(6)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_6">
+          提示：「及時當勉勵」是什麼意思？時間會停下來等我們嗎？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_6_0" onclick="selectAnswer(6, 0)">
+            (A) 年少時光漫長悠閒，可以慢慢尋找人生方向
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_6_1" onclick="selectAnswer(6, 1)">
+            (B) 青春年華一去不復返，應當把握時機奮發向上
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_6_2" onclick="selectAnswer(6, 2)">
+            (C) 世俗名利皆如浮雲，應效法隱士隱居山林
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_6_3" onclick="selectAnswer(6, 3)">
+            (D) 大自然晨昏循環不息，人們無須為時間焦慮
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_6">
+          <strong>💡 詳解解析：</strong>陶淵明詩句提醒青春盛年不會重新再來，一天也沒有兩個清晨，應及時努力自勉。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_7">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">論證分析</span>
+            7. 作者在第六、七段舉出「空箱子放進大石頭後，仍可放小石頭、細沙與清水」的比喻，其想要論證的道理為何？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('作者在第六、七段舉出「空箱子放進大石頭後，仍可放小石頭、細沙與清水」的比喻，其想要論證的道理為何？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(7)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_7">
+          提示：箱子放滿大石頭後真的全滿了嗎？這和我們一天的行程有何共通點？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_7_0" onclick="selectAnswer(7, 0)">
+            (A) 做事情必須先做輕鬆細碎的小事，再做重大決策
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_7_1" onclick="selectAnswer(7, 1)">
+            (B) 人的欲望如同深邃的箱子，永遠都難以填滿滿足
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_7_2" onclick="selectAnswer(7, 2)">
+            (C) 在忙碌固定的常規生活空隙中，依然能安排完成許多微小事務
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_7_3" onclick="selectAnswer(7, 3)">
+            (D) 物質的體積越小，在箱子裡所占據的重量就越重
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_7">
+          <strong>💡 詳解解析：</strong>大箱如一天二十四小時，大小石頭如工作讀書睡覺等常規，細沙清水則如零碎時間，說明零碎空隙仍有莫大利用空間。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_8">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">語文常識</span>
+            8. 下列有關時間用詞的文句敘述，何者使用「不正確」？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('下列有關時間用詞的文句敘述，何者使用「不正確」？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(8)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_8">
+          提示：「世紀」代表多長的時間？一百年可以用來描述一場籃球賽嗎？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_8_0" onclick="selectAnswer(8, 0)">
+            (A) 能夠在國際舞台上與各國頂尖選手切磋，真是千「載」難逢的良機
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_8_1" onclick="selectAnswer(8, 1)">
+            (B) 這對恩愛夫妻攜手走過一「甲子」，感情依然如初見般深厚
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_8_2" onclick="selectAnswer(8, 2)">
+            (C) 這對好友生肖相同，年紀剛好相差一「輪」，互動卻如同忘年之交
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_8_3" onclick="selectAnswer(8, 3)">
+            (D) 這場精采的籃球賽事高潮迭起，只打了短短一「世紀」就結束了
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_8">
+          <strong>💡 詳解解析：</strong>「世紀」為一百年，球賽時間應以「小時」或「刻」計算，使用「一世紀」顯然不合常理。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_9">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">形音義辨析</span>
+            9. 關於「璧、壁、避、僻」四個字的字義與詞語配對，下列選項何者「完全正確」？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('關於「璧、壁、避、僻」四個字的字義與詞語配對，下列選項何者「完全正確」？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(9)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_9">
+          提示：注意「璧」下面是玉，「壁」下面是土，「避」是走之底，「僻」是人字旁。
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_9_0" onclick="selectAnswer(9, 0)">
+            (A) 完「璧」歸趙：玉器 ／ 窮鄉「僻」壤：偏遠幽隱
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_9_1" onclick="selectAnswer(9, 1)">
+            (B) 「避」之唯恐不及：牆壁 ／ 家徒四「壁」：躲閃免除
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_9_2" onclick="selectAnswer(9, 2)">
+            (C) 「壁」壘分明：偏遠冷僻 ／ 「避」雷針：古代玉器
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_9_3" onclick="selectAnswer(9, 3)">
+            (D) 冷「僻」：軍營營壘 ／ 完「璧」：躲避危險
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_9">
+          <strong>💡 詳解解析：</strong>璧為玉器（完璧歸趙）；僻為偏遠（窮鄉僻壤）；壁為牆壁（壁壘分明）；避為躲開（避之唯恐不及）。(A)完全正確。
+        </div>
+      </div>
+
+
+      <div class="audio-card" id="card_10">
+        <div class="stem-row">
+          <div class="stem-text">
+            <span style="background:#0284c7; color:#fff; border-radius:6px; padding:2px 8px; font-size:13pt; margin-right:6px;">作法分析</span>
+            10. 依據本課議論文之作法分析，作者在論證「善用零碎時間」時，主要運用了哪些論證方式？
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0;">
+            <button class="tool-btn" onclick="speakText('依據本課議論文之作法分析，作者在論證「善用零碎時間」時，主要運用了哪些論證方式？')" style="font-size:13pt; padding:4px 10px;">
+              🔊 讀題
+            </button>
+            <button class="tool-btn" onclick="toggleHint(10)" style="font-size:13pt; padding:4px 10px; background:#fef3c7; color:#92400e; border-color:#fde047;">
+              💡 提示
+            </button>
+          </div>
+        </div>
+
+        <div class="hint-card" id="hint_10">
+          提示：想想看文中既有名人故事（事例）、古人詩句（言例），又有空箱裝石頭（比喻），是哪一種綜合論證？
+        </div>
+
+        <div class="opt-grid">
+
+          <button type="button" class="opt-btn" id="opt_10_0" onclick="selectAnswer(10, 0)">
+            (A) 僅運用駁論手法，嚴厲批判浪費時間的古代帝王
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_10_1" onclick="selectAnswer(10, 1)">
+            (B) 結合例證法（胡適/甘迺迪）、引證法（陶淵明/千字文）與比喻法（空箱裝石/碎珠沙金）
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_10_2" onclick="selectAnswer(10, 2)">
+            (C) 僅運用因果論證法，推導出時間無法倒流的物理規律
+          </button>
+
+
+          <button type="button" class="opt-btn" id="opt_10_3" onclick="selectAnswer(10, 3)">
+            (D) 完全採用寓言故事，缺乏具體的歷史名人事例支持
+          </button>
+
+        </div>
+
+        <div class="explain-card" id="explain_10">
+          <strong>💡 詳解解析：</strong>作者融合了例證（胡適、甘迺迪、歐陽脩）、引證（陶淵明詩、千字文）及比喻（空箱、碎珠），說理生動且具強大說服力。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 交卷按鈕 -->
+    <div style="text-align:center; margin:30px 0;">
+      <button class="tool-btn primary" id="btnSubmitQuiz" onclick="submitAudioQuiz()" style="font-size:19pt; font-weight:900; padding:14px 44px; border-radius:12px;">
+        📝 作答完畢 ‧ 結算成績
+      </button>
+    </div>
+
+    <!-- 評量結果面板 -->
+    <div id="quizResultPanel">
+      <h2 style="font-size:24pt; font-weight:900; color:#0369a1; text-align:center; margin-bottom:20px;">
+        🎉 評量成績結算報告
+      </h2>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:24px;">
+        <div style="background:#f0f9ff; border:2px solid #bae6fd; border-radius:12px; padding:18px; text-align:center;">
+          <div style="font-size:15pt; color:#0369a1; font-weight:bold;">正確率</div>
+          <div style="font-size:36pt; font-weight:900; color:#0284c7;" id="resAccuracy">--%</div>
+        </div>
+        <div style="background:#f0fdf4; border:2px solid #bbf7d0; border-radius:12px; padding:18px; text-align:center;">
+          <div style="font-size:15pt; color:#166534; font-weight:bold;">得分 ／ 題數</div>
+          <div style="font-size:36pt; font-weight:900; color:#16a34a;" id="resScore">-- 分</div>
+        </div>
+        <div style="background:#fefce8; border:2px solid #fde68a; border-radius:12px; padding:18px; text-align:center;">
+          <div style="font-size:15pt; color:#854d0e; font-weight:bold;">作答耗時</div>
+          <div style="font-size:36pt; font-weight:900; color:#d97706;" id="resDuration">-- 秒</div>
+        </div>
+      </div>
+
+      <!-- 特教輔助層級 (方案 C) -->
+      <div style="background:#f8fafc; border:2px solid #cbd5e1; border-radius:12px; padding:18px; margin-bottom:24px;">
+        <div style="font-size:16pt; font-weight:bold; color:#334155; margin-bottom:12px;">
+          🏷️ 特教輔助層級判定（IEP指標）：
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <label style="display:flex; align-items:center; gap:6px; font-size:15pt; background:#ffffff; border:1.5px solid #86efac; border-radius:8px; padding:8px 14px;">
+            <input type="radio" name="iepLevel" value="自主完成" id="iep1"> 🟢 自主完成
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; font-size:15pt; background:#ffffff; border:1.5px solid #fde047; border-radius:8px; padding:8px 14px;">
+            <input type="radio" name="iepLevel" value="口語提示" id="iep2"> 🟡 口語提示
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; font-size:15pt; background:#ffffff; border:1.5px solid #fdba74; border-radius:8px; padding:8px 14px;">
+            <input type="radio" name="iepLevel" value="視覺提示" id="iep3"> 🟠 視覺提示
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; font-size:15pt; background:#ffffff; border:1.5px solid #fca5a5; border-radius:8px; padding:8px 14px;">
+            <input type="radio" name="iepLevel" value="肢體協助" id="iep4"> 🔴 肢體協助
+          </label>
+        </div>
+      </div>
+
+      <!-- 答題清單 -->
+      <div id="reviewList" style="margin-bottom:24px; font-size:15pt;"></div>
+
+      <!-- 三大連動按鈕 -->
+      <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-bottom:16px;">
+        <button class="tool-btn" onclick="handleQuizAction('retake')" style="background:#f1f5f9; color:#334155; font-size:16pt; padding:12px 24px;">
+          🔄 再次作答
+        </button>
+        <button class="tool-btn" onclick="handleQuizAction('review')" style="background:#e0f2fe; color:#0369a1; font-size:16pt; padding:12px 24px;">
+          📖 到上方學習區複習
+        </button>
+        <button class="tool-btn primary" onclick="handleQuizAction('next')" style="font-size:16pt; padding:12px 28px;">
+          ⏭️ 進到下一關
+        </button>
+      </div>
+
+      <div id="submitStatusBadge" style="text-align:center; font-size:15pt; font-weight:bold; color:#16a34a; padding:8px;"></div>
+    </div>
+  </main>
+
+  <script>
+    const CENTRAL_GAS_URL = "https://script.google.com/macros/s/AKfycbz55BvjA24C7uR5VN1oRvMGO9NvciNGBGIyrobwjHXhslDlZEMDCAnubqiNNvoBFWUemw/exec";
+    const LESSON_KEY = "L5 生命中的碎珠";
+    let curSeat = localStorage.getItem('L5_USER_SEAT') || '01';
+    let userAnswers = {};
+    let hintUsed = {};
+    let quizStartTime = Date.now();
+    let isSubmitted = false;
+    const questionsData = [{"id":1,"category":"主旨把握","stem":"關於〈生命中的碎珠〉一文的主旨，下列哪一個詞語最能代表作者想要傳遞的核心理念？","options":["(A) 寸陰尺璧","(B) 錙銖必較","(C) 時不我與","(D) 時過境遷"],"answer":0,"explanation":"「寸陰尺璧」比喻光陰十分寶貴，一寸光陰比一尺璧玉更值得爭取，精準切合善用零碎時間的主旨。","hint":"提示：請回想千字文中的格言，哪句話強調片刻光陰比珍貴玉器更值得爭取？"},{"id":2,"category":"文意理解","stem":"胡適先生以「不做無益事，一日當三日，人活五十歲，我活百五十」自勉，這展現出他對時間的何種生活態度？","options":["(A) 追求即時行樂，享受奢華的物質生活","(B) 充分掌握並支配零碎時間，使生命效益加倍","(C) 感嘆韶光易逝而悲觀消極，隱居自保","(D) 著重於追求長生不老與肉體年齡的延長"],"answer":1,"explanation":"胡適善於掌握瑣碎空檔，使每一天發揮三倍效能，著書立說且從容自如。","hint":"提示：胡適先生雖然事務繁雜，卻能如何運用時間，讓自己從不覺得時間不夠用？"},{"id":3,"category":"文意推論","stem":"甘迺迪總統回答批評他髮型古板的人說：「我相信治國的本領，不在頭皮上面，而在頭皮下面。」他這句話的真正涵義為何？","options":["(A) 領導者應當走在時代尖端，講究前衛時髦的儀態","(B) 外在的容貌打扮比內在的思維學養更加重要","(C) 領導者充實內在學識與智慧，遠比修飾外貌更具決定性","(D) 身為政治人物，完全無須在乎人民的任何看法"],"answer":2,"explanation":"「頭皮下面」代表腦中的知識學問與思維，「頭皮上面」代表外貌髮型。充實內在才是治國關鍵。","hint":"提示：「頭皮下面」指的是什麼？是人的內在智慧、思想，還是外表的裝扮？"},{"id":4,"category":"修辭作法","stem":"本課篇名為「生命中的碎珠」，作者在文章結尾將零碎的時間比喻為「碎珠、沙金、片玉」，這種寫作手法的核心目的是什麼？","options":["(A) 感嘆世間物質財富的短暫易碎，勸人放下名利","(B) 說明古代珠寶開採的艱辛，提醒後人飲水思源","(C) 記錄自己收藏各種奇珍異寶的生活雅趣","(D) 具體凸顯細微時間的珍貴，鼓勵人們勤加累積運用"],"answer":3,"explanation":"作者以具象的碎珠、沙金比喻抽象的零碎時間，強調點滴累積即能成為可觀的生命財富。","hint":"提示：珠子雖小，若勤於撿拾串聯，會變成什麼？這對時間有何啟示？"},{"id":5,"category":"情境應用","stem":"宋代歐陽脩常利用「三上」工夫（枕上、廁上、馬上）構思文章。在現代生活中，下列哪一種行為最符合歐陽脩「馬上」的精神？","options":["(A) 利用每天搭公車或捷運的通勤時間背記英文單字","(B) 每天清晨起床後在書房安靜靜坐寫作半小時","(C) 趁著假日到圖書館整整閱讀一整天","(D) 上網購買許多書籍並整齊排列在書架上"],"answer":0,"explanation":"「馬上」指騎馬行路時的交通空檔，現代對應為搭車、乘捷運等通勤的瑣碎片刻。","hint":"提示：「馬上」是古代出門交通工具的移動時間，現代哪種情境也是移動中的零碎時間？"},{"id":6,"category":"文意理解","stem":"陶淵明在詩中寫道：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這四句詩最主要給予我們什麼啟發？","options":["(A) 年少時光漫長悠閒，可以慢慢尋找人生方向","(B) 青春年華一去不復返，應當把握時機奮發向上","(C) 世俗名利皆如浮雲，應效法隱士隱居山林","(D) 大自然晨昏循環不息，人們無須為時間焦慮"],"answer":1,"explanation":"陶淵明詩句提醒青春盛年不會重新再來，一天也沒有兩個清晨，應及時努力自勉。","hint":"提示：「及時當勉勵」是什麼意思？時間會停下來等我們嗎？"},{"id":7,"category":"論證分析","stem":"作者在第六、七段舉出「空箱子放進大石頭後，仍可放小石頭、細沙與清水」的比喻，其想要論證的道理為何？","options":["(A) 做事情必須先做輕鬆細碎的小事，再做重大決策","(B) 人的欲望如同深邃的箱子，永遠都難以填滿滿足","(C) 在忙碌固定的常規生活空隙中，依然能安排完成許多微小事務","(D) 物質的體積越小，在箱子裡所占據的重量就越重"],"answer":2,"explanation":"大箱如一天二十四小時，大小石頭如工作讀書睡覺等常規，細沙清水則如零碎時間，說明零碎空隙仍有莫大利用空間。","hint":"提示：箱子放滿大石頭後真的全滿了嗎？這和我們一天的行程有何共通點？"},{"id":8,"category":"語文常識","stem":"下列有關時間用詞的文句敘述，何者使用「不正確」？","options":["(A) 能夠在國際舞台上與各國頂尖選手切磋，真是千「載」難逢的良機","(B) 這對恩愛夫妻攜手走過一「甲子」，感情依然如初見般深厚","(C) 這對好友生肖相同，年紀剛好相差一「輪」，互動卻如同忘年之交","(D) 這場精采的籃球賽事高潮迭起，只打了短短一「世紀」就結束了"],"answer":3,"explanation":"「世紀」為一百年，球賽時間應以「小時」或「刻」計算，使用「一世紀」顯然不合常理。","hint":"提示：「世紀」代表多長的時間？一百年可以用來描述一場籃球賽嗎？"},{"id":9,"category":"形音義辨析","stem":"關於「璧、壁、避、僻」四個字的字義與詞語配對，下列選項何者「完全正確」？","options":["(A) 完「璧」歸趙：玉器 ／ 窮鄉「僻」壤：偏遠幽隱","(B) 「避」之唯恐不及：牆壁 ／ 家徒四「壁」：躲閃免除","(C) 「壁」壘分明：偏遠冷僻 ／ 「避」雷針：古代玉器","(D) 冷「僻」：軍營營壘 ／ 完「璧」：躲避危險"],"answer":0,"explanation":"璧為玉器（完璧歸趙）；僻為偏遠（窮鄉僻壤）；壁為牆壁（壁壘分明）；避為躲開（避之唯恐不及）。(A)完全正確。","hint":"提示：注意「璧」下面是玉，「壁」下面是土，「避」是走之底，「僻」是人字旁。"},{"id":10,"category":"作法分析","stem":"依據本課議論文之作法分析，作者在論證「善用零碎時間」時，主要運用了哪些論證方式？","options":["(A) 僅運用駁論手法，嚴厲批判浪費時間的古代帝王","(B) 結合例證法（胡適/甘迺迪）、引證法（陶淵明/千字文）與比喻法（空箱裝石/碎珠沙金）","(C) 僅運用因果論證法，推導出時間無法倒流的物理規律","(D) 完全採用寓言故事，缺乏具體的歷史名人事例支持"],"answer":1,"explanation":"作者融合了例證（胡適、甘迺迪、歐陽脩）、引證（陶淵明詩、千字文）及比喻（空箱、碎珠），說理生動且具強大說服力。","hint":"提示：想想看文中既有名人故事（事例）、古人詩句（言例），又有空箱裝石頭（比喻），是哪一種綜合論證？"}];
+
+    function toggleTopBar() {
+      const topBar = document.getElementById('mainTopBar');
+      const expandPill = document.getElementById('topBarExpandPill');
+      if (topBar.classList.contains('collapsed')) {
+        topBar.classList.remove('collapsed');
+        expandPill.style.display = 'none';
+      } else {
+        topBar.classList.add('collapsed');
+        expandPill.style.display = 'block';
+      }
+    }
+
+    function speakText(text) {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.88;
+      window.speechSynthesis.speak(u);
+    }
+
+    function toggleHint(qId) {
+      const h = document.getElementById('hint_' + qId);
+      if (h.style.display === 'block') {
+        h.style.display = 'none';
+      } else {
+        h.style.display = 'block';
+        hintUsed[qId] = true;
+      }
+    }
+
+    function selectAnswer(qId, oIdx) {
+      if (isSubmitted) return;
+      userAnswers[qId] = oIdx;
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById('opt_' + qId + '_' + i);
+        if (i === oIdx) btn.classList.add('selected');
+        else btn.classList.remove('selected');
+      }
+    }
+
+    function submitAudioQuiz() {
+      const answered = Object.keys(userAnswers).length;
+      if (answered < questionsData.length) {
+        if (!confirm('您還有題目未作答，確定要交卷嗎？')) return;
+      }
+
+      isSubmitted = true;
+      let correct = 0;
+      const review = [];
+
+      questionsData.forEach((q, idx) => {
+        const choice = userAnswers[q.id];
+        const isRight = (choice === q.answer);
+        if (isRight) correct++;
+
+        for (let i = 0; i < 4; i++) {
+          const btn = document.getElementById('opt_' + q.id + '_' + i);
+          if (i === q.answer) {
+            btn.style.borderColor = '#16a34a';
+            btn.style.background = '#dcfce7';
+            btn.style.color = '#15803d';
+            btn.innerHTML = btn.innerHTML + ' ✅ (正解)';
+          } else if (i === choice && !isRight) {
+            btn.style.borderColor = '#dc2626';
+            btn.style.background = '#fee2e2';
+            btn.style.color = '#b91c1c';
+            btn.innerHTML = btn.innerHTML + ' ❌ (您的選擇)';
+          }
+        }
+
+        document.getElementById('explain_' + q.id).style.display = 'block';
+
+        review.push(`
+          <div style="padding:10px; border-bottom:1px solid #e2e8f0; display:flex; justify-content:space-between;">
+            <span>${isRight ? '✅' : '❌'} 第 ${idx + 1} 題：${q.stem.slice(0, 30)}...</span>
+            <span style="font-weight:bold; color:${isRight ? '#15803d' : '#b91c1c'};">
+              ${isRight ? '答對' : '需訂正 (正解: ' + ['A','B','C','D'][q.answer] + ')'}
+            </span>
+          </div>
+        `);
+      });
+
+      const acc = Math.round((correct / questionsData.length) * 100);
+      const score = Math.round((correct / questionsData.length) * 100);
+      const durSec = Math.round((Date.now() - quizStartTime) / 1000);
+
+      document.getElementById('resAccuracy').innerText = acc + '%';
+      document.getElementById('resScore').innerText = score + ' 分 (' + correct + '/' + questionsData.length + ')';
+      document.getElementById('resDuration').innerText = Math.floor(durSec / 60) + '分' + (durSec % 60) + '秒';
+      document.getElementById('reviewList').innerHTML = review.join('');
+
+      if (Object.keys(hintUsed).length === 0) {
+        document.getElementById('iep1').checked = true;
+      } else {
+        document.getElementById('iep3').checked = true;
+      }
+
+      document.getElementById('quizResultPanel').style.display = 'block';
+      document.getElementById('quizResultPanel').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('btnSubmitQuiz').style.display = 'none';
+
+      speakText('有聲測驗交卷完成！正確率為' + acc + '百分比，得分' + score + '分！');
+    }
+
+    function handleQuizAction(type) {
+      const iep = document.querySelector('input[name="iepLevel"]:checked')?.value || '自主完成';
+      const acc = document.getElementById('resAccuracy').innerText;
+      const score = document.getElementById('resScore').innerText;
+
+      // 發送成績
+      const payload = {
+        action: "submitOnlineQuiz",
+        lesson: LESSON_KEY,
+        category: "有聲測驗",
+        subCategory: "有聲卷",
+        seat: curSeat,
+        name: (curSeat === 'test.' ? '測試老師' : curSeat + '號學生'),
+        score: parseInt(score) || 0,
+        maxScore: 100,
+        note: iep + ' (' + acc + ')'
+      };
+
+      fetch(CENTRAL_GAS_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      }).catch(e => console.error(e));
+
+      document.getElementById('submitStatusBadge').innerHTML = '✅ 本次成績已成功送出至中央試算表！（座號：' + curSeat + ' ｜ 正確率：' + acc + ' ｜ ' + iep + '）';
+
+      setTimeout(() => {
+        if (type === 'retake') {
+          location.reload();
+        } else if (type === 'review') {
+          window.location.href = 'index.html';
+        } else if (type === 'next') {
+          window.location.href = 'classroom_worksheet.html';
+        }
+      }, 700);
+    }
+
+    function openIdentityPrompt() {
+      const seat = prompt('請輸入作答座號 (01~06 或 test.)：', curSeat);
+      if (seat) {
+        curSeat = seat;
+        localStorage.setItem('L5_USER_SEAT', seat);
+        document.getElementById('btnCurIdentity').innerText = '👤 座號：' + seat + '號 [切換]';
+      }
+    }
+  </script>
+</body>
+</html>

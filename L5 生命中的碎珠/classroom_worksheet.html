@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📄 課堂隨堂學習單 ‧ 陳幸蕙〈生命中的碎珠〉（含課本P78讀後檢測站＆習作P29-31）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --text-main: #0f172a;
+      --bg-page: #f8fafc;
+      --border-card: #cbd5e1;
+      --topbar-font-size: 16pt;
+      --worksheet-content-font-size: 16pt;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Iansui", "芫荽", "ㄅ字嗨注音標楷", "標楷體", "DFKai-SB", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-size: var(--worksheet-content-font-size) !important;
+      line-height: 1.75;
+      padding: 16px 12px 100px 12px;
+      position: relative;
+    }
+
+    /* 上方功能列 (16pt、可收合) */
+    header.top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      max-width: 1000px;
+      margin: 0 auto 16px auto;
+      background: #ffffff;
+      border: 2px solid #bae6fd;
+      border-radius: 12px;
+      padding: 10px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      transition: all 0.3s ease;
+    }
+    header.top-bar.collapsed { display: none !important; }
+
+    #topBarExpandPill {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 18px;
+      z-index: 1001;
+      background: rgba(2, 132, 199, 0.92);
+      color: #ffffff;
+      border: 1.5px solid #ffffff;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14pt;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      font-size: 15pt;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tool-btn:hover { border-color: #0284c7; color: #0284c7; }
+    .tool-btn.primary { background: #0284c7; color: #ffffff; border-color: #0369a1; }
+
+    /* 學習單主紙張容器 */
+    .worksheet-paper {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 36px 32px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border-card);
+      box-shadow: 0 3px 14px rgba(0,0,0,0.06);
+    }
+    .ws-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2.5px solid #0284c7;
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      gap: 16px;
+    }
+    .ws-title {
+      font-size: 22pt;
+      font-weight: 900;
+      color: #0c4a6e;
+    }
+    .ws-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 16pt;
+      color: #334155;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    .meta-line {
+      border-bottom: 2px solid #64748b;
+      min-width: 80px;
+      display: inline-block;
+      text-align: center;
+      color: #0284c7;
+    }
+
+    .ws-section { margin-bottom: 30px; }
+    .ws-sec-title {
+      font-size: 19pt;
+      font-weight: 900;
+      color: #0369a1;
+      background: #f0f9ff;
+      border-left: 6px solid #0284c7;
+      padding: 8px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* 題目方塊 */
+    .q-block {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+      background: #ffffff;
+    }
+    .q-stem {
+      font-size: 17pt;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+    .opt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+    }
+    .opt-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      font-size: 15pt;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .opt-btn:hover { border-color: #0284c7; background: #f0f9ff; }
+    .opt-btn.checked {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0369a1;
+      font-weight: bold;
+    }
+
+    /* 答案標記 (教師版/點擊翻牌) */
+    .ans-tag {
+      display: inline-block;
+      min-width: 24px;
+      color: transparent;
+      font-weight: 900;
+      padding: 0 4px;
+      transition: all 0.2s;
+    }
+    body.show-teacher-ans .ans-tag,
+    .show-ans .ans-tag {
+      color: #dc2626 !important;
+      background: #fee2e2;
+      border-radius: 4px;
+    }
+
+    /* 表格樣式 */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 15pt;
+    }
+    .table-custom th, .table-custom td {
+      border: 1.5px solid #cbd5e1;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    .table-custom th {
+      background: #f1f5f9;
+      color: #1e293b;
+      font-weight: 900;
+    }
+
+    /* 列印規範：完全還原白紙學生卷 */
+    @media print {
+      body { background: #fff !important; padding: 0 !important; }
+      header.top-bar, #topBarExpandPill, .no-print { display: none !important; }
+      .worksheet-paper { border: none !important; box-shadow: none !important; padding: 0 !important; width: 100% !important; max-width: 100% !important; }
+      .ans-tag { color: transparent !important; background: transparent !important; }
+      body.show-teacher-ans .ans-tag { color: #dc2626 !important; }
+    }
+  
+  /* 課文作法分析 逐格點選顯示答案專用樣式 */
+  .analysis-slot {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+    vertical-align: middle;
+    margin: 2px 4px;
+    transition: all 0.15s ease;
+  }
+  .analysis-slot .slot-mask {
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    background: #f0f9ff;
+    color: #0369a1;
+    border-bottom: 2px dashed #0284c7;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 15.5pt;
+    letter-spacing: 2px;
+    transition: all 0.15s ease;
+  }
+  .analysis-slot:hover .slot-mask {
+    background: #bae6fd;
+    border-bottom-style: solid;
+    color: #0284c7;
+    transform: translateY(-1px);
+  }
+  .analysis-slot .slot-val {
+    display: none;
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1.5px solid #ef4444;
+    border-radius: 6px;
+    padding: 1px 8px;
+    font-weight: 900;
+    font-size: 16pt;
+  }
+  .analysis-slot.revealed .slot-mask {
+    display: none !important;
+  }
+  .analysis-slot.revealed .slot-val {
+    display: inline-block !important;
+  }
+
+  /* 論證方式選項卡片 */
+  .arg-opt-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    margin: 4px 8px 4px 0;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+    font-size: 16pt;
+  }
+  .arg-opt-item:hover {
+    background: #f8fafc;
+    border-color: #94a3b8;
+  }
+  .arg-opt-item.checked {
+    border-color: #0284c7;
+    background: #f0f9ff;
+  }
+  .arg-opt-item.ans-correct {
+    border-color: #10b981 !important;
+    background: #f0fdf4 !important;
+    color: #15803d !important;
+    font-weight: bold;
+  }
+  .arg-opt-item.ans-wrong {
+    border-color: #f87171 !important;
+    background: #fef2f2 !important;
+    color: #991b1b !important;
+    opacity: 0.85;
+  }
+  .arg-opt-badge {
+    display: none;
+    font-size: 13pt;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 4px;
+  }
+  .arg-opt-item.ans-correct .arg-opt-badge {
+    display: inline-block;
+    background: #dcfce7;
+    color: #15803d;
+  }
+  .arg-opt-item.ans-wrong .arg-opt-badge {
+    display: inline-block;
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- 上方功能列 (16pt、可收合) -->
+  <header class="top-bar" id="mainTopBar">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="index.html" class="tool-btn" style="background:#e0f2fe; color:#0369a1; border-color:#7dd3fc;">
+        📖 回L5電子書
+      </a>
+      <span style="font-size:17pt; font-weight:900; color:#0c4a6e;">
+        📄 隨堂學習單 ‧ 生命中的碎珠
+      </span>
+    </div>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <button class="tool-btn" onclick="openWsIdentityModal()" id="wsBtnCurIdentity">
+        👤 座號：01號 [切換]
+      </button>
+      <button class="tool-btn" onclick="toggleTeacherMode()" id="btnTeacherToggle" style="background:#fef3c7; color:#92400e; border-color:#fde047;">
+        👁️ 學生版 (隱藏解答)
+      </button>
+      <button class="tool-btn" onclick="window.print()" title="列印純淨學生作業卷">
+        🖨️ 列印 A4 卷
+      </button>
+      <button class="tool-btn" onclick="toggleWsTopBar()" title="收合上方功能列">
+        🔼 收合
+      </button>
+    </div>
+  </header>
+
+  <button id="topBarExpandPill" onclick="toggleWsTopBar()">
+    🔽 展開上方列
+  </button>
+
+  <!-- 學習單主紙張容器 -->
+  <main class="worksheet-paper">
+    <!-- 標題與學生資訊欄 -->
+    <div class="ws-header">
+      <div>
+        <h1 class="ws-title">國文科第二冊 第五課〈生命中的碎珠〉隨堂課堂學習單</h1>
+        <div class="ws-meta-row">
+          <span>年級：八年級</span>
+          <span>班級：<span class="meta-line">　　　</span>班</span>
+          <span>座號：<span class="meta-line" id="wsPaperSeat">01</span>號</span>
+          <span>姓名：<span class="meta-line">　　　　</span></span>
+          <span>得分：<span class="meta-line" id="wsScoreBox" style="color:#dc2626;">　　　</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 一、課本 P.78 讀後檢測站 ================= -->
+    <section class="ws-section">
+      <div class="ws-sec-title">
+        <span>二、課本 P.80～83 議論文透視鏡 ＆ 作法分析填空</span>
+        <button class="tool-btn" onclick="toggleAnalysisAns()" style="font-size:13pt; padding:4px 10px;">
+          💡 一鍵揭曉/隱藏全頁填空正解
+        </button>
+      </div>
+
+      <table class="table-custom">
+        <thead>
+          <tr>
+            <th style="width:25%;">結構要素</th>
+            <th>本課《生命中的碎珠》作法分析（點擊每一空格即可逐格揭曉／隱藏答案）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:bold; color:#0369a1;">論點（作者看法）</td>
+            <td>
+              處於分秒必爭的世界，能善用
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　）</span>
+                <span class="slot-val">【零碎時間】</span>
+              </span>
+              的人，往往也都是令人敬佩仰慕的智者、成功者。
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold; color:#0369a1;">論據（文中事例）</td>
+            <td>
+              1. <strong>胡適先生</strong>：「
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　　　　　　　）</span>
+                <span class="slot-val">【不做無益事，一日當三日】</span>
+              </span>
+              」，充分支配零碎時間。<br>
+              2. <strong>甘迺迪總統</strong>：在客人進出空檔
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　）</span>
+                <span class="slot-val">【空檔閱讀】</span>
+              </span>
+              充實治國本領。<br>
+              3. <strong>歐陽脩</strong>：善用「
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　）</span>
+                <span class="slot-val">【三上】</span>
+              </span>
+              」（枕上、廁上、馬上）的時間構思文章。
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold; color:#0369a1;">論據（文中言例）</td>
+            <td>
+              1. <strong>陶淵明</strong>：「
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　　　　　　　　　　　　　）</span>
+                <span class="slot-val">【盛年不重來，一日難再晨，及時當勉勵，歲月不待人】</span>
+              </span>
+              。」<br>
+              2. <strong>千字文</strong>：「
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　　　　　）</span>
+                <span class="slot-val">【尺璧非寶，寸陰是競】</span>
+              </span>
+              。」
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold; color:#0369a1;">論據（文中比喻）</td>
+            <td>
+              1. <strong>空箱比喻</strong>：以填滿空箱來比喻日常瑣事之餘，仍有
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　）</span>
+                <span class="slot-val">【空隙】</span>
+              </span>
+              可供我們充分利用。<br>
+              2. <strong>碎珠比喻</strong>：將零碎時間比喻為生命中的「
+              <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                <span class="slot-mask">（　　　　　　　）</span>
+                <span class="slot-val">【碎珠、沙金、片玉】</span>
+              </span>
+              」，能勤於撿拾是一宗可觀的財富。
+            </td>
+          </tr>
+          <tr>
+            <td style="font-weight:bold; color:#0369a1;">論證（證明方式）</td>
+            <td>
+              本課運用的論證方式（多選）：
+              <div style="margin-top:6px;">
+                <span class="analysis-slot" onclick="toggleAnalysisSlot(this)" title="👉 點擊逐格顯示／隱藏答案">
+                  <span class="slot-mask">（　👉 點擊揭曉論證方式答案　）</span>
+                  <span class="slot-val">【例證法】、【引證法】、【比喻法】（本課皆為正面立論，無對比法）</span>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ================= 三、習作 P.30 相似字形音義伸展秀 ================= -->
+    <section class="ws-section">
+      <div class="ws-sec-title">
+        <span>三、習作 P.30「形音義伸展秀」句子填空檢測</span>
+        <span style="font-size:14pt; font-weight:normal; color:#475569;">共 6 題 ‧ 每題 5 分</span>
+      </div>
+
+      <div class="q-block">
+        <div style="font-size:16pt; line-height:1.9;">
+          1. 這裡過去是窮鄉（<span class="ans-tag ws-ans-blank">僻</span>）壤，人煙稀少，後來成為科技園區。<br>
+          2. 在警方大力協助下，遺失項鍊終於完（<span class="ans-tag ws-ans-blank">璧</span>）歸趙。<br>
+          3. 兩隊球迷分坐兩區，（<span class="ans-tag ws-ans-blank">壁</span>）壘分明，熱情為喜愛隊伍加油。<br>
+          4. 他愛占人便宜，同學們對他都（<span class="ans-tag ws-ans-blank">避</span>）之唯恐不及。<br>
+          5. 他為了獎（<span class="ans-tag ws-ans-blank">掖</span>）後進，積極籌措獎助基金。<br>
+          6. 在熱心人士慷慨解囊下，集（<span class="ans-tag ws-ans-blank">腋</span>）成裘，終於幫他達成建校願望。<br>
+          7. 烏拉圭前總統和（<span class="ans-tag ws-ans-blank">藹</span>）可親且慈悲為懷，捐出大半薪資。<br>
+          8. 殘日西落，青山湖水間暮（<span class="ans-tag ws-ans-blank">靄</span>）沉沉，更顯得蒼涼寂寥。<br>
+          9. 英國使節團（<span class="ans-tag ws-ans-blank">謁</span>）見乾隆皇帝，代表兩大帝國正式交往。
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 四、習作 P.31 時間列車 ================= -->
+    <section class="ws-section">
+      <div class="ws-sec-title">
+        <span>四、習作 P.31「時間列車」兩大部分實戰練習</span>
+      </div>
+
+      <div class="q-block">
+        <div style="font-size:17pt; font-weight:bold; color:#0369a1; margin-bottom:8px;">
+          甲、時間長度配對（填入代號 A~H）：
+        </div>
+        <div style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:8px 14px; margin-bottom:12px; font-size:14pt; color:#475569;">
+          選項庫：(A) 十五分鐘 (B) 十日 (C) 三個月 (D) 十二年 (E) 三十年 (F) 六十年 (G) 一百年 (H) 相當於「年」
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; font-size:16pt;">
+          <div>1. 載：【<span class="ans-tag ws-ans-blank">H</span>】</div>
+          <div>2. 刻：【<span class="ans-tag ws-ans-blank">A</span>】</div>
+          <div>3. 世：【<span class="ans-tag ws-ans-blank">E</span>】</div>
+          <div>4. 季：【<span class="ans-tag ws-ans-blank">C</span>】</div>
+          <div>5. 旬：【<span class="ans-tag ws-ans-blank">B</span>】</div>
+          <div>6. 輪：【<span class="ans-tag ws-ans-blank">D</span>】</div>
+          <div>7. 甲子：【<span class="ans-tag ws-ans-blank">F</span>】</div>
+          <div>8. 世紀：【<span class="ans-tag ws-ans-blank">G</span>】</div>
+        </div>
+      </div>
+
+      <div class="q-block" style="margin-top:16px;">
+        <div style="font-size:17pt; font-weight:bold; color:#047857; margin-bottom:8px;">
+          乙、情境語詞活用（填入適當時間詞）：
+        </div>
+        <div style="font-size:16pt; line-height:1.9;">
+          1. 能與偶像同臺高歌，真是千（<span class="ans-tag ws-ans-blank">載</span>）難逢的機會。<br>
+          2. 這對老夫妻結婚已有一（<span class="ans-tag ws-ans-blank">甲子</span>），如今兩人依舊恩愛異常。<br>
+          3. 每個月依照日期可分為上、中、下三（<span class="ans-tag ws-ans-blank">旬</span>）。<br>
+          4. 蒸汽機的發明，引發了十八（<span class="ans-tag ws-ans-blank">世紀</span>）末西方的工業革命。<br>
+          5. 古人說三十年為一（<span class="ans-tag ws-ans-blank">世</span>），因此有「三十年河東，三十年河西」的說法。<br>
+          6. 球賽一直進行到晚上九時三（<span class="ans-tag ws-ans-blank">刻</span>）才結束。<br>
+          7. 一家公司營運的盈虧，從公司（<span class="ans-tag ws-ans-blank">季</span>）報中，就可窺知一二。<br>
+          8. 他倆相差一（<span class="ans-tag ws-ans-blank">輪</span>），生肖相同，默契十足，真是忘年之交啊！
+        </div>
+      </div>
+    </section>
+
+    <!-- 頁尾一鍵回頂端與交卷按鈕 -->
+    <div style="text-align:center; margin-top:40px;">
+      <button class="tool-btn primary" onclick="submitWorksheet()" style="font-size:18pt; padding:12px 36px;">
+        📝 結算學習單成果
+      </button>
+      <div style="margin-top:14px;">
+        <button class="tool-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+          🔝 一鍵回到頁面頂端
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let isTeacherView = false;
+    let wsAnswers = {};
+
+    function toggleWsTopBar() {
+      const topBar = document.getElementById('mainTopBar');
+      const expandPill = document.getElementById('topBarExpandPill');
+      if (topBar.classList.contains('collapsed')) {
+        topBar.classList.remove('collapsed');
+        expandPill.style.display = 'none';
+      } else {
+        topBar.classList.add('collapsed');
+        expandPill.style.display = 'block';
+      }
+    }
+
+    function toggleTeacherMode() {
+      isTeacherView = !isTeacherView;
+      const btn = document.getElementById('btnTeacherToggle');
+      if (isTeacherView) {
+        document.body.classList.add('show-teacher-ans');
+        btn.innerText = '👨‍🏫 教師解答版 (已揭曉答案)';
+        btn.style.background = '#dc2626';
+        btn.style.color = '#ffffff';
+      } else {
+        document.body.classList.remove('show-teacher-ans');
+        btn.innerText = '👁️ 學生版 (隱藏解答)';
+        btn.style.background = '#fef3c7';
+        btn.style.color = '#92400e';
+      }
+    }
+
+    function toggleAnalysisAns() {
+      document.querySelectorAll('.ws-ans-blank').forEach(el => {
+        el.style.color = (el.style.color === 'rgb(220, 38, 38)') ? 'transparent' : '#dc2626';
+      });
+    }
+
+    function checkWsOpt(qId, selectedIdx, correctIdx, btn) {
+      wsAnswers[qId] = selectedIdx;
+      const parent = btn.parentNode;
+      parent.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('checked'));
+      btn.classList.add('checked');
+    }
+
+    function submitWorksheet() {
+      let correct = 0;
+      const keys = { 1: 0, 2: 3, 3: 2, 4: 2 };
+      for (let k in keys) {
+        if (wsAnswers[k] === keys[k]) correct++;
+      }
+      const score = correct * 25;
+      document.getElementById('wsScoreBox').innerText = score + ' 分';
+      alert('學習單讀後檢測站完成！得分：' + score + ' 分！');
+    }
+
+    function openWsIdentityModal() {
+      const seat = prompt('請輸入您的作答座號 (01~06 或 test.)：', '01');
+      if (seat) {
+        document.getElementById('wsBtnCurIdentity').innerText = '👤 座號：' + seat + '號 [切換]';
+        document.getElementById('wsPaperSeat').innerText = seat;
+      }
+    }
+  
+  function toggleAnalysisSlot(slot) {
+    slot.classList.toggle('revealed');
+  }
+
+  let isWsAnalysisRevealed = false;
+  function toggleAnalysisAns() {
+    isWsAnalysisRevealed = !isWsAnalysisRevealed;
+    document.querySelectorAll('.analysis-slot').forEach(slot => {
+      if (isWsAnalysisRevealed) {
+        slot.classList.add('revealed');
+      } else {
+        slot.classList.remove('revealed');
+      }
+    });
+  }
+
+</script>
+</body>
+</html>

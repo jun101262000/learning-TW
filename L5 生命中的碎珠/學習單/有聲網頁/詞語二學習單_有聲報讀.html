@@ -1,0 +1,2647 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>國文二上 第五課〈生命中的碎珠〉詞語二學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 第五課〈生命中的碎珠〉詞語二學習單</div>
+      <div class="top-controls">
+        <button class="btn primary" id="btnToggleAns" onclick="toggleAnswers()">👁️ 顯示解答</button>
+        <button class="btn" onclick="toggleFontSize()">🔠 字體大小</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹️ 停止語音</button>
+        <div style="display:inline-flex; align-items:center; gap:4px; font-size:12pt; margin-left:8px;">
+          <span>語速:</span>
+          <button class="btn rate-btn active" onclick="setRate(1.0, this)">正常</button>
+          <button class="btn rate-btn" onclick="setRate(0.8, this)">慢速</button>
+        </div>
+        <button class="btn" onclick="window.print()">🖨️ 列印</button>
+      </div>
+    </header>
+
+    <nav class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </nav>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語習寫（16組指定評量詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依習作與備課用書進階詞語排列，點擊按鈕可聽讀音與釋義：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 編纂</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗㄨㄢˇ）</span>
+            <button class="btn-speak" onclick="speakText('編纂，目標字：纂，注音：ㄗㄨㄢˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('編纂。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【纂】（注音：ㄗㄨㄢˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 步履</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄩˇ）</span>
+            <button class="btn-speak" onclick="speakText('步履，目標字：履，注音：ㄌㄩˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('步履。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【履】（注音：ㄌㄩˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 著書立說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('著書立說，目標字：著，注音：ㄓㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('著書立說。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【著】（注音：ㄓㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 溫藹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('溫藹，目標字：藹，注音：ㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('溫藹。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【藹】（注音：ㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 不敷使用</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('不敷使用，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不敷使用。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 敷衍</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('敷衍，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('敷衍。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 甘迺迪</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄋㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('甘迺迪，目標字：迺，注音：ㄋㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('甘迺迪。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【迺】（注音：ㄋㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 仰慕</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄤˇ ㄇㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('仰慕，目標字：仰慕，注音：ㄧㄤˇ ㄇㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('仰慕。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【仰慕】（注音：ㄧㄤˇ ㄇㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 撇開</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄆㄧㄝ）</span>
+            <button class="btn-speak" onclick="speakText('撇開，目標字：撇，注音：ㄆㄧㄝ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('撇開。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【撇】（注音：ㄆㄧㄝ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 瑣碎</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('瑣碎，目標字：瑣，注音：ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('瑣碎。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【瑣】（注音：ㄙㄨㄛˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 尺璧</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('尺璧，目標字：璧，注音：ㄅㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('尺璧。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【璧】（注音：ㄅㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 歐陽脩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄡ）</span>
+            <button class="btn-speak" onclick="speakText('歐陽脩，目標字：脩，注音：ㄒㄧㄡ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('歐陽脩。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【脩】（注音：ㄒㄧㄡ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 空隙</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄎㄨㄥˋ ㄒㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('空隙，目標字：空隙，注音：ㄎㄨㄥˋ ㄒㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('空隙。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【空隙】（注音：ㄎㄨㄥˋ ㄒㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 集腋成裘</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄝˋ、ㄑㄧㄡˊ）</span>
+            <button class="btn-speak" onclick="speakText('集腋成裘，目標字：腋、裘，注音：ㄧㄝˋ、ㄑㄧㄡˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('集腋成裘。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【腋、裘】（注音：ㄧㄝˋ、ㄑㄧㄡˊ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 不舍晝夜</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄡˋ）</span>
+            <button class="btn-speak" onclick="speakText('不舍晝夜，目標字：晝，注音：ㄓㄡˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不舍晝夜。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【晝】（注音：ㄓㄡˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">16. 錙銖必較</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('錙銖必較，目標字：錙銖，注音：ㄗ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('錙銖必較。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【錙銖】（注音：ㄗ ㄓㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：依課文原文寫出注音（16題全測）</div>
+          <span class="section-badge">第 2 頁 / 注音檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：美國總統甘「迺」迪
+            <button class="btn-speak" onclick="speakText('第1題。句子：美國總統甘「迺」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【迺】</div>
+          <div class="teacher-answer">★ 正解：【ㄋㄞˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：不「敷」使用
+            <button class="btn-speak" onclick="speakText('第2題。句子：不「敷」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：集「腋」成「裘」
+            <button class="btn-speak" onclick="speakText('第3題。句子：集「腋」成「裘」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【腋、裘】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「著」書立說
+            <button class="btn-speak" onclick="speakText('第4題。句子：「著」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【著】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：「空隙」
+            <button class="btn-speak" onclick="speakText('第5題。句子：「空隙」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【空隙】</div>
+          <div class="teacher-answer">★ 正解：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：「仰慕」
+            <button class="btn-speak" onclick="speakText('第6題。句子：「仰慕」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【仰慕】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄤˇ ㄇㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：溫「藹」
+            <button class="btn-speak" onclick="speakText('第7題。句子：溫「藹」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【藹】</div>
+          <div class="teacher-answer">★ 正解：【ㄞˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：歐陽「脩」
+            <button class="btn-speak" onclick="speakText('第8題。句子：歐陽「脩」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【脩】</div>
+          <div class="teacher-answer">★ 正解：【ㄒㄧㄡ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：「敷」衍
+            <button class="btn-speak" onclick="speakText('第9題。句子：「敷」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：尺「璧」
+            <button class="btn-speak" onclick="speakText('第10題。句子：尺「璧」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【璧】</div>
+          <div class="teacher-answer">★ 正解：【ㄅㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：「撇」開
+            <button class="btn-speak" onclick="speakText('第11題。句子：「撇」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【撇】</div>
+          <div class="teacher-answer">★ 正解：【ㄆㄧㄝ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：「瑣」碎
+            <button class="btn-speak" onclick="speakText('第12題。句子：「瑣」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【瑣】</div>
+          <div class="teacher-answer">★ 正解：【ㄙㄨㄛˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：步「履」
+            <button class="btn-speak" onclick="speakText('第13題。句子：步「履」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【履】</div>
+          <div class="teacher-answer">★ 正解：【ㄌㄩˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：編「纂」
+            <button class="btn-speak" onclick="speakText('第14題。句子：編「纂」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【纂】</div>
+          <div class="teacher-answer">★ 正解：【ㄗㄨㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：不舍「晝」夜
+            <button class="btn-speak" onclick="speakText('第15題。句子：不舍「晝」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【晝】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄡˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：「錙銖」必較
+            <button class="btn-speak" onclick="speakText('第16題。句子：「錙銖」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【錙銖】</div>
+          <div class="teacher-answer">★ 正解：【ㄗ ㄓㄨ】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：依課文原文寫出國字（16題全測）</div>
+          <span class="section-badge">第 3 頁 / 國字檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：歐陽「ㄒㄧㄡ」
+            <button class="btn-speak" onclick="speakText('第1題。句子：歐陽「ㄒㄧㄡ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄒㄧㄡ】</div>
+          <div class="teacher-answer">★ 正解：【脩】（完整詞：歐陽脩）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：「ㄎㄨㄥˋ ㄒㄧˋ」
+            <button class="btn-speak" onclick="speakText('第2題。句子：「ㄎㄨㄥˋ ㄒㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整詞：空隙）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：編「ㄗㄨㄢˇ」
+            <button class="btn-speak" onclick="speakText('第3題。句子：編「ㄗㄨㄢˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗㄨㄢˇ】</div>
+          <div class="teacher-answer">★ 正解：【纂】（完整詞：編纂）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「ㄙㄨㄛˇ」碎
+            <button class="btn-speak" onclick="speakText('第4題。句子：「ㄙㄨㄛˇ」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【瑣】（完整詞：瑣碎）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：「ㄆㄧㄝ」開
+            <button class="btn-speak" onclick="speakText('第5題。句子：「ㄆㄧㄝ」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄆㄧㄝ】</div>
+          <div class="teacher-answer">★ 正解：【撇】（完整詞：撇開）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：「ㄧㄤˇ ㄇㄨˋ」
+            <button class="btn-speak" onclick="speakText('第6題。句子：「ㄧㄤˇ ㄇㄨˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄤˇ ㄇㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整詞：仰慕）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」
+            <button class="btn-speak" onclick="speakText('第7題。句子：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+          <div class="teacher-answer">★ 正解：【腋、裘】（完整詞：集腋成裘）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：不舍「ㄓㄡˋ」夜
+            <button class="btn-speak" onclick="speakText('第8題。句子：不舍「ㄓㄡˋ」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄡˋ】</div>
+          <div class="teacher-answer">★ 正解：【晝】（完整詞：不舍晝夜）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：「ㄈㄨ」衍
+            <button class="btn-speak" onclick="speakText('第9題。句子：「ㄈㄨ」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：敷衍）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：「ㄓㄨˋ」書立說
+            <button class="btn-speak" onclick="speakText('第10題。句子：「ㄓㄨˋ」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【著】（完整詞：著書立說）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：步「ㄌㄩˇ」
+            <button class="btn-speak" onclick="speakText('第11題。句子：步「ㄌㄩˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄌㄩˇ】</div>
+          <div class="teacher-answer">★ 正解：【履】（完整詞：步履）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：溫「ㄞˇ」
+            <button class="btn-speak" onclick="speakText('第12題。句子：溫「ㄞˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【藹】（完整詞：溫藹）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：尺「ㄅㄧˋ」
+            <button class="btn-speak" onclick="speakText('第13題。句子：尺「ㄅㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄅㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【璧】（完整詞：尺璧）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：不「ㄈㄨ」使用
+            <button class="btn-speak" onclick="speakText('第14題。句子：不「ㄈㄨ」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：不敷使用）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：美國總統甘「ㄋㄞˇ」迪
+            <button class="btn-speak" onclick="speakText('第15題。句子：美國總統甘「ㄋㄞˇ」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄋㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【迺】（完整詞：甘迺迪）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：「ㄗ ㄓㄨ」必較
+            <button class="btn-speak" onclick="speakText('第16題。句子：「ㄗ ㄓㄨ」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【錙銖】（完整詞：錙銖必較）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文原句克漏字填空（16題全測）</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：處處流露出一個（　　）學者的修養與風範。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">處處流露出一個（　　）學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？</div>
+          <div class="teacher-answer">★ 正解：【步履】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：雖然他每日在（　　　　）、從事學術研究和教育工作之外……')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">雖然他每日在（　　　　）、從事學術研究和教育工作之外……</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：胡適生活得從容自如，從不覺得時間（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適生活得從容自如，從不覺得時間（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。</div>
+          <div class="teacher-answer">★ 正解：【撇開】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。課文原句：能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。課文原句：積沙能夠成塔，（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">積沙能夠成塔，（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。課文原句：宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。課文原句：光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。課文原句：千字文中也有「（　　）非寶，寸陰是競」的格言。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">千字文中也有「（　　）非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。課文原句：美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。課文原句：古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。課文原句：等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。</div>
+          <div class="teacher-answer">★ 正解：【空隙】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。課文原句：胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。</div>
+          <div class="teacher-answer">★ 正解：【編纂】（原句：undefined）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活例句應用填空（16題全測）</div>
+          <span class="section-badge">第 5 頁 / 生活例句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【撇開】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【步履】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【編纂】（完整句：undefined）</div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語習寫（16組指定評量詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依習作與備課用書進階詞語排列，點擊按鈕可聽讀音與釋義：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 編纂</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗㄨㄢˇ）</span>
+            <button class="btn-speak" onclick="speakText('編纂，目標字：纂，注音：ㄗㄨㄢˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('編纂。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【纂】（注音：ㄗㄨㄢˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 步履</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄩˇ）</span>
+            <button class="btn-speak" onclick="speakText('步履，目標字：履，注音：ㄌㄩˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('步履。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【履】（注音：ㄌㄩˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 著書立說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('著書立說，目標字：著，注音：ㄓㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('著書立說。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【著】（注音：ㄓㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 溫藹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('溫藹，目標字：藹，注音：ㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('溫藹。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【藹】（注音：ㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 不敷使用</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('不敷使用，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不敷使用。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 敷衍</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('敷衍，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('敷衍。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 甘迺迪</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄋㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('甘迺迪，目標字：迺，注音：ㄋㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('甘迺迪。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【迺】（注音：ㄋㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 仰慕</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄤˇ ㄇㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('仰慕，目標字：仰慕，注音：ㄧㄤˇ ㄇㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('仰慕。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【仰慕】（注音：ㄧㄤˇ ㄇㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 撇開</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄆㄧㄝ）</span>
+            <button class="btn-speak" onclick="speakText('撇開，目標字：撇，注音：ㄆㄧㄝ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('撇開。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【撇】（注音：ㄆㄧㄝ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 瑣碎</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('瑣碎，目標字：瑣，注音：ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('瑣碎。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【瑣】（注音：ㄙㄨㄛˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 尺璧</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('尺璧，目標字：璧，注音：ㄅㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('尺璧。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【璧】（注音：ㄅㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 歐陽脩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄡ）</span>
+            <button class="btn-speak" onclick="speakText('歐陽脩，目標字：脩，注音：ㄒㄧㄡ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('歐陽脩。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【脩】（注音：ㄒㄧㄡ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 空隙</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄎㄨㄥˋ ㄒㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('空隙，目標字：空隙，注音：ㄎㄨㄥˋ ㄒㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('空隙。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【空隙】（注音：ㄎㄨㄥˋ ㄒㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 集腋成裘</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄝˋ、ㄑㄧㄡˊ）</span>
+            <button class="btn-speak" onclick="speakText('集腋成裘，目標字：腋、裘，注音：ㄧㄝˋ、ㄑㄧㄡˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('集腋成裘。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【腋、裘】（注音：ㄧㄝˋ、ㄑㄧㄡˊ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 不舍晝夜</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄡˋ）</span>
+            <button class="btn-speak" onclick="speakText('不舍晝夜，目標字：晝，注音：ㄓㄡˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不舍晝夜。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【晝】（注音：ㄓㄡˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">16. 錙銖必較</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('錙銖必較，目標字：錙銖，注音：ㄗ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('錙銖必較。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【錙銖】（注音：ㄗ ㄓㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：依課文原文寫出注音（16題全測）</div>
+          <span class="section-badge">第 2 頁 / 注音檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：集「腋」成「裘」
+            <button class="btn-speak" onclick="speakText('第1題。句子：集「腋」成「裘」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【腋、裘】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：「敷」衍
+            <button class="btn-speak" onclick="speakText('第2題。句子：「敷」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：編「纂」
+            <button class="btn-speak" onclick="speakText('第3題。句子：編「纂」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【纂】</div>
+          <div class="teacher-answer">★ 正解：【ㄗㄨㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「撇」開
+            <button class="btn-speak" onclick="speakText('第4題。句子：「撇」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【撇】</div>
+          <div class="teacher-answer">★ 正解：【ㄆㄧㄝ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：不「敷」使用
+            <button class="btn-speak" onclick="speakText('第5題。句子：不「敷」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：溫「藹」
+            <button class="btn-speak" onclick="speakText('第6題。句子：溫「藹」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【藹】</div>
+          <div class="teacher-answer">★ 正解：【ㄞˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：「仰慕」
+            <button class="btn-speak" onclick="speakText('第7題。句子：「仰慕」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【仰慕】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄤˇ ㄇㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：「空隙」
+            <button class="btn-speak" onclick="speakText('第8題。句子：「空隙」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【空隙】</div>
+          <div class="teacher-answer">★ 正解：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：「錙銖」必較
+            <button class="btn-speak" onclick="speakText('第9題。句子：「錙銖」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【錙銖】</div>
+          <div class="teacher-answer">★ 正解：【ㄗ ㄓㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：歐陽「脩」
+            <button class="btn-speak" onclick="speakText('第10題。句子：歐陽「脩」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【脩】</div>
+          <div class="teacher-answer">★ 正解：【ㄒㄧㄡ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：尺「璧」
+            <button class="btn-speak" onclick="speakText('第11題。句子：尺「璧」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【璧】</div>
+          <div class="teacher-answer">★ 正解：【ㄅㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：「著」書立說
+            <button class="btn-speak" onclick="speakText('第12題。句子：「著」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【著】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：步「履」
+            <button class="btn-speak" onclick="speakText('第13題。句子：步「履」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【履】</div>
+          <div class="teacher-answer">★ 正解：【ㄌㄩˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：不舍「晝」夜
+            <button class="btn-speak" onclick="speakText('第14題。句子：不舍「晝」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【晝】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄡˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：「瑣」碎
+            <button class="btn-speak" onclick="speakText('第15題。句子：「瑣」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【瑣】</div>
+          <div class="teacher-answer">★ 正解：【ㄙㄨㄛˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：美國總統甘「迺」迪
+            <button class="btn-speak" onclick="speakText('第16題。句子：美國總統甘「迺」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【迺】</div>
+          <div class="teacher-answer">★ 正解：【ㄋㄞˇ】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：依課文原文寫出國字（16題全測）</div>
+          <span class="section-badge">第 3 頁 / 國字檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：「ㄈㄨ」衍
+            <button class="btn-speak" onclick="speakText('第1題。句子：「ㄈㄨ」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：敷衍）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：不「ㄈㄨ」使用
+            <button class="btn-speak" onclick="speakText('第2題。句子：不「ㄈㄨ」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：不敷使用）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」
+            <button class="btn-speak" onclick="speakText('第3題。句子：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+          <div class="teacher-answer">★ 正解：【腋、裘】（完整詞：集腋成裘）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：步「ㄌㄩˇ」
+            <button class="btn-speak" onclick="speakText('第4題。句子：步「ㄌㄩˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄌㄩˇ】</div>
+          <div class="teacher-answer">★ 正解：【履】（完整詞：步履）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：「ㄆㄧㄝ」開
+            <button class="btn-speak" onclick="speakText('第5題。句子：「ㄆㄧㄝ」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄆㄧㄝ】</div>
+          <div class="teacher-answer">★ 正解：【撇】（完整詞：撇開）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：「ㄗ ㄓㄨ」必較
+            <button class="btn-speak" onclick="speakText('第6題。句子：「ㄗ ㄓㄨ」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【錙銖】（完整詞：錙銖必較）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：尺「ㄅㄧˋ」
+            <button class="btn-speak" onclick="speakText('第7題。句子：尺「ㄅㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄅㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【璧】（完整詞：尺璧）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：「ㄓㄨˋ」書立說
+            <button class="btn-speak" onclick="speakText('第8題。句子：「ㄓㄨˋ」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【著】（完整詞：著書立說）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：「ㄎㄨㄥˋ ㄒㄧˋ」
+            <button class="btn-speak" onclick="speakText('第9題。句子：「ㄎㄨㄥˋ ㄒㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整詞：空隙）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：「ㄧㄤˇ ㄇㄨˋ」
+            <button class="btn-speak" onclick="speakText('第10題。句子：「ㄧㄤˇ ㄇㄨˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄤˇ ㄇㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整詞：仰慕）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：溫「ㄞˇ」
+            <button class="btn-speak" onclick="speakText('第11題。句子：溫「ㄞˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【藹】（完整詞：溫藹）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：「ㄙㄨㄛˇ」碎
+            <button class="btn-speak" onclick="speakText('第12題。句子：「ㄙㄨㄛˇ」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【瑣】（完整詞：瑣碎）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：歐陽「ㄒㄧㄡ」
+            <button class="btn-speak" onclick="speakText('第13題。句子：歐陽「ㄒㄧㄡ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄒㄧㄡ】</div>
+          <div class="teacher-answer">★ 正解：【脩】（完整詞：歐陽脩）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：不舍「ㄓㄡˋ」夜
+            <button class="btn-speak" onclick="speakText('第14題。句子：不舍「ㄓㄡˋ」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄡˋ】</div>
+          <div class="teacher-answer">★ 正解：【晝】（完整詞：不舍晝夜）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：編「ㄗㄨㄢˇ」
+            <button class="btn-speak" onclick="speakText('第15題。句子：編「ㄗㄨㄢˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗㄨㄢˇ】</div>
+          <div class="teacher-answer">★ 正解：【纂】（完整詞：編纂）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：美國總統甘「ㄋㄞˇ」迪
+            <button class="btn-speak" onclick="speakText('第16題。句子：美國總統甘「ㄋㄞˇ」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄋㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【迺】（完整詞：甘迺迪）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文原句克漏字填空（16題全測）</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：積沙能夠成塔，（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">積沙能夠成塔，（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：千字文中也有「（　　）非寶，寸陰是競」的格言。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">千字文中也有「（　　）非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。</div>
+          <div class="teacher-answer">★ 正解：【編纂】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：雖然他每日在（　　　　）、從事學術研究和教育工作之外……')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">雖然他每日在（　　　　）、從事學術研究和教育工作之外……</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。課文原句：處處流露出一個（　　）學者的修養與風範。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">處處流露出一個（　　）學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。課文原句：（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。</div>
+          <div class="teacher-answer">★ 正解：【撇開】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。課文原句：我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？</div>
+          <div class="teacher-answer">★ 正解：【步履】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。課文原句：等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。</div>
+          <div class="teacher-answer">★ 正解：【空隙】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。課文原句：胡適生活得從容自如，從不覺得時間（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適生活得從容自如，從不覺得時間（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。課文原句：把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。課文原句：對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。課文原句：美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。課文原句：能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（原句：undefined）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活例句應用填空（16題全測）</div>
+          <span class="section-badge">第 5 頁 / 生活例句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【撇開】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【編纂】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【步履】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整句：undefined）</div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語習寫（16組指定評量詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依習作與備課用書進階詞語排列，點擊按鈕可聽讀音與釋義：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 編纂</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗㄨㄢˇ）</span>
+            <button class="btn-speak" onclick="speakText('編纂，目標字：纂，注音：ㄗㄨㄢˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('編纂。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【纂】（注音：ㄗㄨㄢˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 步履</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄌㄩˇ）</span>
+            <button class="btn-speak" onclick="speakText('步履，目標字：履，注音：ㄌㄩˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('步履。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【履】（注音：ㄌㄩˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 著書立說</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('著書立說，目標字：著，注音：ㄓㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('著書立說。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【著】（注音：ㄓㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 溫藹</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('溫藹，目標字：藹，注音：ㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('溫藹。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【藹】（注音：ㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 不敷使用</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('不敷使用，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不敷使用。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 敷衍</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄈㄨ）</span>
+            <button class="btn-speak" onclick="speakText('敷衍，目標字：敷，注音：ㄈㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('敷衍。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【敷】（注音：ㄈㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 甘迺迪</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄋㄞˇ）</span>
+            <button class="btn-speak" onclick="speakText('甘迺迪，目標字：迺，注音：ㄋㄞˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('甘迺迪。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【迺】（注音：ㄋㄞˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">8. 仰慕</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄤˇ ㄇㄨˋ）</span>
+            <button class="btn-speak" onclick="speakText('仰慕，目標字：仰慕，注音：ㄧㄤˇ ㄇㄨˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('仰慕。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【仰慕】（注音：ㄧㄤˇ ㄇㄨˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">9. 撇開</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄆㄧㄝ）</span>
+            <button class="btn-speak" onclick="speakText('撇開，目標字：撇，注音：ㄆㄧㄝ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('撇開。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【撇】（注音：ㄆㄧㄝ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">10. 瑣碎</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('瑣碎，目標字：瑣，注音：ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('瑣碎。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【瑣】（注音：ㄙㄨㄛˇ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">11. 尺璧</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄅㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('尺璧，目標字：璧，注音：ㄅㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('尺璧。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【璧】（注音：ㄅㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">12. 歐陽脩</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄒㄧㄡ）</span>
+            <button class="btn-speak" onclick="speakText('歐陽脩，目標字：脩，注音：ㄒㄧㄡ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('歐陽脩。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【脩】（注音：ㄒㄧㄡ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">13. 空隙</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄎㄨㄥˋ ㄒㄧˋ）</span>
+            <button class="btn-speak" onclick="speakText('空隙，目標字：空隙，注音：ㄎㄨㄥˋ ㄒㄧˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('空隙。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【空隙】（注音：ㄎㄨㄥˋ ㄒㄧˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">14. 集腋成裘</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄧㄝˋ、ㄑㄧㄡˊ）</span>
+            <button class="btn-speak" onclick="speakText('集腋成裘，目標字：腋、裘，注音：ㄧㄝˋ、ㄑㄧㄡˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('集腋成裘。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【腋、裘】（注音：ㄧㄝˋ、ㄑㄧㄡˊ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">15. 不舍晝夜</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄓㄡˋ）</span>
+            <button class="btn-speak" onclick="speakText('不舍晝夜，目標字：晝，注音：ㄓㄡˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('不舍晝夜。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【晝】（注音：ㄓㄡˋ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">16. 錙銖必較</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄗ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('錙銖必較，目標字：錙銖，注音：ㄗ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('錙銖必較。undefined')">🔊 聽釋義</button>
+          </div>
+          <div class="item-details">
+            生字：【錙銖】（注音：ㄗ ㄓㄨ） ｜ 釋義重點：undefined
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：依課文原文寫出注音（16題全測）</div>
+          <span class="section-badge">第 2 頁 / 注音檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：「空隙」
+            <button class="btn-speak" onclick="speakText('第1題。句子：「空隙」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【空隙】</div>
+          <div class="teacher-answer">★ 正解：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：步「履」
+            <button class="btn-speak" onclick="speakText('第2題。句子：步「履」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【履】</div>
+          <div class="teacher-answer">★ 正解：【ㄌㄩˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：「敷」衍
+            <button class="btn-speak" onclick="speakText('第3題。句子：「敷」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「著」書立說
+            <button class="btn-speak" onclick="speakText('第4題。句子：「著」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【著】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：「瑣」碎
+            <button class="btn-speak" onclick="speakText('第5題。句子：「瑣」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【瑣】</div>
+          <div class="teacher-answer">★ 正解：【ㄙㄨㄛˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：不「敷」使用
+            <button class="btn-speak" onclick="speakText('第6題。句子：不「敷」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【敷】</div>
+          <div class="teacher-answer">★ 正解：【ㄈㄨ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：歐陽「脩」
+            <button class="btn-speak" onclick="speakText('第7題。句子：歐陽「脩」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【脩】</div>
+          <div class="teacher-answer">★ 正解：【ㄒㄧㄡ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：集「腋」成「裘」
+            <button class="btn-speak" onclick="speakText('第8題。句子：集「腋」成「裘」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【腋、裘】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：尺「璧」
+            <button class="btn-speak" onclick="speakText('第9題。句子：尺「璧」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【璧】</div>
+          <div class="teacher-answer">★ 正解：【ㄅㄧˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：不舍「晝」夜
+            <button class="btn-speak" onclick="speakText('第10題。句子：不舍「晝」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【晝】</div>
+          <div class="teacher-answer">★ 正解：【ㄓㄡˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：溫「藹」
+            <button class="btn-speak" onclick="speakText('第11題。句子：溫「藹」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【藹】</div>
+          <div class="teacher-answer">★ 正解：【ㄞˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：美國總統甘「迺」迪
+            <button class="btn-speak" onclick="speakText('第12題。句子：美國總統甘「迺」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【迺】</div>
+          <div class="teacher-answer">★ 正解：【ㄋㄞˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：編「纂」
+            <button class="btn-speak" onclick="speakText('第13題。句子：編「纂」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【纂】</div>
+          <div class="teacher-answer">★ 正解：【ㄗㄨㄢˇ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：「仰慕」
+            <button class="btn-speak" onclick="speakText('第14題。句子：「仰慕」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【仰慕】</div>
+          <div class="teacher-answer">★ 正解：【ㄧㄤˇ ㄇㄨˋ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：「撇」開
+            <button class="btn-speak" onclick="speakText('第15題。句子：「撇」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【撇】</div>
+          <div class="teacher-answer">★ 正解：【ㄆㄧㄝ】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：「錙銖」必較
+            <button class="btn-speak" onclick="speakText('第16題。句子：「錙銖」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">生字：【錙銖】</div>
+          <div class="teacher-answer">★ 正解：【ㄗ ㄓㄨ】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：依課文原文寫出國字（16題全測）</div>
+          <span class="section-badge">第 3 頁 / 國字檢測</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：美國總統甘「ㄋㄞˇ」迪
+            <button class="btn-speak" onclick="speakText('第1題。句子：美國總統甘「ㄋㄞˇ」迪')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄋㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【迺】（完整詞：甘迺迪）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：尺「ㄅㄧˋ」
+            <button class="btn-speak" onclick="speakText('第2題。句子：尺「ㄅㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄅㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【璧】（完整詞：尺璧）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：「ㄈㄨ」衍
+            <button class="btn-speak" onclick="speakText('第3題。句子：「ㄈㄨ」衍')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：敷衍）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「ㄓㄨˋ」書立說
+            <button class="btn-speak" onclick="speakText('第4題。句子：「ㄓㄨˋ」書立說')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【著】（完整詞：著書立說）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：歐陽「ㄒㄧㄡ」
+            <button class="btn-speak" onclick="speakText('第5題。句子：歐陽「ㄒㄧㄡ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄒㄧㄡ】</div>
+          <div class="teacher-answer">★ 正解：【脩】（完整詞：歐陽脩）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」
+            <button class="btn-speak" onclick="speakText('第6題。句子：集「ㄧㄝˋ」成「ㄑㄧㄡˊ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄝˋ、ㄑㄧㄡˊ】</div>
+          <div class="teacher-answer">★ 正解：【腋、裘】（完整詞：集腋成裘）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：「ㄧㄤˇ ㄇㄨˋ」
+            <button class="btn-speak" onclick="speakText('第7題。句子：「ㄧㄤˇ ㄇㄨˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄧㄤˇ ㄇㄨˋ】</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整詞：仰慕）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：「ㄗ ㄓㄨ」必較
+            <button class="btn-speak" onclick="speakText('第8題。句子：「ㄗ ㄓㄨ」必較')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【錙銖】（完整詞：錙銖必較）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：不「ㄈㄨ」使用
+            <button class="btn-speak" onclick="speakText('第9題。句子：不「ㄈㄨ」使用')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄈㄨ】</div>
+          <div class="teacher-answer">★ 正解：【敷】（完整詞：不敷使用）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：溫「ㄞˇ」
+            <button class="btn-speak" onclick="speakText('第10題。句子：溫「ㄞˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄞˇ】</div>
+          <div class="teacher-answer">★ 正解：【藹】（完整詞：溫藹）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：「ㄆㄧㄝ」開
+            <button class="btn-speak" onclick="speakText('第11題。句子：「ㄆㄧㄝ」開')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄆㄧㄝ】</div>
+          <div class="teacher-answer">★ 正解：【撇】（完整詞：撇開）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題：步「ㄌㄩˇ」
+            <button class="btn-speak" onclick="speakText('第12題。句子：步「ㄌㄩˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄌㄩˇ】</div>
+          <div class="teacher-answer">★ 正解：【履】（完整詞：步履）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題：「ㄙㄨㄛˇ」碎
+            <button class="btn-speak" onclick="speakText('第13題。句子：「ㄙㄨㄛˇ」碎')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【瑣】（完整詞：瑣碎）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題：「ㄎㄨㄥˋ ㄒㄧˋ」
+            <button class="btn-speak" onclick="speakText('第14題。句子：「ㄎㄨㄥˋ ㄒㄧˋ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄎㄨㄥˋ ㄒㄧˋ】</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整詞：空隙）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題：不舍「ㄓㄡˋ」夜
+            <button class="btn-speak" onclick="speakText('第15題。句子：不舍「ㄓㄡˋ」夜')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄓㄡˋ】</div>
+          <div class="teacher-answer">★ 正解：【晝】（完整詞：不舍晝夜）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題：編「ㄗㄨㄢˇ」
+            <button class="btn-speak" onclick="speakText('第16題。句子：編「ㄗㄨㄢˇ」')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">注音：【ㄗㄨㄢˇ】</div>
+          <div class="teacher-answer">★ 正解：【纂】（完整詞：編纂）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文原句克漏字填空（16題全測）</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">古代就有許多懂得珍惜生命、善於利用（　　）時間的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：胡適生活得從容自如，從不覺得時間（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適生活得從容自如，從不覺得時間（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">把握零碎時間並不是（　　　　），而是珍惜光陰、豐富生活的生活哲學。</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">光陰如江河逝水（　　　　），唯有善用點滴碎珠，方能創造充實生命。</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">宋代大儒（　　　），更是一個善於利用零碎時間的生活藝術家。</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：積沙能夠成塔，（　　　　）。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">積沙能夠成塔，（　　　　）。</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：雖然他每日在（　　　　）、從事學術研究和教育工作之外……')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">雖然他每日在（　　　　）、從事學術研究和教育工作之外……</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。課文原句：千字文中也有「（　　）非寶，寸陰是競」的格言。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">千字文中也有「（　　）非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。課文原句：等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">等到再也放不進大石頭時，餘下的（　　），我們可放進不少小石頭。</div>
+          <div class="teacher-answer">★ 正解：【空隙】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。課文原句：能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握時間的人，往往也都是令人欽佩（　　）的智者、成功者。</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。課文原句：我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們還能懷疑這不是個節奏迅速、（　　）匆忙的時代嗎？</div>
+          <div class="teacher-answer">★ 正解：【步履】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。課文原句：（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">（　　）近人不談，在古代從容悠閒的農業社會裡，就已有許多哲人了。</div>
+          <div class="teacher-answer">★ 正解：【撇開】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。課文原句：對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">對待各項任務必須認真負責，絕不可（　　）塞責、草率了事。</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。課文原句：處處流露出一個（　　）學者的修養與風範。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">處處流露出一個（　　）學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。課文原句：美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">美國歷史上最年輕的總統（　　　）先生，常在接見客人空檔閱讀書籍。</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（原句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。課文原句：胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適每日在著書立說之外，亦致力於典籍與資料的（　　）整理。</div>
+          <div class="teacher-answer">★ 正解：【編纂】（原句：undefined）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活例句應用填空（16題全測）</div>
+          <span class="section-badge">第 5 頁 / 生活例句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不敷使用】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【尺璧】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【編纂】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【集腋成裘】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【瑣碎】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【撇開】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【溫藹】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題
+            <button class="btn-speak" onclick="speakText('第8題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【歐陽脩】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題
+            <button class="btn-speak" onclick="speakText('第9題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【甘迺迪】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題
+            <button class="btn-speak" onclick="speakText('第10題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【錙銖必較】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題
+            <button class="btn-speak" onclick="speakText('第11題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【敷衍】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 12 題
+            <button class="btn-speak" onclick="speakText('第12題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【不舍晝夜】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 13 題
+            <button class="btn-speak" onclick="speakText('第13題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【著書立說】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 14 題
+            <button class="btn-speak" onclick="speakText('第14題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【仰慕】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 15 題
+            <button class="btn-speak" onclick="speakText('第15題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【空隙】（完整句：undefined）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 16 題
+            <button class="btn-speak" onclick="speakText('第16題。生活例句：undefined')">🔊 聽句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">undefined</div>
+          <div class="teacher-answer">★ 正解：【步履】（完整句：undefined）</div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>

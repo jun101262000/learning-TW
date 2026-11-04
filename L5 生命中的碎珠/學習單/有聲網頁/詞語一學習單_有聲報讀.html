@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>國文二上 第五課〈生命中的碎珠〉詞語一學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 第五課〈生命中的碎珠〉詞語一學習單</div>
+      <div class="top-controls">
+        <button class="btn primary" id="btnToggleAns" onclick="toggleAnswers()">👁️ 顯示解答</button>
+        <button class="btn" onclick="toggleFontSize()">🔠 字體大小</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹️ 停止語音</button>
+        <div style="display:inline-flex; align-items:center; gap:4px; font-size:12pt; margin-left:8px;">
+          <span>語速:</span>
+          <button class="btn rate-btn active" onclick="setRate(1.0, this)">正常</button>
+          <button class="btn rate-btn" onclick="setRate(0.8, this)">慢速</button>
+        </div>
+        <button class="btn" onclick="window.print()">🖨️ 列印</button>
+      </div>
+    </header>
+
+    <nav class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </nav>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組生活核心詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依本課精選生活核心詞語排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 生命</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄇㄧㄥˋ）</span>
+            <button class="btn-speak" onclick="speakText('生命，注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生命，生部5畫 / 口部8畫。口訣：牛過獨木橋是「生」，人張口叩首立「命」。。生物體生存的壽命或精力活力。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 口部8畫（13畫） ｜ 口訣記憶：牛過獨木橋是「生」，人張口叩首立「命」。<br>
+            詞義說明：生物體生存的壽命或精力活力。 ｜ 常用搭配：珍惜生命
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 碎珠</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄟˋ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('碎珠，注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('碎珠，石部13畫 / 玉部10畫。口訣：破碎之石需「碎」，王旁朱紅成「珠」。。細小的珍珠，課文中借喻細微而珍貴的零碎時間。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：石部13畫 / 玉部10畫（23畫） ｜ 口訣記憶：破碎之石需「碎」，王旁朱紅成「珠」。<br>
+            詞義說明：細小的珍珠，課文中借喻細微而珍貴的零碎時間。 ｜ 常用搭配：拾起碎珠
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 時間</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕˊ ㄐㄧㄢ）</span>
+            <button class="btn-speak" onclick="speakText('時間，注音：ㄕˊ ㄐㄧㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('時間，日部10畫 / 門部12畫。口訣：日過寸土為「時」，門中見日為「間」。。物質運動的延續性表現，指時刻、光陰。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：日部10畫 / 門部12畫（22畫） ｜ 口訣記憶：日過寸土為「時」，門中見日為「間」。<br>
+            詞義說明：物質運動的延續性表現，指時刻、光陰。 ｜ 常用搭配：善用時間
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 生活</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄏㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('生活，注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生活，生部5畫 / 水部9畫。口訣：草木萌發為「生」，水流入口成「活」。。人為生存所進行的各種日常活動或過日子的方式。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 水部9畫（14畫） ｜ 口訣記憶：草木萌發為「生」，水流入口成「活」。<br>
+            詞義說明：人為生存所進行的各種日常活動或過日子的方式。 ｜ 常用搭配：日常生活
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 工作</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄍㄨㄥ ㄗㄨㄛˋ）</span>
+            <button class="btn-speak" onclick="speakText('工作，注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('工作，工部3畫 / 人部7畫。口訣：直下橫平乃「工」，人立一旁始「作」。。從事體力或腦力的勞動任務、職業職業。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：工部3畫 / 人部7畫（10畫） ｜ 口訣記憶：直下橫平乃「工」，人立一旁始「作」。<br>
+            詞義說明：從事體力或腦力的勞動任務、職業職業。 ｜ 常用搭配：認真工作
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 閱讀</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩㄝˋ ㄉㄨˊ）</span>
+            <button class="btn-speak" onclick="speakText('閱讀，注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('閱讀，門部15畫 / 言部22畫。口訣：門中開兌為「閱」，言賣書冊成「讀」。。看書並領會書中內容與思想。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：門部15畫 / 言部22畫（37畫） ｜ 口訣記憶：門中開兌為「閱」，言賣書冊成「讀」。<br>
+            詞義說明：看書並領會書中內容與思想。 ｜ 常用搭配：閱讀好書
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 廁所</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄘㄜˋ ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('廁所，注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('廁所，广部12畫 / 戶部8畫。口訣：广下則字是「廁」，戶旁持斤為「所」。。供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：广部12畫 / 戶部8畫（20畫） ｜ 口訣記憶：广下則字是「廁」，戶旁持斤為「所」。<br>
+            詞義說明：供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。 ｜ 常用搭配：打掃廁所
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 閱讀（ㄩㄝˋ ㄉㄨˊ） ｜ (B) 碎珠（ㄙㄨㄟˋ ㄓㄨ） ｜ (C) 時間（ㄕˊ ㄐㄧㄢ） ｜ (D) 生活（ㄕㄥ ㄏㄨㄛˊ） ｜ (E) 廁所（ㄘㄜˋ ㄙㄨㄛˇ） ｜ (F) 工作（ㄍㄨㄥ ㄗㄨㄛˋ） ｜ (G) 生命（ㄕㄥ ㄇㄧㄥˋ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：光陰歲月，全文論述的核心。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：光陰歲月，全文論述的核心。</div>
+          <div class="teacher-answer">★ 正解：【C】 時間（ㄕˊ ㄐㄧㄢ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。</div>
+          <div class="teacher-answer">★ 正解：【E】 廁所（ㄘㄜˋ ㄙㄨㄛˇ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。</div>
+          <div class="teacher-answer">★ 正解：【G】 生命（ㄕㄥ ㄇㄧㄥˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。</div>
+          <div class="teacher-answer">★ 正解：【B】 碎珠（ㄙㄨㄟˋ ㄓㄨ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：從事腦力或體力的勞動任務。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：從事腦力或體力的勞動任務。</div>
+          <div class="teacher-answer">★ 正解：【F】 工作（ㄍㄨㄥ ㄗㄨㄛˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。</div>
+          <div class="teacher-answer">★ 正解：【A】 閱讀（ㄩㄝˋ ㄉㄨˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：過日子的日常活動與人生態度。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：過日子的日常活動與人生態度。</div>
+          <div class="teacher-answer">★ 正解：【D】 生活（ㄕㄥ ㄏㄨㄛˊ）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：從事腦力或體力的勞動任務。。注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：從事腦力或體力的勞動任務。 ｜ 注音提示：【ㄍㄨㄥ ㄗㄨㄛˋ】</div>
+          <div class="teacher-answer">★ 正解：【工作】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：看書研讀，甘迺迪善用零碎時間的具體方法。。注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：看書研讀，甘迺迪善用零碎時間的具體方法。 ｜ 注音提示：【ㄩㄝˋ ㄉㄨˊ】</div>
+          <div class="teacher-answer">★ 正解：【閱讀】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：細小零散的珍珠，課文中借喻點滴零碎時間。。注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：細小零散的珍珠，課文中借喻點滴零碎時間。 ｜ 注音提示：【ㄙㄨㄟˋ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【碎珠】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：光陰歲月，全文論述的核心。。注音：ㄕˊ ㄐㄧㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：光陰歲月，全文論述的核心。 ｜ 注音提示：【ㄕˊ ㄐㄧㄢ】</div>
+          <div class="teacher-answer">★ 正解：【時間】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：過日子的日常活動與人生態度。。注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：過日子的日常活動與人生態度。 ｜ 注音提示：【ㄕㄥ ㄏㄨㄛˊ】</div>
+          <div class="teacher-answer">★ 正解：【生活】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：生存的壽命，课文中勉勵我們要珍惜生命光陰。。注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：生存的壽命，课文中勉勵我們要珍惜生命光陰。 ｜ 注音提示：【ㄕㄥ ㄇㄧㄥˋ】</div>
+          <div class="teacher-answer">★ 正解：【生命】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。。注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。 ｜ 注音提示：【ㄘㄜˋ ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【廁所】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文語境克漏字填空</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：每日在著書立說、從事學術研究和教育（　　）之外……')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每日在著書立說、從事學術研究和教育（　　）之外……</div>
+          <div class="teacher-answer">★ 正解：【工作】（原句：雖然他每日在著書立說、從事學術研究和教育工作之外……）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（原句：常常在他接見的第一位客人起身離去，第二位客人尚未踏進會客室之前，也必拿起手邊的書籍閱讀。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：胡適先生以此（　　）哲學來自勉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適先生以此（　　）哲學來自勉。</div>
+          <div class="teacher-answer">★ 正解：【生活】（原句：胡適先生曾以「不做無益事，一日當三日，人活五十歲，我活百五十」的生活哲學來自勉。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：懂得珍惜（　　）、善於利用瑣碎時間的哲人。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">懂得珍惜（　　）、善於利用瑣碎時間的哲人。</div>
+          <div class="teacher-answer">★ 正解：【生命】（原句：懂得珍惜生命、善於利用瑣碎時間的哲人。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（原句：他常利用「三上」的工夫構思文章，何謂「三上」？那便是「枕上、廁上、馬上」。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：零碎的時間，應該是生命中的（　　）、沙金、片玉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">零碎的時間，應該是生命中的（　　）、沙金、片玉。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（原句：零碎的時間，應該是生命中的碎珠、沙金、片玉，能勤於撿拾，並集合它們，那的確是一宗可觀的財富！）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。</div>
+          <div class="teacher-answer">★ 正解：【時間】（原句：能掌握時間—尤其是零碎時間—的人，往往也都是令人欽佩仰慕的智者、成功者。）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活應用例句填空</div>
+          <span class="section-badge">第 5 頁 / 生活情境</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境例句：爸爸媽媽每天努力（　　），用心照顧我們長大。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">爸爸媽媽每天努力（　　），用心照顧我們長大。</div>
+          <div class="teacher-answer">★ 正解：【工作】（完整句：爸爸媽媽每天努力工作，用心照顧我們長大。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境例句：下課時間我們要先去上（　　）並洗手，保持個人衛生。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">下課時間我們要先去上（　　）並洗手，保持個人衛生。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（完整句：下課時間我們要先去上廁所並用肥皂洗手，保持個人衛生。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境例句：養成良好規律作息，才能擁有健康快樂的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">養成良好規律作息，才能擁有健康快樂的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生活】（完整句：養成良好的衛生與規律作息，才能擁有健康快樂的生活。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境例句：手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（完整句：串珠手鍊散落成一顆顆小小的碎珠，只要耐心撿起來，就能重新串成美麗的手環。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境例句：大自然裡的每一種動物和植物，都有珍貴的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">大自然裡的每一種動物和植物，都有珍貴的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生命】（完整句：大自然裡的每一種動物和植物，都有珍貴的生命。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境例句：我們要做好（　　）規劃，按時完成每天的功課。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們要做好（　　）規劃，按時完成每天的功課。</div>
+          <div class="teacher-answer">★ 正解：【時間】（完整句：我們要做好時間規劃，按時完成每天的功課。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境例句：每天睡前（　　）一本好書，可以增加我們的大腦知識。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每天睡前（　　）一本好書，可以增加我們的大腦知識。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（完整句：每天睡前閱讀一本好書，可以增加我們的大腦知識。）</div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組生活核心詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依本課精選生活核心詞語排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 生命</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄇㄧㄥˋ）</span>
+            <button class="btn-speak" onclick="speakText('生命，注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生命，生部5畫 / 口部8畫。口訣：牛過獨木橋是「生」，人張口叩首立「命」。。生物體生存的壽命或精力活力。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 口部8畫（13畫） ｜ 口訣記憶：牛過獨木橋是「生」，人張口叩首立「命」。<br>
+            詞義說明：生物體生存的壽命或精力活力。 ｜ 常用搭配：珍惜生命
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 碎珠</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄟˋ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('碎珠，注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('碎珠，石部13畫 / 玉部10畫。口訣：破碎之石需「碎」，王旁朱紅成「珠」。。細小的珍珠，課文中借喻細微而珍貴的零碎時間。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：石部13畫 / 玉部10畫（23畫） ｜ 口訣記憶：破碎之石需「碎」，王旁朱紅成「珠」。<br>
+            詞義說明：細小的珍珠，課文中借喻細微而珍貴的零碎時間。 ｜ 常用搭配：拾起碎珠
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 時間</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕˊ ㄐㄧㄢ）</span>
+            <button class="btn-speak" onclick="speakText('時間，注音：ㄕˊ ㄐㄧㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('時間，日部10畫 / 門部12畫。口訣：日過寸土為「時」，門中見日為「間」。。物質運動的延續性表現，指時刻、光陰。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：日部10畫 / 門部12畫（22畫） ｜ 口訣記憶：日過寸土為「時」，門中見日為「間」。<br>
+            詞義說明：物質運動的延續性表現，指時刻、光陰。 ｜ 常用搭配：善用時間
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 生活</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄏㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('生活，注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生活，生部5畫 / 水部9畫。口訣：草木萌發為「生」，水流入口成「活」。。人為生存所進行的各種日常活動或過日子的方式。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 水部9畫（14畫） ｜ 口訣記憶：草木萌發為「生」，水流入口成「活」。<br>
+            詞義說明：人為生存所進行的各種日常活動或過日子的方式。 ｜ 常用搭配：日常生活
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 工作</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄍㄨㄥ ㄗㄨㄛˋ）</span>
+            <button class="btn-speak" onclick="speakText('工作，注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('工作，工部3畫 / 人部7畫。口訣：直下橫平乃「工」，人立一旁始「作」。。從事體力或腦力的勞動任務、職業職業。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：工部3畫 / 人部7畫（10畫） ｜ 口訣記憶：直下橫平乃「工」，人立一旁始「作」。<br>
+            詞義說明：從事體力或腦力的勞動任務、職業職業。 ｜ 常用搭配：認真工作
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 閱讀</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩㄝˋ ㄉㄨˊ）</span>
+            <button class="btn-speak" onclick="speakText('閱讀，注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('閱讀，門部15畫 / 言部22畫。口訣：門中開兌為「閱」，言賣書冊成「讀」。。看書並領會書中內容與思想。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：門部15畫 / 言部22畫（37畫） ｜ 口訣記憶：門中開兌為「閱」，言賣書冊成「讀」。<br>
+            詞義說明：看書並領會書中內容與思想。 ｜ 常用搭配：閱讀好書
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 廁所</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄘㄜˋ ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('廁所，注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('廁所，广部12畫 / 戶部8畫。口訣：广下則字是「廁」，戶旁持斤為「所」。。供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：广部12畫 / 戶部8畫（20畫） ｜ 口訣記憶：广下則字是「廁」，戶旁持斤為「所」。<br>
+            詞義說明：供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。 ｜ 常用搭配：打掃廁所
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 閱讀（ㄩㄝˋ ㄉㄨˊ） ｜ (B) 時間（ㄕˊ ㄐㄧㄢ） ｜ (C) 生命（ㄕㄥ ㄇㄧㄥˋ） ｜ (D) 廁所（ㄘㄜˋ ㄙㄨㄛˇ） ｜ (E) 工作（ㄍㄨㄥ ㄗㄨㄛˋ） ｜ (F) 碎珠（ㄙㄨㄟˋ ㄓㄨ） ｜ (G) 生活（ㄕㄥ ㄏㄨㄛˊ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。</div>
+          <div class="teacher-answer">★ 正解：【C】 生命（ㄕㄥ ㄇㄧㄥˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：過日子的日常活動與人生態度。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：過日子的日常活動與人生態度。</div>
+          <div class="teacher-answer">★ 正解：【G】 生活（ㄕㄥ ㄏㄨㄛˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：從事腦力或體力的勞動任務。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：從事腦力或體力的勞動任務。</div>
+          <div class="teacher-answer">★ 正解：【E】 工作（ㄍㄨㄥ ㄗㄨㄛˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。</div>
+          <div class="teacher-answer">★ 正解：【F】 碎珠（ㄙㄨㄟˋ ㄓㄨ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。</div>
+          <div class="teacher-answer">★ 正解：【A】 閱讀（ㄩㄝˋ ㄉㄨˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：光陰歲月，全文論述的核心。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：光陰歲月，全文論述的核心。</div>
+          <div class="teacher-answer">★ 正解：【B】 時間（ㄕˊ ㄐㄧㄢ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。</div>
+          <div class="teacher-answer">★ 正解：【D】 廁所（ㄘㄜˋ ㄙㄨㄛˇ）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：看書研讀，甘迺迪善用零碎時間的具體方法。。注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：看書研讀，甘迺迪善用零碎時間的具體方法。 ｜ 注音提示：【ㄩㄝˋ ㄉㄨˊ】</div>
+          <div class="teacher-answer">★ 正解：【閱讀】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：過日子的日常活動與人生態度。。注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：過日子的日常活動與人生態度。 ｜ 注音提示：【ㄕㄥ ㄏㄨㄛˊ】</div>
+          <div class="teacher-answer">★ 正解：【生活】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：生存的壽命，课文中勉勵我們要珍惜生命光陰。。注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：生存的壽命，课文中勉勵我們要珍惜生命光陰。 ｜ 注音提示：【ㄕㄥ ㄇㄧㄥˋ】</div>
+          <div class="teacher-answer">★ 正解：【生命】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。。注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。 ｜ 注音提示：【ㄘㄜˋ ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【廁所】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：細小零散的珍珠，課文中借喻點滴零碎時間。。注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：細小零散的珍珠，課文中借喻點滴零碎時間。 ｜ 注音提示：【ㄙㄨㄟˋ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【碎珠】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：從事腦力或體力的勞動任務。。注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：從事腦力或體力的勞動任務。 ｜ 注音提示：【ㄍㄨㄥ ㄗㄨㄛˋ】</div>
+          <div class="teacher-answer">★ 正解：【工作】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：光陰歲月，全文論述的核心。。注音：ㄕˊ ㄐㄧㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：光陰歲月，全文論述的核心。 ｜ 注音提示：【ㄕˊ ㄐㄧㄢ】</div>
+          <div class="teacher-answer">★ 正解：【時間】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文語境克漏字填空</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。</div>
+          <div class="teacher-answer">★ 正解：【時間】（原句：能掌握時間—尤其是零碎時間—的人，往往也都是令人欽佩仰慕的智者、成功者。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：胡適先生以此（　　）哲學來自勉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適先生以此（　　）哲學來自勉。</div>
+          <div class="teacher-answer">★ 正解：【生活】（原句：胡適先生曾以「不做無益事，一日當三日，人活五十歲，我活百五十」的生活哲學來自勉。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：零碎的時間，應該是生命中的（　　）、沙金、片玉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">零碎的時間，應該是生命中的（　　）、沙金、片玉。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（原句：零碎的時間，應該是生命中的碎珠、沙金、片玉，能勤於撿拾，並集合它們，那的確是一宗可觀的財富！）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：每日在著書立說、從事學術研究和教育（　　）之外……')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每日在著書立說、從事學術研究和教育（　　）之外……</div>
+          <div class="teacher-answer">★ 正解：【工作】（原句：雖然他每日在著書立說、從事學術研究和教育工作之外……）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：懂得珍惜（　　）、善於利用瑣碎時間的哲人。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">懂得珍惜（　　）、善於利用瑣碎時間的哲人。</div>
+          <div class="teacher-answer">★ 正解：【生命】（原句：懂得珍惜生命、善於利用瑣碎時間的哲人。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（原句：他常利用「三上」的工夫構思文章，何謂「三上」？那便是「枕上、廁上、馬上」。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（原句：常常在他接見的第一位客人起身離去，第二位客人尚未踏進會客室之前，也必拿起手邊的書籍閱讀。）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活應用例句填空</div>
+          <span class="section-badge">第 5 頁 / 生活情境</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境例句：每天睡前（　　）一本好書，可以增加我們的大腦知識。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每天睡前（　　）一本好書，可以增加我們的大腦知識。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（完整句：每天睡前閱讀一本好書，可以增加我們的大腦知識。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境例句：養成良好規律作息，才能擁有健康快樂的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">養成良好規律作息，才能擁有健康快樂的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生活】（完整句：養成良好的衛生與規律作息，才能擁有健康快樂的生活。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境例句：我們要做好（　　）規劃，按時完成每天的功課。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們要做好（　　）規劃，按時完成每天的功課。</div>
+          <div class="teacher-answer">★ 正解：【時間】（完整句：我們要做好時間規劃，按時完成每天的功課。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境例句：下課時間我們要先去上（　　）並洗手，保持個人衛生。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">下課時間我們要先去上（　　）並洗手，保持個人衛生。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（完整句：下課時間我們要先去上廁所並用肥皂洗手，保持個人衛生。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境例句：爸爸媽媽每天努力（　　），用心照顧我們長大。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">爸爸媽媽每天努力（　　），用心照顧我們長大。</div>
+          <div class="teacher-answer">★ 正解：【工作】（完整句：爸爸媽媽每天努力工作，用心照顧我們長大。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境例句：大自然裡的每一種動物和植物，都有珍貴的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">大自然裡的每一種動物和植物，都有珍貴的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生命】（完整句：大自然裡的每一種動物和植物，都有珍貴的生命。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境例句：手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（完整句：串珠手鍊散落成一顆顆小小的碎珠，只要耐心撿起來，就能重新串成美麗的手環。）</div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：詞語精熟習寫（7組生活核心詞語）</div>
+          <span class="section-badge">第 1 頁 / 詞語習寫</span>
+        </div>
+        <p style="margin-bottom:12px; color:#64748b;">依本課精選生活核心詞語排列，點擊按鈕可聽正確讀音與生字部首結構口訣：</p>
+    
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">1. 生命</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄇㄧㄥˋ）</span>
+            <button class="btn-speak" onclick="speakText('生命，注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生命，生部5畫 / 口部8畫。口訣：牛過獨木橋是「生」，人張口叩首立「命」。。生物體生存的壽命或精力活力。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 口部8畫（13畫） ｜ 口訣記憶：牛過獨木橋是「生」，人張口叩首立「命」。<br>
+            詞義說明：生物體生存的壽命或精力活力。 ｜ 常用搭配：珍惜生命
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">2. 碎珠</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄙㄨㄟˋ ㄓㄨ）</span>
+            <button class="btn-speak" onclick="speakText('碎珠，注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('碎珠，石部13畫 / 玉部10畫。口訣：破碎之石需「碎」，王旁朱紅成「珠」。。細小的珍珠，課文中借喻細微而珍貴的零碎時間。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：石部13畫 / 玉部10畫（23畫） ｜ 口訣記憶：破碎之石需「碎」，王旁朱紅成「珠」。<br>
+            詞義說明：細小的珍珠，課文中借喻細微而珍貴的零碎時間。 ｜ 常用搭配：拾起碎珠
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">3. 時間</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕˊ ㄐㄧㄢ）</span>
+            <button class="btn-speak" onclick="speakText('時間，注音：ㄕˊ ㄐㄧㄢ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('時間，日部10畫 / 門部12畫。口訣：日過寸土為「時」，門中見日為「間」。。物質運動的延續性表現，指時刻、光陰。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：日部10畫 / 門部12畫（22畫） ｜ 口訣記憶：日過寸土為「時」，門中見日為「間」。<br>
+            詞義說明：物質運動的延續性表現，指時刻、光陰。 ｜ 常用搭配：善用時間
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">4. 生活</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄕㄥ ㄏㄨㄛˊ）</span>
+            <button class="btn-speak" onclick="speakText('生活，注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('生活，生部5畫 / 水部9畫。口訣：草木萌發為「生」，水流入口成「活」。。人為生存所進行的各種日常活動或過日子的方式。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：生部5畫 / 水部9畫（14畫） ｜ 口訣記憶：草木萌發為「生」，水流入口成「活」。<br>
+            詞義說明：人為生存所進行的各種日常活動或過日子的方式。 ｜ 常用搭配：日常生活
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">5. 工作</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄍㄨㄥ ㄗㄨㄛˋ）</span>
+            <button class="btn-speak" onclick="speakText('工作，注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('工作，工部3畫 / 人部7畫。口訣：直下橫平乃「工」，人立一旁始「作」。。從事體力或腦力的勞動任務、職業職業。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：工部3畫 / 人部7畫（10畫） ｜ 口訣記憶：直下橫平乃「工」，人立一旁始「作」。<br>
+            詞義說明：從事體力或腦力的勞動任務、職業職業。 ｜ 常用搭配：認真工作
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">6. 閱讀</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄩㄝˋ ㄉㄨˊ）</span>
+            <button class="btn-speak" onclick="speakText('閱讀，注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('閱讀，門部15畫 / 言部22畫。口訣：門中開兌為「閱」，言賣書冊成「讀」。。看書並領會書中內容與思想。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：門部15畫 / 言部22畫（37畫） ｜ 口訣記憶：門中開兌為「閱」，言賣書冊成「讀」。<br>
+            詞義說明：看書並領會書中內容與思想。 ｜ 常用搭配：閱讀好書
+          </div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            <span style="font-size:18pt; color:#1e3a8a;">7. 廁所</span>
+            <span style="color:#0284c7; margin-left:8px;">（ㄘㄜˋ ㄙㄨㄛˇ）</span>
+            <button class="btn-speak" onclick="speakText('廁所，注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽發音</button>
+            <button class="btn-speak" onclick="speakText('廁所，广部12畫 / 戶部8畫。口訣：广下則字是「廁」，戶旁持斤為「所」。。供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。')">🔊 聽口訣與釋義</button>
+          </div>
+          <div class="item-details">
+            部首筆畫：广部12畫 / 戶部8畫（20畫） ｜ 口訣記憶：广下則字是「廁」，戶旁持斤為「所」。<br>
+            詞義說明：供人大小便、盥洗的場所，課文中借指「三上」中之「廁上」。 ｜ 常用搭配：打掃廁所
+          </div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：看圖填寫字詞（配合題模式）</div>
+          <span class="section-badge">第 2 頁 / 看圖配合題</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px;">
+          <strong>【詞語選項參考庫】：</strong><br>
+          (A) 碎珠（ㄙㄨㄟˋ ㄓㄨ） ｜ (B) 生命（ㄕㄥ ㄇㄧㄥˋ） ｜ (C) 工作（ㄍㄨㄥ ㄗㄨㄛˋ） ｜ (D) 生活（ㄕㄥ ㄏㄨㄛˊ） ｜ (E) 時間（ㄕˊ ㄐㄧㄢ） ｜ (F) 閱讀（ㄩㄝˋ ㄉㄨˊ） ｜ (G) 廁所（ㄘㄜˋ ㄙㄨㄛˇ）
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。</div>
+          <div class="teacher-answer">★ 正解：【G】 廁所（ㄘㄜˋ ㄙㄨㄛˇ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境釋義：過日子的日常活動與人生態度。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：過日子的日常活動與人生態度。</div>
+          <div class="teacher-answer">★ 正解：【D】 生活（ㄕㄥ ㄏㄨㄛˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：看書研讀，甘迺迪善用零碎時間的具體方法。</div>
+          <div class="teacher-answer">★ 正解：【F】 閱讀（ㄩㄝˋ ㄉㄨˊ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境釋義：從事腦力或體力的勞動任務。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：從事腦力或體力的勞動任務。</div>
+          <div class="teacher-answer">★ 正解：【C】 工作（ㄍㄨㄥ ㄗㄨㄛˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：細小零散的珍珠，課文中借喻點滴零碎時間。</div>
+          <div class="teacher-answer">★ 正解：【A】 碎珠（ㄙㄨㄟˋ ㄓㄨ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：生存的壽命，课文中勉勵我們要珍惜生命光陰。</div>
+          <div class="teacher-answer">★ 正解：【B】 生命（ㄕㄥ ㄇㄧㄥˋ）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境釋義：光陰歲月，全文論述的核心。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">情境釋義：光陰歲月，全文論述的核心。</div>
+          <div class="teacher-answer">★ 正解：【E】 時間（ㄕˊ ㄐㄧㄢ）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型三：看圖自主寫字（無提示手寫）</div>
+          <span class="section-badge">第 3 頁 / 看圖自主寫</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。語境提示：從事腦力或體力的勞動任務。。注音：ㄍㄨㄥ ㄗㄨㄛˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：從事腦力或體力的勞動任務。 ｜ 注音提示：【ㄍㄨㄥ ㄗㄨㄛˋ】</div>
+          <div class="teacher-answer">★ 正解：【工作】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。語境提示：過日子的日常活動與人生態度。。注音：ㄕㄥ ㄏㄨㄛˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：過日子的日常活動與人生態度。 ｜ 注音提示：【ㄕㄥ ㄏㄨㄛˊ】</div>
+          <div class="teacher-answer">★ 正解：【生活】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。語境提示：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。。注音：ㄘㄜˋ ㄙㄨㄛˇ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：盥洗大小便處，歐陽脩利用零碎時間的「廁上」。 ｜ 注音提示：【ㄘㄜˋ ㄙㄨㄛˇ】</div>
+          <div class="teacher-answer">★ 正解：【廁所】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。語境提示：光陰歲月，全文論述的核心。。注音：ㄕˊ ㄐㄧㄢ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：光陰歲月，全文論述的核心。 ｜ 注音提示：【ㄕˊ ㄐㄧㄢ】</div>
+          <div class="teacher-answer">★ 正解：【時間】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。語境提示：生存的壽命，课文中勉勵我們要珍惜生命光陰。。注音：ㄕㄥ ㄇㄧㄥˋ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：生存的壽命，课文中勉勵我們要珍惜生命光陰。 ｜ 注音提示：【ㄕㄥ ㄇㄧㄥˋ】</div>
+          <div class="teacher-answer">★ 正解：【生命】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。語境提示：細小零散的珍珠，課文中借喻點滴零碎時間。。注音：ㄙㄨㄟˋ ㄓㄨ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：細小零散的珍珠，課文中借喻點滴零碎時間。 ｜ 注音提示：【ㄙㄨㄟˋ ㄓㄨ】</div>
+          <div class="teacher-answer">★ 正解：【碎珠】</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。語境提示：看書研讀，甘迺迪善用零碎時間的具體方法。。注音：ㄩㄝˋ ㄉㄨˊ')">🔊 聽提示</button>
+          </div>
+          <div class="item-details">情境線索：看書研讀，甘迺迪善用零碎時間的具體方法。 ｜ 注音提示：【ㄩㄝˋ ㄉㄨˊ】</div>
+          <div class="teacher-answer">★ 正解：【閱讀】</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型四：課文語境克漏字填空</div>
+          <span class="section-badge">第 4 頁 / 課文原句</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。課文原句：歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">歐陽脩在（　　）構思文章，那便是枕上、廁上、馬上。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（原句：他常利用「三上」的工夫構思文章，何謂「三上」？那便是「枕上、廁上、馬上」。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。課文原句：每日在著書立說、從事學術研究和教育（　　）之外……')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每日在著書立說、從事學術研究和教育（　　）之外……</div>
+          <div class="teacher-answer">★ 正解：【工作】（原句：雖然他每日在著書立說、從事學術研究和教育工作之外……）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。課文原句：必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">必拿起手邊的書籍（　　），絕不輕易浪費這些短暫的空檔。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（原句：常常在他接見的第一位客人起身離去，第二位客人尚未踏進會客室之前，也必拿起手邊的書籍閱讀。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。課文原句：懂得珍惜（　　）、善於利用瑣碎時間的哲人。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">懂得珍惜（　　）、善於利用瑣碎時間的哲人。</div>
+          <div class="teacher-answer">★ 正解：【生命】（原句：懂得珍惜生命、善於利用瑣碎時間的哲人。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。課文原句：胡適先生以此（　　）哲學來自勉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">胡適先生以此（　　）哲學來自勉。</div>
+          <div class="teacher-answer">★ 正解：【生活】（原句：胡適先生曾以「不做無益事，一日當三日，人活五十歲，我活百五十」的生活哲學來自勉。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。課文原句：能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">能掌握（　　）—尤其是零碎（　　）—的人，往往也都是智者。</div>
+          <div class="teacher-answer">★ 正解：【時間】（原句：能掌握時間—尤其是零碎時間—的人，往往也都是令人欽佩仰慕的智者、成功者。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。課文原句：零碎的時間，應該是生命中的（　　）、沙金、片玉。')">🔊 聽課文句子</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">零碎的時間，應該是生命中的（　　）、沙金、片玉。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（原句：零碎的時間，應該是生命中的碎珠、沙金、片玉，能勤於撿拾，並集合它們，那的確是一宗可觀的財富！）</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型五：生活應用例句填空</div>
+          <span class="section-badge">第 5 頁 / 生活情境</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題
+            <button class="btn-speak" onclick="speakText('第1題。情境例句：大自然裡的每一種動物和植物，都有珍貴的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">大自然裡的每一種動物和植物，都有珍貴的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生命】（完整句：大自然裡的每一種動物和植物，都有珍貴的生命。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題
+            <button class="btn-speak" onclick="speakText('第2題。情境例句：每天睡前（　　）一本好書，可以增加我們的大腦知識。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">每天睡前（　　）一本好書，可以增加我們的大腦知識。</div>
+          <div class="teacher-answer">★ 正解：【閱讀】（完整句：每天睡前閱讀一本好書，可以增加我們的大腦知識。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題
+            <button class="btn-speak" onclick="speakText('第3題。情境例句：養成良好規律作息，才能擁有健康快樂的（　　）。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">養成良好規律作息，才能擁有健康快樂的（　　）。</div>
+          <div class="teacher-answer">★ 正解：【生活】（完整句：養成良好的衛生與規律作息，才能擁有健康快樂的生活。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題
+            <button class="btn-speak" onclick="speakText('第4題。情境例句：手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">手鍊散落成一顆顆小小的（　　），耐心撿拾就能重新串好。</div>
+          <div class="teacher-answer">★ 正解：【碎珠】（完整句：串珠手鍊散落成一顆顆小小的碎珠，只要耐心撿起來，就能重新串成美麗的手環。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題
+            <button class="btn-speak" onclick="speakText('第5題。情境例句：我們要做好（　　）規劃，按時完成每天的功課。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">我們要做好（　　）規劃，按時完成每天的功課。</div>
+          <div class="teacher-answer">★ 正解：【時間】（完整句：我們要做好時間規劃，按時完成每天的功課。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題
+            <button class="btn-speak" onclick="speakText('第6題。情境例句：下課時間我們要先去上（　　）並洗手，保持個人衛生。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">下課時間我們要先去上（　　）並洗手，保持個人衛生。</div>
+          <div class="teacher-answer">★ 正解：【廁所】（完整句：下課時間我們要先去上廁所並用肥皂洗手，保持個人衛生。）</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題
+            <button class="btn-speak" onclick="speakText('第7題。情境例句：爸爸媽媽每天努力（　　），用心照顧我們長大。')">🔊 聽例句</button>
+          </div>
+          <div class="item-details" style="font-size:16pt;">爸爸媽媽每天努力（　　），用心照顧我們長大。</div>
+          <div class="teacher-answer">★ 正解：【工作】（完整句：爸爸媽媽每天努力工作，用心照顧我們長大。）</div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>

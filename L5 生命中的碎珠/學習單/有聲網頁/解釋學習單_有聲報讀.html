@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>國文二上 第五課〈生命中的碎珠〉解釋學習單（有聲報讀系統）</title>
+  <style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --accent-red: #dc2626;
+    --bg-page: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --border-color: #cbd5e1;
+    --font-size: 16pt;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "DFKai-SB", "標楷體", "Noto Sans TC", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-size: var(--font-size);
+    line-height: 1.7;
+    padding: 16px 12px 80px 12px;
+  }
+  .container { max-width: 960px; margin: 0 auto; }
+  
+  header.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #ffffff;
+    border: 2px solid #bae6fd;
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .top-title { font-size: 18pt; font-weight: 700; color: #0369a1; }
+  .top-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px 14px;
+    font-size: 14pt;
+    font-family: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn:hover { background: #f1f5f9; }
+  .btn.primary { background: #0284c7; color: #ffffff; border-color: #0284c7; }
+  .btn.primary:hover { background: #0369a1; }
+  .btn.accent { background: #f59e0b; color: #ffffff; border-color: #d97706; }
+  .btn.danger { background: #ef4444; color: #ffffff; border-color: #dc2626; }
+  .btn.active { background: #0284c7; color: #ffffff; }
+
+  .btn-speak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    font-size: 12pt;
+    font-family: inherit;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px 4px;
+    vertical-align: middle;
+    transition: background 0.15s;
+  }
+  .btn-speak:hover { background: #bae6fd; }
+
+  .tab-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 8px;
+  }
+  .tab-btn {
+    padding: 8px 24px;
+    font-size: 16pt;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 8px 8px 0 0;
+    border: 2px solid #cbd5e1;
+    border-bottom: none;
+    background: #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #0284c7;
+    border-color: #0284c7;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+  }
+
+  .section-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .section-header {
+    border-left: 6px solid #0284c7;
+    padding-left: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .section-title { font-size: 17pt; font-weight: 700; color: #1e3a8a; }
+  .section-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12pt;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  .item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .item-box:hover { border-color: #cbd5e1; }
+  .item-title { font-weight: 600; color: #0f172a; margin-bottom: 6px; }
+  .item-details { font-size: 14pt; color: #475569; margin-bottom: 6px; }
+
+  .teacher-answer {
+    color: var(--accent-red);
+    font-weight: bold;
+    display: none;
+    margin-top: 4px;
+    padding: 4px 8px;
+    background: #fef2f2;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent-red);
+  }
+  body.show-answers .teacher-answer { display: block; }
+  body.large-font { --font-size: 20pt; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="top-bar">
+      <div class="top-title">📖 第五課〈生命中的碎珠〉解釋學習單</div>
+      <div class="top-controls">
+        <button class="btn primary" id="btnToggleAns" onclick="toggleAnswers()">👁️ 顯示解答</button>
+        <button class="btn" onclick="toggleFontSize()">🔠 字體大小</button>
+        <button class="btn danger" onclick="stopSpeech()">⏹️ 停止語音</button>
+        <div style="display:inline-flex; align-items:center; gap:4px; font-size:12pt; margin-left:8px;">
+          <span>語速:</span>
+          <button class="btn rate-btn active" onclick="setRate(1.0, this)">正常</button>
+          <button class="btn rate-btn" onclick="setRate(0.8, this)">慢速</button>
+        </div>
+        <button class="btn" onclick="window.print()">🖨️ 列印</button>
+      </div>
+    </header>
+
+    <nav class="tab-nav">
+      <button id="btnTab_A" class="tab-btn active" onclick="switchTab('A')">卷 A</button><button id="btnTab_B" class="tab-btn " onclick="switchTab('B')">卷 B</button><button id="btnTab_C" class="tab-btn " onclick="switchTab('C')">卷 C</button>
+    </nav>
+
+    <div id="tabContent_A" class="tab-content" style="">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：課文注釋詞義配對（11題全測）</div>
+          <span class="section-badge">第 1 頁 / 詞義配對</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px; line-height: 1.8;">
+          <strong>【課文詞語選項庫】：</strong><br>
+          (A) 盛年不重來，一日難再晨，及時當勉勵，歲月不待人 ｜ (B) 溫藹 ｜ (C) 千字文 ｜ (D) 撇開 ｜ (E) 著書立說 ｜ (F) 從容自如 ｜ (G) 尺璧非寶，寸陰是競 ｜ (H) 宗 ｜ (I) 積沙能夠成塔 ｜ (J) 不敷 ｜ (K) 集腋可以成裘
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：釋義【拋開、放置一旁。】
+            <button class="btn-speak" onclick="speakText('第1題。釋義：拋開、放置一旁。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：撇開近人不談，在古代悠閒的農業社會裡，就已有許多珍惜生命的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【D】 撇開</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：釋義【指積少成多。】
+            <button class="btn-speak" onclick="speakText('第2題。釋義：指積少成多。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【I】 積沙能夠成塔</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：釋義【量詞，用於計算文件、交易、財物等。】
+            <button class="btn-speak" onclick="speakText('第3題。釋義：量詞，用於計算文件、交易、財物等。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：那的確是一宗可觀的財富！</div>
+          <div class="teacher-answer">★ 正解：【H】 宗</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：釋義【以前兒童啟蒙識字的讀本。】
+            <button class="btn-speak" onclick="speakText('第4題。釋義：以前兒童啟蒙識字的讀本。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【C】 千字文</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：釋義【指人生短暫，必須珍惜光陰。】
+            <button class="btn-speak" onclick="speakText('第5題。釋義：指人生短暫，必須珍惜光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：陶淵明曾經說過：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」</div>
+          <div class="teacher-answer">★ 正解：【A】 盛年不重來，一日難再晨，及時當勉勵，歲月不待人</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：釋義【不夠、不足。】
+            <button class="btn-speak" onclick="speakText('第6題。釋義：不夠、不足。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出學者修養，從不覺得時間不敷使用。</div>
+          <div class="teacher-answer">★ 正解：【J】 不敷</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：釋義【透過寫作以表述自己的學說理論。】
+            <button class="btn-speak" onclick="speakText('第7題。釋義：透過寫作以表述自己的學說理論。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：每日在著書立說、從事學術研究和教育工作之外，還要親自處理諸多繁雜事務。</div>
+          <div class="teacher-answer">★ 正解：【E】 著書立說</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：釋義【不慌不忙，自在舒緩的樣子。】
+            <button class="btn-speak" onclick="speakText('第8題。釋義：不慌不忙，自在舒緩的樣子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：由於能充分掌握、支配零碎時間，因此，仍然生活得從容自如。</div>
+          <div class="teacher-answer">★ 正解：【F】 從容自如</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：釋義【溫和親切。】
+            <button class="btn-speak" onclick="speakText('第9題。釋義：溫和親切。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出一個溫藹學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【B】 溫藹</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：釋義【指片刻的光陰比璧玉更值得爭取和珍惜。】
+            <button class="btn-speak" onclick="speakText('第10題。釋義：指片刻的光陰比璧玉更值得爭取和珍惜。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【G】 尺璧非寶，寸陰是競</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：釋義【指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)】
+            <button class="btn-speak" onclick="speakText('第11題。釋義：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【K】 集腋可以成裘</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：課文語境與詞義理解選擇題（11題全測）</div>
+          <span class="section-badge">第 2 頁 / 語境選擇題</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：格言「尺璧非寶，寸陰是競」，其真正的涵義是指：
+            <button class="btn-speak" onclick="speakText('第1題。格言「尺璧非寶，寸陰是競」，其真正的涵義是指：。選項A：指片刻的光陰比璧玉更值得爭取和珍惜。選項B：大塊玉石不如微小珍珠值錢。選項C：治國之策勝過黃金萬兩。選項D：做人應當講求信用不慕虛榮')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指片刻的光陰比璧玉更值得爭取和珍惜<br>
+            (B) 大塊玉石不如微小珍珠值錢<br>
+            (C) 治國之策勝過黃金萬兩<br>
+            (D) 做人應當講求信用不慕虛榮
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指片刻的光陰比璧玉更值得爭取和珍惜</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：
+            <button class="btn-speak" onclick="speakText('第2題。課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：。選項A：量詞，用於計算文件、交易、財物等。選項B：名詞，指家族的祖廟神位。選項C：動詞，尊奉為學習的榜樣。選項D：形容詞，本質優良純粹的意思')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 量詞，用於計算文件、交易、財物等<br>
+            (B) 名詞，指家族的祖廟神位<br>
+            (C) 動詞，尊奉為學習的榜樣<br>
+            (D) 形容詞，本質優良純粹的意思
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 量詞，用於計算文件、交易、財物等</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：
+            <button class="btn-speak" onclick="speakText('第3題。胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：。選項A：不夠、不足。選項B：不知、不明。選項C：不願、不想。選項D：不急、不忙')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不夠、不足<br>
+            (B) 不知、不明<br>
+            (C) 不願、不想<br>
+            (D) 不急、不忙
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不夠、不足</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：胡適先生「生活得從容自如」，「從容自如」的意思是指：
+            <button class="btn-speak" onclick="speakText('第4題。胡適先生「生活得從容自如」，「從容自如」的意思是指：。選項A：不慌不忙，自在舒緩的樣子。選項B：自由自在，毫無約束紀律。選項C：事務繁忙，分身乏術的狀態。選項D：退隱山林，不問世事的閒適')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不慌不忙，自在舒緩的樣子<br>
+            (B) 自由自在，毫無約束紀律<br>
+            (C) 事務繁忙，分身乏術的狀態<br>
+            (D) 退隱山林，不問世事的閒適
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不慌不忙，自在舒緩的樣子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：在課文中，「著書立說」一詞的正確釋義為何？
+            <button class="btn-speak" onclick="speakText('第5題。在課文中，「著書立說」一詞的正確釋義為何？。選項A：透過寫作以表述自己的學說理論。選項B：閱讀大量古今名著豐富內涵。選項C：受聘擔任大學校長講授學術。選項D：親自抄寫珍貴典籍妥善保存')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 透過寫作以表述自己的學說理論<br>
+            (B) 閱讀大量古今名著豐富內涵<br>
+            (C) 受聘擔任大學校長講授學術<br>
+            (D) 親自抄寫珍貴典籍妥善保存
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 透過寫作以表述自己的學說理論</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：「積沙能夠成塔」這句成語的含義是指：
+            <button class="btn-speak" onclick="speakText('第6題。「積沙能夠成塔」這句成語的含義是指：。選項A：指積少成多。選項B：建造高塔必須耗費大量沙石。選項C：做事情只要有恆心就不怕困難。選項D：物質財富如同沙堆般脆弱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多<br>
+            (B) 建造高塔必須耗費大量沙石<br>
+            (C) 做事情只要有恆心就不怕困難<br>
+            (D) 物質財富如同沙堆般脆弱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：「撇開近人不談」，文句中的「撇開」意思為何？
+            <button class="btn-speak" onclick="speakText('第7題。「撇開近人不談」，文句中的「撇開」意思為何？。選項A：拋開、放置一旁。選項B：隱瞞欺騙、避而不談。選項C：分開隔離、互不相干。選項D：批評指責、劃清界限')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 拋開、放置一旁<br>
+            (B) 隱瞞欺騙、避而不談<br>
+            (C) 分開隔離、互不相干<br>
+            (D) 批評指責、劃清界限
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 拋開、放置一旁</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：課文中提及的《千字文》，在古代主要的用途是：
+            <button class="btn-speak" onclick="speakText('第8題。課文中提及的《千字文》，在古代主要的用途是：。選項A：以前兒童啟蒙識字的讀本。選項B：記載朝廷歷史的官方典籍。選項C：科舉考試必考的詩詞範本。選項D：古代文人占卜祭祀的經書')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 以前兒童啟蒙識字的讀本<br>
+            (B) 記載朝廷歷史的官方典籍<br>
+            (C) 科舉考試必考的詩詞範本<br>
+            (D) 古代文人占卜祭祀的經書
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 以前兒童啟蒙識字的讀本</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：
+            <button class="btn-speak" onclick="speakText('第9題。陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：。選項A：指人生短暫，必須珍惜光陰。選項B：大自然晨昏循環永不停息。選項C：勉勵青年追求功名利祿。選項D：感嘆世事無常而避世歸隱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指人生短暫，必須珍惜光陰<br>
+            (B) 大自然晨昏循環永不停息<br>
+            (C) 勉勵青年追求功名利祿<br>
+            (D) 感嘆世事無常而避世歸隱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指人生短暫，必須珍惜光陰</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：
+            <button class="btn-speak" onclick="speakText('第10題。課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：。選項A：溫和親切。選項B：嚴肅莊重。選項C：博學多聞。選項D：謙遜退讓')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 溫和親切<br>
+            (B) 嚴肅莊重<br>
+            (C) 博學多聞<br>
+            (D) 謙遜退讓
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 溫和親切</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：「集腋可以成裘」在課文注釋中的解釋是：
+            <button class="btn-speak" onclick="speakText('第11題。「集腋可以成裘」在課文注釋中的解釋是：。選項A：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)。選項B：狐狸身上的毛皮十分保暖珍貴。選項C：冬天必須穿著厚重的皮衣禦寒。選項D：團結合作才能戰勝凶猛野獸')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)<br>
+            (B) 狐狸身上的毛皮十分保暖珍貴<br>
+            (C) 冬天必須穿著厚重的皮衣禦寒<br>
+            (D) 團結合作才能戰勝凶猛野獸
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      </section></div><div id="tabContent_B" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：課文注釋詞義配對（11題全測）</div>
+          <span class="section-badge">第 1 頁 / 詞義配對</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px; line-height: 1.8;">
+          <strong>【課文詞語選項庫】：</strong><br>
+          (A) 撇開 ｜ (B) 著書立說 ｜ (C) 積沙能夠成塔 ｜ (D) 從容自如 ｜ (E) 尺璧非寶，寸陰是競 ｜ (F) 溫藹 ｜ (G) 千字文 ｜ (H) 宗 ｜ (I) 盛年不重來，一日難再晨，及時當勉勵，歲月不待人 ｜ (J) 集腋可以成裘 ｜ (K) 不敷
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：釋義【以前兒童啟蒙識字的讀本。】
+            <button class="btn-speak" onclick="speakText('第1題。釋義：以前兒童啟蒙識字的讀本。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【G】 千字文</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：釋義【指人生短暫，必須珍惜光陰。】
+            <button class="btn-speak" onclick="speakText('第2題。釋義：指人生短暫，必須珍惜光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：陶淵明曾經說過：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」</div>
+          <div class="teacher-answer">★ 正解：【I】 盛年不重來，一日難再晨，及時當勉勵，歲月不待人</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：釋義【溫和親切。】
+            <button class="btn-speak" onclick="speakText('第3題。釋義：溫和親切。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出一個溫藹學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【F】 溫藹</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：釋義【指片刻的光陰比璧玉更值得爭取和珍惜。】
+            <button class="btn-speak" onclick="speakText('第4題。釋義：指片刻的光陰比璧玉更值得爭取和珍惜。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【E】 尺璧非寶，寸陰是競</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：釋義【透過寫作以表述自己的學說理論。】
+            <button class="btn-speak" onclick="speakText('第5題。釋義：透過寫作以表述自己的學說理論。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：每日在著書立說、從事學術研究和教育工作之外，還要親自處理諸多繁雜事務。</div>
+          <div class="teacher-answer">★ 正解：【B】 著書立說</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：釋義【指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)】
+            <button class="btn-speak" onclick="speakText('第6題。釋義：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【J】 集腋可以成裘</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：釋義【量詞，用於計算文件、交易、財物等。】
+            <button class="btn-speak" onclick="speakText('第7題。釋義：量詞，用於計算文件、交易、財物等。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：那的確是一宗可觀的財富！</div>
+          <div class="teacher-answer">★ 正解：【H】 宗</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：釋義【不慌不忙，自在舒緩的樣子。】
+            <button class="btn-speak" onclick="speakText('第8題。釋義：不慌不忙，自在舒緩的樣子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：由於能充分掌握、支配零碎時間，因此，仍然生活得從容自如。</div>
+          <div class="teacher-answer">★ 正解：【D】 從容自如</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：釋義【指積少成多。】
+            <button class="btn-speak" onclick="speakText('第9題。釋義：指積少成多。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【C】 積沙能夠成塔</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：釋義【拋開、放置一旁。】
+            <button class="btn-speak" onclick="speakText('第10題。釋義：拋開、放置一旁。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：撇開近人不談，在古代悠閒的農業社會裡，就已有許多珍惜生命的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【A】 撇開</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：釋義【不夠、不足。】
+            <button class="btn-speak" onclick="speakText('第11題。釋義：不夠、不足。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出學者修養，從不覺得時間不敷使用。</div>
+          <div class="teacher-answer">★ 正解：【K】 不敷</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：課文語境與詞義理解選擇題（11題全測）</div>
+          <span class="section-badge">第 2 頁 / 語境選擇題</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：
+            <button class="btn-speak" onclick="speakText('第1題。陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：。選項A：指人生短暫，必須珍惜光陰。選項B：大自然晨昏循環永不停息。選項C：勉勵青年追求功名利祿。選項D：感嘆世事無常而避世歸隱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指人生短暫，必須珍惜光陰<br>
+            (B) 大自然晨昏循環永不停息<br>
+            (C) 勉勵青年追求功名利祿<br>
+            (D) 感嘆世事無常而避世歸隱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指人生短暫，必須珍惜光陰</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：胡適先生「生活得從容自如」，「從容自如」的意思是指：
+            <button class="btn-speak" onclick="speakText('第2題。胡適先生「生活得從容自如」，「從容自如」的意思是指：。選項A：不慌不忙，自在舒緩的樣子。選項B：自由自在，毫無約束紀律。選項C：事務繁忙，分身乏術的狀態。選項D：退隱山林，不問世事的閒適')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不慌不忙，自在舒緩的樣子<br>
+            (B) 自由自在，毫無約束紀律<br>
+            (C) 事務繁忙，分身乏術的狀態<br>
+            (D) 退隱山林，不問世事的閒適
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不慌不忙，自在舒緩的樣子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：
+            <button class="btn-speak" onclick="speakText('第3題。課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：。選項A：量詞，用於計算文件、交易、財物等。選項B：名詞，指家族的祖廟神位。選項C：動詞，尊奉為學習的榜樣。選項D：形容詞，本質優良純粹的意思')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 量詞，用於計算文件、交易、財物等<br>
+            (B) 名詞，指家族的祖廟神位<br>
+            (C) 動詞，尊奉為學習的榜樣<br>
+            (D) 形容詞，本質優良純粹的意思
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 量詞，用於計算文件、交易、財物等</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：「撇開近人不談」，文句中的「撇開」意思為何？
+            <button class="btn-speak" onclick="speakText('第4題。「撇開近人不談」，文句中的「撇開」意思為何？。選項A：拋開、放置一旁。選項B：隱瞞欺騙、避而不談。選項C：分開隔離、互不相干。選項D：批評指責、劃清界限')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 拋開、放置一旁<br>
+            (B) 隱瞞欺騙、避而不談<br>
+            (C) 分開隔離、互不相干<br>
+            (D) 批評指責、劃清界限
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 拋開、放置一旁</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：「集腋可以成裘」在課文注釋中的解釋是：
+            <button class="btn-speak" onclick="speakText('第5題。「集腋可以成裘」在課文注釋中的解釋是：。選項A：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)。選項B：狐狸身上的毛皮十分保暖珍貴。選項C：冬天必須穿著厚重的皮衣禦寒。選項D：團結合作才能戰勝凶猛野獸')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)<br>
+            (B) 狐狸身上的毛皮十分保暖珍貴<br>
+            (C) 冬天必須穿著厚重的皮衣禦寒<br>
+            (D) 團結合作才能戰勝凶猛野獸
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：課文中提及的《千字文》，在古代主要的用途是：
+            <button class="btn-speak" onclick="speakText('第6題。課文中提及的《千字文》，在古代主要的用途是：。選項A：以前兒童啟蒙識字的讀本。選項B：記載朝廷歷史的官方典籍。選項C：科舉考試必考的詩詞範本。選項D：古代文人占卜祭祀的經書')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 以前兒童啟蒙識字的讀本<br>
+            (B) 記載朝廷歷史的官方典籍<br>
+            (C) 科舉考試必考的詩詞範本<br>
+            (D) 古代文人占卜祭祀的經書
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 以前兒童啟蒙識字的讀本</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：在課文中，「著書立說」一詞的正確釋義為何？
+            <button class="btn-speak" onclick="speakText('第7題。在課文中，「著書立說」一詞的正確釋義為何？。選項A：透過寫作以表述自己的學說理論。選項B：閱讀大量古今名著豐富內涵。選項C：受聘擔任大學校長講授學術。選項D：親自抄寫珍貴典籍妥善保存')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 透過寫作以表述自己的學說理論<br>
+            (B) 閱讀大量古今名著豐富內涵<br>
+            (C) 受聘擔任大學校長講授學術<br>
+            (D) 親自抄寫珍貴典籍妥善保存
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 透過寫作以表述自己的學說理論</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：格言「尺璧非寶，寸陰是競」，其真正的涵義是指：
+            <button class="btn-speak" onclick="speakText('第8題。格言「尺璧非寶，寸陰是競」，其真正的涵義是指：。選項A：指片刻的光陰比璧玉更值得爭取和珍惜。選項B：大塊玉石不如微小珍珠值錢。選項C：治國之策勝過黃金萬兩。選項D：做人應當講求信用不慕虛榮')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指片刻的光陰比璧玉更值得爭取和珍惜<br>
+            (B) 大塊玉石不如微小珍珠值錢<br>
+            (C) 治國之策勝過黃金萬兩<br>
+            (D) 做人應當講求信用不慕虛榮
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指片刻的光陰比璧玉更值得爭取和珍惜</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：
+            <button class="btn-speak" onclick="speakText('第9題。課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：。選項A：溫和親切。選項B：嚴肅莊重。選項C：博學多聞。選項D：謙遜退讓')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 溫和親切<br>
+            (B) 嚴肅莊重<br>
+            (C) 博學多聞<br>
+            (D) 謙遜退讓
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 溫和親切</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：「積沙能夠成塔」這句成語的含義是指：
+            <button class="btn-speak" onclick="speakText('第10題。「積沙能夠成塔」這句成語的含義是指：。選項A：指積少成多。選項B：建造高塔必須耗費大量沙石。選項C：做事情只要有恆心就不怕困難。選項D：物質財富如同沙堆般脆弱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多<br>
+            (B) 建造高塔必須耗費大量沙石<br>
+            (C) 做事情只要有恆心就不怕困難<br>
+            (D) 物質財富如同沙堆般脆弱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：
+            <button class="btn-speak" onclick="speakText('第11題。胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：。選項A：不夠、不足。選項B：不知、不明。選項C：不願、不想。選項D：不急、不忙')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不夠、不足<br>
+            (B) 不知、不明<br>
+            (C) 不願、不想<br>
+            (D) 不急、不忙
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不夠、不足</div>
+        </div>
+      </section></div><div id="tabContent_C" class="tab-content" style="display:none;">
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型一：課文注釋詞義配對（11題全測）</div>
+          <span class="section-badge">第 1 頁 / 詞義配對</span>
+        </div>
+        <div style="background:#f1f5f9; padding:10px 14px; border-radius:8px; margin-bottom:14px; line-height: 1.8;">
+          <strong>【課文詞語選項庫】：</strong><br>
+          (A) 集腋可以成裘 ｜ (B) 從容自如 ｜ (C) 撇開 ｜ (D) 積沙能夠成塔 ｜ (E) 著書立說 ｜ (F) 千字文 ｜ (G) 宗 ｜ (H) 不敷 ｜ (I) 溫藹 ｜ (J) 盛年不重來，一日難再晨，及時當勉勵，歲月不待人 ｜ (K) 尺璧非寶，寸陰是競
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：釋義【不夠、不足。】
+            <button class="btn-speak" onclick="speakText('第1題。釋義：不夠、不足。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出學者修養，從不覺得時間不敷使用。</div>
+          <div class="teacher-answer">★ 正解：【H】 不敷</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：釋義【以前兒童啟蒙識字的讀本。】
+            <button class="btn-speak" onclick="speakText('第2題。釋義：以前兒童啟蒙識字的讀本。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【F】 千字文</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：釋義【指片刻的光陰比璧玉更值得爭取和珍惜。】
+            <button class="btn-speak" onclick="speakText('第3題。釋義：指片刻的光陰比璧玉更值得爭取和珍惜。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：千字文中也有「尺璧非寶，寸陰是競」的格言。</div>
+          <div class="teacher-answer">★ 正解：【K】 尺璧非寶，寸陰是競</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：釋義【拋開、放置一旁。】
+            <button class="btn-speak" onclick="speakText('第4題。釋義：拋開、放置一旁。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：撇開近人不談，在古代悠閒的農業社會裡，就已有許多珍惜生命的哲人了。</div>
+          <div class="teacher-answer">★ 正解：【C】 撇開</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：釋義【溫和親切。】
+            <button class="btn-speak" onclick="speakText('第5題。釋義：溫和親切。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：處處流露出一個溫藹學者的修養與風範。</div>
+          <div class="teacher-answer">★ 正解：【I】 溫藹</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：釋義【量詞，用於計算文件、交易、財物等。】
+            <button class="btn-speak" onclick="speakText('第6題。釋義：量詞，用於計算文件、交易、財物等。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：那的確是一宗可觀的財富！</div>
+          <div class="teacher-answer">★ 正解：【G】 宗</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：釋義【指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)】
+            <button class="btn-speak" onclick="speakText('第7題。釋義：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【A】 集腋可以成裘</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：釋義【不慌不忙，自在舒緩的樣子。】
+            <button class="btn-speak" onclick="speakText('第8題。釋義：不慌不忙，自在舒緩的樣子。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：由於能充分掌握、支配零碎時間，因此，仍然生活得從容自如。</div>
+          <div class="teacher-answer">★ 正解：【B】 從容自如</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：釋義【指人生短暫，必須珍惜光陰。】
+            <button class="btn-speak" onclick="speakText('第9題。釋義：指人生短暫，必須珍惜光陰。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：陶淵明曾經說過：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」</div>
+          <div class="teacher-answer">★ 正解：【J】 盛年不重來，一日難再晨，及時當勉勵，歲月不待人</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：釋義【透過寫作以表述自己的學說理論。】
+            <button class="btn-speak" onclick="speakText('第10題。釋義：透過寫作以表述自己的學說理論。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：每日在著書立說、從事學術研究和教育工作之外，還要親自處理諸多繁雜事務。</div>
+          <div class="teacher-answer">★ 正解：【E】 著書立說</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：釋義【指積少成多。】
+            <button class="btn-speak" onclick="speakText('第11題。釋義：指積少成多。')">🔊 聽題目</button>
+          </div>
+          <div class="item-details">課文原文語境：積沙能夠成塔，集腋可以成裘。</div>
+          <div class="teacher-answer">★ 正解：【D】 積沙能夠成塔</div>
+        </div>
+      </section>
+      <section class="section-card">
+        <div class="section-header">
+          <div class="section-title">題型二：課文語境與詞義理解選擇題（11題全測）</div>
+          <span class="section-badge">第 2 頁 / 語境選擇題</span>
+        </div>
+    
+        <div class="item-box">
+          <div class="item-title">
+            第 1 題：胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：
+            <button class="btn-speak" onclick="speakText('第1題。胡適先生「從不覺得時間不敷使用」，句中「不敷」是指：。選項A：不夠、不足。選項B：不知、不明。選項C：不願、不想。選項D：不急、不忙')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不夠、不足<br>
+            (B) 不知、不明<br>
+            (C) 不願、不想<br>
+            (D) 不急、不忙
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不夠、不足</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 2 題：在課文中，「著書立說」一詞的正確釋義為何？
+            <button class="btn-speak" onclick="speakText('第2題。在課文中，「著書立說」一詞的正確釋義為何？。選項A：透過寫作以表述自己的學說理論。選項B：閱讀大量古今名著豐富內涵。選項C：受聘擔任大學校長講授學術。選項D：親自抄寫珍貴典籍妥善保存')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 透過寫作以表述自己的學說理論<br>
+            (B) 閱讀大量古今名著豐富內涵<br>
+            (C) 受聘擔任大學校長講授學術<br>
+            (D) 親自抄寫珍貴典籍妥善保存
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 透過寫作以表述自己的學說理論</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 3 題：陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：
+            <button class="btn-speak" onclick="speakText('第3題。陶淵明說：「盛年不重來，一日難再晨，及時當勉勵，歲月不待人。」這段名句旨在說明：。選項A：指人生短暫，必須珍惜光陰。選項B：大自然晨昏循環永不停息。選項C：勉勵青年追求功名利祿。選項D：感嘆世事無常而避世歸隱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指人生短暫，必須珍惜光陰<br>
+            (B) 大自然晨昏循環永不停息<br>
+            (C) 勉勵青年追求功名利祿<br>
+            (D) 感嘆世事無常而避世歸隱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指人生短暫，必須珍惜光陰</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 4 題：課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：
+            <button class="btn-speak" onclick="speakText('第4題。課文中描寫胡適流露出一個「溫藹」學者的修養，「溫藹」的詞義是：。選項A：溫和親切。選項B：嚴肅莊重。選項C：博學多聞。選項D：謙遜退讓')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 溫和親切<br>
+            (B) 嚴肅莊重<br>
+            (C) 博學多聞<br>
+            (D) 謙遜退讓
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 溫和親切</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 5 題：課文中提及的《千字文》，在古代主要的用途是：
+            <button class="btn-speak" onclick="speakText('第5題。課文中提及的《千字文》，在古代主要的用途是：。選項A：以前兒童啟蒙識字的讀本。選項B：記載朝廷歷史的官方典籍。選項C：科舉考試必考的詩詞範本。選項D：古代文人占卜祭祀的經書')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 以前兒童啟蒙識字的讀本<br>
+            (B) 記載朝廷歷史的官方典籍<br>
+            (C) 科舉考試必考的詩詞範本<br>
+            (D) 古代文人占卜祭祀的經書
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 以前兒童啟蒙識字的讀本</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 6 題：胡適先生「生活得從容自如」，「從容自如」的意思是指：
+            <button class="btn-speak" onclick="speakText('第6題。胡適先生「生活得從容自如」，「從容自如」的意思是指：。選項A：不慌不忙，自在舒緩的樣子。選項B：自由自在，毫無約束紀律。選項C：事務繁忙，分身乏術的狀態。選項D：退隱山林，不問世事的閒適')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 不慌不忙，自在舒緩的樣子<br>
+            (B) 自由自在，毫無約束紀律<br>
+            (C) 事務繁忙，分身乏術的狀態<br>
+            (D) 退隱山林，不問世事的閒適
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 不慌不忙，自在舒緩的樣子</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 7 題：「集腋可以成裘」在課文注釋中的解釋是：
+            <button class="btn-speak" onclick="speakText('第7題。「集腋可以成裘」在課文注釋中的解釋是：。選項A：指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)。選項B：狐狸身上的毛皮十分保暖珍貴。選項C：冬天必須穿著厚重的皮衣禦寒。選項D：團結合作才能戰勝凶猛野獸')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多。(收集狐狸腋下的毛皮，慢慢累積也能縫成一件皮衣)<br>
+            (B) 狐狸身上的毛皮十分保暖珍貴<br>
+            (C) 冬天必須穿著厚重的皮衣禦寒<br>
+            (D) 團結合作才能戰勝凶猛野獸
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 8 題：格言「尺璧非寶，寸陰是競」，其真正的涵義是指：
+            <button class="btn-speak" onclick="speakText('第8題。格言「尺璧非寶，寸陰是競」，其真正的涵義是指：。選項A：指片刻的光陰比璧玉更值得爭取和珍惜。選項B：大塊玉石不如微小珍珠值錢。選項C：治國之策勝過黃金萬兩。選項D：做人應當講求信用不慕虛榮')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指片刻的光陰比璧玉更值得爭取和珍惜<br>
+            (B) 大塊玉石不如微小珍珠值錢<br>
+            (C) 治國之策勝過黃金萬兩<br>
+            (D) 做人應當講求信用不慕虛榮
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指片刻的光陰比璧玉更值得爭取和珍惜</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 9 題：課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：
+            <button class="btn-speak" onclick="speakText('第9題。課文末尾「那的確是一宗可觀的財富」，句中的「宗」字是作為：。選項A：量詞，用於計算文件、交易、財物等。選項B：名詞，指家族的祖廟神位。選項C：動詞，尊奉為學習的榜樣。選項D：形容詞，本質優良純粹的意思')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 量詞，用於計算文件、交易、財物等<br>
+            (B) 名詞，指家族的祖廟神位<br>
+            (C) 動詞，尊奉為學習的榜樣<br>
+            (D) 形容詞，本質優良純粹的意思
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 量詞，用於計算文件、交易、財物等</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 10 題：「撇開近人不談」，文句中的「撇開」意思為何？
+            <button class="btn-speak" onclick="speakText('第10題。「撇開近人不談」，文句中的「撇開」意思為何？。選項A：拋開、放置一旁。選項B：隱瞞欺騙、避而不談。選項C：分開隔離、互不相干。選項D：批評指責、劃清界限')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 拋開、放置一旁<br>
+            (B) 隱瞞欺騙、避而不談<br>
+            (C) 分開隔離、互不相干<br>
+            (D) 批評指責、劃清界限
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 拋開、放置一旁</div>
+        </div>
+      
+        <div class="item-box">
+          <div class="item-title">
+            第 11 題：「積沙能夠成塔」這句成語的含義是指：
+            <button class="btn-speak" onclick="speakText('第11題。「積沙能夠成塔」這句成語的含義是指：。選項A：指積少成多。選項B：建造高塔必須耗費大量沙石。選項C：做事情只要有恆心就不怕困難。選項D：物質財富如同沙堆般脆弱')">🔊 聽題目與選項</button>
+          </div>
+          <div class="item-details" style="line-height:1.8;">
+            (A) 指積少成多<br>
+            (B) 建造高塔必須耗費大量沙石<br>
+            (C) 做事情只要有恆心就不怕困難<br>
+            (D) 物質財富如同沙堆般脆弱
+          </div>
+          <div class="teacher-answer">★ 正解：【(A)】 指積少成多</div>
+        </div>
+      </section></div>
+  </div>
+
+  <script>
+  let synth = window.speechSynthesis;
+  let speechRate = 1.0;
+
+  function setRate(rate, btn) {
+    speechRate = rate;
+    document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function speakText(text) {
+    if (!synth) {
+      alert("您的瀏覽器不支援語音合成！");
+      return;
+    }
+    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "zh-TW";
+    utter.rate = speechRate;
+    synth.speak(utter);
+  }
+
+  function stopSpeech() {
+    if (synth) synth.cancel();
+  }
+
+  function toggleAnswers() {
+    document.body.classList.toggle('show-answers');
+    const btn = document.getElementById('btnToggleAns');
+    if (document.body.classList.contains('show-answers')) {
+      btn.innerText = "👁️ 隱藏答案";
+      btn.classList.add('accent');
+    } else {
+      btn.innerText = "👁️ 顯示解答";
+      btn.classList.remove('accent');
+    }
+  }
+
+  function toggleFontSize() {
+    document.body.classList.toggle('large-font');
+  }
+
+  function switchTab(verKey) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+    document.getElementById('btnTab_' + verKey).classList.add('active');
+    document.getElementById('tabContent_' + verKey).style.display = 'block';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const ver = params.get('v') || 'A';
+    switchTab(ver);
+  });
+</script>
+</body>
+</html>
