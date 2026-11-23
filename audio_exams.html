@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎧 115 國文有聲考卷專區 ‧ 紙本對照聽讀中心</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --primary-border: #bae6fd;
+      --accent-warm: #f59e0b;
+      --accent-green: #10b981;
+      --accent-purple: #8b5cf6;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --bg-page: #f0f7fc;
+      --bg-card: #ffffff;
+      --border-card: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "標楷體", "DFKai-SB", "Noto Sans TC", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      padding: 20px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 980px;
+      width: 100%;
+    }
+
+    /* 頂部導航列 */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      color: var(--primary-dark);
+      border: 1.5px solid var(--primary-border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--primary-light);
+      transform: translateX(-2px);
+    }
+
+    /* 大標題橫幅 */
+    header.hero-header {
+      text-align: center;
+      background: #ffffff;
+      border: 2px solid var(--primary-border);
+      border-radius: 20px;
+      padding: 28px 20px 24px;
+      box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero-header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #0284c7, #38bdf8, #10b981);
+    }
+    header.hero-header h1 {
+      font-size: 32px;
+      color: #0369a1;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    header.hero-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* 🔍 核心亮點：代號直達快搜卡片 */
+    .search-card {
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 100%);
+      border: 2.5px solid #38bdf8;
+      border-radius: 18px;
+      padding: 22px 24px;
+      margin-bottom: 28px;
+      box-shadow: 0 6px 18px rgba(2, 132, 199, 0.12);
+      text-align: center;
+    }
+    .search-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0369a1;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .search-subtitle {
+      font-size: 14.5px;
+      color: #334155;
+      margin-bottom: 16px;
+    }
+    .search-form {
+      display: flex;
+      gap: 12px;
+      max-width: 620px;
+      margin: 0 auto;
+      justify-content: center;
+    }
+    .code-input {
+      flex: 1;
+      font-family: inherit;
+      font-size: 22px;
+      font-weight: 900;
+      padding: 12px 20px;
+      border: 2.5px solid #0284c7;
+      border-radius: 12px;
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #0f172a;
+      background: #ffffff;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
+      text-align: center;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+    .code-input:focus {
+      border-color: #0369a1;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.25);
+    }
+    .code-submit-btn {
+      font-family: inherit;
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      padding: 0 24px;
+      font-size: 19px;
+      font-weight: 900;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .code-submit-btn:hover {
+      background: #0369a1;
+      transform: translateY(-2px);
+    }
+    .code-submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* 快捷代號標籤點選 */
+    .quick-tags {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 13.5px;
+      color: #475569;
+    }
+    .quick-tag-pill {
+      background: #ffffff;
+      border: 1px solid #7dd3fc;
+      color: #0284c7;
+      padding: 3px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.15s;
+    }
+    .quick-tag-pill:hover {
+      background: #0284c7;
+      color: #ffffff;
+    }
+
+    /* 分類標籤篩選列 */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+    .filter-label {
+      font-size: 15px;
+      font-weight: bold;
+      color: #475569;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #334155;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: bold;
+      padding: 7px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover {
+      border-color: #0284c7;
+      color: #0284c7;
+    }
+    .filter-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+    }
+
+    /* 考卷卡片網格 */
+    .exams-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 22px;
+      margin-bottom: 36px;
+    }
+    .exam-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .exam-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(2, 132, 199, 0.12);
+      border-color: #38bdf8;
+    }
+    .exam-card.highlight {
+      animation: highlightPulse 2s ease infinite alternate;
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+    @keyframes highlightPulse {
+      from { box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.4); }
+      to { box-shadow: 0 0 0 6px rgba(2, 132, 199, 0.8); }
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+    .exam-code-badge {
+      background: #0284c7;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 900;
+      padding: 4px 12px;
+      border-radius: 8px;
+      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .exam-unit-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .exam-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .exam-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      flex-grow: 1;
+    }
+    .exam-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .exam-tag {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* 卡片按鈕列 */
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .action-btn-main {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 16px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .action-btn-main:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    .action-sub-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+    }
+    .action-btn-word {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .action-btn-word:hover {
+      background: #fde68a;
+      color: #78350f;
+    }
+    .action-btn-qr {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .action-btn-qr:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    /* 空狀態提示 */
+    .empty-state {
+      grid-column: 1 / -1;
+      background: #ffffff;
+      border: 2px dashed #cbd5e1;
+      border-radius: 16px;
+      padding: 40px 20px;
+      text-align: center;
+      color: #64748b;
+    }
+    .empty-state h3 {
+      font-size: 20px;
+      color: #0284c7;
+      margin-bottom: 8px;
+    }
+
+    /* 老師備課折疊指南 */
+    .guide-accordion {
+      background: #ffffff;
+      border: 1.5px solid var(--primary-border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .guide-header {
+      padding: 16px 20px;
+      background: #f8fafc;
+      font-weight: bold;
+      color: #0369a1;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .guide-body {
+      padding: 20px;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #334155;
+      display: none;
+      border-top: 1px solid #e2e8f0;
+    }
+    .guide-body.show {
+      display: block;
+    }
+    .guide-body ol {
+      padding-left: 24px;
+      margin: 10px 0;
+    }
+
+    /* QR Code 彈出視窗 Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal-card {
+      background: #ffffff;
+      border-radius: 18px;
+      max-width: 420px;
+      width: 100%;
+      padding: 26px;
+      text-align: center;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.2);
+      animation: modalFadeIn 0.25s ease;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-title {
+      font-size: 20px;
+      color: #0369a1;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .modal-subtitle {
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 18px;
+    }
+    .modal-qr-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .modal-qr-img {
+      width: 200px;
+      height: 200px;
+      display: block;
+      margin: 0 auto;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .modal-btn {
+      font-family: inherit;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+    .modal-btn-copy {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .modal-btn-copy:hover { background: #0369a1; }
+    .modal-btn-close {
+      background: #f1f5f9;
+      color: #475569;
+    }
+    .modal-btn-close:hover { background: #e2e8f0; }
+
+    /* 吐司訊息 (Toast) */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: bold;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      z-index: 3000;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 13px;
+      color: #94a3b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 頂部導航 -->
+    <nav class="top-nav">
+      <a href="./index.html" class="back-btn">← 返回 115數位學習首頁</a>
+      <span style="font-size:14px; color:#64748b;">115學年度 國文有聲支持體系</span>
+    </nav>
+
+    <!-- 標題橫幅 -->
+    <header class="hero-header">
+      <h1>🎧 115 國文有聲考卷專區</h1>
+      <p>
+        支援學生<strong>紙本考卷作答</strong>與<strong>語音逐題報讀</strong>。輸入考卷代號或點選清單，即可一鍵聽讀題目與選項！
+      </p>
+    </header>
+
+    <!-- 🔍 代號直達聽讀區 -->
+    <section class="search-card">
+      <div class="search-title">
+        <span>⚡ 考卷代號直達聽讀</span>
+      </div>
+      <div class="search-subtitle">
+        請看您的<strong>紙本考卷右上角</strong>標註的代號（例如：<strong>L4-01</strong> 或 <strong>L5-01</strong>）：
+      </div>
+      <form class="search-form" onsubmit="handleCodeSearch(event)">
+        <input 
+          type="text" 
+          id="codeInput" 
+          class="code-input" 
+          placeholder="輸入代號 (例: L4-01)" 
+          autocomplete="off" 
+          spellcheck="false"
+          maxlength="16"
+        />
+        <button type="submit" class="code-submit-btn">
+          <span>🎧 前往聽讀</span>
+        </button>
+      </form>
+      <!-- 快捷代號提示點選 -->
+      <div class="quick-tags" id="quickTagsContainer">
+        <span>💡 常用代號快捷：</span>
+        <!-- 點擊直接填入搜尋 -->
+      </div>
+    </section>
+
+    <!-- 篩選列 -->
+    <div class="filter-bar">
+      <span class="filter-label">課別單元：</span>
+      <div id="filterPills" style="display:flex; flex-wrap:wrap; gap:8px;">
+        <button class="filter-btn active" onclick="setFilter('ALL', this)">全部考卷</button>
+      </div>
+    </div>
+
+    <!-- 考卷卡片清單網格 -->
+    <main class="exams-grid" id="examsGrid">
+      <!-- 由 JS 動態注入卡片 -->
+    </main>
+
+    <!-- 老師備課說明 (可折疊) -->
+    <section class="guide-accordion">
+      <div class="guide-header" onclick="toggleGuide()">
+        <span>👩‍🏫 教師備課指南：如何在此專區新增一份新考卷？</span>
+        <span id="guideArrow">▼ 展開說明</span>
+      </div>
+      <div class="guide-body" id="guideBody">
+        <p>本專區採用<strong>「檔案資料解耦」</strong>架構，老師在其他地方做好考卷後，只要 3 步驟即可完成上架：</p>
+        <ol>
+          <li><strong>放置 Word 卷：</strong>將製作好的空白學生紙本卷（.docx）存入資料夾 <code>./有聲考卷/word/</code> 中。（若使用 Google Drive 雲端連結亦可）。</li>
+          <li><strong>放置 HTML 報讀卷：</strong>將具有報讀按鈕的 HTML 考卷存入資料夾 <code>./有聲考卷/html/</code> 中。</li>
+          <li><strong>在清單登記代號：</strong>打開 <code>./有聲考卷/exams_data.js</code>，在清單中填寫代號（如 <code>L6-01</code>）、名稱與路徑，儲存後重新整理本頁面即可自動呈現！</li>
+        </ol>
+        <p style="color:#0369a1; font-weight:bold;">✨ 小提醒：紙本考卷右上角請務必印上相同的「代號」，學生上課時只需在上方打代號就能秒開考卷！</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>115學年度教材數位化專案 ｜ 國文特教課堂教學管理系統</p>
+    </footer>
+  </div>
+
+  <!-- QR Code 彈跳視窗 -->
+  <div class="modal-overlay" id="qrModal" onclick="closeQrModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <div class="modal-title" id="qrModalTitle">📱 考卷專屬 QR Code</div>
+      <div class="modal-subtitle" id="qrModalCode">代號：--</div>
+      <div class="modal-qr-box">
+        <img id="qrModalImg" class="modal-qr-img" src="" alt="考卷 QR Code">
+      </div>
+      <p style="font-size:13.5px; color:#64748b; margin-bottom:16px;">
+        可投影給全班，或用平板相機直接掃描開啟有聲報讀頁面。
+      </p>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-copy" onclick="copyModalLink()">📋 複製連結</button>
+        <button class="modal-btn modal-btn-close" onclick="closeQrModal()">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 吐司通知 -->
+  <div class="toast-msg" id="toastMsg">💡 提示訊息</div>
+
+  <!-- 引用考卷資料庫 -->
+  <script src="./有聲考卷/exams_data.js"></script>
+
+  <script>
+    // 預防萬一：若 exams_data.js 載入失敗時的預設備援資料庫
+    const FALLBACK_EXAMS = [
+      {
+        code: "SAMPLE-01",
+        title: "國文閱讀理解 示範有聲報讀卷",
+        unit: "示範考卷",
+        desc: "標準示範題型，包含語音報讀、選項個別播放，搭配紙本印題使用。",
+        tags: ["示範題型", "語音報讀", "單選題"],
+        wordUrl: "./有聲考卷/word/README_放Word考卷.txt",
+        htmlUrl: "./有聲考卷/html/範例_有聲報讀考卷.html"
+      },
+      {
+        code: "L4-01",
+        title: "周敦頤〈愛蓮說〉課後綜合有聲測驗卷",
+        unit: "L4 愛蓮說",
+        desc: "依據最新規範建置：支援語音報讀、題目選項朗讀、放大字級，對照紙本習作與課後評量作答。",
+        tags: ["課後測驗", "語音報讀", "綜合評量"],
+        wordUrl: "./L4 愛蓮說/04_愛蓮說_習作與延伸配對課後學習單_學生版.docx",
+        htmlUrl: "./L4 愛蓮說/audio_quiz.html"
+      },
+      {
+        code: "L5-01",
+        title: "陳幸蕙〈生命中的碎珠〉課後綜合有聲測驗卷",
+        unit: "L5 生命中的碎珠",
+        desc: "全題幹有聲朗讀，三宮格診斷與紙本延伸題對照作答專用。",
+        tags: ["綜合評量", "全題朗讀", "課後檢測"],
+        wordUrl: "./L5 生命中的碎珠/05_生命中的碎珠_習作與延伸配對課後學習單_學生版.docx",
+        htmlUrl: "./L5 生命中的碎珠/audio_quiz.html"
+      }
+    ];
+
+    let currentFilter = 'ALL';
+    let currentModalUrl = '';
+
+    function getExamsList() {
+      if (typeof EXAMS_DATABASE !== 'undefined' && Array.isArray(EXAMS_DATABASE)) {
+        return EXAMS_DATABASE;
+      }
+      return FALLBACK_EXAMS;
+    }
+
+    // 初始化渲染
+    window.addEventListener('DOMContentLoaded', () => {
+      initFilterPills();
+      initQuickTags();
+      renderExamsGrid();
+      
+      // 自動聚焦於搜尋框
+      const input = document.getElementById('codeInput');
+      if (input) {
+        input.focus();
+      }
+    });
+
+    // 初始化單元篩選標籤
+    function initFilterPills() {
+      const exams = getExamsList();
+      const units = Array.from(new Set(exams.map(e => e.unit).filter(Boolean)));
+      const pillsContainer = document.getElementById('filterPills');
+      
+      units.forEach(unit => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.textContent = unit;
+        btn.onclick = () => setFilter(unit, btn);
+        pillsContainer.appendChild(btn);
+      });
+    }
+
+    // 初始化快速標籤 (在搜尋框下方顯示前幾組代號)
+    function initQuickTags() {
+      const exams = getExamsList();
+      const container = document.getElementById('quickTagsContainer');
+      const topCodes = exams.slice(0, 6);
+      
+      topCodes.forEach(item => {
+        const pill = document.createElement('span');
+        pill.className = 'quick-tag-pill';
+        pill.textContent = item.code;
+        pill.title = item.title;
+        pill.onclick = () => {
+          const input = document.getElementById('codeInput');
+          input.value = item.code;
+          handleCodeSearch();
+        };
+        container.appendChild(pill);
+      });
+    }
+
+    // 設定篩選器
+    function setFilter(unit, btnElement) {
+      currentFilter = unit;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
+      renderExamsGrid();
+    }
+
+    // 渲染卡片清單
+    function renderExamsGrid() {
+      const exams = getExamsList();
+      const grid = document.getElementById('examsGrid');
+      grid.innerHTML = '';
+
+      const filtered = exams.filter(item => {
+        if (currentFilter === 'ALL') return true;
+        return item.unit === currentFilter;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <h3>📭 目前此分類尚無考卷</h3>
+            <p>請切換上方分類標籤，或依照教師指南新增考卷！</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(exam => {
+        const card = document.createElement('div');
+        card.className = 'exam-card';
+        card.id = `exam-card-${exam.code.replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
+        // 標籤群
+        const tagsHtml = (exam.tags || []).map(t => `<span class="exam-tag">#${t}</span>`).join('');
+
+        // Word 下載屬性與提示
+        const isExternalWord = exam.wordUrl.startsWith('http://') || exam.wordUrl.startsWith('https://');
+        const wordDownloadAttr = isExternalWord ? `target="_blank"` : `download`;
+
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <span class="exam-code-badge" title="紙本考卷對照代號">🏷️ ${exam.code}</span>
+              <span class="exam-unit-badge">${exam.unit || '國文考卷'}</span>
+            </div>
+            <h2 class="exam-title">${exam.title}</h2>
+            <p class="exam-desc">${exam.desc || '搭配實體紙本考卷作答，點選下方有聲報讀聽讀題目。'}</p>
+            <div class="exam-tags">${tagsHtml}</div>
+          </div>
+          <div class="card-actions">
+            <a href="${exam.htmlUrl}" target="_blank" class="action-btn-main">
+              <span>🎧 開啟有聲報讀</span>
+            </a>
+            <div class="action-sub-row">
+              <a href="${exam.wordUrl}" ${wordDownloadAttr} class="action-btn-word" title="下載紙本題目卷列印">
+                <span>📄 下載紙本 Word</span>
+              </a>
+              <button class="action-btn-qr" onclick="openQrModal('${exam.code}', '${exam.title}', '${exam.htmlUrl}')" title="顯示專屬 QR Code">
+                <span>📱 碼</span>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 🔍 代號搜尋直達邏輯
+    function handleCodeSearch(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById('codeInput');
+      const rawCode = (input.value || '').trim();
+      if (!rawCode) {
+        showToast('⚠️ 請先輸入考卷代號（例如：L4-01）！');
+        input.focus();
+        return;
+      }
+
+      const searchCode = rawCode.toUpperCase();
+      const exams = getExamsList();
+      const found = exams.find(item => item.code.toUpperCase() === searchCode);
+
+      if (found) {
+        showToast(`🎉 找到考卷【${found.code}】！正在開啟有聲報讀...`);
+        
+        // 若當前卡片在被篩選隱藏的單元，自動切換至全部
+        if (currentFilter !== 'ALL' && found.unit !== currentFilter) {
+          setFilter('ALL', document.querySelector('.filter-btn'));
+        }
+
+        // 滾動並高亮該卡片
+        const safeCode = found.code.replace(/[^a-zA-Z0-9_-]/g, '');
+        const targetCard = document.getElementById(`exam-card-${safeCode}`);
+        if (targetCard) {
+          targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          targetCard.classList.add('highlight');
+          setTimeout(() => {
+            targetCard.classList.remove('highlight');
+          }, 3500);
+        }
+
+        // 1 秒後於新分頁開啟有聲報讀頁面
+        setTimeout(() => {
+          window.open(found.htmlUrl, '_blank');
+        }, 600);
+
+      } else {
+        showToast(`❌ 找不到代號「${rawCode}」，請檢查是否輸入正確！`);
+        input.select();
+      }
+    }
+
+    // QR Code 彈窗相關
+    function openQrModal(code, title, htmlUrl) {
+      const modal = document.getElementById('qrModal');
+      const titleElem = document.getElementById('qrModalTitle');
+      const codeElem = document.getElementById('qrModalCode');
+      const imgElem = document.getElementById('qrModalImg');
+
+      // 轉換成絕對完整網址 (若在 github.io 或伺服器上)
+      const absoluteUrl = new URL(htmlUrl, window.location.href).href;
+      currentModalUrl = absoluteUrl;
+
+      titleElem.textContent = title;
+      codeElem.textContent = `紙本對照代號：${code}`;
+
+      // 使用 QR Code 產生 API
+      const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(absoluteUrl)}`;
+      imgElem.src = qrApi;
+      imgElem.onerror = () => {
+        imgElem.src = `https://quickchart.io/qr?text=${encodeURIComponent(absoluteUrl)}&size=240`;
+      };
+
+      modal.classList.add('active');
+    }
+
+    function closeQrModal(e) {
+      document.getElementById('qrModal').classList.remove('active');
+    }
+
+    function copyModalLink() {
+      if (!currentModalUrl) return;
+      navigator.clipboard.writeText(currentModalUrl).then(() => {
+        showToast('📋 已複製有聲考卷網址至剪貼簿！');
+      }).catch(() => {
+        showToast('網址：' + currentModalUrl);
+      });
+    }
+
+    // 折疊教學指南切換
+    function toggleGuide() {
+      const body = document.getElementById('guideBody');
+      const arrow = document.getElementById('guideArrow');
+      body.classList.toggle('show');
+      arrow.textContent = body.classList.contains('show') ? '▲ 收合說明' : '▼ 展開說明';
+    }
+
+    // 吐司通知
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastMsg');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

@@ -56,7 +56,7 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
       max-width: 900px;
       width: 100%;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
@@ -69,6 +69,87 @@
     }
     .qr-info h4 { font-size: 16px; color: #0284c7; margin-bottom: 4px; }
     .qr-info p { font-size: 13.5px; color: #64748b; }
+
+    /* 🎧 有聲考卷專區橫幅 */
+    .audio-banner {
+      background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+      border: 2px solid #38bdf8;
+      border-radius: 14px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .audio-banner:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(2, 132, 199, 0.16);
+    }
+    .audio-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .audio-banner-icon {
+      font-size: 34px;
+      background: #ffffff;
+      border: 2px solid #bae6fd;
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.08);
+    }
+    .audio-banner-info h3 {
+      font-size: 19px;
+      color: #0369a1;
+      font-weight: 900;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .audio-banner-info p {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .audio-banner-btn {
+      text-decoration: none;
+      background: #0284c7;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 15px;
+      white-space: nowrap;
+      box-shadow: 0 3px 8px rgba(2, 132, 199, 0.25);
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+    }
+    .audio-banner-btn:hover {
+      background: #0369a1;
+      transform: scale(1.03);
+    }
+    @media (max-width: 680px) {
+      .audio-banner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .audio-banner-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
 
     /* 書架網格 */
     .bookshelf-grid {
@@ -178,7 +259,41 @@
     </div>
   </div>
 
+  <!-- 🎧 有聲考卷專區橫幅 -->
+  <div class="audio-banner">
+    <div class="audio-banner-left">
+      <div class="audio-banner-icon">🎧</div>
+      <div class="audio-banner-info">
+        <h3>
+          <span>115 國文有聲考卷專區</span>
+          <span class="badge" style="background:#0284c7; color:#fff; font-size:12px;">全新專區</span>
+        </h3>
+        <p>紙本考卷對照 ‧ 輸入代號（如 L4-01、L5-01）直達語音逐題報讀 ‧ 支援 Word 題目卷下載</p>
+      </div>
+    </div>
+    <a href="./audio_exams.html" class="audio-banner-btn">
+      🎧 進入有聲專區 ➜
+    </a>
+  </div>
+
   <main class="bookshelf-grid">
+
+    <!-- 🎧 有聲考卷聽讀專區專屬卡片 -->
+    <div class="book-card" style="border: 2px solid #38bdf8; background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);">
+      <div>
+        <div class="badge-row">
+          <span class="badge" style="background:#0284c7; color:#fff;">專屬系統</span>
+          <span class="badge badge-primary">全學期通用</span>
+        </div>
+        <h2 class="book-title">🎧 有聲考卷聽讀專區</h2>
+        <p class="book-desc">
+          為特教學生提供紙本考卷作答鷹架。看實體紙本考卷，透過考卷右上角代號（如 L4-01、L5-01）快速開啟語音逐題報讀，支援各課 Word 空白題目卷下載與專屬 QR Code。
+        </p>
+      </div>
+      <div class="card-footer">
+        <a href="./audio_exams.html" class="open-btn" style="background: #0284c7;">🎧 前往聽讀專區</a>
+      </div>
+    </div>
 
     <!-- 🟢 第一本電子書：琦君〈下雨天，真好〉 -->
     <div class="book-card">
