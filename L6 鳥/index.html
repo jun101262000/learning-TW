@@ -2500,7 +2500,7 @@
     <button class="tab-btn" onclick="switchTab('tab-words2', this)">🔍 4. 詞語二</button>
     <button class="tab-btn" onclick="switchTab('tab-notes', this)">💡 5. 解釋</button>
     <button class="tab-btn" onclick="switchTab('tab-similar', this)">🔤 6. 相似字</button>
-    <button class="tab-btn" onclick="switchTab('tab-match', this)">🎯 7. 習作配合題（習作 P.31）</button>
+    <button class="tab-btn" onclick="switchTab('tab-match', this)">🎯 7. 習作與四大句型</button>
     <button class="tab-btn" onclick="switchTab('tab-reading-h', this)">📚 8. 課文理解H</button>
     <button class="tab-btn" onclick="switchTab('tab-reading-l', this)">🌱 9. 課文理解L</button>
   </nav>
@@ -3081,8 +3081,8 @@
     <section class="tab-pane" id="tab-match">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">🎯 7. 延伸練習 ‧ 習作 P.36~37 配合題實戰</div>
-          <span class="sec-badge">相似字辨析 ＆ 詞語代號情境填空</span>
+          <div class="card-title">🎯 7. 延伸練習 ‧ 習作配合題與語文常識（二）句子</div>
+          <span class="sec-badge">字詞辨析 ＆ 句子結構 ＆ 四大句型判別</span>
         </div>
 
         <div style="padding:16px 20px;">
@@ -3123,7 +3123,155 @@
           </div>
         </div>
 
-        <div style="text-align:center; margin:30px 0 10px 0;">
+     
+          <!-- ========================================== -->
+          <!-- 📝 大題三：句子結構判斷（是非題 ‧ 共 5 題） -->
+          <!-- ========================================== -->
+          <div style="background:#f8fafc; border:2px solid #94a3b8; border-radius:14px; padding:20px; margin-bottom:28px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h3 style="font-size:18pt; font-weight:bold; color:#1e293b; margin:0; display:flex; align-items:center; gap:8px;">
+                  <span>📝 大題三：句子結構判斷（是非題 ‧ 共 5 題）</span>
+                </h3>
+                <p style="font-size:14pt; color:#475569; margin-top:4px; margin-bottom:0;">
+                  說明：句子是由「主語」和「謂語」排列組合而成，表達完整意思。請判斷下列文句是否具備完整「句子」結構：
+                </p>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button type="button" class="tool-btn" onclick="checkSentenceJudge()" style="background:#0284c7; color:#fff; border:none; font-size:14pt;">✔️ 檢查是非作答</button>
+                <button type="button" class="tool-btn" onclick="revealSentenceJudge()" style="background:#f59e0b; color:#fff; border:none; font-size:14pt;">💡 顯示答案</button>
+                <button type="button" class="tool-btn" onclick="resetSentenceJudge()" style="background:#64748b; color:#fff; border:none; font-size:14pt;">🔄 重新亂序</button>
+              </div>
+            </div>
+
+            <div id="sentenceJudgeList" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:14px;"></div>
+            <div id="sentenceJudgeResult" style="margin-top:14px; font-size:16pt; font-weight:bold;"></div>
+          </div>
+
+          <!-- ========================================== -->
+          <!-- 💡 大題四：四大句型判別精熟挑戰（單選題 ‧ 抽15題 ‧ 卡片模式） -->
+          <!-- ========================================== -->
+          <div style="background:#f0f9ff; border:2.5px solid #0284c7; border-radius:16px; padding:22px; margin-bottom:24px; box-shadow:0 4px 14px rgba(2, 132, 199, 0.08);">
+            <!-- 題頭資訊 -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+              <div>
+                <h3 style="font-size:20pt; font-weight:900; color:#0369a1; margin:0; display:flex; align-items:center; gap:8px;">
+                  <span>💡 大題四：四大句型判別精熟挑戰（單選題）</span>
+                  <span id="stq_modeBadge" style="font-size:12pt; background:#0284c7; color:#fff; border-radius:20px; padding:3px 12px; font-weight:normal;">隨機 15 題 ‧ 卡片作答</span>
+                </h3>
+                <div style="font-size:14pt; color:#475569; margin-top:4px;">
+                  題庫共 33 題，每次作答隨機抽取 15 題。支援反白報讀、即時語法解析與錯題循環精練！
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <div id="stq_timerDisplay" style="font-size:15pt; font-weight:bold; color:#0369a1; background:#fff; border:1.5px solid #bae6fd; border-radius:8px; padding:6px 14px;">
+                  ⏱️ 作答計時：0 秒
+                </div>
+                <button type="button" class="tool-btn" onclick="initSentenceTypeQuiz(true)" style="font-size:14pt; padding:6px 16px; background:#e0f2fe; color:#0369a1; border:1.5px solid #7dd3fc;">
+                  🔄 重新隨機抽題
+                </button>
+              </div>
+            </div>
+
+            <!-- 常駐置頂：四大句型判別提示口訣卡 -->
+            <div style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border: 2px solid #f59e0b; border-radius: 12px; padding: 14px 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+                <h4 style="margin:0; font-size:17pt; color:#92400e; font-weight:900; display:flex; align-items:center; gap:6px;">
+                  <span>💡 四大句型怎麼分？（判別提示口訣）</span>
+                </h4>
+                <button type="button" class="tool-btn" onclick="speakText('四大句型怎麼分？乃為是非是判斷。有無出現叫有無。有動詞是敘事。形容狀態叫表態。')" style="background:#f59e0b; color:#fff; border:none; padding:4px 14px; font-size:12.5pt; border-radius:8px; cursor:pointer; font-weight:bold;">
+                  🔊 聽口訣朗讀
+                </button>
+              </div>
+              <div style="font-size:16pt; line-height:1.8; color:#1e293b; background:#ffffff; border-radius:8px; padding:10px 16px; border:1px solid #fde68a;">
+                <div>・乃、為、是、非是<b style="color:#dc2626; font-size:1.15em;">判斷</b> <span style="color:#64748b; font-size:13pt;">（有繫詞，例：勝敗乃兵家常事）</span></div>
+                <div>・有、無出現叫<b style="color:#dc2626; font-size:1.15em;">有無</b> <span style="color:#64748b; font-size:13pt;">（動詞為有或無，例：天下無不散的筵席）</span></div>
+                <div>・有動詞是<b style="color:#dc2626; font-size:1.15em;">敘事</b> <span style="color:#64748b; font-size:13pt;">（有動作行為動詞，例：朋友買了一件衣料）</span></div>
+                <div>・形容狀態叫<b style="color:#dc2626; font-size:1.15em;">表態</b> <span style="color:#64748b; font-size:13pt;">（無動詞，表語為形容詞，例：第一次的感覺很奇妙）</span></div>
+              </div>
+            </div>
+
+            <!-- 單選題進行中卡片區 -->
+            <div id="stq_quizActiveArea">
+              <!-- 進度列 -->
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span id="stq_progressText" style="font-size:15pt; font-weight:bold; color:#0369a1;">
+                  第 1 題 / 共 15 題
+                </span>
+                <span id="stq_currentScoreLive" style="font-size:14pt; color:#64748b;">
+                  已答：0 題
+                </span>
+              </div>
+              <div style="background:#e2e8f0; border-radius:8px; height:10px; width:100%; margin-bottom:18px; overflow:hidden;">
+                <div id="stq_progressBar" style="background:#0284c7; height:100%; width:0%; transition:width 0.3s;"></div>
+              </div>
+
+              <!-- 當前題目卡片 -->
+              <div id="stq_cardContainer" style="background:#ffffff; border:2px solid #cbd5e1; border-radius:14px; padding:24px; box-shadow:0 3px 10px rgba(0,0,0,0.04);">
+                <!-- 題幹句子 -->
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px; gap:12px;">
+                  <div style="font-size:22pt; font-weight:900; color:#0f172a; line-height:1.6; user-select:text !important; cursor:text;" id="stq_sentenceDisplay">
+                    <!-- 題目文句 -->
+                  </div>
+                  <button type="button" class="tool-btn" id="stq_speakSentenceBtn" onclick="speakCurrentSentence()" style="background:#f1f5f9; color:#0369a1; border:1px solid #cbd5e1; padding:6px 12px; font-size:14pt; border-radius:8px; white-space:nowrap;">
+                    🔊 報讀
+                  </button>
+                </div>
+
+                <!-- 四大選項按鈕區 (ABCD 排列，選項內容隨機) -->
+                <div id="stq_optionsContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-bottom:20px;">
+                  <!-- 動態產生 4 個按鈕 -->
+                </div>
+
+                <!-- 即時回饋與解析區 (答題後展開) -->
+                <div id="stq_feedbackBox" style="display:none; padding:16px 20px; border-radius:10px; margin-bottom:18px; font-size:16pt; line-height:1.6;">
+                  <div id="stq_feedbackTitle" style="font-weight:bold; margin-bottom:6px;"></div>
+                  <div id="stq_analysisText" style="color:#334155;"></div>
+                </div>
+
+                <!-- 下一題按鈕 -->
+                <div id="stq_actionRow" style="text-align:right; display:none;">
+                  <button type="button" class="tool-btn" id="stq_nextBtn" onclick="nextSentenceTypeQuestion()" style="font-size:16pt; padding:10px 30px; background:#0284c7; color:#fff; border:none; border-radius:10px; font-weight:bold; box-shadow:0 3px 8px rgba(2, 132, 199, 0.3);">
+                    下一題 ➜
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 成績結算面板 (測驗完成後顯示) -->
+            <div id="stq_resultPanel" style="display:none; background:#ffffff; border:2px solid #86efac; border-radius:14px; padding:28px 24px; text-align:center;">
+              <div id="stq_resultIcon" style="font-size:46pt; margin-bottom:10px;">🎉</div>
+              <h3 id="stq_resultTitle" style="font-size:24pt; font-weight:bold; color:#15803d; margin-bottom:12px;">
+                測驗完成！
+              </h3>
+              <div id="stq_resultScoreDetail" style="font-size:18pt; color:#1e293b; margin-bottom:20px; line-height:1.7;">
+                <!-- 分數、正答率、耗時 -->
+              </div>
+              <div id="stq_cloudStatus" style="background:#f0fdf4; border:1px solid #86efac; border-radius:8px; padding:10px 16px; margin:0 auto 24px; max-width:600px; color:#166534; font-size:14pt; font-weight:bold;">
+                ✅ 成果已成功同步登錄至 Google 試算表（成績登錄庫）！
+              </div>
+
+              <!-- 錯題清單 -->
+              <div id="stq_wrongListContainer" style="display:none; text-align:left; background:#fff1f2; border:1.5px solid #fecdd3; border-radius:10px; padding:18px 22px; margin-bottom:24px;">
+                <h4 style="color:#be123c; margin:0 0 10px 0; font-size:16pt; font-weight:bold;">
+                  📝 本次錯題檢視與解析：
+                </h4>
+                <div id="stq_wrongListItems" style="display:flex; flex-direction:column; gap:12px;"></div>
+              </div>
+
+              <!-- 功能按鈕群 -->
+              <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+                <button type="button" class="tool-btn" id="stq_retryWrongBtn" onclick="startSentenceTypeRetry()" style="display:none; font-size:16pt; padding:10px 28px; background:#dc2626; color:#fff; border:none; border-radius:10px; font-weight:bold; box-shadow:0 3px 8px rgba(220, 38, 38, 0.3);">
+                  🔁 進入錯題重練（尚有 0 題錯題）
+                </button>
+                <button type="button" class="tool-btn" onclick="initSentenceTypeQuiz(true)" style="font-size:16pt; padding:10px 28px; background:#0284c7; color:#fff; border:none; border-radius:10px; font-weight:bold;">
+                  🔄 重新隨機抽題（新的一輪 15 題）
+                </button>
+              </div>
+            </div>
+          </div>
+
+   <div style="text-align:center; margin:30px 0 10px 0;">
           <button class="tool-btn" onclick="scrollToPageTop()" style="font-size:16pt; padding:10px 28px;">
             🔝 一鍵回到頁面頂端
           </button>
@@ -4406,7 +4554,7 @@ const SIMILAR_DATA = [
     family: "柵／跚／珊／姍",
     base: "柵",
     chars: [
-      { char: "柵", zhuyin: "ㄓㄢˋ", radical: "木", strokes: 9, clue: "柵欄、欄柵（用竹木鐵條做成的阻攔物）", example: "大華跨越（柵）欄時不小心扭傷腳踝。" },
+      { char: "柵", zhuyin: "ㄓㄚˋ", radical: "木", strokes: 9, clue: "柵欄、欄柵（用竹木鐵條做成的阻攔物）", example: "大華跨越（柵）欄時不小心扭傷腳踝。" },
       { char: "跚", zhuyin: "ㄕㄢ", radical: "足", strokes: 12, clue: "蹣跚（步履搖晃不穩的樣子）", example: "他扭傷了腳，走起路來步履蹣（跚）。" },
       { char: "珊", zhuyin: "ㄕㄢ", radical: "玉", strokes: 9, clue: "珊瑚、闌珊（衰減、零落）", example: "弟弟對學圍棋意興闌（珊），缺乏動力。" },
       { char: "姍", zhuyin: "ㄕㄢ", radical: "女", strokes: 8, clue: "姍姍來遲（走路緩慢從容的樣子）", example: "上課鐘響了很久，他才（姍）姍來遲。" }
@@ -4684,6 +4832,10 @@ function toggleSimGroupHint(gIdx) {
 }
 
 function renderMatchQuestions() {
+
+  if (typeof renderSentenceJudge === 'function') renderSentenceJudge();
+  if (typeof initSentenceTypeQuiz === 'function' && sentenceTypeState.activeQuestions.length === 0) initSentenceTypeQuiz(true);
+
   // Part 1: 相似字辨析選字填空 (14題)
   const p1 = document.getElementById('matchPart1List');
   if (p1) {
@@ -5006,6 +5158,10 @@ function renderQuizQuestions() {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       if (tabId === 'tab-reading-h' && typeof updateReadingSeatDisplay === 'function') updateReadingSeatDisplay('H');
       if (tabId === 'tab-reading-l' && typeof updateReadingSeatDisplay === 'function') updateReadingSeatDisplay('L');
+      if (tabId === 'tab-match') {
+        if (typeof renderSentenceJudge === 'function' && (!activeSentenceJudgeData || activeSentenceJudgeData.length === 0)) renderSentenceJudge();
+        if (typeof initSentenceTypeQuiz === 'function' && sentenceTypeState.activeQuestions.length === 0) initSentenceTypeQuiz(true);
+      }
       const targetPane = document.getElementById(tabId);
       if (targetPane) targetPane.classList.add('active');
       if (btn) btn.classList.add('active');
@@ -5169,6 +5325,7 @@ function renderQuizQuestions() {
 
     // 【1. 羽「翮」念羽隔】
     str = str.replace(/羽翮/g, '羽隔');
+    str = str.replace(/羽[「『]?翮[」』]?/g, '羽隔');
     str = str.replace(/翮/g, '隔');
 
     // 【2. 「穠」「纖」合度念農仙合度，纖字拼音為ㄒㄧㄢ一聲仙】
@@ -5184,6 +5341,14 @@ function renderQuizQuestions() {
     str = str.replace(/翹著長喙/g, '橋著長喙');
     str = str.replace(/翹著/g, '橋著');
     str = str.replace(/翹/g, '橋');
+
+    // 【5. 【柵】欄，柵字念ㄓㄚˋ四聲炸】
+    str = str.replace(/柵欄/g, '炸欄');
+    str = str.replace(/柵/g, '炸');
+
+    // 【6. 「瞵視昂藏」，藏字音為ㄘㄤˊ二聲】
+    str = str.replace(/瞵視昂[「『]?藏[」』]?/g, '瞵視昂ㄘㄤˊ');
+    str = str.replace(/昂[「『]?藏[」』]?/g, '昂ㄘㄤˊ');
 
     // 【核心修正：解決所有語音第一個字聽不清楚、被切音問題】
     // 在語音開頭加入全形「……　」（省略號加空格）作為聲學緩衝前綴。
@@ -5490,6 +5655,7 @@ function renderQuizQuestions() {
           if (ch.c === '纖') charWord = '仙';
           if (ch.c === '乾') charWord = '甘';
           if (ch.c === '翹') charWord = '橋';
+          if (ch.c === '藏') charWord = 'ㄘㄤˊ';
           return `${ch.m} ${toneText} ${charWord}`;
         });
         let spokenWord = item.word;
@@ -5497,6 +5663,7 @@ function renderQuizQuestions() {
         spokenWord = spokenWord.replace(/穠纖合度/g, '農仙合度');
         spokenWord = spokenWord.replace(/乾癟/g, '甘癟');
         spokenWord = spokenWord.replace(/翹著長喙/g, '橋著長喙');
+        spokenWord = spokenWord.replace(/瞵視昂藏/g, '瞵視昂ㄘㄤˊ');
         return `${spokenWord}。${parts.join('，')}。`;
       }
       let spokenWord = item.word;
@@ -5504,6 +5671,7 @@ function renderQuizQuestions() {
       spokenWord = spokenWord.replace(/穠纖合度/g, '農仙合度');
       spokenWord = spokenWord.replace(/乾癟/g, '甘癟');
       spokenWord = spokenWord.replace(/翹著長喙/g, '橋著長喙');
+      spokenWord = spokenWord.replace(/瞵視昂藏/g, '瞵視昂ㄘㄤˊ');
       return `${spokenWord}。`;
     }
 
@@ -6660,6 +6828,7 @@ function renderQuizQuestions() {
 
   // 課文生字防護字典：若使用者使用中文輸入法按 Enter 不慎送出國字，自動反查轉換為該字的注音！
   const LESSON_CHAR_TO_ZHUYIN = {
+    '柵': 'ㄓㄚˋ',
     // 詞語一 10 詞
     '生': 'ㄕㄥ', '命': 'ㄇㄧㄥˋ', '碎': 'ㄙㄨㄟˋ', '珠': 'ㄓㄨ',
     '零': 'ㄌㄧㄥˊ', '時': 'ㄕˊ', '間': 'ㄐㄧㄢ', '活': 'ㄏㄨㄛˊ',
@@ -7533,293 +7702,841 @@ function renderQuizQuestions() {
       }))
     },
         sim_zhuyin: {
-      title: '相似字 ‧ 分測驗一：看詞寫注音（共 9 題・自主評量）',
+      title: '相似字 ‧ 題型一：看詞寫注音（共 14 題・自主評量）',
       category: '相似字評量',
       subCategory: '看詞寫注音',
       mountId: 'sim-unit-quiz-mount',
       nextSubKey: 'sim_write',
-      nextTab: 'tab-match',
+      nextTab: 'tab-similar',
       questions: [
         {
-          type: 'zhuyin_input',
-          word: '完【璧】歸趙',
-          targetChar: '璧',
-          targetChars: ['璧'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          q: '請看詞語「完【璧】歸趙」，輸入目標字【璧】的正確注音：',
-          stem: '請看詞語「完【璧】歸趙」，輸入目標字【璧】的正確注音：',
-          audioText: '完……什麼……歸趙。注音。',
-          ans: 'ㄅㄧˋ',
-          hint: '讀作四聲 ㄅㄧˋ（玉部，完璧歸趙）',
-          item: {
-            displayPrompt: '完【璧】歸趙',
-            meaning: '古代一種玉器，扁平圓形，中有圓孔。'
-          }
+                "type": "zhuyin_input",
+                "word": "豐【腴】",
+                "targetChar": "腴",
+                "targetChars": [
+                        "腴"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "q": "請看詞語「豐【腴】」，輸入目標字【腴】的正確注音：",
+                "stem": "請看詞語「豐【腴】」，輸入目標字【腴】的正確注音：",
+                "audioText": "豐……什麼。注音。",
+                "ans": "ㄩˊ",
+                "hint": "讀作二聲 ㄩˊ（肉部，豐腴）",
+                "item": {
+                        "word": "豐【腴】",
+                        "displayPrompt": "豐【腴】",
+                        "meaning": "肌肉豐滿、肥美。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '【壁】壘分明',
-          targetChar: '壁',
-          targetChars: ['壁'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          q: '請看詞語「【壁】壘分明」，輸入目標字【壁】的正確注音：',
-          stem: '請看詞語「【壁】壘分明」，輸入目標字【壁】的正確注音：',
-          audioText: '什麼……壘分明。注音。',
-          ans: 'ㄅㄧˋ',
-          hint: '讀作四聲 ㄅㄧˋ（土部，壁壘分明）',
-          item: {
-            displayPrompt: '【壁】壘分明',
-            meaning: '牆壁；軍隊駐守的營壘。'
-          }
+                "type": "zhuyin_input",
+                "word": "阿【諛】奉承",
+                "targetChar": "諛",
+                "targetChars": [
+                        "諛"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "q": "請看詞語「阿【諛】奉承」，輸入目標字【諛】的正確注音：",
+                "stem": "請看詞語「阿【諛】奉承」，輸入目標字【諛】的正確注音：",
+                "audioText": "阿……什麼……奉承。注音。",
+                "ans": "ㄩˊ",
+                "hint": "讀作二聲 ㄩˊ（言部，阿諛）",
+                "item": {
+                        "word": "阿【諛】奉承",
+                        "displayPrompt": "阿【諛】奉承",
+                        "meaning": "說好聽的話討好別人。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '【避】之唯恐不及',
-          targetChar: '避',
-          targetChars: ['避'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          q: '請看詞語「【避】之唯恐不及」，輸入目標字【避】的正確注音：',
-          stem: '請看詞語「【避】之唯恐不及」，輸入目標字【避】的正確注音：',
-          audioText: '什麼……之唯恐不及。注音。',
-          ans: 'ㄅㄧˋ',
-          hint: '讀作四聲 ㄅㄧˋ（辵部，避之唯恐不及）',
-          item: {
-            displayPrompt: '【避】之唯恐不及',
-            meaning: '躲開、免除。'
-          }
+                "type": "zhuyin_input",
+                "word": "步履蹣【跚】",
+                "targetChar": "跚",
+                "targetChars": [
+                        "跚"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "q": "請看詞語「步履蹣【跚】」，輸入目標字【跚】的正確注音：",
+                "stem": "請看詞語「步履蹣【跚】」，輸入目標字【跚】的正確注音：",
+                "audioText": "步履蹣……什麼。注音。",
+                "ans": "ㄕㄢ",
+                "hint": "讀作一聲 ㄕㄢ（足部，蹣跚）",
+                "item": {
+                        "word": "步履蹣【跚】",
+                        "displayPrompt": "步履蹣【跚】",
+                        "meaning": "步履搖晃不穩的樣子。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '偏【僻】鄉村',
-          targetChar: '僻',
-          targetChars: ['僻'],
-          targetZhuyin: 'ㄆㄧˋ',
-          targetZhuyins: ['ㄆㄧˋ'],
-          q: '請看詞語「偏【僻】鄉村」，輸入目標字【僻】的正確注音：',
-          stem: '請看詞語「偏【僻】鄉村」，輸入目標字【僻】的正確注音：',
-          audioText: '偏……什麼……鄉村。注音。',
-          ans: 'ㄆㄧˋ',
-          hint: '讀作四聲 ㄆㄧˋ（人部，偏僻鄉村）',
-          item: {
-            displayPrompt: '偏【僻】鄉村',
-            meaning: '偏遠、不發達。'
-          }
+                "type": "zhuyin_input",
+                "word": "上蒼【眷】顧",
+                "targetChar": "眷",
+                "targetChars": [
+                        "眷"
+                ],
+                "targetZhuyin": "ㄐㄩㄢˋ",
+                "targetZhuyins": [
+                        "ㄐㄩㄢˋ"
+                ],
+                "q": "請看詞語「上蒼【眷】顧」，輸入目標字【眷】的正確注音：",
+                "stem": "請看詞語「上蒼【眷】顧」，輸入目標字【眷】的正確注音：",
+                "audioText": "上蒼……什麼……顧。注音。",
+                "ans": "ㄐㄩㄢˋ",
+                "hint": "讀作四聲 ㄐㄩㄢˋ（目部，眷顧）",
+                "item": {
+                        "word": "上蒼【眷】顧",
+                        "displayPrompt": "上蒼【眷】顧",
+                        "meaning": "關愛照顧。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '獎【掖】後進',
-          targetChar: '掖',
-          targetChars: ['掖'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          q: '請看詞語「獎【掖】後進」，輸入目標字【掖】的正確注音：',
-          stem: '請看詞語「獎【掖】後進」，輸入目標字【掖】的正確注音：',
-          audioText: '獎……什麼……後進。注音。',
-          ans: 'ㄧㄝˋ',
-          hint: '讀作四聲 ㄧㄝˋ（手部，獎掖後進）',
-          item: {
-            displayPrompt: '獎【掖】後進',
-            meaning: '扶持、提攜幫助。'
-          }
+                "type": "zhuyin_input",
+                "word": "意興闌【珊】",
+                "targetChar": "珊",
+                "targetChars": [
+                        "珊"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "q": "請看詞語「意興闌【珊】」，輸入目標字【珊】的正確注音：",
+                "stem": "請看詞語「意興闌【珊】」，輸入目標字【珊】的正確注音：",
+                "audioText": "意興闌……什麼。注音。",
+                "ans": "ㄕㄢ",
+                "hint": "讀作一聲 ㄕㄢ（玉部，闌珊）",
+                "item": {
+                        "word": "意興闌【珊】",
+                        "displayPrompt": "意興闌【珊】",
+                        "meaning": "衰減、零落。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '集【腋】成裘',
-          targetChar: '腋',
-          targetChars: ['腋'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          q: '請看詞語「集【腋】成裘」，輸入目標字【腋】的正確注音：',
-          stem: '請看詞語「集【腋】成裘」，輸入目標字【腋】的正確注音：',
-          audioText: '集……什麼……成裘。注音。',
-          ans: 'ㄧㄝˋ',
-          hint: '讀作四聲 ㄧㄝˋ（肉部，集腋成裘）',
-          item: {
-            displayPrompt: '集【腋】成裘',
-            meaning: '胳肢窩、胳肢窩下的毛皮。'
-          }
+                "type": "zhuyin_input",
+                "word": "巧舌如【簧】",
+                "targetChar": "簧",
+                "targetChars": [
+                        "簧"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "q": "請看詞語「巧舌如【簧】」，輸入目標字【簧】的正確注音：",
+                "stem": "請看詞語「巧舌如【簧】」，輸入目標字【簧】的正確注音：",
+                "audioText": "巧舌如……什麼。注音。",
+                "ans": "ㄏㄨㄤˊ",
+                "hint": "讀作二聲 ㄏㄨㄤˊ（竹部，巧舌如簧）",
+                "item": {
+                        "word": "巧舌如【簧】",
+                        "displayPrompt": "巧舌如【簧】",
+                        "meaning": "比喻口才出眾，能言善道。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '和【藹】可親',
-          targetChar: '藹',
-          targetChars: ['藹'],
-          targetZhuyin: 'ㄞˇ',
-          targetZhuyins: ['ㄞˇ'],
-          q: '請看詞語「和【藹】可親」，輸入目標字【藹】的正確注音：',
-          stem: '請看詞語「和【藹】可親」，輸入目標字【藹】的正確注音：',
-          audioText: '和……什麼……可親。注音。',
-          ans: 'ㄞˇ',
-          hint: '讀作三聲 ㄞˇ（艸部，和藹可親）',
-          item: {
-            displayPrompt: '和【藹】可親',
-            meaning: '和善、美好。'
-          }
+                "type": "zhuyin_input",
+                "word": "【姍】姍來遲",
+                "targetChar": "姍",
+                "targetChars": [
+                        "姍"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "q": "請看詞語「【姍】姍來遲」，輸入目標字【姍】的正確注音：",
+                "stem": "請看詞語「【姍】姍來遲」，輸入目標字【姍】的正確注音：",
+                "audioText": "什麼……姍來遲。注音。",
+                "ans": "ㄕㄢ",
+                "hint": "讀作一聲 ㄕㄢ（女部，姍姍）",
+                "item": {
+                        "word": "【姍】姍來遲",
+                        "displayPrompt": "【姍】姍來遲",
+                        "meaning": "走路緩慢從容的樣子。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '暮【靄】沉沉',
-          targetChar: '靄',
-          targetChars: ['靄'],
-          targetZhuyin: 'ㄞˇ',
-          targetZhuyins: ['ㄞˇ'],
-          q: '請看詞語「暮【靄】沉沉」，輸入目標字【靄】的正確注音：',
-          stem: '請看詞語「暮【靄】沉沉」，輸入目標字【靄】的正確注音：',
-          audioText: '暮……什麼……沉沉。注音。',
-          ans: 'ㄞˇ',
-          hint: '讀作三聲 ㄞˇ（雨部，暮靄沉沉）',
-          item: {
-            displayPrompt: '暮【靄】沉沉',
-            meaning: '煙霧、雲氣。'
-          }
+                "type": "zhuyin_input",
+                "word": "硫【磺】溫泉",
+                "targetChar": "磺",
+                "targetChars": [
+                        "磺"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "q": "請看詞語「硫【磺】溫泉」，輸入目標字【磺】的正確注音：",
+                "stem": "請看詞語「硫【磺】溫泉」，輸入目標字【磺】的正確注音：",
+                "audioText": "硫……什麼……溫泉。注音。",
+                "ans": "ㄏㄨㄤˊ",
+                "hint": "讀作二聲 ㄏㄨㄤˊ（石部，硫磺）",
+                "item": {
+                        "word": "硫【磺】溫泉",
+                        "displayPrompt": "硫【磺】溫泉",
+                        "meaning": "一種化學元素與礦物。"
+                }
         },
         {
-          type: 'zhuyin_input',
-          word: '【謁】見元首',
-          targetChar: '謁',
-          targetChars: ['謁'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          q: '請看詞語「【謁】見元首」，輸入目標字【謁】的正確注音：',
-          stem: '請看詞語「【謁】見元首」，輸入目標字【謁】的正確注音：',
-          audioText: '什麼……見元首。注音。',
-          ans: 'ㄧㄝˋ',
-          hint: '讀作四聲 ㄧㄝˋ（言部，謁見元首）',
-          item: {
-            displayPrompt: '【謁】見元首',
-            meaning: '進見、拜見（多指下對上而言）。'
-          }
+                "type": "zhuyin_input",
+                "word": "【柵】欄",
+                "targetChar": "柵",
+                "targetChars": [
+                        "柵"
+                ],
+                "targetZhuyin": "ㄓㄚˋ",
+                "targetZhuyins": [
+                        "ㄓㄚˋ"
+                ],
+                "q": "請看詞語「【柵】欄」，輸入目標字【柵】的正確注音：",
+                "stem": "請看詞語「【柵】欄」，輸入目標字【柵】的正確注音：",
+                "audioText": "什麼……欄。注音。",
+                "ans": "ㄓㄚˋ",
+                "hint": "讀作四聲 ㄓㄚˋ（木部，柵欄）",
+                "item": {
+                        "word": "【柵】欄",
+                        "displayPrompt": "【柵】欄",
+                        "meaning": "用竹木鐵條做成的阻攔物。"
+                }
+        },
+        {
+                "type": "zhuyin_input",
+                "word": "【豢】養動物",
+                "targetChar": "豢",
+                "targetChars": [
+                        "豢"
+                ],
+                "targetZhuyin": "ㄏㄨㄢˋ",
+                "targetZhuyins": [
+                        "ㄏㄨㄢˋ"
+                ],
+                "q": "請看詞語「【豢】養動物」，輸入目標字【豢】的正確注音：",
+                "stem": "請看詞語「【豢】養動物」，輸入目標字【豢】的正確注音：",
+                "audioText": "什麼……養動物。注音。",
+                "ans": "ㄏㄨㄢˋ",
+                "hint": "讀作四聲 ㄏㄨㄢˋ（豕部，豢養）",
+                "item": {
+                        "word": "【豢】養動物",
+                        "displayPrompt": "【豢】養動物",
+                        "meaning": "餵養牲畜動物。"
+                }
+        },
+        {
+                "type": "zhuyin_input",
+                "word": "中了彩【券】",
+                "targetChar": "券",
+                "targetChars": [
+                        "券"
+                ],
+                "targetZhuyin": "ㄑㄩㄢˋ",
+                "targetZhuyins": [
+                        "ㄑㄩㄢˋ"
+                ],
+                "q": "請看詞語「中了彩【券】」，輸入目標字【券】的正確注音：",
+                "stem": "請看詞語「中了彩【券】」，輸入目標字【券】的正確注音：",
+                "audioText": "中了彩……什麼。注音。",
+                "ans": "ㄑㄩㄢˋ",
+                "hint": "讀作四聲 ㄑㄩㄢˋ（刀部，彩券）",
+                "item": {
+                        "word": "中了彩【券】",
+                        "displayPrompt": "中了彩【券】",
+                        "meaning": "票券、憑證。"
+                }
+        },
+        {
+                "type": "zhuyin_input",
+                "word": "【拳】著一條腿",
+                "targetChar": "拳",
+                "targetChars": [
+                        "拳"
+                ],
+                "targetZhuyin": "ㄑㄩㄢˊ",
+                "targetZhuyins": [
+                        "ㄑㄩㄢˊ"
+                ],
+                "q": "請看詞語「【拳】著一條腿」，輸入目標字【拳】的正確注音：",
+                "stem": "請看詞語「【拳】著一條腿」，輸入目標字【拳】的正確注音：",
+                "audioText": "什麼……著一條腿。注音。",
+                "ans": "ㄑㄩㄢˊ",
+                "hint": "讀作二聲 ㄑㄩㄢˊ（手部，拳曲、拳腿）",
+                "item": {
+                        "word": "【拳】著一條腿",
+                        "displayPrompt": "【拳】著一條腿",
+                        "meaning": "蜷縮曲起。"
+                }
+        },
+        {
+                "type": "zhuyin_input",
+                "word": "須【臾】之間",
+                "targetChar": "臾",
+                "targetChars": [
+                        "臾"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "q": "請看詞語「須【臾】之間」，輸入目標字【臾】的正確注音：",
+                "stem": "請看詞語「須【臾】之間」，輸入目標字【臾】的正確注音：",
+                "audioText": "須……什麼……之間。注音。",
+                "ans": "ㄩˊ",
+                "hint": "讀作二聲 ㄩˊ（臼部，須臾）",
+                "item": {
+                        "word": "須【臾】之間",
+                        "displayPrompt": "須【臾】之間",
+                        "meaning": "片刻、極短的時間。"
+                }
+        },
+        {
+                "type": "zhuyin_input",
+                "word": "裝【潢】老屋",
+                "targetChar": "潢",
+                "targetChars": [
+                        "潢"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "q": "請看詞語「裝【潢】老屋」，輸入目標字【潢】的正確注音：",
+                "stem": "請看詞語「裝【潢】老屋」，輸入目標字【潢】的正確注音：",
+                "audioText": "裝……什麼……老屋。注音。",
+                "ans": "ㄏㄨㄤˊ",
+                "hint": "讀作二聲 ㄏㄨㄤˊ（水部，裝潢）",
+                "item": {
+                        "word": "裝【潢】老屋",
+                        "displayPrompt": "裝【潢】老屋",
+                        "meaning": "室內裝飾修飾。"
+                }
         }
-      ]
+]
     },
-sim_write: {
-      title: '相似字 ‧ ✍️ 手寫實戰評量（全 9 題）',
+    sim_write: {
+      title: '相似字 ‧ ✍️ 題型二：看注音寫國字（全 14 題）',
       category: '相似字評量',
       subCategory: '相似字手寫',
       mountId: 'sim-unit-quiz-mount',
+      nextSubKey: 'sim_fill',
+      nextTab: 'tab-similar',
       questions: [
         {
-          type: 'handwriting_sim',
-          targetChar: '璧',
-          targetChars: ['璧'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          radical: '玉部',
-          group: '璧 / 壁 / 避 / 僻',
-          meaning: '古代一種玉器，扁平圓形，中有圓孔。',
-          example: '完【璧】歸趙',
-          q: '請根據例句「完（　）歸趙」與注音「ㄅㄧˋ」，在田字格工整寫出正確國字：',
-          audioText: '完璧歸趙的璧，注音ㄅㄧˋ，玉部。'
+                "type": "handwriting_sim",
+                "targetChar": "腴",
+                "targetChars": [
+                        "腴"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "radical": "肉部",
+                "group": "腴 / 諛 / 臾",
+                "meaning": "肌肉豐滿、肥美。",
+                "example": "豐【腴】",
+                "q": "請根據例句「豐（　）」與注音「ㄩˊ」，在田字格工整寫出正確國字：",
+                "audioText": "豐腴的腴，注音ㄩˊ，肉部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '壁',
-          targetChars: ['壁'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          radical: '土部',
-          group: '璧 / 壁 / 避 / 僻',
-          meaning: '牆壁；軍隊駐守的營壘。',
-          example: '【壁】壘分明',
-          q: '請根據例句「（　）壘分明」與注音「ㄅㄧˋ」，在田字格工整寫出正確國字：',
-          audioText: '壁壘分明的壁，注音ㄅㄧˋ，土部。'
+                "type": "handwriting_sim",
+                "targetChar": "諛",
+                "targetChars": [
+                        "諛"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "radical": "言部",
+                "group": "腴 / 諛 / 臾",
+                "meaning": "說好聽的話討好別人。",
+                "example": "阿【諛】奉承",
+                "q": "請根據例句「阿（　）奉承」與注音「ㄩˊ」，在田字格工整寫出正確國字：",
+                "audioText": "阿諛奉承的諛，注音ㄩˊ，言部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '避',
-          targetChars: ['避'],
-          targetZhuyin: 'ㄅㄧˋ',
-          targetZhuyins: ['ㄅㄧˋ'],
-          radical: '辵部',
-          group: '璧 / 壁 / 避 / 僻',
-          meaning: '躲開、免除。',
-          example: '【避】之唯恐不及',
-          q: '請根據例句「（　）之唯恐不及」與注音「ㄅㄧˋ」，在田字格工整寫出正確國字：',
-          audioText: '避之唯恐不及的避，注音ㄅㄧˋ，辵部。'
+                "type": "handwriting_sim",
+                "targetChar": "跚",
+                "targetChars": [
+                        "跚"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "radical": "足部",
+                "group": "柵 / 跚 / 珊 / 姍",
+                "meaning": "步履搖晃不穩的樣子。",
+                "example": "步履蹣【跚】",
+                "q": "請根據例句「步履蹣（　）」與注音「ㄕㄢ」，在田字格工整寫出正確國字：",
+                "audioText": "步履蹣跚的跚，注音ㄕㄢ，足部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '僻',
-          targetChars: ['僻'],
-          targetZhuyin: 'ㄆㄧˋ',
-          targetZhuyins: ['ㄆㄧˋ'],
-          radical: '人部',
-          group: '璧 / 壁 / 避 / 僻',
-          meaning: '偏遠、不發達。',
-          example: '偏【僻】鄉村',
-          q: '請根據例句「偏（　）鄉村」與注音「ㄆㄧˋ」，在田字格工整寫出正確國字：',
-          audioText: '偏僻鄉村的僻，注音ㄆㄧˋ，人部。'
+                "type": "handwriting_sim",
+                "targetChar": "眷",
+                "targetChars": [
+                        "眷"
+                ],
+                "targetZhuyin": "ㄐㄩㄢˋ",
+                "targetZhuyins": [
+                        "ㄐㄩㄢˋ"
+                ],
+                "radical": "目部",
+                "group": "拳 / 眷 / 券 / 豢",
+                "meaning": "關愛照顧。",
+                "example": "上蒼【眷】顧",
+                "q": "請根據例句「上蒼（　）顧」與注音「ㄐㄩㄢˋ」，在田字格工整寫出正確國字：",
+                "audioText": "上蒼眷顧的眷，注音ㄐㄩㄢˋ，目部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '掖',
-          targetChars: ['掖'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          radical: '手部',
-          group: '掖 / 腋',
-          meaning: '扶持、提攜幫助。',
-          example: '獎【掖】後進',
-          q: '請根據例句「獎（　）後進」與注音「ㄧㄝˋ」，在田字格工整寫出正確國字：',
-          audioText: '獎掖後進的掖，注音ㄧㄝˋ，手部。'
+                "type": "handwriting_sim",
+                "targetChar": "珊",
+                "targetChars": [
+                        "珊"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "radical": "玉部",
+                "group": "柵 / 跚 / 珊 / 姍",
+                "meaning": "衰減、零落。",
+                "example": "意興闌【珊】",
+                "q": "請根據例句「意興闌（　）」與注音「ㄕㄢ」，在田字格工整寫出正確國字：",
+                "audioText": "意興闌珊的珊，注音ㄕㄢ，玉部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '腋',
-          targetChars: ['腋'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          radical: '肉部',
-          group: '掖 / 腋',
-          meaning: '胳肢窩、胳肢窩下的毛皮。',
-          example: '集【腋】成裘',
-          q: '請根據例句「集（　）成裘」與注音「ㄧㄝˋ」，在田字格工整寫出正確國字：',
-          audioText: '集腋成裘的腋，注音ㄧㄝˋ，肉部。'
+                "type": "handwriting_sim",
+                "targetChar": "簧",
+                "targetChars": [
+                        "簧"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "radical": "竹部",
+                "group": "簧 / 潢 / 磺",
+                "meaning": "比喻口才出眾，能言善道。",
+                "example": "巧舌如【簧】",
+                "q": "請根據例句「巧舌如（　）」與注音「ㄏㄨㄤˊ」，在田字格工整寫出正確國字：",
+                "audioText": "巧舌如簧的簧，注音ㄏㄨㄤˊ，竹部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '藹',
-          targetChars: ['藹'],
-          targetZhuyin: 'ㄞˇ',
-          targetZhuyins: ['ㄞˇ'],
-          radical: '艸部',
-          group: '藹 / 靄 / 謁',
-          meaning: '和善、美好。',
-          example: '和【藹】可親',
-          q: '請根據例句「和（　）可親」與注音「ㄞˇ」，在田字格工整寫出正確國字：',
-          audioText: '和藹可親的藹，注音ㄞˇ，艸部。'
+                "type": "handwriting_sim",
+                "targetChar": "姍",
+                "targetChars": [
+                        "姍"
+                ],
+                "targetZhuyin": "ㄕㄢ",
+                "targetZhuyins": [
+                        "ㄕㄢ"
+                ],
+                "radical": "女部",
+                "group": "柵 / 跚 / 珊 / 姍",
+                "meaning": "走路緩慢從容的樣子。",
+                "example": "【姍】姍來遲",
+                "q": "請根據例句「（　）姍來遲」與注音「ㄕㄢ」，在田字格工整寫出正確國字：",
+                "audioText": "姍姍來遲的姍，注音ㄕㄢ，女部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '靄',
-          targetChars: ['靄'],
-          targetZhuyin: 'ㄞˇ',
-          targetZhuyins: ['ㄞˇ'],
-          radical: '雨部',
-          group: '藹 / 靄 / 謁',
-          meaning: '煙霧、雲氣。',
-          example: '暮【靄】沉沉',
-          q: '請根據例句「暮（　）沉沉」與注音「ㄞˇ」，在田字格工整寫出正確國字：',
-          audioText: '暮靄沉沉的靄，注音ㄞˇ，雨部。'
+                "type": "handwriting_sim",
+                "targetChar": "磺",
+                "targetChars": [
+                        "磺"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "radical": "石部",
+                "group": "簧 / 潢 / 磺",
+                "meaning": "一種化學元素與礦物。",
+                "example": "硫【磺】溫泉",
+                "q": "請根據例句「硫（　）溫泉」與注音「ㄏㄨㄤˊ」，在田字格工整寫出正確國字：",
+                "audioText": "硫磺溫泉的磺，注音ㄏㄨㄤˊ，石部。"
         },
         {
-          type: 'handwriting_sim',
-          targetChar: '謁',
-          targetChars: ['謁'],
-          targetZhuyin: 'ㄧㄝˋ',
-          targetZhuyins: ['ㄧㄝˋ'],
-          radical: '言部',
-          group: '藹 / 靄 / 謁',
-          meaning: '進見、拜見君長。',
-          example: '【謁】見君王',
-          q: '請根據例句「（　）見君王」與注音「ㄧㄝˋ」，在田字格工整寫出正確國字：',
-          audioText: '謁見君王的謁，注音ㄧㄝˋ，言部。'
+                "type": "handwriting_sim",
+                "targetChar": "柵",
+                "targetChars": [
+                        "柵"
+                ],
+                "targetZhuyin": "ㄓㄚˋ",
+                "targetZhuyins": [
+                        "ㄓㄚˋ"
+                ],
+                "radical": "木部",
+                "group": "柵 / 跚 / 珊 / 姍",
+                "meaning": "用竹木鐵條做成的阻攔物。",
+                "example": "【柵】欄",
+                "q": "請根據例句「（　）欄」與注音「ㄓㄚˋ」，在田字格工整寫出正確國字：",
+                "audioText": "柵欄的柵，注音ㄓㄚˋ，木部。"
+        },
+        {
+                "type": "handwriting_sim",
+                "targetChar": "豢",
+                "targetChars": [
+                        "豢"
+                ],
+                "targetZhuyin": "ㄏㄨㄢˋ",
+                "targetZhuyins": [
+                        "ㄏㄨㄢˋ"
+                ],
+                "radical": "豕部",
+                "group": "拳 / 眷 / 券 / 豢",
+                "meaning": "餵養牲畜動物。",
+                "example": "【豢】養動物",
+                "q": "請根據例句「（　）養動物」與注音「ㄏㄨㄢˋ」，在田字格工整寫出正確國字：",
+                "audioText": "豢養動物的豢，注音ㄏㄨㄢˋ，豕部。"
+        },
+        {
+                "type": "handwriting_sim",
+                "targetChar": "券",
+                "targetChars": [
+                        "券"
+                ],
+                "targetZhuyin": "ㄑㄩㄢˋ",
+                "targetZhuyins": [
+                        "ㄑㄩㄢˋ"
+                ],
+                "radical": "刀部",
+                "group": "拳 / 眷 / 券 / 豢",
+                "meaning": "票券、憑證。",
+                "example": "中了彩【券】",
+                "q": "請根據例句「中了彩（　）」與注音「ㄑㄩㄢˋ」，在田字格工整寫出正確國字：",
+                "audioText": "彩券的券，注音ㄑㄩㄢˋ，刀部。"
+        },
+        {
+                "type": "handwriting_sim",
+                "targetChar": "拳",
+                "targetChars": [
+                        "拳"
+                ],
+                "targetZhuyin": "ㄑㄩㄢˊ",
+                "targetZhuyins": [
+                        "ㄑㄩㄢˊ"
+                ],
+                "radical": "手部",
+                "group": "拳 / 眷 / 券 / 豢",
+                "meaning": "蜷縮曲起。",
+                "example": "【拳】著一條腿",
+                "q": "請根據例句「（　）著一條腿」與注音「ㄑㄩㄢˊ」，在田字格工整寫出正確國字：",
+                "audioText": "拳著腿的拳，注音ㄑㄩㄢˊ，手部。"
+        },
+        {
+                "type": "handwriting_sim",
+                "targetChar": "臾",
+                "targetChars": [
+                        "臾"
+                ],
+                "targetZhuyin": "ㄩˊ",
+                "targetZhuyins": [
+                        "ㄩˊ"
+                ],
+                "radical": "臼部",
+                "group": "腴 / 諛 / 臾",
+                "meaning": "片刻、極短的時間。",
+                "example": "須【臾】之間",
+                "q": "請根據例句「須（　）之間」與注音「ㄩˊ」，在田字格工整寫出正確國字：",
+                "audioText": "須臾之間的臾，注音ㄩˊ，臼部。"
+        },
+        {
+                "type": "handwriting_sim",
+                "targetChar": "潢",
+                "targetChars": [
+                        "潢"
+                ],
+                "targetZhuyin": "ㄏㄨㄤˊ",
+                "targetZhuyins": [
+                        "ㄏㄨㄤˊ"
+                ],
+                "radical": "水部",
+                "group": "簧 / 潢 / 磺",
+                "meaning": "室內裝飾修飾。",
+                "example": "裝【潢】老屋",
+                "q": "請根據例句「裝（　）老屋」與注音「ㄏㄨㄤˊ」，在田字格工整寫出正確國字：",
+                "audioText": "裝潢老屋的潢，注音ㄏㄨㄤˊ，水部。"
         }
-      ]
+]
     },
+    sim_fill: {
+      title: '相似字 ‧ 📝 題型三：情境選字填空（共 14 題・取材自習作 P.37）',
+      category: '相似字評量',
+      subCategory: '情境選字填空',
+      mountId: 'sim-unit-quiz-mount',
+      nextSubKey: 'sim_zhuyin',
+      nextTab: 'tab-similar',
+      questions: [
+        {
+                "type": "choice_fill",
+                "targetTerm": "豐【腴】",
+                "wordTitle": "豐【腴】",
+                "item": {
+                        "word": "豐【腴】",
+                        "term": "豐【腴】"
+                },
+                "q": "鳥的身軀細瘦而不乾癟，豐（　）而不臃腫。",
+                "audioText": "鳥的身軀細瘦而不乾癟，豐什麼而不臃腫。",
+                "options": [
+                        "（A）腴",
+                        "（B）諛",
+                        "（C）臾"
+                ],
+                "ans": 0,
+                "hint": "肌肉豐滿、肥美，為「肉」部（腴）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "阿【諛】奉承",
+                "wordTitle": "阿【諛】奉承",
+                "item": {
+                        "word": "阿【諛】奉承",
+                        "term": "阿【諛】奉承"
+                },
+                "q": "為爭取職位高升，他對長官極為阿（　）奉承。",
+                "audioText": "為爭取職位高升，他對長官極為阿什麼奉承。",
+                "options": [
+                        "（A）腴",
+                        "（B）諛",
+                        "（C）臾"
+                ],
+                "ans": 1,
+                "hint": "說好聽的話討好別人，為「言」部（諛）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "步履蹣【跚】",
+                "wordTitle": "步履蹣【跚】",
+                "item": {
+                        "word": "步履蹣【跚】",
+                        "term": "步履蹣【跚】"
+                },
+                "q": "他扭傷了腳，走起路來步履蹣（　）。",
+                "audioText": "他扭傷了腳，走起路來步履蹣什麼。",
+                "options": [
+                        "（A）柵",
+                        "（B）跚",
+                        "（C）珊",
+                        "（D）姍"
+                ],
+                "ans": 1,
+                "hint": "形容腳步搖晃，為「足」部（跚）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "上蒼【眷】顧",
+                "wordTitle": "上蒼【眷】顧",
+                "item": {
+                        "word": "上蒼【眷】顧",
+                        "term": "上蒼【眷】顧"
+                },
+                "q": "她祈求上蒼（　）顧，讓這一期彩券能夠中大獎。",
+                "audioText": "她祈求上蒼什麼顧，讓這一期彩券能夠中大獎。",
+                "options": [
+                        "（A）拳",
+                        "（B）眷",
+                        "（C）券",
+                        "（D）豢"
+                ],
+                "ans": 1,
+                "hint": "關懷照顧，為「目」部（眷）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "意興闌【珊】",
+                "wordTitle": "意興闌【珊】",
+                "item": {
+                        "word": "意興闌【珊】",
+                        "term": "意興闌【珊】"
+                },
+                "q": "弟弟對學圍棋意興闌（　），缺乏動力。",
+                "audioText": "弟弟對學圍棋意興闌什麼，缺乏動力。",
+                "options": [
+                        "（A）柵",
+                        "（B）跚",
+                        "（C）珊",
+                        "（D）姍"
+                ],
+                "ans": 2,
+                "hint": "闌珊表示零落衰退，為「玉」部（珊）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "巧舌如【簧】",
+                "wordTitle": "巧舌如【簧】",
+                "item": {
+                        "word": "巧舌如【簧】",
+                        "term": "巧舌如【簧】"
+                },
+                "q": "他巧舌如（　），把大家都說得心服口服。",
+                "audioText": "他巧舌如什麼，把大家都說得心服口服。",
+                "options": [
+                        "（A）簧",
+                        "（B）潢",
+                        "（C）磺"
+                ],
+                "ans": 0,
+                "hint": "樂器中發聲的簧片，為「竹」部（簧）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "【姍】姍來遲",
+                "wordTitle": "【姍】姍來遲",
+                "item": {
+                        "word": "【姍】姍來遲",
+                        "term": "【姍】姍來遲"
+                },
+                "q": "上課鐘響了很久，他才（　）姍來遲。",
+                "audioText": "上課鐘響了很久，他才什麼姍來遲。",
+                "options": [
+                        "（A）柵",
+                        "（B）跚",
+                        "（C）珊",
+                        "（D）姍"
+                ],
+                "ans": 3,
+                "hint": "形容女子走路從容慢步，為「女」部（姍）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "硫【磺】溫泉",
+                "wordTitle": "硫【磺】溫泉",
+                "item": {
+                        "word": "硫【磺】溫泉",
+                        "term": "硫【磺】溫泉"
+                },
+                "q": "北投的硫（　）溫泉是知名的觀光景點。",
+                "audioText": "北投的硫什麼溫泉是知名的觀光景點。",
+                "options": [
+                        "（A）簧",
+                        "（B）潢",
+                        "（C）磺"
+                ],
+                "ans": 2,
+                "hint": "礦物元素，為「石」部（磺）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "【柵】欄",
+                "wordTitle": "【柵】欄",
+                "item": {
+                        "word": "【柵】欄",
+                        "term": "【柵】欄"
+                },
+                "q": "大華跨越（　）欄時不小心扭傷腳踝。",
+                "audioText": "大華跨越什麼欄時不小心扭傷腳踝。",
+                "options": [
+                        "（A）柵",
+                        "（B）跚",
+                        "（C）珊",
+                        "（D）姍"
+                ],
+                "ans": 0,
+                "hint": "木頭鐵條做成的阻攔物，為「木」部（柵）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "【豢】養動物",
+                "wordTitle": "【豢】養動物",
+                "item": {
+                        "word": "【豢】養動物",
+                        "term": "【豢】養動物"
+                },
+                "q": "動物園（　）養的野生動物，受到良好照顧。",
+                "audioText": "動物園什麼養的野生動物，受到良好照顧。",
+                "options": [
+                        "（A）拳",
+                        "（B）眷",
+                        "（C）券",
+                        "（D）豢"
+                ],
+                "ans": 3,
+                "hint": "餵養牲畜動物，為「豕」部（豢）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "中了彩【券】",
+                "wordTitle": "中了彩【券】",
+                "item": {
+                        "word": "中了彩【券】",
+                        "term": "中了彩【券】"
+                },
+                "q": "任小美希望這一期彩（　）能夠中大獎。",
+                "audioText": "任小美希望這一期彩什麼能夠中大獎。",
+                "options": [
+                        "（A）拳",
+                        "（B）眷",
+                        "（C）券",
+                        "（D）豢"
+                ],
+                "ans": 2,
+                "hint": "票據、證券，為「刀」部（券）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "【拳】著一條腿",
+                "wordTitle": "【拳】著一條腿",
+                "item": {
+                        "word": "【拳】著一條腿",
+                        "term": "【拳】著一條腿"
+                },
+                "q": "動物園豢養的紅鶴，（　）著一條腿站在池邊。",
+                "audioText": "動物園豢養的紅鶴，什麼著一條腿站在池邊。",
+                "options": [
+                        "（A）拳",
+                        "（B）眷",
+                        "（C）券",
+                        "（D）豢"
+                ],
+                "ans": 0,
+                "hint": "屈曲、蜷縮，為「手」部（拳）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "須【臾】之間",
+                "wordTitle": "須【臾】之間",
+                "item": {
+                        "word": "須【臾】之間",
+                        "term": "須【臾】之間"
+                },
+                "q": "仙女魔法棒輕輕一揮，須（　）間沙漠變成綠洲。",
+                "audioText": "仙女魔法棒輕輕一揮，須什麼間沙漠變成綠洲。",
+                "options": [
+                        "（A）腴",
+                        "（B）諛",
+                        "（C）臾"
+                ],
+                "ans": 2,
+                "hint": "片刻、極短時間，為「臼」部（臾）。"
+        },
+        {
+                "type": "choice_fill",
+                "targetTerm": "裝【潢】老屋",
+                "wordTitle": "裝【潢】老屋",
+                "item": {
+                        "word": "裝【潢】老屋",
+                        "term": "裝【潢】老屋"
+                },
+                "q": "在設計師鼓吹下，我答應重新裝（　）老屋。",
+                "audioText": "在設計師鼓吹下，我答應重新裝什麼老屋。",
+                "options": [
+                        "（A）簧",
+                        "（B）潢",
+                        "（C）磺"
+                ],
+                "ans": 1,
+                "hint": "室內裝飾修飾，為「水」部（潢）。"
+        }
+]
+    }
   };
 
   // 1. 自動儲存當前題作答（換題、確認、送出皆自動判定送出）
@@ -7868,10 +8585,12 @@ sim_write: {
       if (subKey === 'w1_listen' || subKey === 'w2_listen') {
         descText = '點擊語音播放發音與解釋（念出指定釋義），聽辨後自 4 個選項選出正確詞語。';
       } else if (subKey === 'sim_zhuyin') {
-      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">⌨️ 測驗一：看詞寫注音</span>';
-    } else if (subKey === 'sim_write') {
-      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">✍️ 測驗二：看注音寫國字</span>';
-    } else if (subKey === 'w1_zhuyin' || subKey === 'w2_zhuyin') {
+        descText = '看詞語與例句提示，輸入目標相似字的正確注音，支援電腦鍵盤直接打字與螢幕虛擬鍵盤。';
+      } else if (subKey === 'sim_write') {
+        descText = '看詞語例句與注音提示，於田字格工整書寫正確國字，核對標準字後可自評並記錄筆跡。';
+      } else if (subKey === 'sim_fill') {
+        descText = '閱讀情境語句與文意，從同組形近字選項中選出最合適的正確用字。';
+      } else if (subKey === 'w1_zhuyin' || subKey === 'w2_zhuyin') {
         descText = '題目以「」標示目標考字，若為 2 字考題則提供 2 個注音作答框，支援電腦鍵盤直接輸入純注音，輸入後切換題號或點擊確認皆自動認定送出。';
       } else {
         descText = '依題目「」標示之注音於田字格書寫，若考 2 字提供 2 個手寫板，核對正解後可自行標記寫對或寫錯，手寫筆跡即時保存至評量成果卡。';
@@ -8040,9 +8759,11 @@ function startW2Quiz(subKey) {
     if (st.isRetryMode) {
       typeBadge = `<span style="font-size:13pt; color:#b91c1c; background:#fee2e2; border:1.5px solid #fca5a5; padding:3px 12px; border-radius:20px; font-weight:bold;">🎯 錯題重點加強練習模式（共 ${total} 題）</span>`;
     } else if (subKey === 'sim_zhuyin') {
-      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">⌨️ 測驗一：看詞寫注音</span>';
+      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">⌨️ 題型一：看詞寫注音</span>';
     } else if (subKey === 'sim_write') {
-      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">✍️ 測驗二：看注音寫國字</span>';
+      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">✍️ 題型二：看注音寫國字</span>';
+    } else if (subKey === 'sim_fill') {
+      typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">📝 題型三：情境選字填空</span>';
     } else if (subKey === 'w1_write' || subKey === 'w2_write' || subKey.startsWith('w1_write_')) {
       typeBadge = '<span style="font-size:13pt; color:#0284c7; background:#e0f2fe; padding:3px 12px; border-radius:6px; font-weight:bold;">✍️ 測驗三：看注音寫國字</span>';
     } else if (subKey === 'w1_listen' || subKey === 'w2_listen') {
@@ -8866,7 +9587,16 @@ function startW2Quiz(subKey) {
     clearHwBoard(qRealIdx, slotIdx, subKey);
   }
 
-    function toggleSimGroupHint(subKey, qRealIdx) {
+    function toggleSimGroupHint(arg1, arg2) {
+    if (typeof arg1 === 'number' || (typeof arg1 === 'string' && arg2 === undefined && !isNaN(arg1))) {
+      const el = document.getElementById('simGroupChars_' + arg1);
+      if (!el) return;
+      const isHidden = el.style.display === 'none';
+      el.style.display = isHidden ? 'grid' : 'none';
+      return;
+    }
+    const subKey = arg1;
+    const qRealIdx = arg2;
     const st = unitQuizStates[subKey];
     if (!st) return;
     if (!st.simGroupHints) st.simGroupHints = {};
@@ -9123,7 +9853,8 @@ function startW2Quiz(subKey) {
       notes_match: '解釋',
       notes_choice: '解釋',
       sim_zhuyin: '相似字',
-      sim_write: '相似字'
+      sim_write: '相似字',
+      sim_fill: '相似字'
     };
     return map[subKey] || bank?.subCategory || '評量';
   }
@@ -9740,6 +10471,15 @@ function startW2Quiz(subKey) {
         const nextK = w2Keys[curIdx + 1];
         const nextBtn = document.querySelectorAll('#w2-sub-quiz-nav .sub-quiz-tab-btn')[curIdx + 1];
         switchW2SubQuiz(nextK, nextBtn);
+        return;
+      }
+    } else if (subKey.startsWith('sim_')) {
+      const simKeys = ['sim_zhuyin', 'sim_write', 'sim_fill'];
+      const curIdx = simKeys.indexOf(subKey);
+      if (curIdx >= 0 && curIdx < simKeys.length - 1) {
+        const nextK = simKeys[curIdx + 1];
+        const nextBtn = document.querySelectorAll('#sim-sub-quiz-nav .sub-quiz-tab-btn')[curIdx + 1];
+        switchSimSubQuiz(nextK, nextBtn);
         return;
       }
     }
@@ -10846,6 +11586,8 @@ function startW2Quiz(subKey) {
       category = "解釋評量";
     } else if (testTitle.includes("相似字")) {
       category = "相似字評量";
+    } else if (testTitle.includes("句型") || testTitle.includes("句子") || testTitle.includes("習作")) {
+      category = "習作與句型評量";
     }
 
     const wrongStr = (Array.isArray(wrongList) && wrongList.length > 0) ? wrongList.join("、") : "全對";
@@ -11910,6 +12652,726 @@ function resetReadingQuizFull(mode) {
   initReadingQuiz(mode, true);
 }
 
+
+
+
+// ==============================================================
+// 習作分頁 大題三：句子結構判斷（是非題）與 大題四：四大句型判別（單選題）
+// ==============================================================
+
+const SENTENCE_JUDGE_DATA = [
+  {
+    id: "sj-1",
+    stem: "美女。",
+    ans: false,
+    explanation: "【非句子】僅為偏正修飾的名詞詞組（修飾語「美」＋名詞「女」），缺乏謂語動作或形容說明，未表達完整意義。"
+  },
+  {
+    id: "sj-2",
+    stem: "人非聖賢。",
+    ans: true,
+    explanation: "【屬於句子】由主語「人」＋否定繫詞「非」＋斷語「聖賢」構成完整的「判斷句」，表達完整意義。"
+  },
+  {
+    id: "sj-3",
+    stem: "浪漫的夏夜。",
+    ans: false,
+    explanation: "【非句子】僅為偏正修飾的名詞詞組（形容詞詞組「浪漫的」＋名詞「夏夜」），缺乏謂語，未表達完整意義。"
+  },
+  {
+    id: "sj-4",
+    stem: "一場及時雨。",
+    ans: false,
+    explanation: "【非句子】僅為數量與修飾詞組成的名詞詞組（數量詞「一場」＋形容詞「及時」＋名詞「雨」），缺乏謂語，未表達完整意義。"
+  },
+  {
+    id: "sj-5",
+    stem: "簞瓢屢空。",
+    ans: true,
+    explanation: "【屬於句子】由主語「簞瓢」（飲食器具）＋表語「屢空」（常常空匱）構成完整的「表態句」，表達完整意義。"
+  }
+];
+
+let activeSentenceJudgeData = [];
+let userSentenceJudgeChoices = {};
+
+function renderSentenceJudge() {
+  const container = document.getElementById('sentenceJudgeList');
+  if (!container) return;
+
+  activeSentenceJudgeData = shuffleList(SENTENCE_JUDGE_DATA);
+  userSentenceJudgeChoices = {};
+
+  const resEl = document.getElementById('sentenceJudgeResult');
+  if (resEl) resEl.innerText = '';
+
+  container.innerHTML = activeSentenceJudgeData.map((item, idx) => {
+    return `
+      <div id="sj_card_${idx}" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:10px; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; gap:8px;">
+          <div style="font-size:18pt; font-weight:bold; color:#0f172a; line-height:1.5; user-select:text;">
+            ${idx + 1}. ${item.stem}
+          </div>
+          <button type="button" class="tool-btn" onclick="speakText('${item.stem}')" style="background:#f1f5f9; color:#0369a1; border:1px solid #cbd5e1; padding:2px 8px; font-size:12pt; border-radius:6px; flex-shrink:0;">
+            🔊
+          </button>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:8px;">
+          <button type="button" id="sj_btn_${idx}_true" onclick="chooseSentenceJudge(${idx}, true)" style="flex:1; padding:8px; font-size:15pt; font-weight:bold; border-radius:8px; border:2px solid #cbd5e1; background:#ffffff; cursor:pointer; color:#0f172a;">
+            ⭕ 屬於句子
+          </button>
+          <button type="button" id="sj_btn_${idx}_false" onclick="chooseSentenceJudge(${idx}, false)" style="flex:1; padding:8px; font-size:15pt; font-weight:bold; border-radius:8px; border:2px solid #cbd5e1; background:#ffffff; cursor:pointer; color:#0f172a;">
+            ❌ 不屬於句子
+          </button>
+        </div>
+        <div id="sj_feedback_${idx}" style="display:none; font-size:14pt; margin-top:8px; line-height:1.5;"></div>
+      </div>
+    `;
+  }).join('');
+}
+
+function chooseSentenceJudge(idx, choice) {
+  userSentenceJudgeChoices[idx] = choice;
+  const btnTrue = document.getElementById(`sj_btn_${idx}_true`);
+  const btnFalse = document.getElementById(`sj_btn_${idx}_false`);
+  if (!btnTrue || !btnFalse) return;
+
+  if (choice === true) {
+    btnTrue.style.borderColor = '#0284c7';
+    btnTrue.style.background = '#e0f2fe';
+    btnTrue.style.color = '#0369a1';
+    btnFalse.style.borderColor = '#cbd5e1';
+    btnFalse.style.background = '#ffffff';
+    btnFalse.style.color = '#0f172a';
+  } else {
+    btnFalse.style.borderColor = '#0284c7';
+    btnFalse.style.background = '#e0f2fe';
+    btnFalse.style.color = '#0369a1';
+    btnTrue.style.borderColor = '#cbd5e1';
+    btnTrue.style.background = '#ffffff';
+    btnTrue.style.color = '#0f172a';
+  }
+}
+
+function checkSentenceJudge() {
+  let correctCount = 0;
+  activeSentenceJudgeData.forEach((item, idx) => {
+    const userChoice = userSentenceJudgeChoices[idx];
+    const fb = document.getElementById(`sj_feedback_${idx}`);
+    const card = document.getElementById(`sj_card_${idx}`);
+    if (!fb || !card) return;
+
+    fb.style.display = 'block';
+    if (userChoice === item.ans) {
+      correctCount++;
+      card.style.borderColor = '#86efac';
+      fb.innerHTML = `<span style="color:#15803d; font-weight:bold;">✅ 答對了！</span> <span style="color:#475569;">${item.explanation}</span>`;
+    } else {
+      card.style.borderColor = '#fca5a5';
+      const ansText = item.ans ? '【⭕ 屬於句子】' : '【❌ 不屬於句子】';
+      fb.innerHTML = `<span style="color:#dc2626; font-weight:bold;">❌ 需訂正（正解：${ansText}）</span><br><span style="color:#475569;">${item.explanation}</span>`;
+    }
+  });
+
+  const resEl = document.getElementById('sentenceJudgeResult');
+  if (resEl) {
+    const isAllCorrect = correctCount === activeSentenceJudgeData.length;
+    resEl.style.color = isAllCorrect ? '#15803d' : '#0369a1';
+    resEl.innerText = `🎉 檢查結果：答對 ${correctCount} / ${activeSentenceJudgeData.length} 題（得分：${correctCount * 20} 分）`;
+  }
+}
+
+function revealSentenceJudge() {
+  activeSentenceJudgeData.forEach((item, idx) => {
+    chooseSentenceJudge(idx, item.ans);
+    const fb = document.getElementById(`sj_feedback_${idx}`);
+    if (fb) {
+      fb.style.display = 'block';
+      const ansText = item.ans ? '【⭕ 屬於句子】' : '【❌ 不屬於句子】';
+      fb.innerHTML = `<span style="color:#0284c7; font-weight:bold;">💡 正解：${ansText}</span> <span style="color:#475569;">${item.explanation}</span>`;
+    }
+  });
+  const resEl = document.getElementById('sentenceJudgeResult');
+  if (resEl) {
+    resEl.style.color = '#0284c7';
+    resEl.innerText = '💡 已為您揭曉全部正解與語法結構解析。';
+  }
+}
+
+function resetSentenceJudge() {
+  renderSentenceJudge();
+}
+
+// ==============================================================
+// 大題四：四大句型判別題庫池 (共 33 題，每次隨機抽 15 題，卡片模式)
+// ==============================================================
+
+const SENTENCE_TYPE_BANK = [
+  // 習作 20 題
+  {
+    id: "st-01",
+    sentence: "故人西辭黃鶴樓。",
+    type: "敘事句",
+    analysis: "主語「故人」＋述語「西辭」（動詞，向西辭別）＋賓語「黃鶴樓」。核心述語為動詞，屬於敘事句。"
+  },
+  {
+    id: "st-02",
+    sentence: "人有悲歡離合。",
+    type: "有無句",
+    analysis: "述語為「有」，賓語為「悲歡離合」。核心述語為「有」，屬於有無句。"
+  },
+  {
+    id: "st-03",
+    sentence: "自李唐來，世人盛愛牡丹。",
+    type: "敘事句",
+    analysis: "主語「世人」＋述語「愛」（動詞）＋賓語「牡丹」（盛為副詞）。屬於敘事句。"
+  },
+  {
+    id: "st-04",
+    sentence: "我懷念你的香水味道。",
+    type: "敘事句",
+    analysis: "主語「我」＋述語「懷念」（動詞）＋賓語「你的香水味道」。屬於敘事句。"
+  },
+  {
+    id: "st-05",
+    sentence: "山川壯麗，物產豐隆。",
+    type: "表態句",
+    analysis: "主語「山川」＋表語「壯麗」（形容詞）；主語「物產」＋表語「豐隆」（形容詞）。描繪性質狀態，屬於表態句。"
+  },
+  {
+    id: "st-06",
+    sentence: "他的舉止恭敬自然。",
+    type: "表態句",
+    analysis: "主語「他的舉止」＋表語「恭敬自然」（形容詞）。形容舉止狀態，屬於表態句。"
+  },
+  {
+    id: "st-07",
+    sentence: "耐心是解決問題的最好方法。",
+    type: "判斷句",
+    analysis: "主語「耐心」＋繫詞「是」＋斷語「解決問題的最好方法」。由繫詞「是」連接斷定，屬於判斷句。"
+  },
+  {
+    id: "st-08",
+    sentence: "這趟旅程十分艱辛。",
+    type: "表態句",
+    analysis: "主語「這趟旅程」＋表語「十分艱辛」（形容詞）。形容旅程艱難狀態，屬於表態句。"
+  },
+  {
+    id: "st-09",
+    sentence: "下午大雨滂沱。",
+    type: "表態句",
+    analysis: "主語「大雨」＋表語「滂沱」（形容詞，形容雨勢盛大）。屬於表態句。"
+  },
+  {
+    id: "st-10",
+    sentence: "強將手下無弱兵。",
+    type: "有無句",
+    analysis: "述語為「無」，賓語為「弱兵」。核心述語為「無」，屬於有無句。"
+  },
+  {
+    id: "st-11",
+    sentence: "三人行必有我師焉。",
+    type: "有無句",
+    analysis: "出現「有」，述語為「有」，賓語為「我師」。核心述語為「有」，屬於有無句。"
+  },
+  {
+    id: "st-12",
+    sentence: "人無遠慮，必有近憂。",
+    type: "有無句",
+    analysis: "句中核心述語分別為「無」與「有」，屬於有無句。"
+  },
+  {
+    id: "st-13",
+    sentence: "有情人終成眷屬。",
+    type: "敘事句",
+    analysis: "主語「有情人」＋述語「成」（動詞，結成）＋賓語「眷屬」。雖然首字為「有」，但全句核心動作述語是「成」，故為敘事句。"
+  },
+  {
+    id: "st-14",
+    sentence: "天涯何處無芳草？",
+    type: "有無句",
+    analysis: "述語為「無」，賓語為「芳草」。核心述語為「無」，屬於有無句。"
+  },
+  {
+    id: "st-15",
+    sentence: "白玉無瑕。",
+    type: "有無句",
+    analysis: "主語「白玉」＋述語「無」＋賓語「瑕」（斑點毛病）。核心述語為「無」，屬於有無句。"
+  },
+  {
+    id: "st-16",
+    sentence: "助人為快樂之本。",
+    type: "判斷句",
+    analysis: "出現繫詞「為」（＝是），主語「助人」＋繫詞「為」＋斷語「快樂之本」，屬於判斷句。"
+  },
+  {
+    id: "st-17",
+    sentence: "千秋大業非一日之功。",
+    type: "判斷句",
+    analysis: "出現否定繫詞「非」（＝不是），主語「千秋大業」＋繫詞「非」＋斷語「一日之功」，屬於判斷句。"
+  },
+  {
+    id: "st-18",
+    sentence: "非禮勿言。",
+    type: "敘事句",
+    analysis: "「（人）非禮勿言」，主語省略，核心述語為動詞「言」（說話），屬於敘事句。"
+  },
+  {
+    id: "st-19",
+    sentence: "天下無不是的父母。",
+    type: "有無句",
+    analysis: "核心述語為「無」，「不是」在此作為修飾語，全句重點在於「無……的父母」，屬於有無句。"
+  },
+  {
+    id: "st-20",
+    sentence: "同是天涯淪落人。",
+    type: "判斷句",
+    analysis: "出現繫詞「是」，（大家）同「是」天涯淪落人，以繫詞斷定身分，屬於判斷句。"
+  },
+  // 補充練習 13 題
+  {
+    id: "st-21",
+    sentence: "朋友買了一件衣料。",
+    type: "敘事句",
+    analysis: "主語「朋友」＋述語「買」（動詞）＋賓語「一件衣料」。具有具體動作行為，屬於敘事句。"
+  },
+  {
+    id: "st-22",
+    sentence: "勝敗乃兵家常事。",
+    type: "判斷句",
+    analysis: "主語「勝敗」＋繫詞「乃」（＝是）＋斷語「兵家常事」。屬於判斷句。"
+  },
+  {
+    id: "st-23",
+    sentence: "天下無不散的筵席。",
+    type: "有無句",
+    analysis: "核心述語為「無」，表示不存在，屬於有無句。"
+  },
+  {
+    id: "st-24",
+    sentence: "創業的人都會自然而然地想到上天。",
+    type: "敘事句",
+    analysis: "主語「創業的人」＋述語「想」（動詞）＋賓語「上天」。屬於敘事句。"
+  },
+  {
+    id: "st-25",
+    sentence: "湖裡有十來枝荷花。",
+    type: "有無句",
+    analysis: "述語為「有」，表示存在，賓語「十來枝荷花」，屬於有無句。"
+  },
+  {
+    id: "st-26",
+    sentence: "知識就是力量。",
+    type: "判斷句",
+    analysis: "主語「知識」＋繫詞「就是」＋斷語「力量」。屬於判斷句。"
+  },
+  {
+    id: "st-27",
+    sentence: "第一次的感覺很奇妙。",
+    type: "表態句",
+    analysis: "主語「第一次的感覺」＋表語「很奇妙」（形容詞）。描寫主語的性質狀態，屬於表態句。"
+  },
+  {
+    id: "st-28",
+    sentence: "歌中沒有你的渴望。",
+    type: "有無句",
+    analysis: "述語為「沒有」，表示否定存在，屬於有無句。"
+  },
+  {
+    id: "st-29",
+    sentence: "麥可‧喬丹的球技精湛。",
+    type: "表態句",
+    analysis: "主語「麥可‧喬丹的球技」＋表語「精湛」（形容詞）。描繪性質狀態，屬於表態句。"
+  },
+  {
+    id: "st-30",
+    sentence: "識時務者為俊傑。",
+    type: "判斷句",
+    analysis: "主語「識時務者」＋繫詞「為」（＝是）＋斷語「俊傑」。屬於判斷句。"
+  },
+  {
+    id: "st-31",
+    sentence: "母親綻開笑靨。",
+    type: "敘事句",
+    analysis: "主語「母親」＋述語「綻開」（動詞）＋賓語「笑靨」。屬於敘事句。"
+  },
+  {
+    id: "st-32",
+    sentence: "落英繽紛。",
+    type: "表態句",
+    analysis: "主語「落英」（落花）＋表語「繽紛」（形容詞，落花紛繁雜亂之貌）。描寫狀態，屬於表態句。"
+  },
+  {
+    id: "st-33",
+    sentence: "亭中藏一個寧靜的我。",
+    type: "敘事句",
+    analysis: "主語「亭中」＋述語「藏」（動詞）＋賓語「一個寧靜的我」。核心為動作行為動詞「藏」，屬於敘事句。"
+  }
+];
+
+const sentenceTypeState = {
+  activeQuestions: [],
+  currentIndex: 0,
+  userAnswers: {},     // q.id -> chosenType
+  firstAttemptAnswers: {},
+  wrongQuestions: [],
+  isRetryMode: false,
+  isRetryCompleted: false,
+  startTime: 0,
+  timerInterval: null,
+  durationSec: 0,
+  firstAttemptDuration: 0,
+  firstAttemptScore: 0
+};
+
+function initSentenceTypeQuiz(isNewRandom = true) {
+  if (sentenceTypeState.timerInterval) clearInterval(sentenceTypeState.timerInterval);
+
+  if (isNewRandom || sentenceTypeState.activeQuestions.length === 0) {
+    // 隨機抽取 15 題
+    const shuffledPool = shuffleList(SENTENCE_TYPE_BANK);
+    sentenceTypeState.activeQuestions = shuffledPool.slice(0, 15).map(q => {
+      // 4 個選項隨機洗牌，但 ABCD 標籤保持順序
+      const opts = shuffleList(['敘事句', '有無句', '表態句', '判斷句']);
+      return {
+        ...q,
+        shuffledOptions: opts
+      };
+    });
+    sentenceTypeState.isRetryMode = false;
+    sentenceTypeState.isRetryCompleted = false;
+    sentenceTypeState.firstAttemptAnswers = {};
+    sentenceTypeState.wrongQuestions = [];
+  }
+
+  sentenceTypeState.currentIndex = 0;
+  sentenceTypeState.userAnswers = {};
+  sentenceTypeState.startTime = Date.now();
+
+  sentenceTypeState.timerInterval = setInterval(() => {
+    const sec = Math.round((Date.now() - sentenceTypeState.startTime) / 1000);
+    sentenceTypeState.durationSec = sec;
+    const el = document.getElementById('stq_timerDisplay');
+    if (el) el.textContent = `⏱️ 作答計時：${sec} 秒`;
+  }, 1000);
+
+  // 切換畫面
+  const quizArea = document.getElementById('stq_quizActiveArea');
+  const resPanel = document.getElementById('stq_resultPanel');
+  if (quizArea) quizArea.style.display = 'block';
+  if (resPanel) resPanel.style.display = 'none';
+
+  const badge = document.getElementById('stq_modeBadge');
+  if (badge) {
+    badge.textContent = sentenceTypeState.isRetryMode
+      ? `⚠️ 錯題訂正模式：共 ${sentenceTypeState.activeQuestions.length} 題`
+      : '隨機 15 題 ‧ 卡片作答';
+    badge.style.background = sentenceTypeState.isRetryMode ? '#dc2626' : '#0284c7';
+  }
+
+  renderSentenceTypeCurrentQuestion();
+}
+
+function renderSentenceTypeCurrentQuestion() {
+  const q = sentenceTypeState.activeQuestions[sentenceTypeState.currentIndex];
+  if (!q) {
+    showSentenceTypeResultPanel();
+    return;
+  }
+
+  const total = sentenceTypeState.activeQuestions.length;
+  const currNum = sentenceTypeState.currentIndex + 1;
+
+  // 更新進度條
+  const progText = document.getElementById('stq_progressText');
+  if (progText) {
+    progText.textContent = sentenceTypeState.isRetryMode
+      ? `⚠️ 錯題精練 第 ${currNum} 題 / 共 ${total} 題`
+      : `第 ${currNum} 題 / 共 ${total} 題`;
+  }
+  const progScore = document.getElementById('stq_currentScoreLive');
+  if (progScore) {
+    const answeredCount = Object.keys(sentenceTypeState.userAnswers).length;
+    progScore.textContent = `已完成：${answeredCount} / ${total} 題`;
+  }
+  const progBar = document.getElementById('stq_progressBar');
+  if (progBar) {
+    progBar.style.width = `${((currNum - 1) / total) * 100}%`;
+  }
+
+  // 顯示題目句子
+  const sentenceDisplay = document.getElementById('stq_sentenceDisplay');
+  if (sentenceDisplay) {
+    sentenceDisplay.textContent = `${currNum}. ${q.sentence}`;
+  }
+
+  // 隱藏回饋與下一題按鈕
+  const feedbackBox = document.getElementById('stq_feedbackBox');
+  if (feedbackBox) feedbackBox.style.display = 'none';
+  const actionRow = document.getElementById('stq_actionRow');
+  if (actionRow) actionRow.style.display = 'none';
+
+  // 渲染 4 個選項按鈕 (ABCD 標籤嚴格依序)
+  const letters = ['A', 'B', 'C', 'D'];
+  const optsContainer = document.getElementById('stq_optionsContainer');
+  if (optsContainer) {
+    optsContainer.innerHTML = q.shuffledOptions.map((optType, idx) => {
+      return `
+        <button type="button" class="tool-btn stq-opt-btn" id="stq_opt_btn_${idx}" onclick="selectSentenceTypeOption(${idx})" style="padding:16px 20px; font-size:17pt; font-weight:bold; border-radius:12px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a; text-align:left; display:flex; align-items:center; gap:10px; box-shadow:0 2px 6px rgba(0,0,0,0.03); cursor:pointer; transition:all 0.2s;">
+          <span style="display:inline-block; width:36px; height:36px; line-height:34px; text-align:center; border-radius:50%; background:#f1f5f9; color:#0369a1; font-weight:900; font-size:15pt; border:1.5px solid #cbd5e1;">
+            ${letters[idx]}
+          </span>
+          <span>${optType}</span>
+        </button>
+      `;
+    }).join('');
+  }
+}
+
+function speakCurrentSentence() {
+  const q = sentenceTypeState.activeQuestions[sentenceTypeState.currentIndex];
+  if (q) {
+    speakText(q.sentence);
+  }
+}
+
+function selectSentenceTypeOption(chosenIdx) {
+  const q = sentenceTypeState.activeQuestions[sentenceTypeState.currentIndex];
+  if (!q) return;
+
+  const chosenType = q.shuffledOptions[chosenIdx];
+  sentenceTypeState.userAnswers[q.id] = chosenType;
+
+  // 記錄第一次作答
+  if (!sentenceTypeState.isRetryMode && sentenceTypeState.firstAttemptAnswers[q.id] === undefined) {
+    sentenceTypeState.firstAttemptAnswers[q.id] = chosenType;
+  }
+
+  const isCorrect = (chosenType === q.type);
+
+  // 鎖定所有選項按鈕
+  document.querySelectorAll('.stq-opt-btn').forEach((btn, idx) => {
+    btn.disabled = true;
+    btn.style.cursor = 'default';
+    const optType = q.shuffledOptions[idx];
+    if (optType === q.type) {
+      btn.style.borderColor = '#16a34a';
+      btn.style.background = '#dcfce7';
+      btn.style.color = '#15803d';
+    } else if (idx === chosenIdx && !isCorrect) {
+      btn.style.borderColor = '#dc2626';
+      btn.style.background = '#fee2e2';
+      btn.style.color = '#991b1b';
+    } else {
+      btn.style.opacity = '0.6';
+    }
+  });
+
+  // 顯示解析回饋
+  const feedbackBox = document.getElementById('stq_feedbackBox');
+  const fbTitle = document.getElementById('stq_feedbackTitle');
+  const analysisText = document.getElementById('stq_analysisText');
+
+  if (feedbackBox && fbTitle && analysisText) {
+    feedbackBox.style.display = 'block';
+    if (isCorrect) {
+      feedbackBox.style.background = '#f0fdf4';
+      feedbackBox.style.border = '1.5px solid #86efac';
+      fbTitle.innerHTML = `<span style="color:#15803d; font-size:18pt;">✅ 答對了！此句為【${q.type}】</span>`;
+    } else {
+      feedbackBox.style.background = '#fef2f2';
+      feedbackBox.style.border = '1.5px solid #fecdd3';
+      fbTitle.innerHTML = `<span style="color:#dc2626; font-size:18pt;">❌ 答錯了！正確答案是：【${q.type}】</span>`;
+    }
+    analysisText.innerHTML = `<strong>【成分解析】：</strong>${q.analysis}`;
+  }
+
+  // 顯示下一題或結算按鈕
+  const actionRow = document.getElementById('stq_actionRow');
+  const nextBtn = document.getElementById('stq_nextBtn');
+  if (actionRow && nextBtn) {
+    actionRow.style.display = 'block';
+    const isLast = (sentenceTypeState.currentIndex === sentenceTypeState.activeQuestions.length - 1);
+    nextBtn.textContent = isLast ? '🏁 查看成績結算 ➜' : '下一題 ➜';
+  }
+}
+
+function nextSentenceTypeQuestion() {
+  sentenceTypeState.currentIndex++;
+  if (sentenceTypeState.currentIndex >= sentenceTypeState.activeQuestions.length) {
+    showSentenceTypeResultPanel();
+  } else {
+    renderSentenceTypeCurrentQuestion();
+  }
+}
+
+function showSentenceTypeResultPanel() {
+  if (sentenceTypeState.timerInterval) clearInterval(sentenceTypeState.timerInterval);
+
+  const quizArea = document.getElementById('stq_quizActiveArea');
+  const resPanel = document.getElementById('stq_resultPanel');
+  if (quizArea) quizArea.style.display = 'none';
+  if (resPanel) resPanel.style.display = 'block';
+
+  const total = sentenceTypeState.activeQuestions.length;
+  let correctCount = 0;
+  const wrongList = [];
+
+  sentenceTypeState.activeQuestions.forEach(q => {
+    const ans = sentenceTypeState.userAnswers[q.id];
+    if (ans === q.type) {
+      correctCount++;
+    } else {
+      wrongList.push(q);
+    }
+  });
+
+  const score = Math.round((correctCount / total) * 100);
+
+  // 結算標題與圖示
+  const iconEl = document.getElementById('stq_resultIcon');
+  const titleEl = document.getElementById('stq_resultTitle');
+  const detailEl = document.getElementById('stq_resultScoreDetail');
+  const retryBtn = document.getElementById('stq_retryWrongBtn');
+
+  if (sentenceTypeState.isRetryMode) {
+    // 錯題訂正模式結算
+    if (wrongList.length === 0) {
+      // 錯題全數訂正正確！
+      sentenceTypeState.isRetryCompleted = true;
+      if (iconEl) iconEl.textContent = '🌟';
+      if (titleEl) {
+        titleEl.textContent = '🎉 錯題精熟達標完成！';
+        titleEl.style.color = '#15803d';
+      }
+      if (detailEl) {
+        detailEl.innerHTML = `
+          恭喜您！所有曾答錯的題目已<strong>全數自主訂正練習至 100% 正確</strong>！<br>
+          <span style="font-size:15pt; color:#475569;">第一次測驗得分：${sentenceTypeState.firstAttemptScore} 分（耗時 ${sentenceTypeState.firstAttemptDuration} 秒）</span>
+        `;
+      }
+      if (retryBtn) retryBtn.style.display = 'none';
+
+      // 成果回傳 Google 試算表
+      sendAssessmentRecord(
+        "習作四大句型判別",
+        15,
+        15,
+        [],
+        sentenceTypeState.firstAttemptDuration,
+        `【錯題精熟達標】第一次得分:${sentenceTypeState.firstAttemptScore}分，錯題已全數自主訂正練習至全對！`
+      );
+      alert('🎉 恭喜！四大句型判別錯題已全數自主訂正完成，達成 100% 精熟達標！成績已同步更新至雲端試算表。');
+    } else {
+      // 錯題仍有未過
+      sentenceTypeState.wrongQuestions = wrongList;
+      if (iconEl) iconEl.textContent = '💪';
+      if (titleEl) {
+        titleEl.textContent = '訂正中 ‧ 再接再厲！';
+        titleEl.style.color = '#d97706';
+      }
+      if (detailEl) {
+        detailEl.innerHTML = `
+          本次訂正答對 ${correctCount} 題，尚有 ${wrongList.length} 題未完全正確。<br>
+          請查看解析後再次精練，直到全對！
+        `;
+      }
+      if (retryBtn) {
+        retryBtn.style.display = 'inline-block';
+        retryBtn.textContent = `🔁 繼續訂正錯題（尚有 ${wrongList.length} 題）`;
+      }
+    }
+  } else {
+    // 第一次正式測驗結算
+    sentenceTypeState.firstAttemptDuration = sentenceTypeState.durationSec;
+    sentenceTypeState.firstAttemptScore = score;
+    sentenceTypeState.wrongQuestions = wrongList;
+
+    if (iconEl) iconEl.textContent = (score >= 80 ? '🎉' : (score >= 60 ? '👏' : '🌱'));
+    if (titleEl) {
+      titleEl.textContent = (score === 100 ? '太棒了！滿分 100 分！' : (score >= 60 ? '測驗順利完成！' : '持續加油，再練一次！'));
+      titleEl.style.color = (score >= 60 ? '#15803d' : '#0369a1');
+    }
+    if (detailEl) {
+      detailEl.innerHTML = `
+        本次得分：<strong style="font-size:26pt; color:#0284c7;">${score}</strong> 分<br>
+        答對題數：${correctCount} / ${total} 題 ｜ 作答耗時：${sentenceTypeState.durationSec} 秒
+      `;
+    }
+
+    // 成果回傳 Google 試算表 (記錄第一次測驗結果)
+    const wrongTitles = wrongList.map(q => q.sentence);
+    sendAssessmentRecord(
+      "習作四大句型判別",
+      correctCount,
+      total,
+      wrongTitles,
+      sentenceTypeState.durationSec,
+      `第一次測驗得分:${score}分(耗時${sentenceTypeState.durationSec}秒)，錯題數:${wrongList.length}`
+    );
+
+    if (retryBtn) {
+      if (wrongList.length > 0) {
+        retryBtn.style.display = 'inline-block';
+        retryBtn.textContent = `🔁 進入錯題重練（共 ${wrongList.length} 題錯題）`;
+      } else {
+        retryBtn.style.display = 'none';
+      }
+    }
+  }
+
+  // 錯題清單展示
+  const wrongListContainer = document.getElementById('stq_wrongListContainer');
+  const wrongItems = document.getElementById('stq_wrongListItems');
+  if (wrongListContainer && wrongItems) {
+    if (wrongList.length > 0) {
+      wrongListContainer.style.display = 'block';
+      wrongItems.innerHTML = wrongList.map((q, idx) => `
+        <div style="background:#ffffff; border:1px solid #fecdd3; border-radius:8px; padding:12px 16px;">
+          <div style="font-size:16pt; font-weight:bold; color:#be123c; margin-bottom:4px;">
+            ${idx + 1}. ${q.sentence}
+          </div>
+          <div style="font-size:14pt; color:#475569;">
+            學生作答：<span style="color:#dc2626;">${sentenceTypeState.userAnswers[q.id] || '未作答'}</span> ｜ 正確答案：<strong style="color:#15803d;">${q.type}</strong>
+          </div>
+          <div style="font-size:13pt; color:#334155; margin-top:4px;">
+            【解析】：${q.analysis}
+          </div>
+        </div>
+      `).join('');
+    } else {
+      wrongListContainer.style.display = 'none';
+    }
+  }
+}
+
+function startSentenceTypeRetry() {
+  if (sentenceTypeState.wrongQuestions.length === 0) return;
+
+  sentenceTypeState.isRetryMode = true;
+  sentenceTypeState.activeQuestions = sentenceTypeState.wrongQuestions.map(q => {
+    const opts = shuffleList(['敘事句', '有無句', '表態句', '判斷句']);
+    return {
+      ...q,
+      shuffledOptions: opts
+    };
+  });
+  sentenceTypeState.currentIndex = 0;
+  sentenceTypeState.userAnswers = {};
+
+  const quizArea = document.getElementById('stq_quizActiveArea');
+  const resPanel = document.getElementById('stq_resultPanel');
+  if (quizArea) quizArea.style.display = 'block';
+  if (resPanel) resPanel.style.display = 'none';
+
+  const badge = document.getElementById('stq_modeBadge');
+  if (badge) {
+    badge.textContent = `⚠️ 錯題訂正模式：共 ${sentenceTypeState.activeQuestions.length} 題`;
+    badge.style.background = '#dc2626';
+  }
+
+  renderSentenceTypeCurrentQuestion();
+}
 
 </script>
 
